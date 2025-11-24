@@ -1,0 +1,60 @@
+### Translation of LTL Formula: **G (!f | !i)**
+
+#### Step-by-Step Breakdown:
+
+1. **Original formula:**  
+   `G (!f | !i)`
+
+2. **Parsing the formula (syntax tree):**  
+   - **Top operator:** `G` (Globally)  
+     - **Operand:** `!f | !i`  
+       - **Left operand:** `!f` (Negation of `f`)  
+         - *Atomic variable:* `f`  
+       - **Operator:** `|` (Logical OR)  
+       - **Right operand:** `!i` (Negation of `i`)  
+         - *Atomic variable:* `i`  
+
+3. **Rebuilding meaning from the bottom up:**  
+   - `f` and `i` are atomic variables representing system states (e.g., "feature `f` is active").  
+   - `!f` means "`f` is **false**" (feature `f` is inactive).  
+   - `!i` means "`i` is **false**" (feature `i` is inactive).  
+   - `!f | !i` means:  
+     *"`f` is **false** OR `i` is **false**"* (at least one is inactive; they cannot both be **true** simultaneously).  
+   - `G (!f | !i)` means:  
+     *"For **every state** in the execution, `f` is false OR `i` is false."*  
+
+4. **Refined natural language phrasing:**  
+   - **Clear translation:**  
+     *"Throughout the entire execution, `f` and `i` are **never both true** at the same time."*  
+   - **Key implication:**  
+     This forbids any state where `f` AND `i` co-occur. Either one (or both) must be inactive in every state.  
+
+---
+
+#### Constraints Over Time:
+- **Scope:** Affects **every state** indefinitely, starting from the initial state.  
+- **Satisfaction requirement:** At every moment, the system must ensure `f` and `i` are **mutually exclusive**. If both become true in **any single state**, the formula is violated immediately.  
+- **Future guarantees:** No state is exempt—constraints apply permanently.  
+
+---
+
+#### Satisfying vs. Violating Sequences:
+- **Satisfying sequence example:**  
+  `({f}, {i}, {}, {f}, {i}, ...)`  
+  - **Explanation:**  
+    - State 0: `f` is true (but `i` is false) → `!i` holds.  
+    - State 1: `i` is true (but `f` is false) → `!f` holds.  
+    - State 2: Both false → holds trivially.  
+    - **No state has both `f` and `i` true.**  
+
+- **Violating sequence example:**  
+  `({f}, {f,i}, {i}, ...)`  
+  - **Explanation:**  
+    - State 1: Both `f` and `i` are true → `(!f | !i)` is **false**, violating `G`.  
+
+---
+
+### Final Translation:
+**"At all times during system execution, `f` and `i` must never be true simultaneously."**  
+
+*(This implies that if `f` is active, `i` must be inactive, and vice versa, in every state.)*

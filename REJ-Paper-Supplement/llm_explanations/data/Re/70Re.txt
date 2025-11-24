@@ -1,0 +1,56 @@
+### Translation of LTL Formula: **G(a→b)**  
+**Natural Language Translation:**  
+*"It is always the case that if* `a` *holds, then* `b` *must hold."*  
+
+---
+
+### Step-by-Step Reasoning:  
+
+1. **Original Formula:**  
+   `G(a → b)`  
+
+2. **Parsing Tree Breakdown:**  
+   - **Top-level operator:** `G` (Globally).  
+     - **Subformula:** `a → b` (Implication).  
+       - **Left operand:** `a` (atomic proposition).  
+       - **Right operand:** `b` (atomic proposition).  
+
+3. **Rebuilding Meaning:**  
+   - **Atomic Propositions:**  
+     - `a`: Represents "`a` is true in the current state".  
+     - `b`: Represents "`b` is true in the current state".  
+   - **Implication:**  
+     - `a → b` means: *"If `a` is true in a state, then `b` **must** be true in that **same** state."*  
+     - Equivalent to: *"`b` is true whenever `a` is true (in any state)."*  
+     - Note: If `a` is false in a state, the formula holds regardless of `b`'s value.  
+   - **Globally (`G`):**  
+     - `G(a → b)` means: *"The condition `a → b` must hold in **every** state of the system's execution."*  
+     - I.e., *"At every moment, if `a` holds, then `b` must also hold."*  
+
+4. **Constraints Over Time:**  
+   - **Scope:** The constraint `a → b` applies **to every state** (the current state and all future states).  
+   - **Failure Condition:** Violated if **any state exists** where `a` is true but `b` is false.  
+   - **No Constraints On:**  
+     - States where `a` is false (even if `b` is false).  
+     - The order of `a` or `b` across states (e.g., `a` might occur after `b`).  
+   - **Permanence:** The rule must hold unconditionally across the entire timeline.  
+
+---
+
+### Examples:  
+**Satisfying Sequences** (for states `0, 1, 2, ...`):  
+- **Sequence 1:** `(a,b)`, `(a,b)`, `(b)`, `(b)`, ...  
+  - *Why:* `a` and `b` are both true whenever `a` is present.  
+- **Sequence 2:** `( )`, `(b)`, `(a,b)`, `( )`, ...  
+  - *Why:* In all states, `b` is true whenever `a` is true (even if `a` is often false).  
+
+**Violating Sequences:**  
+- **Sequence 1:** `(a)`, `(a)`, `(b)`, ...  
+  - *Why:* At state `0` and `1`, `a` is true but `b` is false → violates `a → b` in those states.  
+- **Sequence 2:** `( )`, `(a,b)`, `(a)`, ...  
+  - *Why:* At state `2`, `a` is true and `b` is absent → violation.  
+
+---
+
+**Key Insight:**  
+This formula prevents the system from ever entering a state where `a` is true without `b` being true. It does **not** require `a` or `b` to be true at specific times—only that whenever `a` appears, `b` must accompany it.

@@ -1,0 +1,61 @@
+### Translation of LTL Formula: `G(a ∨ b)`
+
+#### Step 1: Original Formula  
+`G(a ∨ b)`
+
+---
+
+#### Step 2: Parsing Tree Breakdown  
+The formula has a hierarchical structure:
+- **Outermost operator**: `G` (Globally)  
+  - **Inner subformula**: `a ∨ b` (logical OR)  
+    - **Atomic propositions**: `a` and `b`  
+
+---
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+
+1. **Atomic propositions**:  
+   - `a` means: "Proposition `a` holds (is true) at a specific time."  
+   - `b` means: "Proposition `b` holds at a specific time."  
+
+2. **Disjunction (`∨`)**:  
+   - `a ∨ b` means: "At a specific time, either `a` holds, or `b` holds, or both hold."  
+
+3. **Globally (`G`)**:  
+   - `G(a ∨ b)` means: "The condition `a ∨ b` must hold **at every time point**, from the current time onward."  
+
+---
+
+#### Step 4: Refined Natural Language Phrasing  
+> "**Throughout the entire execution of the system, `a` or `b` (or both) must hold at every moment.**"  
+
+#### Key Constraints Over Time:  
+- **Scope**: The formula imposes constraints on **all time points**, starting from the *beginning* of the execution and extending *infinitely* into the future.  
+- **Satisfaction requirement**: At **every single state** in the timeline:  
+  - `a` must be true, *or*  
+  - `b` must be true, *or*  
+  - Both must be true.  
+- **Violation condition**: The formula is violated if **any time exists** where **neither `a` nor `b` holds**.  
+
+---
+
+#### Examples of Satisfying vs. Violating Sequences:  
+- **Satisfying sequences** (formula holds):  
+  - `{a}, {b}, {a}, {a,b}, {b}, ...` → `a`/`b` true in every state.  
+  - `{a}, {a}, {a}, ...` → `a` holds at all times (irrespective of `b`).  
+  - `{b}, {b}, {a,b}, {b}, ...` → At least one of `a`/`b` is always present.  
+
+- **Violating sequences** (formula breaks):  
+  - `{a}, {b}, { }, {a}, ...` → At state 3, **neither `a` nor `b` holds**.  
+  - `{a,b}, {a}, { }, {b}, ...` → Violation at state 3 (no `a`/`b`).  
+  - `{ }, {a}, {b}, ...` → Violation at the initial state (no `a`/`b`).  
+
+---
+
+#### Simplification Notes:  
+- The formula **does not require** `a` or `b` to hold infinitely often in isolation. For example, `a` could hold forever while `b` never holds (`{a}, {a}, {a}, ...`), and the formula is still satisfied.  
+- The constraint is **uniformly strict**: A *single time point* where both `a` and `b` are false invalidates the entire formula.  
+
+🔍 **Final Translation**:  
+> "The system must **always** satisfy *at least one of `a` or `b`*, at every point in time."

@@ -1,0 +1,57 @@
+### Translation of LTL Formula: **X (t | w)**
+
+#### Step 1: Original LTL Formula  
+**X (t | w)**
+
+#### Parse Tree Breakdown  
+The parsing tree is constructed as follows:
+```
+    X     (Next operator)
+     \
+      |    (Disjunction: OR)
+     / \
+    t   w   (Atomic variables)
+```
+
+#### Rebuilding the Meaning (Bottom-Up)  
+1. **Atomic Variables (`t`, `w`):**  
+   These represent Boolean propositions (e.g., "task `t` is active", "warning `w` is triggered").  
+   - If `t` holds at a state, the proposition `t` is **true**.  
+   - If `w` holds at a state, the proposition `w` is **true**.  
+
+2. **Disjunction (t | w):**  
+   This subformula means:  
+   > "Either `t` is true, `w` is true, **or both are true**."  
+   It is satisfied in any state where **at least one** of `t` or `w` holds.  
+
+3. **Next Operator (X):**  
+   The `X` operator scopes over `(t | w)`, enforcing that:  
+   > "The disjunction `t | w` **must hold in the immediate next state** relative to the current state."  
+
+#### Refined Natural Language Translation  
+> **"In the next moment of the system execution, either `t` holds or `w` holds."**  
+
+#### Key Constraints Over Time  
+- **Constrained state:** **Only the immediate next state** from the current evaluation point.  
+- **Current state:** **No constraints** (irrespective of whether `t`/`w` are true or false now).  
+- **Later states (beyond next):** **No constraints** (the formula only binds the next state).  
+
+#### Satisfying vs. Violating Sequences  
+- **Satisfying Sequence Example:**  
+  `[current: {}], [next: {t}], ...`  
+  *(In the next state: `t` holds → `t | w` is true.)*  
+  `[current: {w}], [next: {w}], ...`  
+  *(In the next state: `w` holds → `t | w` is true.)*  
+  `[current: {t}], [next: {t, w}], ...`  
+  *(In the next state: both hold → `t | w` is true.)*  
+
+- **Violating Sequence Example:**  
+  `[current: {}], [next: {}], ...`  
+  *(In the next state: **neither `t` nor `w` holds**, violating `t | w`.)*  
+  `[current: {t, w}], [next: {v}], ...`  
+  *(Violations occur **only** if the next state lacks both `t` and `w`.)*
+
+#### Summary  
+- **When satisfied?** When the state immediately following the current one contains **at least one of `t` or `w`**.  
+- **Failure condition:** The occurrence of a state after the current state with **neither `t` nor `w` present**.  
+- **Temporal scope:** Applies **exclusively to the next state** and has no effect elsewhere.

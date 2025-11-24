@@ -1,0 +1,56 @@
+### Step-by-Step Reasoning for LTL Formula: `!X t`  
+
+#### 1. **Original LTL Formula**  
+`!X t`  
+
+#### 2. **Parsing Tree Breakdown**  
+- **Atomic variable**: `t` (a proposition that can be true or false at any state).  
+- **Next operator**: `X t` (applies to `t`; shifts focus to the immediate next state).  
+- **Negation operator**: `!` (applies to `X t`; negates the entire subformula).  
+
+**Tree Structure**:  
+- Root: `!`  
+  - Child: `X`  
+    - Grandchild: `t`  
+
+#### 3. **Rebuild Meaning from Bottom-Up**  
+1. **Base case: `t`**  
+   - `t` holds if the proposition `t` is **true** in a state.  
+
+2. **Apply `X` operator: `X t`**  
+   - `X t` means: **"In the immediate next state from now, `t` must be true."**  
+
+3. **Apply `!` operator: `!X t`**  
+   - `!X t` negates `X t`, meaning: **"It is NOT true that `t` holds in the immediate next state."**  
+   - Equivalently: **"In the immediate next state, `t` must be false."**  
+
+#### 4. **Constraints Over Time**  
+- **Scope**:  
+  - **Only constrains the immediate next state**.  
+  - **No constraints** on:  
+    - The current state (e.g., `t` can be true/false **now**).  
+    - States beyond the immediate next state (e.g., `t` can be true/false later).  
+- **Temporal focus**: The formula is evaluated **at the current moment** and forces a requirement strictly on the next step.  
+
+#### 5. **Satisfying vs. Violating Sequences**  
+- **Satisfying example**:  
+  - Sequence: `({ }, {a}, {t}, ...)`  
+    - *Now* (state 0): `t` can be anything (e.g., absent/false).  
+    - *Next state* (state 1): `t` is **false** (absent), satisfying `!X t`.  
+- **Violating example**:  
+  - Sequence: `({t}, {t}, { }, ...)`  
+    - *Now* (state 0): `t` can be true (acceptable).  
+    - *Next state* (state 1): `t` is **true**, violating `!X t`.  
+
+---
+
+### Final Translation  
+**Natural Language Phrasing**:  
+> "In the next moment of the system execution, ***t* must not hold."  
+
+**Key Clarifications**:  
+- The formula **only restricts the very next state** (not the present or distant future).  
+- At the current state, `t` is **unconstrained** (it may be true or false).  
+- After the next state, `t` has **no restrictions** (it may change freely).  
+
+This phrasing concisely captures the negation of `X t` while emphasizing the **exclusive focus on the immediate future**.

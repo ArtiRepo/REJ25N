@@ -1,0 +1,62 @@
+### Translation of the LTL Formula: `X(!g | !j)`
+
+#### 1. **Original Formula**  
+   `X(!g | !j)`
+
+#### 2. **Parsing Tree Breakdown**  
+The formula decomposes hierarchically as follows:
+- **Outermost operator**: `X` (Next)  
+  - **Child operator**: `|` (logical OR)  
+    - **Left child**: `!g` (Negation of `g`)  
+      - *Leaf*: `g` (atomic proposition, true if `g` holds)  
+    - **Right child**: `!j` (Negation of `j`)  
+      - *Leaf*: `j` (atomic proposition, true if `j` holds)  
+
+```
+     X
+     |
+     |
+    OR
+   /   \
+  !     !
+ /       \
+g         j
+```
+
+#### 3. **Rebuilding the Meaning (Bottom-Up)**  
+- **Step 1: Atomic propositions**  
+  - `g` is true if the variable `g` holds in a state.  
+  - `j` is true if the variable `j` holds in a state.  
+- **Step 2: Negations (`!g`, `!j`)**  
+  - `!g` means "`g` does not hold" (false).  
+  - `!j` means "`j` does not hold" (false).  
+- **Step 3: Disjunction (`!g | !j`)**  
+  - This means "**either `g` does not hold OR `j` does not hold**" (or both).  
+  - *Logic*: True unless both `g` **and** `j` hold simultaneously.  
+- **Step 4: Next operator (`X`)**  
+  - `X(!g | !j)` means the disjunction `!g | !j` **must hold in the immediate next state**.  
+
+#### 4. **Refined Natural Language Translation**  
+> "In the next moment of system execution, **either `g` is false or `j` is false** (or both)."  
+
+#### 5. **Constraints Over Time**  
+- **Scope**: The formula **only constrains the immediate next state** (one step ahead).  
+- **Current state**: No requirements for the current state. `g`/`j` can be true/false freely.  
+- **Beyond next state**: No constraints after the next state (later states can have any values).  
+
+#### 6. **Satisfying vs. Violating Sequences**  
+- **Satisfying sequence** (holds in starting state `t=0`):  
+  - `t=0`: `g` and `j` arbitrary (e.g., `g=true, j=true`).  
+  - `t=1` (next state): **Either `g` false or `j` false** (e.g., `g=false, j=true`).  
+  - Example: `(g,j) → (¬g,j) → ...`  
+    - *Why?* At `t=1`, `!g` holds (so `!g | !j` is true).  
+
+- **Violating sequence**:  
+  - `t=0`: `g` and `j` arbitrary (e.g., `g=true, j=false`).  
+  - `t=1` (next state): **Both `g` and `j` hold** (e.g., `g=true, j=true`).  
+  - Example: `(g) → (g,j) → ...`  
+    - *Why?* At `t=1`, `!g` is false and `!j` is false, so `!g | !j` fails.  
+
+#### Key Summary  
+- **Requires avoidance** of `g ∧ j` (both true) **specifically in the next state**.  
+- No long-term constraints; only the **immediate future** is restricted.

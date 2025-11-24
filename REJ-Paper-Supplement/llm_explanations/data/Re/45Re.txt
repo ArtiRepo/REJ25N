@@ -1,0 +1,53 @@
+### Translation of LTL Formula: **X (!i) | X (j)**
+
+#### Step 1: Original Formula  
+`X (!i) | X (j)`
+
+#### Step 2: Parsing Tree Breakdown  
+```markdown
+Top-level: OR (|)
+├── Left subtree: NEXT (X) applied to !i
+│   └── Negation (!) applied to i
+│       └── Atomic proposition: i  
+└── Right subtree: NEXT (X) applied to j  
+    └── Atomic proposition: j  
+```
+
+#### Step 3: Rebuilding Meaning from Bottom Up  
+1. **Atomic propositions**:  
+   - `i` represents "`i` is true".  
+   - `j` represents "`j` is true".  
+
+2. **Negation (!i)**:  
+   - `!i` means "**`i` is false**" at a given moment.  
+
+3. **Next operator (X)**:  
+   - `X (!i)` means "**`i` is false in the next state**" (immediately following the current moment).  
+   - `X (j)` means "**`j` is true in the next state**" (immediately following the current moment).  
+
+4. **Disjunction (|)**:  
+   - `X (!i) | X (j)` means either:  
+     - **`i` is false in the next state**, OR  
+     - **`j` is true in the next state**, OR  
+     - **Both occur simultaneously**.  
+
+#### Step 4: Natural Language Phrasing  
+> **Translation:**  
+> "**At the next moment of system execution**, *either `i` is false or `j` is true (or both).**"  
+
+#### Constraints Over Time  
+- **Scope**: The formula **exclusively constrains the immediate next state** after the current moment.  
+- **Current state**: No constraints on `i` or `j` in the *current* state.  
+- **Future states**: No constraints beyond the next state.  
+- **Evaluation**: The formula is evaluated **at the current time**, but its truth depends **solely** on the next state.  
+
+---
+
+#### Satisfying vs. Violating Sequences  
+| Example       | Sequence (States)               | Outcome     | Explanation                                   |  
+|---------------|---------------------------------|-------------|-----------------------------------------------|  
+| **Satisfying**| `(current)`: `{i=false, j=false}` → `(next)`: `{i=false, j=true}` | Holds ✅ | Next state: `i=false`. OR condition satisfied.|  
+| **Satisfying**| `(current)`: `{i=true, j=true}` → `(next)`: `{i=true, j=true}` | Holds ✅ | Next state: `j=true`. OR condition satisfied. |  
+| **Violating** | `(current)`: `{i=false, j=false}` → `(next)`: `{i=true, j=false}` | Fails ❌ | Next state: `i=true` AND `j=false` → neither condition holds. |  
+
+> 🚦 **Key Insight**: The system **must avoid** a scenario where—in the *very next state*—`i` is **true** and `j` is **false**. All other combinations are allowed.

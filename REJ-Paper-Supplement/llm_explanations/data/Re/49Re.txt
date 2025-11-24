@@ -1,0 +1,53 @@
+### Translation of LTL Formula: **X !(t | w)**  
+
+#### Step-by-Step Breakdown:  
+1. **Atomic propositions**:  
+   - `t` and `w` are atomic propositions. They represent specific conditions in the system (e.g., "task is active" or "warning occurs").  
+
+2. **Disjunction (|)**:  
+   - `(t | w)` means:  
+     - **"At least one of `t` or `w` is true"**.  
+     - *Example*: If `t` is true or `w` is true (or both), this subformula holds.  
+
+3. **Negation (!)**:  
+   - `!(t | w)` negates the disjunction. By **De Morgan's law**, this is equivalent to `!t & !w`:  
+     - **"Neither `t` nor `w` is true"** (i.e., both `t` and `w` are false).  
+
+4. **Next (X) operator**:  
+   - `X !(t | w)` applies the **next-state constraint**:  
+     - **"In the *immediate next state* of the system, neither `t` nor `w` is true."**  
+
+---
+
+### Constraints Over Time:  
+- **Scope**:  
+  - The formula **_only constrains the very next state_** after the current moment.  
+  - It imposes **no constraints** on:  
+    - The current state (e.g., `t`/`w` can be true or false now).  
+    - States beyond the immediate next state (e.g., `t`/`w` can be true/false freely afterward).  
+
+- **Critical Insight**:  
+  - Violation occurs **solely** if `t` or `w` is true in the *next state*. The rest of the timeline is irrelevant.  
+
+---
+
+### Examples of Satisfying vs. Violating Sequences:  
+- **Satisfying sequence** (✅):  
+  - `({t}, {}, {w}, ...)`  
+    - **Now (state 0)**: `t` is true (allowed, no constraint).  
+    - **Next state (state 1)**: `t` and `w` are BOTH false (`{}`). → **Requirement met**.  
+    - Later (state 2): `w` is true (allowed, no constraint).  
+
+- **Violating sequence** (❌):  
+  - `({}, {t}, ...)`  
+    - **Now (state 0)**: `t`/`w` false (allowed).  
+    - **Next state (state 1)**: `t` is true → violates `!(t | w)` (since `t` is true).  
+
+---
+
+### Final Natural Language Translation:  
+> **"In the next moment of the system execution, neither `t` nor `w` holds."**  
+
+#### Key Implications:  
+- At the immediate next step, **both `t` and `w` must be false simultaneously**.  
+- The system has **no obligations** for the current state or any future state beyond the very next one.

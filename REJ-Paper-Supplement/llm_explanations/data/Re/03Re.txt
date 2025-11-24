@@ -1,0 +1,70 @@
+### Translation of LTL Formula: `a & X b`
+
+#### Original LTL Formula
+`a & X b`
+
+#### Parsing Tree Breakdown
+```
+     &
+    / \
+   a   X
+        \
+         b
+```
+- **Leaf `a`**: Atomic proposition `a` represents a Boolean state (e.g., "the alarm is active").
+- **Leaf `b`**: Atomic proposition `b` represents another Boolean state (e.g., "the backup system is engaged").
+- **Operator `X` (Next)**: Applied to `b`, forming the subformula `X b` (requires `b` to hold **in the next state** after the current one).
+- **Operator `&` (AND)**: Combines `a` (current state) and `X b` (next state) into `a & X b`.
+
+#### Rebuilding the Meaning
+1. **`a`**: True if the system satisfies condition `a` in the **current state** at time `t=0`.  
+   - Example: `a = true` at time `t=0`.
+
+2. **`b`**: On its own, `b` checks a condition at a single time point (here, time `t=1` after `X` is applied).
+
+3. **`X b`**: True if `b` holds in the **immediately next state** (time `t=1`).  
+   - Ignores the present (`t=0`), constraining *only the next state*.  
+   - Example: `b = true` at time `t=1`.
+
+4. **`a & X b`**:  
+   - Both `a` (current state) and `X b` (next state) must hold.  
+   - Example:  
+     - `a = true` at time `t=0` (now), **AND**  
+     - `b = true` at time `t=1` (next step).  
+   - Violated if either fails:  
+     - `a` is false now (`t=0`), *or*  
+     - `b` is false at `t=1`.
+
+#### Constraints Over Time
+- **Scope**:  
+  - The formula **only constrains two consecutive states**:  
+    - Time `t=0`: Enforces `a`.  
+    - Time `t=1`: Enforces `b`.  
+  - **No constraints** are imposed on time `t=2` or beyond, or on the past.  
+- **Evasion Risks**:  
+  - If the system state violates `a` at `t=0`, the formula fails **immediately**, regardless of future states.  
+  - If `a` holds at `t=0` but `b` fails at `t=1`, the formula fails at `t=1`.
+
+#### Satisfying vs. Violating Sequences
+- **Satisfying Sequence** (✔️):  
+  - `[t=0]: {a}`, `[t=1]: {b}`, `[t=2]: {a}`  
+  - **Why**: `a` holds **now** (`t=0`), and `b` holds **next** (`t=1`). States beyond `t=1` are unconstrained (e.g., `a` reappearing at `t=2` is irrelevant).  
+
+- **Violating Sequence** (✖️):  
+  - `[t=0]: {}`, `[t=1]: {b}`  
+  - **Why**: `a` is false at `t=0` (violates the first condition).  
+
+- **Violating Sequence** (✖️):  
+  - `[t=0]: {a}`, `[t=1]: {}`, `[t=2]: {b}`  
+  - **Why**: `a` holds at `t=0`, but `b` fails at `t=1` (violates the second condition).
+
+#### Natural Language Translation
+> **"Condition `a` must hold in the current state, and condition `b` must hold in the very next state."**  
+
+### Key Notes
+- **Temporal Specificity**:  
+  Constraints apply strictly to two moments: **now** (`a`) and **immediately next** (`b`).  
+- **Flexibility in Future/Past**:  
+  States before `t=0` or after `t=1` are unrestricted.  
+- **Common Use Case**:  
+  Actions with inmediate consequences (e.g., "If a button is pressed now (`a`), a light must turn on next (`b`).").

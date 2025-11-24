@@ -1,0 +1,66 @@
+### Translation and Explanation for LTL Formula: **G (n => s)**
+
+#### Original LTL Formula:
+`G (n => s)`
+
+#### Step-by-Step Breakdown:
+1. **Atomic propositions**:  
+   - `n`: Represents an atomic proposition ("n is true").  
+   - `s`: Represents an atomic proposition ("s is true").  
+
+2. **Implication (`=>`)**:  
+   - `n => s` means **"if `n` holds (is true), then `s` must hold (be true)."**  
+   - *Logical interpretation*:  
+     - If `n` is true, `s` must be true.  
+     - If `n` is false, `s` can be true or false (no constraint).  
+
+3. **Global Operator (`G`)**:  
+   - `G` means **"globally"** (i.e., **at every present and future moment** in the system’s execution).  
+   - Applying `G` to `(n => s)` means the implication must hold for **all time points**, starting now.  
+
+#### Rebuilding Meaning (Bottom-Up):  
+- **Base**:  
+  - `n` = "n is true", `s` = "s is true".  
+- **Implication**:  
+  - `n => s` = "Whenever n is true, s must be true at the **same moment**."  
+- **Global Scope**:  
+  - `G (n => s)` = "**At every moment**, if n is true, then s must be true."  
+
+#### Refined Natural Language Phrasing:  
+> **"Globally, whenever n holds, s must hold."**  
+> *(Or equivalently: "At every moment in the system execution, if n is true, then s must be true.")*  
+
+---
+
+### Constraints Over Time:  
+- **Scope**:  
+  - The formula constrains **every time point** (current and all future states).  
+  - Unlike operators like `X` (next) or `U` (until), `G` enforces a rule **invariantly** over the entire timeline.  
+- **Key constraints**:  
+  - If `n` is true at **any state**, `s` must be true **in that same state**.  
+  - If `n` is false, `s` can be true or false (no restriction).  
+  - **No exceptions**: The requirement applies perpetually from the current state onward.  
+
+---
+
+### Satisfying vs. Violating Sequences:  
+- **Satisfying sequence example**:  
+  `({n, s}, {s}, {}, {n, s}, ...)`  
+  - **Why it satisfies**:  
+    - In state 1: `n` and `s` true (implication holds).  
+    - State 2: `n` false (no constraint on `s`; `s` true is allowed).  
+    - State 3: `n` false (no constraint).  
+    - State 4: `n` and `s` true (holds).  
+  *All states satisfy `n ⇒ s`.*  
+
+- **Violating sequence example**:  
+  `({}, {n}, {s}, {n}, ...)`  
+  - **Why it violates**:  
+    - In state 1: `n` false → no violation.  
+    - **State 2: `n` true but `s` false → violates `n ⇒ s`.**  
+    - State 3: `n` false → irrelevant (violation already occurred at state 2).  
+
+---
+
+### Final Translation:  
+**"In every moment of the system execution, if n is true, then s must simultaneously be true."**

@@ -1,0 +1,58 @@
+### Translation of LTL Formula: **G(a → X¬b)**
+
+#### Step-by-Step Reasoning:
+
+1. **Original Formula**:  
+   `G(a → X¬b)`
+
+2. **Parsing Tree Breakdown**:  
+   - **Outermost operator**: `G` (Globally)  
+     - **Subformula**: `(a → X¬b)`  
+       - **Operator**: `→` (Implication)  
+         - **Left operand**: `a` (atomic proposition).  
+         - **Right operand**: `X¬b`  
+           - **Operator**: `X` (Next)  
+             - **Subformula**: `¬b` (Negation of atomic proposition `b`).  
+
+3. **Rebuilding Meaning from the Bottom Up**:  
+   - **`b`**: Atomic proposition (true if `b` holds in the current state).  
+   - **`¬b`**: `b` is **false** in the current state.  
+   - **`X¬b`**: **In the next state**, `b` must be **false**.  
+   - **`a → X¬b`**: If `a` is true **in the current state**, then **in the next state** `b` must be **false**.  
+     - This does **not** require `a` to be true. If `a` is false, the implication automatically holds.  
+   - **`G(a → X¬b)`**: The condition `(a → X¬b)` must hold **in every state** of the execution.  
+
+4. **Refined Natural Language Translation**:  
+   > "Globally, if `a` holds in any state, then `b` must be **false** in the immediately following state."  
+
+---
+
+#### **Key Constraints Over Time**:  
+- **Global Constraint**: The rule applies **at every state** in the execution.  
+- **When `a` holds**:  
+  - If `a` is true in state **`S_i`**, then `b` **must be false** in state **`S_{i+1}`**.  
+- **When `a` is false**:  
+  - No constraints are placed on `b` for the next state (i.e., `b` can be true or false).  
+- **No long-term constraints**:  
+  - If `a` is true at `S_i`, only `S_{i+1}` is constrained (not states beyond).  
+  - `b` can be true in states **after** `S_{i+1}`, even if `a` was true at `S_i`.  
+
+---
+
+#### **Satisfying vs. Violating Sequences**:  
+- **Satisfying Sequence Example** (✓):  
+  `{a}, ∅, {a}, {c}, ...`  
+  - State 0: `a` holds → ensures state 1 has no `b` (✔️ `b` false).  
+  - State 1: `a` false → no constraint on state 2.  
+  - State 2: `a` holds → ensures state 3 has no `b` (✔️ `b` false).  
+  - *Other states have no violations.*  
+
+- **Violating Sequence Example** (✗):  
+  `{a}, {b}, ∅, ...`  
+  - State 0: `a` holds → requires `b` false at state 1.  
+  - State 1: `b` is true → violation (✗).  
+
+---
+
+### Final Translation:  
+**"Throughout the entire execution, whenever `a` is true in a state, `b` must be false in the very next state."**

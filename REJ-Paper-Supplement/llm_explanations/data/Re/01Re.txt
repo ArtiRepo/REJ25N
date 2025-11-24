@@ -1,0 +1,57 @@
+### Translation of LTL Formula: \( X  a \implies X  c \)
+
+#### 1. **Breakdown of the Formula (Parsing Tree)**
+- **Atomic propositions**:
+  - `a`: Represents an atomic variable (e.g., "a holds" or "a is true").
+  - `c`: Represents an atomic variable (e.g., "c holds" or "c is true").
+- **Temporal operators**:
+  - `X a`: "Next \(a\)" means "a is true in the immediate next state."
+  - `X c`: "Next \(c\)" means "c is true in the immediate next state."
+- **Logical operator**:
+  - \(\implies\): Implication, meaning "if the left side is true, then the right side must be true."
+
+**Parsing Tree**:
+```
+     =>
+    /   \
+   X     X
+   |     |
+   a     c
+```
+
+#### 2. **Rebuilding the Meaning (Bottom-Up)**:
+1. **Base atoms**:
+   - `a` holds if the system property "a" is true at a given time.
+   - `c` holds if the system property "c" is true at a given time.
+2. **Apply `X` (Next)**:
+   - `X a`: "In the immediate next state from the current time, `a` must be true."
+   - `X c`: "In the immediate next state from the current time, `c` must be true."
+3. **Apply \(\implies\) (Implication)**:
+   - \( X  a \implies X  c \) means "**If** (a is true in the next state), **then** (c is true in the next state)."
+   - Logically, this holds unless `a` is true in the next state while `c` is **not** true in that same next state.
+
+#### 3. **Refined Natural Language Phrasing**:
+> **"If, in the next moment, a holds, then in that same next moment, c must hold."**
+
+#### 4. **Key Constraints Over Time**:
+- **Evaluated at the current time**: The formula only constrains the **immediate next state** relative to the current state.
+- **No constraints elsewhere**:
+  - The **current state** is unconstrained; `a` and `c` can be true/false arbitrarily.
+  - All **states beyond the immediate next state** (e.g., 2 steps ahead) are unconstrained.
+- **When satisfied vs. violated**:
+  - **Satisfied** if in the next state:
+    - `a` is false (the implication holds regardless of `c`), **OR**
+    - `a` is true **and** `c` is true.
+  - **Violated** only if `a` is true in the next state **and** `c` is false.
+
+#### 5. **Example Sequences**:
+- **Satisfying sequence** (current state at time `t=0`, next at `t=1`):
+  - `({ }, {a, c}, ...)`: Next state has `a` and `c` → holds.  
+  - `({a}, { }, ...)`: Next state has `a` false → implication holds (no requirement).  
+  - `({c}, {a}, ...)`: **Violation!** Next state has `a` true but `c` false.  
+- **Violating sequence**:
+  - `({ }, {a}, ...)`: Next state has `a` true but `c` false → violates the implication.  
+
+#### Summary:
+The formula \( X  a \implies X  c \) **exclusively constrains the immediate next state** of the system:  
+It demands that **if `a` becomes true in the next moment, `c` must also be true in that same moment**. It does not restrict the current state or any future states beyond the next one.

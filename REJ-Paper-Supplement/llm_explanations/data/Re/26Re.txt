@@ -1,0 +1,50 @@
+### Reasoning for LTL Formula: **X t => X y**
+
+#### 1. **Original LTL Formula**:  
+   `X t => X y`
+
+#### 2. **Parsing Tree Breakdown**:  
+   - The formula is an **implication** (`=>`).  
+     - **Left operand**: `X t` ("Next `t`")  
+     - **Right operand**: `X y` ("Next `y`")  
+   - Atomic propositions:  
+     - `t`: A Boolean variable (true if `t` holds in a state).  
+     - `y`: Another Boolean variable (true if `y` holds in a state).  
+
+#### 3. **Rebuild Meaning Bottom-Up**:  
+   - **Step 1: Interpret `X t`**:  
+     - `X t` means "**At the very next state, `t` must be true**."  
+   - **Step 2: Interpret `X y`**:  
+     - `X y` means "**At the very next state, `y` must be true**."  
+   - **Step 3: Interpret `=>`**:  
+     - `P => Q` is logically equivalent to `¬P ∨ Q` ("either `P` is false, or `Q` is true").  
+     - Thus, `X t => X y` means:  
+       *"Either* **`t` is false at the next state**, *or* **`y` is true at the next state**."  
+     - Rephrased as a condition:  
+       **"If `t` holds at the next state, then `y` must also hold at that next state."**  
+
+#### 4. **Refined Natural Language Translation**:  
+> **"At the immediate next moment in time, if `t` is true, then `y` must also be true."**  
+
+#### 5. **Key Constraints Over Time**:  
+   - **Scope**:  
+     - **Only constrains the immediate next state** from the current evaluation point.  
+     - No constraints on:  
+       - The **current state** (e.g., `t`/`y` can be true/false here).  
+       - Any state **beyond the next state** (e.g., `t`/`y` can change freely afterward).  
+   - **Violation Condition**:  
+     - The formula fails **only if** the next state has `t` **true** but `y` **false**.  
+
+#### 6. **Example Sequences**:  
+   | Time Point | State Sequence      | Satisfies `X t => X y`? | Why?                                                                 |  
+   |------------|---------------------|-------------------------|----------------------------------------------------------------------|  
+   | `t=0`      | `{t, y}`           | **Yes** (baseline)      | Current state is irrelevant.                                         |  
+   | `t=1`      | `{t, y}`           | **Yes**                 | Next state has `t` true and `y` true → `t true ⇒ y true` holds.      |  
+   | `t=0`      | `{t}`              | **Yes** (baseline)      | Current state is irrelevant.                                         |  
+   | `t=1`      | `{}` (no variables)| **Yes**                 | Next state: `t` is false → implication holds regardless of `y`.     |  
+   | `t=0`      | `{y}`              | **Yes** (baseline)      | Current state is irrelevant.                                         |  
+   | `t=1`      | `{t}`              | **No!** ✗              | Next state: `t` true but `y` false → violates `t true ⇒ y true`.    |  
+
+#### Summary:  
+- The formula acts as a **one-step implication**: **If `t` becomes true at the very next moment, `y` must follow.**  
+- It is **agnostic to the current state** and **only myopically checks the next state**.

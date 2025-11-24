@@ -1,0 +1,59 @@
+### Translation of LTL Formula: **Fa → Gb**  
+**Original LTL Formula:**  
+`Fa → Gb`  
+
+---
+
+### Step-by-Step Parsing and Meaning Reconstruction  
+#### Parsing Tree Breakdown:  
+1. **Atomic propositions**:  
+   - `a` and `b` are atomic variables (e.g., system states or events).  
+2. **Temporal operators**:  
+   - `F` (Eventually): `Fa` means "a is true at some future time."  
+   - `G` (Globally): `Gb` means "b is true at **every** future time."  
+3. **Logical operator**:  
+   - `→` (Implication): `Fa → Gb` means "**if** Fa holds, **then** Gb must hold."  
+
+#### Rebuilding Meaning from Tree:  
+- **Leaf 1: `Fa`**  
+  - "At least once in the future (including now), `a` becomes true."  
+- **Leaf 2: `Gb`**  
+  - "From the current state onward, `b` is **always** true (for all future moments)."  
+- **Operator `→` (Implication)**:  
+  - **If** there exists a future time where `a` is true, **then** `b` must hold:  
+    - At **every** moment starting from **now**, **and**  
+    - For **all** time points after the current state.  
+
+#### Refined Natural Language Phrasing:  
+> "**If `a` ever becomes true in the future (from now onward), then `b` must hold from the current state onward and forever.**"  
+
+---
+
+### Key Constraints Over Time  
+- **Activation of Constraint**:  
+  - If `a` **never** holds in the future, the implication is **vacuously true** (no constraint on `b` at any time).  
+  - If `a` holds **at least once** (now or later), `b` **must be true**:  
+    - At the **current state**,  
+    - At **all times before `a` occurs** (if it occurs later),  
+    - At the **time `a` occurs**, **and**  
+    - For **all future times indefinitely**.  
+- **Scope**:  
+  - Constrains the **entire future** from the current state onward.  
+
+---
+
+### Satisfying vs. Violating Trace Examples  
+- **Satisfying Trace** (formula true):  
+  - `({a=False, b=True}, {a=True, b=True}, {a=False, b=True}, ...)`  
+  - **Why**: `a` occurs at time 2 → `b` holds **from time 1 onward** (G true).  
+- **Violating Trace** (formula false):  
+  - `({a=False, b=False}, {a=True, b=True}, {a=False, b=True}, ...)`  
+  - **Why**: `a` occurs at time 2, but `b` fails at time 1 → violates "`b` must hold **from now onward**."  
+
+---
+
+### Summary of Semantics  
+- The formula imposes a **global requirement on `b`** only **if** `a` appears in the future.  
+- **Violation occurs if**:  
+  - `a` holds at **any future time**, and  
+  - `b` is **false at any time** (now or later).

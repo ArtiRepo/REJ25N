@@ -1,0 +1,72 @@
+### Translation of LTL Formula: F (f ⇒ j)
+
+**Original Formula**:  
+F (f ⇒ j)
+
+---
+
+### Step-by-Step Breakdown (Parsing Tree):  
+1. **Atomic variables**:  
+   - `f` and `j` represent atomic propositions (e.g., "feature is active", "job completes").  
+2. **Implication (⇒)**:  
+   - `f ⇒ j` means "if `f` holds (true), then `j` must hold (true)".  
+   - **Equivalent form**: `!f ∨ j` ("`f` is false or `j` is true").  
+3. **Eventually (F)**:  
+   - `F φ` means "φ must hold true at **some future time point** (at least one state in the future)".  
+   - Apply `F` to `(f ⇒ j)`: "Eventually, `(f ⇒ j)` holds".  
+
+---
+
+### Rebuilding Meaning from Bottom Up:  
+1. **Step 1: Meaning of `f ⇒ j`**  
+   - At any given time point:  
+     - If `f` is true → `j` must be true.  
+     - If `f` is false → no constraint on `j` (implication holds regardless of `j`).  
+   - *Example*:  
+     - State A: `f` true, `j` true → **satisfied**.  
+     - State B: `f` true, `j` false → **violated**.  
+     - State C: `f` false → **satisfied** (whether `j` is true/false).  
+
+2. **Step 2: Applying `F`**  
+   - `F (f ⇒ j)` requires that **at least one future state** satisfies `f ⇒ j`.  
+   - No constraints on:  
+     - The **current state** or **other intermediate states**.  
+     - How far in the future (`f ⇒ j` can hold immediately or later).  
+
+---
+
+### Refined Natural Language Phrasing:  
+"**Eventually, if `f` holds at some future time, then `j` must hold at that same time.**"  
+- *Alternative phrasing*: "**At some point in the future, either `f` is absent, or `j` is present.**"  
+
+---
+
+### Constraints Over Time:  
+- **No immediate requirement**: The current state can have any value for `f` and `j` (e.g., `f` true + `j` false is allowed *now*).  
+- **Future guarantee**: At least **one future state** must obey:  
+  - If `f` is true → `j` is true.  
+  - If `f` is false → no further condition on `j`.  
+- **No timing constraints**: The event can occur after 1 step, 100 steps, or any finite time.  
+
+---
+
+### Satisfying vs. Violating Sequences:  
+1. **Satisfying sequences** (formula holds):  
+   - Sequence A: [`(f=false)`, `(j=true)`]  
+     - *Reason*: `f ⇒ j` holds in the first state (`f` absent).  
+   - Sequence B: [`(f=true, j=false)`, `(f=true, j=true)`]  
+     - *Reason*: `f ⇒ j` holds in the second state (`j` present when `f` true).  
+   - Sequence C: [`(f=false, j=false)`, `(f=true, j=false)`, `(f=false)`]  
+     - *Reason*: `f ⇒ j` holds in the third state (`f` absent).  
+
+2. **Violating sequences** (formula false):  
+   - Sequence X: All states are `(f=true, j=false)`.  
+     - *Reason*: `f ⇒ j` is **never** true (in every state, `f` true forces `j` false).  
+   - Sequence Y: [`(f=true, j=false)`, `(f=true, j=false)`, ...]  
+     - *Reason*: No future state satisfies `f ⇒ j`.  
+
+---
+
+### Key Summary:  
+- **When satisfied**: The system eventually reaches a state where `j` is true *whenever* `f` is true.  
+- **When constrained**: Only **future states** are constrained; the formula ignores past/present violations if future compliance exists.

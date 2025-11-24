@@ -1,0 +1,58 @@
+### Translation of the LTL Formula: **F (o | u)**
+
+#### Step 1: Original Formula  
+**F (o | u)**
+
+#### Step 2: Parsing Tree Breakdown  
+- **Top**: Temporal operator **`F`** (*Eventually*).  
+  - **Child**: Subformula **`(o | u)`** (*Disjunction*).  
+    - **Leaves**: Atomic propositions **`o`** and **`u`** (boolean variables representing system states).  
+
+```
+    F
+    |
+   (o | u)
+     / \
+    o   u
+```
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Atomic propositions**:  
+   - **`o`** holds if the system is in a state where property `o` is *true*.  
+   - **`u`** holds if the system is in a state where property `u` is *true*.  
+
+2. **Disjunction (`|`)**:  
+   - **`o | u`** holds in the *current state* if **at least one** of `o` or `u` is *true*.  
+   - *Example*:  
+     - Satisfied if `o` is true (even if `u` is false), `u` is true (even if `o` is false), or both are true.  
+
+3. **Temporal operator (`F`)**:  
+   - **`F (o | u)`** means `(o | u)` must hold in **at least one future state** (including the current state).  
+   - `F` does **not specify when** this occurs—it could be now, next, or infinitely later—but it *must occur eventually*.  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **"Eventually, either `o` holds or `u` holds (or both)."**  
+*(Where "holds" means the system state satisfies the property at that time point.)*  
+
+---
+
+### Key Constraints Over Time  
+1. **When satisfied**:  
+   - The formula holds if **there exists any time point** (current or future) where `o` is true, `u` is true, or both are true.  
+   - *Example satisfying traces*:  
+     - Immediate: `["o", ...]` (o true now), `["u", ...]` (u true now).  
+     - Delayed: `[{o=false, u=false}, {o=true, ...}, ...]` (o becomes true later).  
+     - Incomplete: `[{o=false, u=false}, ...]` → *only* if `o`/`u` eventually become true later.  
+
+2. **When violated**:  
+   - **No such time exists**: If `o` and `u` are **both false at every state** in the entire execution.  
+   - *Example violating trace*:  
+     `[{o=false, u=false}, {o=false, u=false}, ...]` (both remain false forever).  
+
+3. **Temporal scope**:  
+   - **No constraints** on when `o`/`u` hold before the eventual occurrence.  
+   - **No constraints** after `o | u` first holds (e.g., even if they become false again later).  
+
+---
+### Summary  
+**F (o | u)** asserts that the system must **eventually** reach a state where *at least one* of `o` or `u` is **true**, with no restrictions on timing or subsequent behavior. This is a common "liveness" property in formal verification (e.g., "the elevator eventually answers a request").

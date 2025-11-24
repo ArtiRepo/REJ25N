@@ -1,0 +1,100 @@
+### Translation of LTL Formula: **(d U c) | (a U !c)**
+
+#### Original Formula:
+**(d U c) | (a U !c)**
+
+---
+
+#### Parsing Tree Breakdown:
+1. **Top-level disjunction (`|`)**:
+   - Left operand: **`d U c`** (until operator)
+   - Right operand: **`a U !c`** (until operator)
+2. **Atomic propositions**:
+   - `d`, `a`, `c` are boolean variables (true/false at any time point).
+3. **Negation (`!`)**:
+   - `!c` means "`c` is false".
+
+---
+
+#### Rebuild Meaning Bottom-Up:
+1. **`!c`**:
+   - "`c` is false" at the current time point.
+   
+2. **`d U c`** (until):
+   - *Definition*: There exists a **future time point** (including now) where `c` is true, and `d` holds continuously from now **until just before** that time point.
+   - *Phrasing*:  
+     "**`c` eventually becomes true, and `d` holds at every step until then**."
+
+3. **`a U !c`** (until):
+   - *Definition*: There exists a **future time point** (including now) where `c` is false, and `a` holds continuously from now **until just before** that time point.
+   - *Phrasing*:  
+     "**`c` eventually becomes false, and `a` holds at every step until then**."
+
+4. **Disjunction `|`**:
+   - At least one of `d U c` or `a U !c` must hold.
+   - *Phrasing*:  
+     "**Either `c` eventually becomes true with `d` holding until then, OR `c` eventually becomes false with `a` holding until then.**"
+
+---
+
+#### Refined Natural Language Translation:
+> **"Either `c` will eventually become true, and `d` holds continuously until the moment before that happens,  
+> OR `c` will eventually become false, and `a` holds continuously until the moment before that happens."**
+
+---
+
+#### When is the Formula Satisfied?
+The formula is satisfied if **at least one** of these scenarios holds:  
+- **Scenario 1 (if `c` starts or becomes true later)**:
+  - There is some future time `i` where `c` is true.
+  - From the **current time** to **time `i-1`**, `d` must be true at every step.
+  - *Example*: `(d=false, c=false)`, `(d=true, c=false)`, `(d=true, c=true)`, ...  
+    (Here, `c` becomes true at time 2; `d` holds at all steps until time 1.)
+
+- **Scenario 2 (if `c` starts or becomes false later)**:
+  - There is some future time `j` where `c` is false.
+  - From the **current time** to **time `j-1`**, `a` must be true at every step.
+  - *Example*: `(a=false, c=true)`, `(a=true, c=true)`, `(a=true, c=false)`, ...  
+    (Here, `c` becomes false at time 2; `a` holds at all steps until time 1.)
+
+#### Key Constraints Over Time:
+- **Immediate freedom**:  
+  - If `c` is **true now**, `d U c` holds instantly (no need for future `d` or `c`).  
+  - If `c` is **false now**, `a U !c` holds instantly (no need for future `a` or `!c`).  
+  → The formula **never constrains the present** since it can always be satisfied immediately by the current state of `c`.
+
+- **Future constraints (only if the event is delayed)**:  
+  - If `c` is **not yet true** and chooses Scenario 1, `d` must hold **until `c` becomes true**.  
+  - If `c` is **not yet false** and chooses Scenario 2, `a` must hold **until `c` becomes false**.  
+  → The formula only demands `d` or `a` hold **temporarily** until the expected change in `c` occurs.
+
+- **Eventual outcomes required**:  
+  - If Scenario 1 is chosen, `c` **must eventually become true**.  
+  - If Scenario 2 is chosen, `c` **must eventually become false**.  
+  → **Deadlock is forbidden**: The system cannot stall indefinitely without `c` changing.
+
+---
+
+#### Satisfying vs. Violating Sequences:
+- **Satisfying Sequence (Scenario 1)**:  
+  `({d=false, c=false}, {d=true, c=false}, {d=true, c=true}, ...)`  
+  - `c` becomes true at time 2. `d` holds from time 0–1. Formula holds via `d U c`.
+
+- **Satisfying Sequence (Scenario 2)**:  
+  `({a=false, c=true}, {a=true, c=true}, {a=true, c=false}, ...)`  
+  - `c` becomes false at time 2. `a` holds from time 0–1. Formula holds via `a U !c`.
+
+- **Violating Sequence**:  
+  `({d=false, c=false}, {d=false, c=false}, ...)` (infinite loop with `c` always false and no `d`).  
+  - Why it fails:  
+    - `d U c` fails because `c` never becomes true → `d` is never enforced.  
+    - `a U !c` fails because `c` is false now but `a` never holds (required if `!c` is delayed).  
+  → **Deadlock condition**: `c` stays false forever while `a` never holds indefinitely.
+
+---
+
+#### Final Translation:
+> **"The system must ensure one of two outcomes:  
+> (1) `c` eventually becomes true, and `d` is true in all preceding steps, OR  
+> (2) `c` eventually becomes false, and `a` is true in all preceding steps.  
+> Crucially, `c`’s initial state imposes no constraint, but **the chosen path** must force `c` to flip eventually and uphold `d` or `a` until that flip occurs."**

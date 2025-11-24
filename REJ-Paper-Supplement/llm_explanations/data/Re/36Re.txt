@@ -1,0 +1,55 @@
+### Translation of LTL Formula: **G (j ⇒ ¬f)**
+
+#### Step-by-Step Reasoning:
+1. **Original Formula**: `G (j ⇒ ¬f)`  
+   - `j`, `f`: Atomic variables representing Boolean states of the system.  
+
+2. **Parsing Tree Breakdown**:
+   ```
+       G        (Globally operator)
+        |
+        ⇒      (Implication)
+       / \
+      j   ¬     (Negation)
+           \
+            f   (Atomic variable)
+   ```
+   - **Leaves**: 
+     - `j` means "`j` is true at the current time".
+     - `f` means "`f` is true at the current time".
+   - **Negation (`¬`)**: 
+     - `¬f` means "`f` is **false** at the current time".  
+   - **Implication (`⇒`)**:
+     - `j ⇒ ¬f` means "**if** `j` is true at the current time, **then** `f` must be false at the **same current time**".  
+   - **Globally (`G`)**:
+     - `G (j ⇒ ¬f)` requires this implication to hold **at every time point** in the system execution (now and all future states).
+
+3. **Rebuilt Meaning**:
+   - The formula enforces:  
+     **Whenever `j` is true (at any moment), `f` must be false (at that same moment).**  
+   - This condition must hold *globally*: it applies to **all states** in the execution, from the current time onward.
+
+4. **Constraints Over Time**:
+   - **Scope**: The constraint `(j ⇒ ¬f)` is enforced at **every single time point**.
+   - **No constraints on `j`/`f` independence**: 
+     - When `j` is false, `f` can be true or false (no restriction).
+     - `j` and `f` can co-occur **only if `j` is false** (e.g., `j=false` and `f=true` is allowed).
+   - **Permanent restriction**: The system can **never** enter a state where `j` and `f` are *both* true.
+
+---
+
+#### Natural Language Translation:
+> **"Globally, whenever `j` is true, `f` must be false."**
+
+#### Examples:
+- **Satisfying Sequence** (holds at every state):  
+  `[{j=false, f=false}, {j=false, f=true}, {j=true, f=false}, {j=false, f=true}, ...]`  
+  *Explanation*: Whenever `j` is `true` (e.g., state 2), `f` is `false` (allowed). When `j` is `false`, `f` can be `true` or `false` (no violation).
+
+- **Violating Sequence** (fails at state where `j ∧ f` hold):  
+  `[{j=false, f=true}, {j=true, f=true}, ...]`  
+  *Explanation*: At state 1, `j=true` but `f=true` violates `j ⇒ ¬f`. The entire formula fails.
+
+---
+**Key Insight**:  
+The formula acts as a **permanent invariant**: across all time, `j` being true *forbids* `f` from being true at that exact moment. It does not restrict `j` or `f` individually when the other is inactive.

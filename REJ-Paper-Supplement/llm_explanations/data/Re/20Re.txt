@@ -1,0 +1,60 @@
+### Reasoning for LTL Formula: **G t | F w**
+
+#### Step 1: Original Formula  
+`G t | F w`  
+*(Operators: `G` = "Globally", `F` = "Finally", `|` = logical OR, `t`/`w` = atomic propositions)*  
+
+#### Step 2: Parsing Tree (Breakdown)  
+- **Top-level operator**: Disjunction (`|`), combining two subformulas:  
+  1. **`G t`**  
+     - `G` (Globally) applied to `t`.  
+     - *Interpretation*: `t` must hold **at every future time point** (including now).  
+  2. **`F w`**  
+     - `F` (Finally) applied to `w`.  
+     - *Interpretation*: `w` must hold **at some future time point** (including now).  
+
+#### Step 3: Rebuilding Meaning (Bottom-Up)  
+1. **`G t` meaning**:  
+   - "`t` is true **now and forever** for all future states."  
+   - Example of violation: If `t` is false at **any future time**, `G t` fails.  
+
+2. **`F w` meaning**:  
+   - "`w` is true at **least once** in the future (now or later)."  
+   - Example of violation: If `w` is **never true** in any future state, `F w` fails.  
+
+3. **Combined with `|` (OR)**:  
+   - The entire formula `G t | F w` holds if **at least one** subformula is true:  
+     - Either `t` must be **true forever** (`G t` holds),  
+     - Or `w` must be **true at least once** (`F w` holds),  
+     - Or **both** conditions are satisfied.  
+
+#### Step 4: Refined Natural Language Translation  
+> "**Either `t` holds continuously from now into the infinite future, or `w` must occur at least once sometime in the future (or both).**"  
+
+#### Key Constraints Over Time  
+- **When satisfied**:  
+  - If `t` remains **true forever** (even if `w` never occurs), the formula holds.  
+  - If `w` occurs **at least once** (even if `t` eventually fails), the formula holds.  
+  - If **both occur** (e.g., `t` holds forever and `w` occurs), the formula holds.  
+- **When violated**:  
+  - Only if **BOTH** conditions fail:  
+    - `t` becomes false **at least once** in the future, **AND**  
+    - `w` **never occurs** in any future state.  
+- **Temporal scope**:  
+  - `G t` constrains **all future states** indefinitely.  
+  - `F w` constrains **at least one future state** (finite timing).  
+
+#### Example Sequences  
+- **Satisfying sequences**:  
+  - `(t,w)`, `(t)`, `(t)`, `(t)`, ...  
+    *(Reason: `G t` holds; `w` occurs initially but not required for `G t`.)*  
+  - `()`, `(w)`, `()`, `()`, ...  
+    *(Reason: `F w` holds at time 1; `t` is irrelevant.)*  
+  - `(t,w)`, `(t,w)`, `(t)`, ...  
+    *(Reason: Both `G t` and `F w` hold.)*  
+- **Violating sequence**:  
+  - `(t)`, `(t)`, `()`, `()`, ... `[t never true again, w never true]`  
+    *(Reason: `t` fails at time 2 onward, and `w` never occurs → both disjuncts fail.)*  
+
+### Final Translation  
+"**Either `t` is always true from now on, or `w` must eventually become true (or both).**"
