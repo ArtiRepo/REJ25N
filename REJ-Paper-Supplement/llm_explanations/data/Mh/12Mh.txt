@@ -1,0 +1,23 @@
+**Original LTL formula:**
+`b U (a | d)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`(a | d)`** – Either `a` is true **or** `d` is true (or both) in the current state.
+2. **`b U (a | d)`** – The formula requires that:
+   - **Eventually**, `(a | d)` must become true (at least once in the future).
+   - **Until that moment**, `b` must hold in *every* intervening state.
+   - Once `(a | d)` becomes true, `b` is no longer constrained.
+
+---
+**Refined natural language translation:**
+*"The system must eventually reach a state where either `a` or `d` holds. Until that point, `b` must remain true continuously. After `(a | d)` first occurs, `b` may behave arbitrarily (true or false) in all subsequent states."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** `b` is *only* enforced **before** `(a | d)` first becomes true.
+- **Termination:** The formula is satisfied *immediately* if `(a | d)` is true in the current state (regardless of `b`).
+- **Violation examples:**
+  - If `b` becomes false *before* `(a | d)` ever holds → violation.
+  - If `(a | d)` *never* holds → violation (even if `b` stays true forever).
+- **Misunderstanding to avoid:** `b` is *not* required after `(a | d)` first occurs.

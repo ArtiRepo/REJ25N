@@ -1,0 +1,24 @@
+**Original LTL formula:**
+`X (t | w)`
+
+---
+**Rebuilding meaning:**
+1. **`t | w` (disjunction):**
+   Either `t` is true **or** `w` is true (or both) in the current state.
+   - *No constraint* if at least one holds; *violation* if neither holds.
+
+2. **`X (t | w)` (next):**
+   The disjunction `t | w` must hold **in the very next state** (not the current one).
+   - *Constraint applies only to the immediate successor state*.
+   - After that state, the formula imposes no further requirements.
+   - *Satisfied* if the next state meets `t | w`; *violated* if the next state falsifies both `t` and `w`.
+
+---
+**Refined natural language:**
+*"In the very next state, either `t` must hold, or `w` must hold (or both). The formula does not constrain any state beyond that next one."*
+
+---
+**Key distinctions:**
+- **Immediate vs. ongoing:** Constraint is *only* on the next state—no persistent requirement.
+- **Satisfaction:** Depends solely on the next state’s values of `t` and `w`.
+- **Violation:** Occurs if the next state falsifies both `t` and `w`; otherwise, the formula is satisfied regardless of later states.

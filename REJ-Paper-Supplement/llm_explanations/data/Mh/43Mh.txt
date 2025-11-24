@@ -1,0 +1,17 @@
+**Original LTL formula:**
+`X (f & i)`
+
+---
+**Rebuilding meaning:**
+1. **`f & i`** – Both `f` and `i` must be true *simultaneously* in a given state.
+2. **`X (f & i)`** – The requirement applies *only in the next state* (not the current one). The current state is unconstrained.
+
+---
+**Refined natural language:**
+*"In the very next state, both **f** and **i** must hold simultaneously. The current state imposes no constraints, and the requirement does not persist beyond the next state."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** The next state (and only the next state) satisfies `f ∧ i`.
+- **Violated if:** The next state fails to satisfy *either* `f` *or* `i`.
+- **Misunderstanding to avoid:** The formula does *not* require `f` or `i` to hold in the current state or in any state after the next. The constraint is strictly *one-step-ahead*.

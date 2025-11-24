@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`X !b & d`
+
+---
+**Rebuilding meaning:**
+1. `!b` – "b is false in the current state."
+2. `X !b` – "In the *very next state*, b must be false."
+3. `d` – "d is true in the *current state*."
+4. `X !b & d` – Combines the two: "d must hold *now*, and in the *immediately following state*, b must be false."
+
+---
+**Refined natural language:**
+*"At the current moment, d must be true, and in the very next state, b must be false. No constraints apply beyond that next state."*
+
+**Key distinctions:**
+- **Immediate constraint:** `d` must hold *now*.
+- **One-step constraint:** `b` must be false *only in the next state*—afterward, `b` may be true or false without violating the formula.
+- **Violation examples:**
+  - If `d` is false now, the formula fails immediately.
+  - If `b` is true in the next state, the formula fails at that step.
+- **Non-constraints:** The formula does not require `d` to hold in future states or `b` to remain false after the next state.

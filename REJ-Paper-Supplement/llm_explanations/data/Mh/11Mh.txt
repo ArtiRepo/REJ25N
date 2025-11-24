@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`a U (b & c)`
+
+---
+**Rebuild meaning from the bottom up:**
+1. **`b & c`** – Both `b` and `c` must be true *simultaneously* in a given state.
+2. **`a U (b & c)`** –
+   - **Phase 1 (until condition):** `a` must hold in *every state* until the first state where `b & c` becomes true.
+   - **Phase 2 (termination):** At some future state, `b & c` *must* become true. Once this happens, `a` is no longer required to hold in subsequent states.
+
+---
+**Refined natural language phrasing:**
+*"The system must eventually reach a state where both `b` and `c` are true simultaneously. Until that moment, `a` must remain true in every intermediate state. After `b & c` occurs, `a` is no longer constrained."*
+
+---
+**Key clarifications:**
+- **Satisfying sequence:** Any trace where `a` holds continuously until a state where `b ∧ c` becomes true (e.g., `a, a, b∧c, ...` or `a, a, a, b∧c, ...`).
+- **Violating sequence:**
+  - `a` fails *before* `b ∧ c` occurs (e.g., `a, ¬a, ...`).
+  - `b ∧ c` *never* occurs (e.g., infinite `a` states without `b ∧ c`).
+- **Misunderstanding to avoid:** `a` is *not* required *after* `b ∧ c` becomes true—only *until* that point. The formula does *not* guarantee `a` holds forever.

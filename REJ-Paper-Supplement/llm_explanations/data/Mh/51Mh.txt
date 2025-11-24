@@ -1,0 +1,30 @@
+**Original LTL formula:**
+`a → XXXa`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **XXXa**:
+   - *"a must be true **three states from now** (i.e., in the state after the next after the next)."*
+   - *Constraints*:
+     - No immediate constraint on `a` in the current, next, or second-next state.
+     - Only the *third future state* must satisfy `a`.
+   - *Violation*: If the third state lacks `a`, the formula fails *at the current moment* (even if `a` holds later).
+
+2. **a → XXXa** (implication):
+   - *"If `a` is true **now**, then `a` must also be true three states later."*
+   - *Constraints*:
+     - **Current state**: If `a` holds, the system must ensure `a` in the third future state.
+     - **If `a` is false now**: No constraint is imposed on future states.
+   - *Violation*:
+     - `a` is true now *and* false in the third future state.
+     - If `a` is false now, the formula holds *regardless* of future `a` values.
+
+---
+**Refined natural language:**
+*"Whenever `a` is true in the current state, the system must guarantee that `a` will hold again exactly two steps later (i.e., in the third future state). If `a` is false now, there are no requirements on future occurrences of `a`."*
+
+---
+**Key clarifications:**
+- **Not a persistence requirement**: `a` need not hold in the next *two* states—only in the third.
+- **Conditional constraint**: The obligation arises *only* if `a` is true now; otherwise, the formula is trivially satisfied.
+- **Evaluation timing**: The truth value is determined *immediately* based on the current `a` and the fixed third-future state. Intermediate states (next and second-next) are irrelevant.

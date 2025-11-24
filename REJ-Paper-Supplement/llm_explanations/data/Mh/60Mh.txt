@@ -1,0 +1,29 @@
+**Original LTL formula:**
+G(a → Fb)
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **Fb** – *"There must exist at least one future state where b is true."*
+   - **Constraint:** In the current or any later state, *b* must eventually hold.
+   - **Violation:** If *b* never becomes true in any future state.
+
+2. **a → Fb** – *"If a is true in the current state, then Fb must hold (i.e., b must eventually become true)."*
+   - **Constraint:** Only when *a* is true does the system *owe* a future *b*.
+   - **No constraint:** If *a* is false, *Fb* is vacuously satisfied (no requirement on *b*).
+   - **Violation:** *a* is true now, but *b* never occurs later.
+
+3. **G(a → Fb)** – *"In every state, if a is true, then b must eventually become true."*
+   - **Constraint:** **Persistently**, whenever *a* holds in any state, the system must guarantee *b* in some future state (possibly far later).
+   - **No constraint:** States where *a* is false impose no requirements on *b*.
+   - **Violation:** There exists at least one state where *a* is true, but *b* never follows afterward.
+
+---
+**Refined natural language phrasing:**
+*"At every point in time, if **a** holds, then **b** must eventually occur later—no matter how many steps ahead. The system is free to behave arbitrarily when **a** is false, but whenever **a** appears, it ‘triggers’ an unavoidable future obligation for **b**."*
+
+---
+**Key clarifications:**
+- **"Eventually" is relative:** The *Fb* must be satisfied *from the state where a was true*, not necessarily from the start of the trace.
+- **No deadline:** *b* can occur arbitrarily far in the future, as long as it happens.
+- **Not "a must lead to b immediately":** Other states (even infinite ones) may intervene between *a* and *b*.
+- **Violation example:** A trace where *a* is true at time *t*, but *b* never appears at *t+1*, *t+2*, etc.

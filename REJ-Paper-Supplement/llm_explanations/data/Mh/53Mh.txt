@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`Fa → Gb`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`b`**: "b must be true in the current state."
+2. **`Gb`**: "b must be true in *every* state from the current state onward."
+3. **`Fa`**: "There exists at least one future state (including the current state) where `a` is true."
+4. **`Fa → Gb`**:
+   - If `Fa` is true (i.e., `a` holds at some point now or later), then `Gb` must hold *from the start of the trace*.
+   - If `Fa` is false (i.e., `a` never holds), the formula imposes *no constraints* on `b`.
+
+---
+**Refined natural language phrasing:**
+*"If `a` ever becomes true at any point (now or in the future), then `b` must have been true continuously from the very beginning of the execution and must remain true forever. If `a` never becomes true, `b` is unconstrained."*
+
+---
+**Key clarifications:**
+- **Constraint timing**: The obligation `Gb` is *retroactive*—it must hold from the first state, not just after `a` occurs.
+- **Violation**: The formula fails if `a` occurs *at any time* and `b` was false *earlier* or becomes false *later*.
+- **Non-imposition**: If `a` never occurs, `b`’s behavior is irrelevant.

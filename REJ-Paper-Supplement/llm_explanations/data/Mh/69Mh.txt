@@ -1,0 +1,14 @@
+- **Original LTL formula:** `FGa`
+
+- **Rebuild meaning from the bottom up:**
+  - `a`: "a must be true in the current state."
+  - `Ga`: "a must be true in every state from the current state onward."
+  - `F(Ga)`: "There must exist at least one future state where, from that state onward, a remains true forever."
+
+- **Refined natural language phrasing:**
+  "At some point in the future, the system must enter a state where **a** becomes permanently true and never false again.
+  *Constraints:*
+  - Before that point, **a** may be true or false—no restrictions apply.
+  - After that point, **a** must hold in every subsequent state without exception.
+  *Violation occurs if:*
+  - **a** never becomes permanently true (e.g., it fluctuates indefinitely or eventually becomes false forever)."

@@ -1,0 +1,23 @@
+**Original LTL formula:**
+G (n => s)
+
+---
+**Rebuilding meaning:**
+1. **Implication (n => s):**
+   - *"If n is true in the current state, then s must also be true in that same state."*
+   - If *n* is false, the implication imposes **no constraint** on *s* (it may be true or false).
+   - If *n* is true, *s* **must** be true; otherwise, the implication fails.
+
+2. **Globally (G):**
+   - The implication *(n => s)* must hold **in every state** of the execution, without exception.
+   - **Constraints apply continuously:** At no point can *n* be true while *s* is false.
+
+---
+**Refined natural language:**
+*"In every state of the system, whenever **n** holds, **s** must also hold simultaneously. The formula does not restrict **s** when **n** is false, but it permanently forbids any state where **n** is true and **s** is false."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** For all states, *n* being true never occurs without *s* also being true.
+- **Violated if:** At least one state exists where *n* is true and *s* is false.
+- **Misunderstanding to avoid:** The formula does **not** require *s* to be true when *n* is false—only that *s* "follows" *n* when *n* occurs.

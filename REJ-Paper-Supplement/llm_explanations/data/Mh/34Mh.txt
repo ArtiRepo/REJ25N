@@ -1,0 +1,25 @@
+**Original LTL formula:**
+G (!f | !i)
+
+---
+
+**Rebuilding meaning:**
+1. **!f | !i** (disjunction):
+   - Either *f* is false **or** *i* is false (or both) in the current state.
+   - Equivalent to: "It is not the case that both *f* and *i* are true simultaneously."
+
+2. **G (!f | !i)** (globally):
+   - The above condition must hold **in every state** of the execution.
+   - At no point may *f* and *i* both be true at the same time.
+
+---
+
+**Refined natural language:**
+*"At no point in the execution may *f* and *i* both be true simultaneously. In every state, at least one of the two must be false."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Applies to **all states**—no exceptions.
+- **Violation:** Any state where *f* ∧ *i* holds (even once) invalidates the formula.
+- **Non-constraint:** If *f* or *i* is false in a state, the formula imposes no further requirements on their values in that state.
+- **Misunderstanding to avoid:** The formula does **not** require *f* or *i* to *always* be false—only that they never coincide as true. Either may fluctuate freely as long as they are never true together.

@@ -1,0 +1,14 @@
+**Original LTL formula:**
+`b U (d & a)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`d & a`** – Both `d` and `a` must be true *simultaneously* in a state.
+2. **`b U (d & a)`** –
+   - **Phase 1 (until condition):** `b` must hold in *every state* until the first state where `d & a` becomes true.
+   - **Phase 2 (termination):** At the first state where `d & a` is true, the formula is satisfied, and `b` is no longer required to hold in subsequent states.
+   - **Violation:** If `d & a` never becomes true *while `b` remains true*, the formula fails. If `b` becomes false *before* `d & a` holds, the formula also fails.
+
+---
+**Refined natural language phrasing:**
+*"The system must eventually reach a state where both `d` and `a` are true, and until that moment, `b` must remain true in every intermediate state. Once `d` and `a` hold together, `b` is no longer constrained."*

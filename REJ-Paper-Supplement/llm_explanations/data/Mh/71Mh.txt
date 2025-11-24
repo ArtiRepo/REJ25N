@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`G(a ∧ !b)`
+
+---
+**Rebuilding meaning:**
+1. **`!b`** → "b must be false in the current state."
+2. **`a ∧ !b`** → "a must be true *and* b must be false in the current state."
+3. **`G(a ∧ !b)`** → "In *every state* of the execution, a must hold *and* b must *never* hold."
+
+---
+**Refined natural language:**
+*"The system must **always** satisfy two conditions simultaneously:
+- **a** must be true in every state,
+- **b** must remain false in every state.
+
+**Constraints:**
+- Violated *immediately* if, at any point, either `a` becomes false *or* `b` becomes true.
+- No future state can relieve this requirement—it is a permanent invariant.
+
+**Key distinction:**
+This is *not* a one-time check (e.g., 'eventually') but an unconditional, ongoing obligation. The formula fails if *any* state violates `a ∧ !b`, even after infinite time."*

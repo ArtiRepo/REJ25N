@@ -1,0 +1,30 @@
+**Original LTL Formula:**
+`(y & !d) | (y => d)`
+
+---
+
+**Rebuilding Meaning:**
+1. **`!d`**: "d is false in the current state."
+2. **`y & !d`**: "y is true **and** d is false in the current state."
+3. **`y => d`**: "If y is true in the current state, then d **must** also be true in the same state" (equivalent to `!y | d`).
+4. **`(y & !d) | (y => d)`**:
+   - The formula holds if **either**:
+     - `y` is true **and** `d` is false **now**, **or**
+     - `y` being true **implies** `d` is true **now** (i.e., `y` cannot be true without `d` being true).
+   - Simplifies to: **"Either (y is true while d is false now), or (whenever y is true, d must also be true now)."**
+
+---
+
+**Refined Natural Language:**
+**"At the current moment, either:
+- y holds **and** d does not hold, **or**
+- y is only allowed to hold if d also holds (i.e., y cannot be true without d being true)."**
+
+---
+**Key Clarifications:**
+- **No temporal constraints**: The formula imposes **only instantaneous** requirements in the current state.
+- **Violation occurs if**:
+  - `y` is true **and** `d` is true **and** the first disjunct (`y & !d`) is false (i.e., the implication `y => d` fails, which is impossible here—this case is already covered by the first disjunct).
+  - More precisely: The formula is **always true** because `(y => d)` subsumes `(y & !d)` (logical tautology). A more meaningful interpretation may require context (e.g., if `y` and `d` are constrained by other formulas).
+- **Potential misunderstanding**: The formula is **trivially satisfied** in all cases (equivalent to `true`). If intended as a constraint, it likely aims to enforce:
+  *"d must hold whenever y holds (now), but y may also hold when d does not—though this is redundant."* (Suggest revisiting the original intent.)

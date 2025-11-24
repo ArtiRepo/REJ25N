@@ -1,0 +1,24 @@
+**Original LTL formula:**
+G(a → X!b)
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **!b**: "b is false in the current state."
+2. **X!b**: "b must be false in the *very next state*."
+3. **a → X!b**: "If **a** is true in the current state, then **b** must be false in the next state. If **a** is false, this imposes *no constraint* on **b** in the next state."
+4. **G(a → X!b)**: "For *every state* in the execution, the above condition holds: whenever **a** is true, **b** must be false in the immediately following state."
+
+---
+**Refined natural language phrasing:**
+*"At no point in the execution may **a** be true in a state where **b** is true in the very next state.
+In other words, **b** is forbidden from holding in any state that directly follows a state where **a** holds.
+If **a** is false, **b**’s value in the next state is unrestricted."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Only applies *between consecutive states* where **a** is true.
+- **Violation example:** A trace where **a** holds in state *n* and **b** holds in state *n+1* violates the formula.
+- **Non-violation examples:**
+  - **a** is false in state *n* (regardless of **b** in *n+1*).
+  - **a** is true in state *n* and **b** is false in *n+1*.
+- **Misunderstanding to avoid:** The formula does *not* require **a** to eventually become true or **b** to remain false indefinitely—it only enforces a *local* restriction on transitions where **a** occurs.

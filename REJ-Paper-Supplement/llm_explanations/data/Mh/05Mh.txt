@@ -1,0 +1,32 @@
+**Original LTL formula:**
+`X a & b`
+
+---
+**Rebuilding meaning:**
+1. **`a & b`** (conjunction):
+   - *Current state*: Both `a` and `b` must hold simultaneously.
+   - *Constraint*: Immediate; no temporal extension.
+
+2. **`X a`** (next):
+   - *Next state*: `a` must hold in the state immediately following the current one.
+   - *Constraint*: Only applies to the next state; current state is unconstrained by `X a`.
+
+3. **Combined (`X a & b`)**:
+   - *Current state*: `b` must hold **now**.
+   - *Next state*: `a` must hold **in the next step**.
+   - *No further constraints* beyond these two conditions.
+
+---
+**Refined natural language:**
+*"In the current state, `b` must be true, **and** in the very next state, `a` must be true. The formula imposes no other constraints—neither before nor after these two states."*
+
+---
+**Key distinctions:**
+- **Violation examples:**
+  - Current state: `!b` (fails immediately).
+  - Next state: `!a` (fails if `b` held initially).
+- **Non-constraints:**
+  - `a` in the current state is irrelevant.
+  - `b` in the next state is unconstrained.
+- **Misunderstanding to avoid:**
+  The formula does *not* require `a` to hold in the current state or `b` to persist beyond now. The constraints are strictly localized to `(b now) → (a next)`.

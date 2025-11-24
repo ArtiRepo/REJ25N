@@ -1,0 +1,20 @@
+**Original LTL formula:**
+*a & X b*
+
+---
+**Rebuilding meaning:**
+1. **X b** – "In the **very next state**, *b* must hold."
+2. **a** – "*a* must hold **in the current state**."
+3. **&** – Both conditions must be true **simultaneously at the moment of evaluation**.
+
+---
+**Refined natural language:**
+"*a* must be true **now**, and in the **immediately following state**, *b* must become true.
+
+- **Constraints:**
+  - *a* is constrained **only in the current state** (no further requirements).
+  - *b* is constrained **only in the next state** (no requirements before or after).
+- **Violation occurs if:**
+  - *a* is false now, **or**
+  - *b* is false in the next state.
+- **After the next state**, the formula imposes **no further constraints**.

@@ -1,0 +1,25 @@
+**Original LTL formula:**
+G(a → b)
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **a → b** (implication):
+   - *"If a is true in the current state, then b must also be true in that same state."*
+   - If *a* is false, the implication imposes **no constraint** on *b* (it may be true or false).
+   - Violated only when *a* is true **and** *b* is false in the same state.
+
+2. **G(a → b)** (globally):
+   - The implication *a → b* must hold **in every state** of the execution.
+   - **Constraint applies continuously**: At no point can *a* be true while *b* is false.
+   - If *a* never becomes true, *b* is **unconstrained** in all states.
+
+---
+**Refined natural language phrasing:**
+*"In every state of the execution, whenever **a** holds, **b** must also hold in that same state.
+This imposes no requirements on **b** when **a** is false, but permanently forbids any state where **a** is true and **b** is false."*
+
+---
+**Key distinctions:**
+- **Satisfied if:** For all states, either *a* is false **or** *b* is true (or both).
+- **Violated if:** At least one state exists where *a* is true **and** *b* is false.
+- **Misunderstanding to avoid:** The formula does **not** require *b* to be true *unless* *a* is true; it is **not** equivalent to *G(b)*.

@@ -1,0 +1,19 @@
+**Original LTL formula:**
+`F (!y & w)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. `!y`: "y must be false in the current state."
+2. `!y & w`: "y must be false **and** w must be true in the current state."
+3. `F (!y & w)`: "There must exist at least one **future state** where y is false and w is true."
+
+---
+**Refined natural language phrasing:**
+*"At some point in the future, the system must reach a state where **y is false** and **w is true simultaneously**. Before or after that moment, the values of y and w are unconstrained by this formula."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** There exists at least one future state where `!y ∧ w` holds (even if briefly).
+- **Violated if:** In *every* possible future state, either `y` is true **or** `w` is false.
+- **Constraints cease:** After the `!y ∧ w` condition is met, the formula imposes no further requirements.
+- **Misunderstanding to avoid:** The formula does *not* require `!y ∧ w` to hold forever—only that it occurs at least once.

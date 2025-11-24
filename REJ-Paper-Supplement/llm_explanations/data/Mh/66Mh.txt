@@ -1,0 +1,19 @@
+**Original LTL formula:**
+`F(a) ∧ F(b)`
+
+---
+**Rebuilding meaning:**
+1. `F(a)`: There exists at least one future state where `a` holds.
+2. `F(b)`: There exists at least one future state where `b` holds.
+3. `∧` (conjunction): Both conditions must be satisfied, but their occurrences are independent—`a` and `b` may become true in any order, at the same time, or in separate states.
+
+---
+**Refined natural language:**
+*"Both `a` and `b` must eventually become true at some point in the future, though not necessarily at the same time or in any specific order. The formula imposes no constraints on when or how often they occur beyond their eventual occurrence."*
+
+---
+**Key clarifications:**
+- **Satisfied when:** The execution contains *at least one* state where `a` holds **and** *at least one* (possibly different) state where `b` holds.
+- **Violated when:** Either `a` *never* holds **or** `b` *never* holds in the entire execution.
+- **Constraints cease:** Once both `a` and `b` have occurred (even if separately), the formula’s requirements are fully met; no further constraints apply.
+- **Misunderstanding to avoid:** The formula does *not* require `a` and `b` to hold simultaneously, nor does it enforce any relationship between their occurrences.

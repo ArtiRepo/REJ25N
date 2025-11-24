@@ -1,0 +1,13 @@
+- **Original LTL formula:** `!G c`
+
+- **Rebuild meaning:**
+  - `G c` means *"c must hold in every state of the execution."*
+  - `!G c` negates this, so the constraint is reversed: *"It is not the case that c holds in every state."*
+
+- **Refined natural language phrasing:**
+  *"There must exist at least one state (now or in the future) where **c is false**."*
+  **Constraints:**
+  - **No immediate requirement** on `c` in the current state (it may hold or fail now).
+  - **Ongoing obligation:** The system must eventually reach a state where `c` fails—otherwise, the formula is violated.
+  **Violation occurs if:** `c` remains true indefinitely.
+  **Key distinction:** Unlike `F !c`, this does not require `!c` to *eventually become permanently true*—only that `!c` occurs at least once.

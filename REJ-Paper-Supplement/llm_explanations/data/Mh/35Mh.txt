@@ -1,0 +1,11 @@
+**Original LTL formula:**
+F (f => j)
+
+---
+**Rebuilding meaning:**
+1. **(f => j)** – *"If f is true in the current state, then j must also be true in that same state. If f is false, j is unconstrained."*
+2. **F (f => j)** – *"There must exist at least one future state where the implication (f => j) holds as described above. Before that state, no constraints are imposed on f or j. After that state, the formula’s truth is already determined (it remains satisfied regardless of later behavior)."*
+
+---
+**Refined natural language:**
+*"At some future point, whenever the condition **f** holds, the property **j** must also hold in that same moment. Until that point arrives, **f** and **j** may behave arbitrarily. Once the implication is satisfied (even once), the requirement is fulfilled permanently—later violations of (f ∧ ¬j) do not matter."*

@@ -1,0 +1,20 @@
+**Original LTL formula:**
+`a U !a`
+
+---
+**Rebuilding meaning:**
+1. `!a` (innermost): "a is false in the current state."
+2. `a U !a`: "Eventually, `!a` must hold (i.e., a becomes false), and until that moment, `a` must remain true in every intermediate state."
+
+---
+**Refined natural language:**
+"The system must satisfy two conditions:
+1. **Immediate constraint:** `a` must hold *now* and in every subsequent state *until*—but not after—`a` becomes false.
+2. **Termination requirement:** There must exist a future state where `a` is false (i.e., `a` cannot stay true forever).
+
+**Key implications:**
+- **Violation occurs if:**
+  - `a` is false *immediately* (fails the "until" phase), **or**
+  - `a` remains true *indefinitely* (fails the termination).
+- **Constraints cease** the moment `a` becomes false; after that, the formula imposes no further requirements.
+- **Misunderstanding to avoid:** The formula does *not* require `a` to toggle repeatedly—only that `a` eventually stops being true."

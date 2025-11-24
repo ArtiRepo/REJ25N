@@ -1,0 +1,17 @@
+**Original LTL formula:**
+`b U !d`
+
+---
+**Rebuilding meaning:**
+1. `!d` – "d must be false in the current state."
+2. `b U !d` – "Eventually, `!d` (d must become false) must hold, and until that moment, `b` must remain true in every intervening state."
+   - **Constraints:**
+     - `b` must hold in all states *until* `!d` is satisfied.
+     - Once `!d` is true, `b` is no longer required.
+   - **Violation occurs if:**
+     - `b` becomes false *before* `!d` is ever true, **or**
+     - `!d` never holds (d remains true forever).
+
+---
+**Refined natural language:**
+"At some future point, **d must become false**, and **until that happens, b must continuously hold**. If d never becomes false, the formula is violated. Once d is false, b is no longer constrained."

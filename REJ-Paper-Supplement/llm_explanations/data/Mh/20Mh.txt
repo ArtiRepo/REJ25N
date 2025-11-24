@@ -1,0 +1,25 @@
+**Original LTL formula:**
+`G t | F w`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`t`**: "The property *t* holds in the current state."
+2. **`F w`**: "There exists at least one future state where *w* holds (regardless of *t*)."
+3. **`G t`**: "*t* must hold in **every** state of the execution (now and forever)."
+4. **`|` (OR)**: The entire formula holds if **either**:
+   - *t* is **always** true (`G t`), **or**
+   - *w* **eventually** becomes true (`F w`), even if *t* fails at some point.
+
+---
+**Refined natural language phrasing:**
+*"Either the system must **always** satisfy *t* in every state, **or**—if *t* fails at any point—*w* must eventually become true at least once in the future."*
+
+---
+**Key clarifications:**
+- **Constraints:**
+  - If `G t` holds, *t* is enforced **forever**; *w* is irrelevant.
+  - If `G t` fails (i.e., *t* becomes false in some state), the formula **switches** to requiring `F w` from that point onward.
+- **Violation:** The formula fails **only if** both:
+  - *t* is **not always true**, **and**
+  - *w* **never** becomes true in any future state.
+- **Misunderstanding to avoid:** `G t | F w` does **not** mean "*t* holds until *w* becomes true." It is a **choice** between two independent guarantees, not a conditional dependency.

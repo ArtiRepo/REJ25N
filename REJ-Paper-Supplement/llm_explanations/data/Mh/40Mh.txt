@@ -1,0 +1,16 @@
+- **Original LTL formula:**
+  `F (o | u)`
+
+- **Rebuild meaning from the bottom up:**
+  - `(o | u)`: Either `o` is true **or** `u` is true (or both) in the current state.
+  - `F (o | u)`: There must exist **at least one future state** where `(o | u)` holds.
+
+- **Refined natural language phrasing:**
+  *"At some future point, either `o` must be true, or `u` must be true (or both)."*
+
+  **Constraints:**
+  - **Immediate:** No constraint in the current state.
+  - **Ongoing:** The system must eventually reach a state where `o` or `u` holds.
+  - **Termination:** Once such a state is reached, the formula is satisfied, and no further constraints apply.
+
+  **Violation:** The formula fails if **neither `o` nor `u` ever becomes true** in any future state.

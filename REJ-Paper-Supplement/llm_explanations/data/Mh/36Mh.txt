@@ -1,0 +1,24 @@
+**Original LTL formula:**
+G (j => !f)
+
+---
+**Rebuilding meaning:**
+1. **Implication (j => !f):**
+   - *"If j is true in the current state, then f must be false in that same state."*
+   - When **j is false**, the implication holds regardless of **f** (no constraint on **f**).
+   - When **j is true**, **f** is forced to be false (constraint applies).
+
+2. **Globally (G):**
+   - The implication must hold *in every state* of the execution.
+   - At no point can **j** be true while **f** is also true.
+
+---
+**Refined natural language:**
+*"In every state of the system, whenever **j** is true, **f** must simultaneously be false. There are no restrictions on **f** when **j** is false."*
+
+---
+**Key distinctions:**
+- **Constraint applies:** Only in states where **j** holds.
+- **Constraint ceases:** Immediately when **j** becomes false (or remains false).
+- **Violation:** Any state where **j ∧ f** is true invalidates the formula.
+- **Misunderstanding to avoid:** The formula does *not* require **f** to be false *always*—only when **j** is true. **f** may freely fluctuate when **j** is false.

@@ -1,0 +1,25 @@
+**Original LTL formula:**
+`X (y => x & w)`
+
+---
+**Rebuilding meaning:**
+1. **Innermost (implication):** `y => x & w`
+   - *"If y is true in a state, then both x and w must also be true in that same state."*
+   - If `y` is false, the implication holds regardless of `x` or `w`.
+
+2. **Next operator (X):** `X (y => x & w)`
+   - The implication must hold **in the very next state** (not the current one).
+   - No constraints are imposed on the current state or any state beyond the next.
+
+---
+**Refined natural language:**
+*"In the immediate next state, if **y** holds, then both **x** and **w** must also hold in that same state. The current state and all subsequent states (after the next) are unconstrained by this formula."*
+
+---
+**Key clarifications:**
+- **Satisfied if:**
+  - Next state has `¬y` (implication vacuously true), **or**
+  - Next state has `y` *and* both `x` and `w` true.
+- **Violated if:**
+  - Next state has `y` true but either `x` or `w` false.
+- **Constraints cease:** After the next state, the formula imposes no further requirements.

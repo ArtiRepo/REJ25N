@@ -1,0 +1,18 @@
+**Original LTL formula:**
+`F x | F y`
+
+---
+**Rebuilding meaning:**
+1. **`F x`**: There exists at least one future state where `x` holds.
+2. **`F y`**: There exists at least one future state where `y` holds.
+3. **`|` (OR)**: *Either* `F x` *or* `F y` (or both) must be true.
+
+---
+**Refined natural language:**
+*"At some future point, either `x` must become true, or `y` must become true (or both)."*
+
+**Constraints & evaluation:**
+- **Immediate check:** No constraint in the current state; the formula is satisfied if *either* `x` *or* `y` will eventually hold.
+- **Ongoing:** The system must ensure that at least one of the two conditions (`x` or `y`) is met *eventually*—failure occurs only if *neither* ever becomes true.
+- **Violation:** A trace where *both* `x` and `y` remain false forever violates the formula.
+- **Misunderstanding to avoid:** The formula does *not* require both `x` and `y` to occur, nor does it enforce any order between them. Only one must eventually hold.

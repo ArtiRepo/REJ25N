@@ -1,0 +1,11 @@
+**Original LTL formula:**
+G !a
+
+**Rebuilding meaning:**
+1. **!a** → "a is false in the current state."
+2. **G(!a)** → "In every state of the execution, a must be false."
+
+**Refined natural language:**
+"The system must **never** allow *a* to be true at any point in time—*a* must remain false in every state, without exception."
+
+*(Violation: If *a* becomes true even once, the formula fails immediately and permanently.)*

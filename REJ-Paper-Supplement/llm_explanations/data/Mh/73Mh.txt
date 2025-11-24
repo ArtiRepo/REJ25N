@@ -1,0 +1,10 @@
+**Original LTL formula:**
+F a
+
+**Rebuild meaning:**
+- The operator **F** ("eventually") requires that **a** holds in *at least one future state* of the execution.
+- The formula does **not** constrain **a** in the current state or any state before **a** becomes true.
+- If **a** never becomes true in any future state, the formula is violated.
+
+**Refined natural language:**
+*"At some future point, **a** must become true—though it may remain false until then. The formula is satisfied the moment **a** first occurs, regardless of later behavior. If **a** never occurs, the requirement fails."*

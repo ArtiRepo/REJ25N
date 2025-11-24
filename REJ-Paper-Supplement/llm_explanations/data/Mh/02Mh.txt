@@ -1,0 +1,22 @@
+**Original LTL formula:**
+`X b => !X d`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`X b`**: "In the *very next state*, `b` must be true."
+2. **`!X d`**: "In the *very next state*, `d` must **not** be true."
+3. **Implication (`=>`)**:
+   - If `X b` holds (i.e., `b` is true in the next state), then `!X d` *must* also hold (i.e., `d` must be false in that same next state).
+   - If `X b` does **not** hold (i.e., `b` is false in the next state), the formula imposes **no constraint** on `d` in that state.
+
+---
+**Refined natural language translation:**
+*"If `b` becomes true in the very next state, then `d` must **not** be true in that same next state. Otherwise, if `b` is false in the next state, the behavior of `d` is unrestricted."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Only the *next state* is constrained, and only if `b` is true there.
+- **Violation example:** A sequence where `b` is true in the next state **and** `d` is also true in that state violates the formula.
+- **Non-violation examples:**
+  - `b` is false in the next state (regardless of `d`).
+  - `b` is true in the next state **and** `d` is false there.

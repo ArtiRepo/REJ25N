@@ -1,0 +1,13 @@
+**Original LTL formula:**
+`X(!g | !j)`
+
+---
+**Rebuilding meaning:**
+1. **`!g`** → "g is false in the current state."
+2. **`!j`** → "j is false in the current state."
+3. **`(!g | !j)`** → "Either g is false **or** j is false (or both) in the current state."
+4. **`X(!g | !j)`** → "In the **very next state**, either g must be false or j must be false (or both)."
+
+---
+**Refined natural language:**
+*"In the immediate next state, at least one of the following must hold: g is false, or j is false. The formula imposes no constraints beyond that single next state."*

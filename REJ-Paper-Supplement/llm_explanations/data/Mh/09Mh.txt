@@ -1,0 +1,23 @@
+**Original LTL formula:**
+`(c & b) U a`
+
+---
+**Rebuilding meaning:**
+1. **`c & b`** – Both `c` and `b` must hold *simultaneously* in the current state.
+2. **`U a`** – The **Until** operator splits behavior into two phases:
+   - **Phase 1 (constraint active):** `(c & b)` must hold in *every state* until `a` becomes true.
+   - **Phase 2 (constraint lifted):** Once `a` becomes true, `(c & b)` is no longer required in subsequent states.
+   - **Termination requirement:** `a` *must* eventually become true; if it never does, the formula is violated.
+
+---
+**Refined natural language:**
+*"The system must maintain both `c` and `b` in every state **until** `a` becomes true. At the moment `a` holds, the requirement on `c` and `b` ends, but `a` must occur eventually—failing to ever reach `a` violates the formula."*
+
+---
+**Key clarifications:**
+- **Immediate constraint:** If `(c & b)` is false in the *first state*, the formula fails immediately (unless `a` is already true).
+- **Ongoing constraint:** `(c & b)` must persist *only* in states where `a` hasn’t yet occurred.
+- **Violation cases:**
+  - `(c & b)` fails *before* `a` appears.
+  - `a` *never* appears in the execution.
+- **Misunderstanding to avoid:** The formula does *not* require `(c & b)` to hold *after* `a` becomes true.

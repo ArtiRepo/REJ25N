@@ -1,0 +1,34 @@
+**Original LTL formula:**
+`G((a ∧ Xa) → XX¬a)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+1. **`a ∧ Xa`**
+   - *"a is true in the current state **and** a is also true in the very next state."*
+
+2. **`XX¬a`**
+   - *"a must be false in the state **two steps ahead** of the current one."*
+
+3. **`(a ∧ Xa) → XX¬a`**
+   - *"**If** a holds now and in the next state, **then** a must be false two states later."*
+   - Equivalently: *"It is forbidden for a to hold in three consecutive states (now, next, and the one after)."*
+
+4. **`G((a ∧ Xa) → XX¬a)`**
+   - *"**At every point in time**, if a is true now and in the next state, then a must be false two states later."*
+   - **Constraint scope:** The implication is checked continuously, but the prohibition on three consecutive `a`s applies *only* when the premise (`a ∧ Xa`) is met.
+
+---
+
+**Refined natural language phrasing:**
+*"The system must never allow the variable **a** to hold true in **three consecutive states**. Whenever **a** is true in the current state and remains true in the immediate next state, it **must** become false in the state after that. This rule applies globally—at every moment in the execution."*
+
+---
+**Key clarifications:**
+- **When constraints apply:** Only when `a` is true in two back-to-back states (triggering the implication).
+- **When constraints cease:** After the second `a` in a row, the formula *demands* `¬a` in the third state but imposes no further requirements afterward.
+- **Violating sequence:** `a, a, a` (three consecutive `a`s) violates the formula.
+- **Satisfying sequences:**
+  - `a, a, ¬a, ...` (complies after two `a`s).
+  - `a, ¬a, a, ...` (never triggers the implication).
+  - `¬a, ¬a, ¬a, ...` (trivially satisfies).

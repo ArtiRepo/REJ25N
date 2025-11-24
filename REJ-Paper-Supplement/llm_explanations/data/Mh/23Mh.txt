@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`t => w`
+
+---
+**Rebuilding meaning:**
+1. **`=>` (implies)** is a logical operator that evaluates to *false* only when the left operand (`t`) is *true* and the right operand (`w`) is *false*. Otherwise, it is *true*.
+2. **`t` and `w`** are atomic propositions (state variables) with no temporal constraints—they refer only to the *current state* when evaluated.
+3. The formula does **not** impose constraints on future or past states; it is purely a condition on the present.
+
+---
+**Refined natural language:**
+*"If **t** holds in the current state, then **w** must also hold in that same state. If **t** is false, the formula imposes no requirements on **w**."*
+
+---
+**Key clarifications:**
+- **Satisfied when:**
+  - `t` is false (regardless of `w`), **or**
+  - Both `t` and `w` are true.
+- **Violated when:**
+  - `t` is true **and** `w` is false.
+- **No temporal persistence:** The constraint applies *only* to the instant it is checked. Future or past states are irrelevant.

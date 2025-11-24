@@ -1,0 +1,17 @@
+**Original LTL formula:**
+`XXFa`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`a`**: "a must be true in the current state."
+2. **`Fa`**: "There must exist at least one future state where `a` is true."
+3. **`X(Fa)`**: "In the *next* state, `Fa` must hold" → "From the next state onward, there must exist a future state where `a` is true."
+4. **`XX(Fa)`**: "In the state *two steps ahead*, `Fa` must hold" → "From the state two steps ahead, there must exist a future state where `a` is true."
+
+---
+**Refined natural language phrasing:**
+*"The system must guarantee that, **starting from the second next state**, there will eventually be a state where `a` holds.
+**Constraints:**
+- The current state and the immediate next state impose **no requirements** on `a`.
+- The constraint activates **only from the second next state onward**, demanding that `a` must occur at least once in all possible futures from that point.
+**Violation:** The formula fails if, from the second next state, `a` never becomes true in any subsequent state."*

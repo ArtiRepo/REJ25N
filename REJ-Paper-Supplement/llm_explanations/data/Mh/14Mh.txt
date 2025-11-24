@@ -1,0 +1,31 @@
+**Original LTL formula:**
+`(d U c) | (a U !c)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+
+1. **`d U c`**
+   - *Phase 1:* `d` must hold in every state **until** `c` becomes true.
+   - *Phase 2:* When `c` eventually occurs, `d` is no longer required.
+   - *Constraint:* Fails if `c` never holds *or* if `d` fails before `c` appears.
+
+2. **`a U !c`**
+   - *Phase 1:* `a` must hold in every state **until** `c` becomes false (i.e., `!c` becomes true).
+   - *Phase 2:* Once `!c` occurs (i.e., `c` is false), `a` is no longer required.
+   - *Constraint:* Fails if `c` remains true forever *or* if `a` fails before `c` turns false.
+
+3. **Disjunction (`|`)**
+   - *Either* the first scenario (`d U c`) **or** the second scenario (`a U !c`) must hold.
+   - No requirement for both; the system satisfies the formula if it complies with at least one branch.
+
+---
+
+**Refined natural language translation:**
+*"The system must satisfy **one** of the following two behaviors over time:
+1. **Either** `c` eventually becomes true, with `d` holding continuously until that moment,
+2. **Or** `c` eventually becomes false, with `a` holding continuously until that moment.
+
+The formula imposes no constraints *after* `c`’s truth value resolves (true *or* false). It fails only if:
+- Neither `c` nor `!c` ever occurs (i.e., `c`’s value never changes from its initial state),
+- *Or* the required condition (`d` or `a`) is violated before `c`’s resolution."*

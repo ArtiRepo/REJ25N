@@ -1,0 +1,31 @@
+**Original LTL formula:**
+`a U G!a`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`!a`**: "a is false in the current state."
+2. **`G!a`**: "a must be false in every state from this point onward."
+3. **`a U G!a`**:
+   - **Phase 1 (until `G!a` holds):**
+     "a must remain true in every state *until* a state is reached where `G!a` becomes true."
+   - **Phase 2 (after `G!a` holds):**
+     "From that state onward, a must be false forever, and the constraint on a being true no longer applies."
+
+---
+**Refined natural language phrasing:**
+*"a must hold continuously until a point where a becomes permanently false thereafter. Once a is false forever, the requirement for a to hold earlier is lifted."*
+
+---
+**Key clarifications:**
+- **Satisfying sequence:**
+  A trace where `a` is true for some states, followed by a state where `a` turns false *and stays false forever*.
+  *(Example: `a, a, a, !a, !a, !a, ...`)*
+
+- **Violating sequences:**
+  - `a` becomes false temporarily but later becomes true again.
+    *(Example: `a, a, !a, a, ...` → violates `G!a`.)*
+  - `a` never becomes false (i.e., `G a`).
+    *(Example: `a, a, a, ...` → `G!a` never holds.)*
+
+- **Misunderstanding to avoid:**
+  The formula does *not* require `a` to be true forever *or* false forever. It demands a *single transition* from a phase where `a` holds to a phase where `a` is permanently false. The "until" constraint (`a`) is *only active* before `G!a` is satisfied.

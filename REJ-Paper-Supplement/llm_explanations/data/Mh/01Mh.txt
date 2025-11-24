@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`X a => X c`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`X a`**: "In the *very next state*, `a` must be true."
+2. **`X c`**: "In the *very next state*, `c` must be true."
+3. **`=>` (implication)**: The entire formula holds *unless* `X a` is true **and** `X c` is false.
+   - If `X a` is false, the implication is automatically satisfied (no constraint on `c`).
+   - If `X a` is true, then `X c` *must* also be true in that same next state.
+
+---
+**Refined natural language phrasing:**
+*"If `a` becomes true in the next state, then `c` must also become true in that same next state. Otherwise, there are no constraints on `c` in the next state or beyond."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Only the *immediate next state* is constrained (if `a` holds there, so must `c`).
+- **No ongoing obligations:** After the next state, the formula imposes no further requirements, regardless of `a` or `c`.
+- **Violation:** The formula fails *only* if the next state satisfies `a` but not `c`.
+- **Misunderstanding to avoid:** The implication does *not* require `c` to stay true after the next state, nor does it link `a` and `c` in any other state.

@@ -1,0 +1,21 @@
+**Original LTL formula:**
+F(a ∧ b)
+
+---
+
+**Rebuilding meaning:**
+1. **a ∧ b** → "Both *a* and *b* must be true in the same state."
+2. **F(…)** → "There must exist at least one future state where the inner condition holds."
+
+Combined: "There must exist at least one future state where *a* and *b* are simultaneously true."
+
+---
+
+**Refined natural language:**
+*"At some future point, both *a* and *b* must hold true at the same time."*
+
+**Key clarifications:**
+- **Constraint timing:** The formula imposes no requirements on the current state or any state *before* the future point where *a* ∧ *b* occurs.
+- **Satisfaction:** The formula is satisfied the moment a state with *a* ∧ *b* is reached, regardless of earlier or later states.
+- **Violation:** The formula fails only if *a* and *b* never coincide in *any* future state (e.g., if *a* and *b* are mutually exclusive forever).
+- **Misunderstanding to avoid:** F(a ∧ b) does *not* require *a* or *b* to hold continuously—only their simultaneous truth at one instant.

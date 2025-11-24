@@ -1,0 +1,32 @@
+**Original LTL formula:**
+`!F(a ∧ Xa ∧ XXa)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`a ∧ Xa ∧ XXa`**
+   - *Current state:* `a` must hold now.
+   - *Next state (Xa):** `a` must hold in the immediate next state.
+   - *State after next (XXa):** `a` must hold in the state *two steps* ahead.
+   - **Constraint:** A *specific 3-state window* where `a` is true in the current state, the next state, *and* the one after that.
+
+2. **`F(a ∧ Xa ∧ XXa)`**
+   - There *exists at least one future moment* where the 3-state window above occurs (i.e., `a` holds now, next, *and* the following state at some point).
+
+3. **`!F(a ∧ Xa ∧ XXa)`**
+   - The 3-state window *never* occurs at any point in the execution.
+   - **Equivalent to:** `G(!a ∨ !Xa ∨ !XXa)`—in *every* state, at least one of `a`, `Xa`, or `XXa` is false.
+
+---
+**Refined natural language:**
+*"The system must **never** enter a state where `a` holds now, in the very next state, **and** in the state after that.
+In other words, there is **no point** in time where `a` remains true across three consecutive states.
+This imposes an ongoing constraint: at every moment, at least one of the following must fail:
+- `a` is false now, **or**
+- `a` is false in the next state, **or**
+- `a` is false in the state two steps ahead."*
+
+---
+**Key distinctions:**
+- **Satisfied if:** No 3-state streak of `a` ever appears (e.g., `a` flickers, or stays false permanently).
+- **Violated if:** Even *once*, `a` holds for three back-to-back states (e.g., `a` in states *t*, *t+1*, and *t+2*).
+- **Misunderstanding to avoid:** The formula does *not* ban `a` entirely—it only forbids *three consecutive* truths. Short streaks (e.g., two `a`s in a row) are allowed.

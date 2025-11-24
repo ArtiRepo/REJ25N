@@ -1,0 +1,33 @@
+**Original LTL Formula:**
+`(a U b) & (c U d)`
+
+---
+
+**Rebuilding Meaning:**
+1. **`a U b`**:
+   - *Phase 1 (until `b` becomes true):* `a` must hold in every state.
+   - *Phase 2 (when `b` becomes true):* `b` must eventually occur, and once it does, `a` is no longer required.
+   - *Violation:* If `b` never occurs, or if `a` fails before `b` appears.
+
+2. **`c U d`**:
+   - Analogous to `a U b`:
+     - `c` must hold in every state until `d` occurs.
+     - `d` must eventually become true; afterward, `c` is unconstrained.
+   - *Violation:* If `d` never occurs, or if `c` fails before `d` appears.
+
+3. **`&` (conjunction):**
+   - *Both* `a U b` *and* `c U d` must hold **simultaneously** in the same execution.
+   - The constraints of each "until" clause apply independently but must coexist at every state.
+
+---
+
+**Refined Natural Language Translation:**
+*"The system must satisfy two independent but concurrent requirements:
+1. **First requirement:** `b` must eventually become true, and until that moment, `a` must hold in every state. Once `b` occurs, `a` is no longer required.
+2. **Second requirement:** `d` must eventually become true, and until that moment, `c` must hold in every state. Once `d` occurs, `c` is no longer required.
+
+*The formula is violated if:*
+- Either `b` *or* `d` never occurs, *or*
+- `a` fails before `b` appears *or* `c` fails before `d` appears.
+
+*Key distinction:* The constraints on `a` and `c` are active *only until* `b` and `d` occur, respectively, but both 'until' conditions must be satisfied in parallel."

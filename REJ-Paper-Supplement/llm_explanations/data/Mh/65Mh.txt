@@ -1,0 +1,26 @@
+**Original LTL formula:**
+`Xa U Xb`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`Xa`**: "a must be true in the *next* state."
+2. **`Xb`**: "b must be true in the *next* state."
+3. **`Xa U Xb`**:
+   - **Phase 1 (Until condition)**: "In every state *until* the state where `Xb` holds, `Xa` must hold in the *next* state."
+   - **Phase 2 (Termination)**: "`Xb` must eventually become true in some future state (i.e., `b` must hold in the state *after* that)."
+   - **Constraint release**: Once `Xb` is satisfied (i.e., `b` is true in the next state), `Xa` is no longer required.
+
+---
+**Refined natural language translation:**
+*"In every state along the execution, the following must hold:
+- The **next** state must satisfy `a` (*immediate constraint*), **until** a state is reached where the **next** state satisfies `b`.
+- At that point (`Xb` becomes true), the requirement for `Xa` terminates, and `b` must hold in the subsequent state.
+- **Violation occurs** if either:
+  - `Xa` fails in any next state before `Xb` is reached, **or**
+  - `Xb` never becomes true (i.e., `b` never holds in any next state)."*
+
+---
+**Key clarifications:**
+- The formula **does not** constrain the *current* state—only the *next* state onward.
+- "Until" binds to the *next-state* truth of `a` and `b`, not their current values.
+- Misunderstanding to avoid: `Xa U Xb` ≠ "a holds until b holds in the *current* state." The `X` operators shift constraints forward by one step.

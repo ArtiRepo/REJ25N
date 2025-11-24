@@ -1,0 +1,47 @@
+**Original LTL formula:**
+`F a ∧ G (a → X G !a)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+1. **`!a`**
+   "a is false in the current state."
+
+2. **`G !a`**
+   "a must remain false in *all* future states (including the current one)."
+
+3. **`X G !a`**
+   "In the *very next state*, a must become false *and stay false forever*."
+
+4. **`a → X G !a`**
+   "If a is true now, then in the next state, a must become false *and stay false forever*."
+   *(If a is false now, the implication imposes no constraint.)*
+
+5. **`G (a → X G !a)`**
+   "At *every point in time*, if a is true, then in the next state, a must become false *and stay false forever*."
+   *(This enforces that a can only appear as the *last* occurrence in any infinite sequence.)*
+
+6. **`F a`**
+   "a must eventually be true at least once."
+
+7. **`F a ∧ G (a → X G !a)`**
+   "a must occur *exactly once* in the entire execution:
+   - It must happen *eventually* (`F a`),
+   - and once it does, it can *never* reappear (`G (a → X G !a)`)."
+
+---
+
+**Refined natural language:**
+"The system must satisfy **a** *exactly once*:
+- **a** must eventually hold (`F a`),
+- and after the *first and only* occurrence of **a**, it must *never* hold again (`G (a → X G !a)`)."
+
+---
+**Key clarifications:**
+- **Violating sequences:**
+  - **a** never occurs (fails `F a`).
+  - **a** occurs more than once (fails `G (a → X G !a)`).
+- **Constraints cease:**
+  The obligation `X G !a` only triggers *after* **a** occurs; before that, **a** may appear at any time (but only once).
+- **Misunderstanding to avoid:**
+  The formula does *not* require **a** to hold "forever after its first occurrence"—it requires **a** to *disappear forever* after its first occurrence.

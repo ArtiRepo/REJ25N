@@ -1,0 +1,18 @@
+**Original LTL formula:**
+`X !(t | w)`
+
+---
+**Rebuilding meaning:**
+1. `(t | w)`: Either `t` is true **or** `w` is true (or both) in the current state.
+2. `!(t | w)`: **Neither** `t` **nor** `w` is true in the current state (both must be false).
+3. `X !(t | w)`: In the **very next state**, neither `t` nor `w` may be true.
+
+---
+**Refined natural language:**
+*"In the immediate next state, both `t` and `w` must be false. The current state imposes no constraints, and future states beyond the next are unconstrained by this formula."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Only the next state is restricted; all other states (current or later) are unaffected.
+- **Violation:** If *either* `t` *or* `w` is true in the next state, the formula fails.
+- **Misunderstanding to avoid:** The formula does **not** require `t` or `w` to remain false indefinitely—only in the next single transition.

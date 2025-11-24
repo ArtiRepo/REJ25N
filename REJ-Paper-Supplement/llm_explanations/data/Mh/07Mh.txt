@@ -1,0 +1,17 @@
+**Original LTL formula:**
+`a U c`
+
+**Rebuild meaning from the bottom up:**
+- The *until* operator (`U`) splits behavior into two phases:
+  1. **Phase 1 (persistent constraint):** `a` must hold in *every state* until `c` becomes true.
+  2. **Phase 2 (termination):** `c` must eventually occur. Once `c` is true, `a` is no longer required.
+
+**Refined natural language phrasing:**
+*"`c` must eventually become true, and until that moment, `a` must remain true in every intermediate state. After `c` occurs, `a`’s truth value no longer matters."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** A trace has a state where `c` holds, and all prior states satisfy `a`.
+- **Violated if:** Either `c` never occurs, *or* `a` fails before `c` does.
+- **Constraints cease:** The instant `c` becomes true—`a` is no longer enforced.
+- **Misunderstanding to avoid:** `a U c` does *not* require `a` to hold *forever*—only until `c`’s first occurrence.

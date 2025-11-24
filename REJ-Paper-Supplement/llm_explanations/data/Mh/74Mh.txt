@@ -1,0 +1,17 @@
+**Original LTL formula:**
+G(a ∨ b)
+
+---
+**Rebuild meaning from the bottom up:**
+1. **(a ∨ b):** In any given state, *either* **a** is true, *or* **b** is true (or both).
+2. **G(a ∨ b):** The above condition must hold **in every state** of the execution, without exception.
+
+---
+**Refined natural language phrasing:**
+*"At every point in time, **a** must hold, or **b** must hold (or both). The system is never allowed to reach a state where neither **a** nor **b** is true."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** The formula imposes a **persistent** requirement—there is no "release" condition where the constraint lifts.
+- **Violation:** A single state where both **a** and **b** are false invalidates the entire formula, regardless of past or future states.
+- **Misunderstanding to avoid:** This is *not* a "eventually" condition (e.g., "a or b will happen at some point"). It demands **continuous** satisfaction.

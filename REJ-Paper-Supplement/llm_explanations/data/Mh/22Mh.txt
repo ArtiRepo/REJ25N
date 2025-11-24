@@ -1,0 +1,19 @@
+**Original LTL formula:**
+`!X !(w | x)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. `(w | x)`: Either `w` is true **or** `x` is true (or both) in the current state.
+2. `!(w | x)`: **Neither** `w` **nor** `x` is true in the current state (both are false).
+3. `X !(w | x)`: In the **very next state**, neither `w` nor `x` is true.
+4. `!X !(w | x)`: It is **not the case** that, in the next state, both `w` and `x` are false.
+   → Equivalently: In the next state, **at least one** of `w` or `x` **must be true**.
+
+---
+**Refined natural language phrasing:**
+*"In the immediate next state, either `w` must hold, or `x` must hold (or both)."*
+
+**Key clarifications:**
+- **Constraint scope:** Only the next state is constrained; subsequent states are unrestricted.
+- **Violation:** The formula fails if the next state has both `w` and `x` false.
+- **Misunderstanding to avoid:** This is **not** a persistent requirement—it only applies to the single state following the current one. After that, `w` and `x` may behave arbitrarily.

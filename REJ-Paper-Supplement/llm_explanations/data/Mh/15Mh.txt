@@ -1,0 +1,15 @@
+**Original LTL formula:**
+G a
+
+**Rebuild meaning:**
+- The operator **G** ("globally") imposes a constraint on **a** across *all* states in the execution trace.
+- **a** must hold *immediately* in the current state and *persistently* in every subsequent state.
+
+**Refined natural language:**
+*"a must be true in the current state and remain true in every future state, without exception."*
+
+---
+**Key distinctions:**
+- **Constraint scope:** Applies to *all* states (now and forever).
+- **Violation:** Fails *immediately* if **a** is false in *any* state (current or future).
+- **Misunderstanding to avoid:** G a does *not* mean "a will *eventually* always hold"—it demands *uninterrupted* truth from the start.

@@ -1,0 +1,11 @@
+- **Original LTL formula:** `!X t`
+
+- **Rebuild meaning:**
+  - `X t`: "t must be true in the very next state."
+  - `!X t`: "It is **not** the case that t must be true in the very next state." → "t may be false in the next state (but could also be true)."
+
+- **Refined natural language:**
+  "In the **immediately following state**, `t` is **not required to hold**—it can be either true or false.
+  *Constraint:* The formula imposes **no obligation** on `t` in the next state, only that `t` is not *guaranteed* to be true there.
+  *Violation:* The formula fails **only if** `t` is *forced* to be true in the next state (e.g., by other constraints).
+  *Key distinction:* This does **not** forbid `t` from being true next; it merely removes any requirement for it."

@@ -1,0 +1,26 @@
+**Original LTL formula:**
+`a U b`
+
+---
+**Rebuild meaning from the bottom up:**
+1. **`a` and `b` as subformulas:**
+   - `a` must hold in the current state (if evaluated now).
+   - `b` must eventually hold in some future state.
+
+2. **`U` (Until) semantics:**
+   - **Phase 1 (persistent constraint):** `a` must remain true in *every state* until `b` becomes true.
+   - **Phase 2 (termination):** When `b` first becomes true, the constraint on `a` *immediately ceases*. `b`’s truth satisfies the entire formula at that point, regardless of future values of `a` or `b`.
+   - **Violation:** If `b` never becomes true, the formula is violated—even if `a` holds forever.
+
+---
+**Refined natural language phrasing:**
+*"`b` must eventually become true, and until that moment, `a` must hold continuously in every intervening state. Once `b` is satisfied, `a` is no longer required to hold."*
+
+---
+**Key clarifications:**
+- **Immediate constraint:** If evaluated now, `a` must hold *in this state* (unless `b` is already true here).
+- **Ongoing constraint:** `a` is enforced *only* in states *before* `b`’s first occurrence.
+- **Termination:** The formula’s truth is locked in when `b` first appears; later changes to `a` or `b` are irrelevant.
+- **Violation cases:**
+  - `b` never occurs (even if `a` holds forever).
+  - `a` fails *before* `b` first occurs.

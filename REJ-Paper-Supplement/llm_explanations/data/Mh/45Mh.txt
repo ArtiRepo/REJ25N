@@ -1,0 +1,23 @@
+**Original LTL formula:**
+`X (!i) | X (j)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. `!i` – "i is false in the current state."
+2. `X (!i)` – "In the **very next state**, i must be false."
+3. `X (j)` – "In the **very next state**, j must be true."
+4. `|` (OR) – "At least one of the two must hold in the next state."
+
+---
+**Refined natural language translation:**
+*"In the immediate next state, either:*
+- *i must be false, **or**
+- *j must be true.
+
+*The formula imposes no constraints beyond the next state. After that, the behavior of i and j is unrestricted."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** The next state meets *either* condition (even if both do).
+- **Violated if:** The next state has `i = true` **and** `j = false`.
+- **Misunderstanding to avoid:** The formula does *not* require both conditions to hold simultaneously—only one suffices. Constraints vanish after the next state.

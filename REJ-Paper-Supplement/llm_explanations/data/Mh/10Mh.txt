@@ -1,0 +1,28 @@
+**Original LTL formula:**
+`(d | !b) U !a`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+1. **`!a`** – "a must be false in the current state."
+   *Constraint:* The formula is satisfied only when `a` is false. No further constraints apply beyond this point.
+
+2. **`d | !b`** – "Either `d` is true, or `b` is false (or both)."
+   *Constraint:* In any state where this holds, at least one of the two conditions must be met.
+
+3. **`(d | !b) U !a`** – "Eventually, `a` must become false (`!a`), and until that moment, in *every* prior state, either `d` is true or `b` is false."
+   *Constraints:*
+   - **Ongoing:** Before `!a` occurs, `(d | !b)` must hold in *every* state. If violated even once, the formula fails immediately.
+   - **Termination:** The moment `!a` becomes true, the constraint `(d | !b)` no longer applies. The formula is satisfied from that point onward, regardless of future values of `d` or `b`.
+   - **Violation:** If `!a` *never* occurs, the formula is violated (even if `(d | !b)` holds forever).
+
+---
+
+**Refined natural language phrasing:**
+*"The system must eventually reach a state where `a` is false. Until that happens, in every intermediate state, either `d` must hold or `b` must be false. Once `a` becomes false, no further constraints apply."*
+
+---
+**Key clarifications:**
+- The formula does *not* require `(d | !b)` to hold *after* `!a` occurs.
+- If `a` is *already* false when evaluation begins, the formula is trivially satisfied (no constraints on `d` or `b`).
+- A sequence where `(d | !b)` fails *before* `!a` occurs violates the formula, even if `!a` later becomes true.

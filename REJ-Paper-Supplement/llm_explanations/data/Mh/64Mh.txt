@@ -1,0 +1,23 @@
+**Original LTL formula:**
+`G(a → XXXa)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **XXXa**:
+   - "In the state *three steps ahead* of the current one, `a` must hold."
+   - *Constraint timing*: Only imposes a requirement on the state three transitions later; intermediate states (next and next-next) are unconstrained by this subformula.
+
+2. **a → XXXa**:
+   - "If `a` is true *now*, then `a` must also be true three states later."
+   - *Immediate evaluation*: Checks `a` in the current state. If `a` is false now, the implication is vacuously satisfied (no constraint on future states).
+   - *Ongoing constraint*: Only if `a` is true now does it enforce `a` in the +3 state. The two states between now and +3 are irrelevant to this formula.
+
+3. **G(a → XXXa)**:
+   - "At *every point* in the execution, the above implication must hold."
+   - *Global constraint*: The "if `a` now, then `a` in +3" rule must be satisfied repeatedly, sliding forward one state at a time.
+   - *Violation*: Fails if *any* state exists where `a` is true but `a` is false three states later.
+   - *Non-constraint*: States where `a` is false impose no requirements.
+
+---
+**Refined natural language phrasing:**
+*"In every state of the execution, if `a` holds, then `a` must also hold exactly three states later. The formula does not constrain states where `a` is false, nor does it impose any requirements on the two intermediate states between the current state and the +3 state. A violation occurs if there is ever a moment where `a` is true but fails to reappear three steps ahead."*

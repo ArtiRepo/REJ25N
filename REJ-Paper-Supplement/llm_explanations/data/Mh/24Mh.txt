@@ -1,0 +1,13 @@
+**Original LTL formula:**
+`t => (x & y)`
+
+---
+**Rebuilding meaning:**
+1. **`x & y`**: Both `x` and `y` must be true *simultaneously* in the current state.
+2. **`t => (x & y)`**: If `t` is true in the current state, then `x` and `y` must *also* be true in that same state.
+   - If `t` is **false**, the formula imposes **no constraints** on `x` or `y` (they may be true, false, or unrelated).
+   - If `t` is **true**, the formula **requires** `x` and `y` to both hold *immediately*—failure of either violates the implication.
+
+---
+**Refined natural language:**
+*"Whenever `t` is true in a state, both `x` and `y` must also be true in that same state. If `t` is false, `x` and `y` are unconstrained."*

@@ -1,0 +1,26 @@
+**Original LTL formula:**
+`X a & !G b`
+
+---
+**Rebuild meaning from the bottom up:**
+1. `G b` – *"b must hold in every state of the execution."*
+   → `!G b` negates this: *"There exists at least one state where b is false."*
+
+2. `X a` – *"a must hold in the very next state (and imposes no constraints beyond that)."*
+
+3. Conjunction (`&`): Both conditions must hold simultaneously.
+   - The system must satisfy `X a` *now* (i.e., enforce `a` in the next state).
+   - The system must also satisfy `!G b` *globally* (i.e., ensure `b` fails at least once in the entire execution).
+
+---
+**Refined natural language phrasing:**
+*"In the very next state, **a** must hold, **and** at some point in the execution (possibly later or even in the next state), **b** must fail at least once."*
+
+---
+**Key clarifications:**
+- **Immediate constraint:** `X a` forces `a` to be true *only* in the next state. After that, `a` is unconstrained.
+- **Ongoing constraint:** `!G b` requires that `b` cannot hold *forever*—it must eventually be false, but the timing is flexible (could be immediate or delayed).
+- **Violation examples:**
+  - If `a` is false in the next state → formula fails *immediately*.
+  - If `b` holds in *every* state → formula fails *globally* (even if `X a` holds).
+- **Misunderstanding to avoid:** `!G b` does *not* require `b` to be false *now* or in the next state—only that it fails *sometime* in the future. The `X a` constraint is independent of when `b` fails.

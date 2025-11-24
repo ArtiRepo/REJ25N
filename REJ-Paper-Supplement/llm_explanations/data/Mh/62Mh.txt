@@ -1,0 +1,18 @@
+**Original LTL formula:**
+`a`
+
+---
+**Rebuilding meaning:**
+- `a` is an atomic proposition (no temporal operators).
+- Its truth depends **only on the current state** where it is evaluated.
+- It imposes **no constraints** on past or future states.
+
+---
+**Refined natural language:**
+*"In the current state, `a` must hold. The formula does not restrict `a` in any other state (past or future)."*
+
+---
+**Key distinctions:**
+- **Satisfied if:** `a` is true *right now*.
+- **Violated if:** `a` is false *right now*.
+- **No ongoing constraints:** The formula’s truth value is determined instantaneously and does not propagate to other states.

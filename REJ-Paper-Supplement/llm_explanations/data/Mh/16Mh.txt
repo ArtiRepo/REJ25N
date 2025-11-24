@@ -1,0 +1,18 @@
+**Original LTL formula:**
+F !b
+
+---
+**Rebuild meaning from the bottom up:**
+1. **!b** – "b is false in the current state."
+2. **F(!b)** – "There exists at least one future state (including possibly the current state) where **b is false**."
+
+---
+**Refined natural language phrasing:**
+*"At some point in the future (now or later), the system must reach a state where **b does not hold**. Before or after that point, **b may be true or false freely**—the formula imposes no other constraints."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** There’s at least one state in the execution where **b = false** (even if **b** is true elsewhere).
+- **Violated if:** **b** is true in *every* state of the execution (i.e., **!b** never occurs).
+- **Constraints cease:** Once **!b** is observed, the formula’s requirement is fulfilled; future values of **b** are irrelevant.
+- **Misunderstanding to avoid:** The formula does *not* require **b** to stay false permanently—only that it becomes false *at least once*.

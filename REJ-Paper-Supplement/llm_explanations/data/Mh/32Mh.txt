@@ -1,0 +1,45 @@
+**Original LTL formula:**
+`(b | !a) & X (d U c)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+
+1. **`d U c`**
+   - *"c must eventually become true, and until then, d must hold in every state."*
+   - **Constraints:**
+     - **Now until c:** `d` must be true in every state.
+     - **At c:** `c` becomes true, releasing the requirement for `d`.
+   - **Violation:** If `c` never occurs *or* `d` fails before `c` does.
+
+2. **`X (d U c)`**
+   - *"In the **very next state**, the `d U c` constraint begins."*
+   - **Constraints:**
+     - **Current state:** Unconstrained (only the next state matters).
+     - **Next state onward:** `d U c` applies as above.
+   - **Violation:** If the next state fails to satisfy `d U c` (e.g., `d` is false and `c` is false in the next state).
+
+3. **`b | !a`**
+   - *"Either `b` is true **now**, or `a` is false **now** (or both)."*
+   - **Constraints:**
+     - **Current state only:** No ongoing requirements.
+   - **Violation:** If `b` is false *and* `a` is true in the current state.
+
+4. **`(b | !a) & X (d U c)`** (Combined)
+   - *"**Now**, either `b` holds or `a` does not—and **starting in the next state**, `c` must eventually occur with `d` holding until then."*
+
+---
+
+**Refined natural language phrasing:**
+*"The system must satisfy one of two conditions **immediately**:
+- `b` is true, *or*
+- `a` is false.
+**From the next state onward**, the system must ensure that `c` eventually becomes true, with `d` remaining true in every state until `c` occurs."*
+
+---
+**Key clarifications:**
+- The `&` splits constraints: **current** (`b | !a`) vs. **future** (`X (d U c)`).
+- `X` delays `d U c` by one step—**no constraints on `d` or `c` in the current state**.
+- **Violation examples:**
+  - Now: `a` true *and* `b` false → fails `(b | !a)`.
+  - Next state: `d` false *and* `c` false → fails `X (d U c)`.

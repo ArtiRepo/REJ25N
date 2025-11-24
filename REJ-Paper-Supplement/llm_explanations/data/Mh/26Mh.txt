@@ -1,0 +1,20 @@
+**Original LTL formula:**
+`X t => X y`
+
+---
+**Rebuilding meaning:**
+1. **`X t`**: "In the *very next state*, `t` must be true."
+2. **`X y`**: "In the *very next state*, `y` must be true."
+3. **`=>` (implication)**: The entire formula holds unless `X t` is true *and* `X y` is false.
+   - If `X t` is **false** in the current state, the implication is **automatically satisfied** (no constraint on `y`).
+   - If `X t` is **true** in the current state, then `X y` **must also be true** in that same next state.
+
+---
+**Refined natural language:**
+*"If `t` becomes true in the very next state, then `y` must also become true in that same next state. Otherwise, there is no requirement on `y`."*
+
+---
+**Key clarifications:**
+- **Constraint scope:** Only the *next state* is evaluated; future states beyond it are irrelevant.
+- **Violation:** Occurs *only* if `t` is true in the next state *and* `y` is false there.
+- **Misunderstanding to avoid:** The formula does *not* require `y` to stay true after the next state, nor does it link `t` and `y` in any other state. The implication is purely about their values in the *immediate next step*.

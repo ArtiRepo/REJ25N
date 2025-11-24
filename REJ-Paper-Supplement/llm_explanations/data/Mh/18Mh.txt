@@ -1,0 +1,16 @@
+**Original LTL formula:**
+`!F (a & b)`
+
+**Rebuilding meaning:**
+1. `(a & b)` – Both *a* and *b* must be true in the same state.
+2. `F (a & b)` – There exists at least one future state where *a* and *b* are simultaneously true.
+3. `!F (a & b)` – Negation of the above: **In no future state (including the current one) do *a* and *b* hold together.**
+
+**Refined natural language:**
+*"At no point in the execution—now or ever—may *a* and *b* be true at the same time."*
+
+**Key implications:**
+- **Constraint:** Permanently forbids any state where *a* and *b* overlap.
+- **Violation:** Occurs the instant *a* and *b* coincide in any state.
+- **Non-constraint:** If *a* and *b* never align, the formula is trivially satisfied.
+- **Misunderstanding to avoid:** This is *stronger* than `G !(a & b)`—it rules out even transient overlaps, not just persistent ones.

@@ -1,0 +1,30 @@
+**Original LTL formula:**
+`(a U b) ∧ G(a)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+1. **`a U b`** (Until):
+   - *Constraint:* `a` must hold in every state **until** `b` first becomes true.
+   - *Termination:* Once `b` occurs, `a` is no longer required.
+   - *Guarantee:* `b` must eventually happen (otherwise the formula fails).
+
+2. **`G(a)`** (Globally):
+   - *Constraint:* `a` must hold **in every state** of the execution, with no exceptions.
+
+3. **Conjunction (`∧`):**
+   - Both subformulas must hold **simultaneously**.
+   - `G(a)` enforces `a` forever, while `a U b` requires `a` only until `b`—but since `a` must hold globally, the "until" phase never relaxes the constraint on `a`.
+   - *Implication:* `b` must eventually occur (from `a U b`), but even after `b`, `a` must persist (from `G(a)`).
+
+---
+**Refined natural language translation:**
+*"The system must satisfy two conditions at all times:
+1. **`a` must always hold** (in every state), and
+2. **`b` must eventually become true** (while `a` continues to hold afterward).
+
+*Violation occurs if:*
+- `a` fails in *any* state (even after `b` occurs), **or**
+- `b` never occurs at all.
+
+*Key nuance:* The `a U b` clause does not relax `a` after `b`—the global `G(a)` overrides this, making `a` a permanent requirement regardless of `b`."*

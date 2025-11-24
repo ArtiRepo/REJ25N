@@ -1,0 +1,27 @@
+**Original LTL formula:**
+`F d | G !n`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. `!n` – "n is false in the current state."
+2. `G !n` – "n must be false in *every* state of the execution (now and forever)."
+3. `F d` – "There must exist at least one future state where d is true."
+4. `F d | G !n` – *Either* `G !n` holds (n is always false), *or* `F d` holds (d eventually becomes true, regardless of n).
+
+---
+**Refined natural language phrasing:**
+*"Either of the following must be true:
+- **n never holds** in any state of the execution, *or*
+- **d eventually becomes true** at some future point (with no constraints on n)."*
+
+---
+**Key clarifications:**
+- **When constraints apply:**
+  - If `G !n` is chosen (left branch), n is *permanently* forbidden.
+  - If `F d` is chosen (right branch), the only requirement is that d appears *at least once*—n may behave arbitrarily.
+- **When constraints cease:**
+  - For `G !n`: The constraint is *ongoing* (never relaxes).
+  - For `F d`: The constraint is satisfied the *moment* d first occurs; earlier states impose no requirements on d or n.
+- **Violating sequences:**
+  - Fails if *both* `n` eventually holds *and* `d` never holds.
+  - Example violation: A trace where n is true at some point *and* d is always false.

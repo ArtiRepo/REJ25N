@@ -1,0 +1,24 @@
+**Original LTL formula:**
+`b | !X a`
+
+---
+**Rebuild meaning from the bottom up:**
+1. `X a` – "a must be true in the very next state."
+2. `!X a` – "a must **not** be true in the very next state."
+3. `b | !X a` – "Either:
+   - **b is true in the current state**, *or*
+   - **a is false in the next state** (with no constraint on b)."
+
+---
+**Refined natural language phrasing:**
+*"In the current state, either:*
+- *b must hold, or*
+- *a must **not** hold in the very next state.*
+
+*The formula imposes no further constraints beyond these two conditions. It is satisfied immediately if either condition is met, and violated only if both fail (i.e., b is false now **and** a is true next)."*
+
+---
+**Key distinctions:**
+- **Constraint scope:** Only the current state (for `b`) and the next state (for `a`) are constrained.
+- **Violation case:** Requires *both* `!b` now **and** `a` next.
+- **Misunderstanding to avoid:** The formula does *not* require `b` to hold forever or `a` to remain false indefinitely—only the specified immediate conditions.

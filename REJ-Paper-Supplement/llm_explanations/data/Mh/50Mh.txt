@@ -1,0 +1,33 @@
+**Original LTL formula:**
+`F (o U u)`
+
+---
+**Rebuilding meaning from the bottom up:**
+1. **`o U u`** (Until):
+   - *"`u` must eventually become true, and until that moment, `o` must hold in every intervening state."*
+   - **Constraints:**
+     - **Active:** `o` must be true in every state *until* `u` first occurs.
+     - **Termination:** Once `u` becomes true, `o` is no longer required.
+   - **Violation:** If `u` never occurs *or* `o` fails before `u` appears.
+
+2. **`F (o U u)`** (Eventually):
+   - *"There must exist at least one future state where `(o U u)` begins to hold."*
+   - **Constraints:**
+     - **Immediate:** No constraint now—only a guarantee that *somewhere ahead*, the `o U u` behavior will start.
+     - **Ongoing:** Once `(o U u)` starts (i.e., `o` holds and `u` is pending), the Until constraints apply as above.
+   - **Violation:** If the system reaches a state where `u` can *never* occur in the future (e.g., `!u` holds globally after some point), *or* if `o` fails before `u` appears in the relevant suffix.
+
+---
+**Refined natural language phrasing:**
+*"At some future point, the system must enter a phase where:
+- `u` eventually becomes true, and
+- until `u` first occurs, `o` must remain true in every state.
+Before this phase begins, no constraints apply; after it ends (when `u` is reached), no further constraints remain."*
+
+---
+**Key distinctions:**
+- **Not immediate:** The formula does *not* require `o` or `u` to hold now—only that the `o U u` pattern will *eventually* start.
+- **Local scope:** The `o` constraint is *temporary*, bound only to the interval where `u` is pending.
+- **Violation cases:**
+  - `u` never happens (e.g., `G !u`).
+  - `o` fails before `u` appears *in the suffix where `o U u` is active*.

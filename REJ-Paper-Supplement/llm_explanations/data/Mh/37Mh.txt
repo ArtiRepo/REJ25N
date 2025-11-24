@@ -1,0 +1,59 @@
+**Original LTL formula:**
+`G (!i) | F (f U i)`
+
+---
+
+**Rebuilding meaning from the bottom up:**
+1. **`!i`**
+   *"i is false in the current state."*
+
+2. **`G (!i)`**
+   *"i must remain false in every state of the execution (globally)."*
+   - **Constraint:** Permanently forbids `i` from ever becoming true.
+   - **Violation:** Any state where `i` holds invalidates the formula.
+
+3. **`f U i`**
+   *"i must eventually become true, and until then, f must hold in every intermediate state."*
+   - **Constraint:**
+     - `f` must stay true *until* `i` first occurs.
+     - Once `i` becomes true, `f` is no longer required.
+   - **Violation:**
+     - If `i` never occurs, or
+     - `f` fails before `i` first occurs.
+
+4. **`F (f U i)`**
+   *"There must exist at least one future state where `(f U i)` begins to hold."*
+   - **Constraint:**
+     - The system may freely evolve until `(f U i)` starts.
+     - Once `(f U i)` is triggered, the above constraints apply.
+   - **Violation:** If `(f U i)` never starts (i.e., no future state satisfies `f` leading to `i`).
+
+5. **`G (!i) | F (f U i)`** (disjunction)
+   *"Either:
+   - **Option 1:** `i` never occurs in the entire execution (**G (!i)**), *or*
+   - **Option 2:** At some future point, the system enters a phase where `f` holds until `i` eventually occurs (**F (f U i)**)."*
+   - **Constraint:**
+     - If `i` never appears, no further constraints apply beyond `!i`.
+     - If `i` *does* appear, the system must eventually satisfy `f U i` (i.e., `f` must lead to `i`).
+   - **Violation:**
+     - `i` appears *without* ever satisfying `F (f U i)` (e.g., `i` occurs abruptly after `!f`).
+     - Neither `G (!i)` nor `F (f U i)` holds (e.g., `i` occurs once but `f` was never true before it).
+
+---
+**Refined natural language phrasing:**
+*"The system must satisfy one of two behaviors:
+1. **Permanent absence:** The property `i` never holds in any state, *or*
+2. **Conditional preparation:** If `i` ever occurs, there must be a prior state where `f` starts holding continuously until `i` finally becomes true.
+
+In other words, `i` is either *always avoided* or *properly anticipated* by `f`."*
+
+---
+**Key distinctions:**
+- **Immediate vs. ongoing:**
+  - `G (!i)` is checked globally from the start.
+  - `F (f U i)` imposes no constraints until `(f U i)` is triggered.
+- **Constraints cease:**
+  - For `f U i`, `f` is only required *until* `i` first occurs.
+- **Misunderstanding risk:**
+  - The formula does *not* require `f` to hold *forever*—only until `i` appears.
+  - `i` may occur *without* `f` if `G (!i)` is the chosen path (i.e., `i` never occurs).

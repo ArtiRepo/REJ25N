@@ -1,0 +1,19 @@
+**Original LTL formula:**
+`XXXa`
+
+---
+**Rebuild meaning from the bottom up:**
+1. Start with `a`: *"a must be true in the current state."*
+2. Apply the first `X`: *"a must be true in the **next** state (relative to the current evaluation point)."*
+3. Apply the second `X`: *"a must be true in the **state after the next** (i.e., two steps ahead)."*
+4. Apply the third `X`: *"a must be true in the **third future state** (three steps ahead)."*
+
+---
+**Refined natural language:**
+*"In the state that occurs **three steps from now**, `a` must hold. The formula imposes **no constraints** on `a` in the current state or the two intervening states—only the third future state is checked."*
+
+---
+**Key clarifications:**
+- **Satisfied if:** The third future state (counting from now) makes `a` true, regardless of `a`’s value in earlier states.
+- **Violated if:** The third future state makes `a` false.
+- **Misunderstanding to avoid:** The formula does *not* require `a` to hold continuously or in intermediate steps—only at the exact third future state. If the trace ends before three steps, the formula is **false** (no third state exists to satisfy it).
