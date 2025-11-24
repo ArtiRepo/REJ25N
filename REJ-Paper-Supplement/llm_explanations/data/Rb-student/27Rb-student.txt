@@ -1,0 +1,67 @@
+### Translation Reasoning for LTL Formula: **X (t | w)**
+
+#### Step 1: Original Formula  
+`X (t | w)`  
+
+---
+
+#### Step 2: Parsing Tree Breakdown  
+The formula can be parsed into a tree as follows:  
+```
+     X
+      \
+       OR
+      /   \
+     t     w
+```  
+- **Leaf nodes**: Atomic propositions `t` and `w`.  
+- **Operator 1 (|)**: **Logical OR** combines `t` and `w`.  
+- **Operator 2 (X)**: **Next operator** applies to `(t | w)`.  
+
+---
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Atomic propositions**:  
+   - `t` requires: "Propositon `t` is true in a state."  
+   - `w` requires: "Proposition `w` is true in a state."  
+
+2. **OR operator (|)**:  
+   - `t | w` means: **"At least one of `t` or `w` is true in the same state."**  
+   *(Satisfied if either `t`, `w`, or both hold in that state.)*  
+
+3. **X operator (Next)**:  
+   - `X (t | w)` means: **"The condition `(t | w)` must hold in the immediate next state."**  
+   *(Constraints apply strictfly to the state following the current evaluation point.)*  
+
+---
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Basic translation**:  
+  *"In the very next state, either `t` is true, or `w` is true, or both."*  
+
+- **Refined for clarity and constraints**:  
+  - **Requirement**:  
+    *"The system must ensure that, immediately after the current state (e.g., the starting state), at least one of the following is true:  
+    - Proposition `t` holds, or  
+    - Proposition `w` holds."*  
+  - **When satisfied**:  
+    The formula is satisfied **only in a trace** where the state **directly following** the evaluation point (`s₀`) has `t = true`, `w = true`, or both.  
+  - **When violated**:  
+    Violated if the **immediately next state** has *neither* `t` *nor* `w` true.  
+  - **Scope of constraint**:  
+    Applies **exclusively** to the **next state** (`s₁`). No constraints on later states (e.g., `s₂`, `s₃`...) or the current state (`s₀`).  
+
+---
+
+#### Example  
+- **Satisfied trace**:  
+  `s₀: {t=false, w=false} → s₁: {t=true, w=false} → ...`  
+  *(At `s₁`, `t` holds → `X(t|w)` **true** at `s₀`.)*  
+- **Violated trace**:  
+  `s₀: {t=false, w=false} → s₁: {t=false, w=false} → ...`  
+  *(No `t` or `w` in `s₁` → `X(t|w)` **false** at `s₀`.)*  
+
+---
+
+**Final Natural Language Translation**:  
+*"The system is required to guarantee that in the state immediately following the current one, at least one of proposition `t` or proposition `w` holds. This constraint applies only to this direct successor state and does not restrict behavior beyond it."*

@@ -1,0 +1,51 @@
+### Translation of LTL Formula: `a U c`
+
+#### Step 1: Write down the original LTL formula  
+**Formula:** `a U c`  
+
+#### Step 2: Break the formula into a parsing tree  
+The formula `a U c` uses the **Until (U)** operator. The parsing tree is:  
+```
+     U
+    / \
+   a   c
+```  
+- **Leaf `a`**: Atomic proposition `a` (e.g., "the system is in warning mode").  
+- **Leaf `c`**: Atomic proposition `c` (e.g., "the system shuts down").  
+- **Root `U`**: The temporal operator **"Until"**, which imposes ordering and liveness constraints.  
+
+#### Step 3: Rebuild meaning from the bottom up  
+- **Atomic propositions**:  
+  - `a`: Represents a state where property `a` holds. Example: "Sensor is active."  
+  - `c`: Represents a state where property `c` holds. Example: "Error is detected."  
+- **Until (U) semantics**:  
+  - The formula `a U c` requires two conditions:  
+    1. **Liveness**: `c` **must eventually become true** at some future state.  
+    2. **Safety**: From the **current state until (but excluding) the state where `c` first holds**, `a` **must be true in every intermediate state**.  
+  - **Key points**:  
+    - If `c` is true **now**, the formula is immediately satisfied (no need for `a` to hold in the future).  
+    - If `c` is false now, `a` must hold **continuously** until a future state where `c` becomes true.  
+    - `a` is **not required** in the state where `c` holds (only in states *before* it).  
+
+#### Step 4: Refine natural language phrasing  
+**Translation**:  
+> "*`a` must hold continuously until `c` becomes true, and `c` must eventually occur.*"  
+
+**Expanded explanation** (for constraints and edge cases):  
+- **"`c` must eventually occur"**:  
+  The system **must** reach a future state where `c` holds. If `c` never becomes true (e.g., "the system never shuts down" when `c` is "shutdown occurs"), the formula is **violated**.  
+- **"`a` must hold continuously until `c`"**:  
+  - From the current state up to (but **not including**) the state where `c` first holds, `a` must be true **everywhere**.  
+  - If `a` is false *at any point* before `c` occurs (e.g., "sensor fails once"), the formula is **violated**.  
+  - Once `c` holds, `a` can become true/false arbitrarily afterward (no constraints beyond `c`).  
+- **Example timing**:  
+  - If `c` holds **now**: Formula is satisfied (even if `a` is false now).  
+  - If `c` holds at **future state `j`**: `a` must be true in **all states** from now until `j-1`.  
+
+#### Final Natural Language Phrasing  
+> "**System must ensure \(c\) eventually happens, and \(a\) is true at every step until \(c\) occurs.**"  
+
+This captures:  
+1. **Liveness constraint**: `c` must occur in the future.  
+2. **Safety constraint**: `a` is invariant between the current state and the state before `c`.  
+3. **Edge cases**: Handles whether `c` is true now or later.

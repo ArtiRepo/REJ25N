@@ -1,0 +1,63 @@
+### Translation of LTL Formula: F (o | u)
+
+#### Step 1: Original Formula  
+**F (o | u)**
+
+---
+
+#### Step 2: Parsing Tree Breakdown  
+```
+      F       (Temporal operator: "Eventually")
+       |
+       ∨
+    (o | u)   (Logical OR: disjunction)
+     /   \
+    o     u    (Atomic propositions: events/states)
+```
+
+- **Leaves**:  
+  - `o`: An atomic proposition (e.g., "the system enters state **o**").  
+  - `u`: An atomic proposition (e.g., "the system enters state **u**").  
+
+- **Intermediate Node**:  
+  - `o | u`: Logical disjunction (OR), meaning **either `o` is true, `u` is true, or both**.  
+
+- **Root**:  
+  - `F`: Temporal operator "**Eventually**" (at least once in the future).  
+
+---
+
+#### Step 3: Rebuilding Meaning (Bottom-Up)  
+1. **Base Interpretation of Atomic Propositions**:  
+   - `o` holds at a time point → State **o** is active.  
+   - `u` holds at a time point → State **u** is active.  
+
+2. **Logical OR (`o | u`)**:  
+   - At any given time, **at least one of `o` or `u` must be true** (inclusive OR; allows both).  
+
+3. **Temporal Operator (`F`)**:  
+   - The requirement `o | u` must hold **at least once** at some future time.  
+
+---
+
+#### Step 4: Refined Natural Language Translation  
+"The system must **eventually** reach a state where **either `o` is true, `u` is true, or both**."  
+
+#### Key Insights:  
+- **When is it satisfied?**  
+  If there exists **any future time point** where `o`, `u`, or both become true.  
+  - *Example*: If `o` occurs at time `t=5`, the formula holds regardless of what happens before/after.  
+
+- **When is it violated?**  
+  If `o` and `u` **never occur** in the entire future timeline.  
+  - *Example*: A system where `o` and `u` remain false forever violates the formula.  
+
+- **Constraints Over Time**:  
+  - The formula does **not require** `o`/`u` to be true immediately or repeatedly.  
+  - It only ensures that the system **cannot indefinitely postpone** activating `o` or `u`.  
+
+#### Contextual Example:  
+- If `o` = "order shipped" and `u` = "order refunded":  
+  **Translation**: "Eventually, the order is either shipped or refunded (or both)."  
+  - **Satisfied**: If the order ships tomorrow (even if never refunded).  
+  - **Violated**: If the order is neither shipped nor refunded indefinitely.

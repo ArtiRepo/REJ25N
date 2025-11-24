@@ -1,0 +1,71 @@
+### Translation of LTL Formula: **G(a → b)**
+
+#### Step 1: Original LTL Formula  
+`G(a → b)`
+
+#### Step 2: Parsing Tree Breakdown  
+- **Root operator**: `G` (Globally)  
+  - **Operand**: `a → b` (Implication)  
+    - **Left child**: `a` (Atomic proposition)  
+    - **Right child**: `b` (Atomic proposition)  
+
+**Visual Tree**:  
+```
+     G  
+     |  
+     →  
+    / \  
+   a   b  
+```
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Atomic propositions**:  
+   - `a`: Represents a system condition (e.g., "a sensor is active").  
+   - `b`: Represents another system condition (e.g., "an alarm sounds").  
+
+2. **Implication (`a → b`)**:  
+   - **Meaning**: *In a single state*, if `a` is true, then `b` must be true in the **same state**.  
+   - **When satisfied**:  
+     - If `a` is false, the formula holds (vacuously true).  
+     - If `a` is true, `b` **must** be true.  
+   - **Constraint violation**: If `a` is true but `b` is false in any state.  
+
+3. **Global operator (`G`)** applied to `(a → b)`:  
+   - **Meaning**: `a → b` must hold **in every state**, across the entire system execution (past, present, future).  
+   - **When satisfied**:  
+     - **No state exists** where `a` is true but `b` is false.  
+     - States where `a` is false, or both `a` and `b` are true, are allowed at any time.  
+   - **Constraint violation**: If **any state** violates `a → b` (i.e., `a` true and `b` false at time `t`).  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Initial literal translation**:  
+  *"Globally, whenever a occurs, b must occur."*  
+  ❌ **Issue**: Ambiguous. "Occur" might imply events over time, but LTL evaluates *per state* (a and b are simultaneously checked).  
+
+- **Improved translation**:  
+  *"At every point in time, if condition a is true, condition b must be true at the same time."*  
+
+- **More concisely**:  
+  ***"Always, when a holds, b must hold."***  
+
+- **Key clarifications**:  
+  - **Temporal scope**: Constraint applies **indefinitely** (past, present, future states).  
+  - **Vacuity**: If `a` never holds, the formula is trivially satisfied.  
+  - **No causality**: Specifies a state-based invariant, not a reaction (e.g., "b responds to a" is not implied).  
+  - **Consequence**: Violated if **any state** has `a` true and `b` false.  
+
+#### Final Translation  
+> **"For the entire execution of the system, at every moment where a is true, b must also be true."**  
+
+### Why This Phrasing?  
+- **"For the entire execution"**: Embodies `G` (globally).  
+- **"At every moment"**: Emphasizes state-by-state evaluation.  
+- **"a is true, b must also be true"**: Clarifies simultaneity (same state).  
+
+**Example Use Case**:  
+If `a = "door is open"` and `b = "alarm is on"`:  
+> *"The system must ensure that the alarm is on at every instant where the door is open."*  
+
+This excludes scenarios like:  
+- ❌ Door open (time `t`) + Alarm off (time `t`) → **Violation**.  
+- ✔️ Door closed but alarm on → **Permitted**.

@@ -1,0 +1,70 @@
+### Formal LTL Formula:
+G(a → X¬b)
+
+### Step-by-Step Reasoning:
+
+1. **Parsing Tree Breakdown**:
+   - **Top-level operator**: `G` (Globally)  
+     Applies to the entire subformula `(a → X¬b)`.
+   - **Subformula**: `→` (Implication)  
+     Left side: Atomic proposition `a`.  
+     Right side: `X¬b` (Next-Not-b).
+   - **Right-side subformula**: `X` (Next)  
+     Applies to `¬b`.
+   - **Innermost formula**: `¬b` (Negation)  
+     Negates the atomic proposition `b`.
+
+```
+    G
+     |
+     →
+    / \
+   a   X
+        \
+         ¬
+          \
+           b
+```
+
+2. **Rebuilding Meaning from Bottom-Up**:
+   - **Atomic propositions**:  
+     - `b`: "Property `b` is true in the current state."  
+     - `¬b`: "Property `b` is **false** in the current state."  
+   - **Next operator (`X`)**:  
+     - `X¬b`: "At the **next state**, `b` is false."  
+   - **Implication (`→`)**:  
+     - `a → X¬b`: "If `a` is **true now**, then at the next state `b` must be false."  
+   - **Globally (`G`)**:  
+     - `G(a → X¬b)`: "In **every state**, if `a` is true now, then at the next state `b` must be false."  
+
+3. **Key Constraints & Edge Cases**:
+   - **When `a` is true**:  
+     The formula **requires** that `b` is false in the **immediately following state**.  
+     Example: If `a` holds at time `t`, then `b` *cannot* hold at `t+1`.  
+   - **When `a` is false**:  
+     The implication `(false → ...)` is **automatically true** (no constraints). `b` can be true or false at `t+1`.  
+   - **Temporal scope**:  
+     This rule applies **at every time step indefinitely**. There are no restrictions on states beyond "next" (e.g., `b` can be true at `t+2`).  
+
+4. **Refined Natural Language Translation**:  
+> "**At all times, if `a` is true in the current state, then `b` must be false in the very next state.**"  
+
+### Explanation:
+- **Why this phrasing?**  
+  It explicitly captures:  
+  - The **universality** of `G` ("at all times").  
+  - The **conditional trigger** ("if `a` is true").  
+  - The **temporal consequence** ("must be false in the very next state").  
+- **What behavior does it enforce?**  
+  A state where `a` holds *must* be immediately followed by a state where `b` is false. Violations occur if `a` holds at time `t` and `b` holds at `t+1` (e.g., traces: `[a=true, b=true]` at consecutive steps).  
+- **No false constraints**:  
+  The requirement is inactive when `a` is false (e.g., no restrictions on `b` in `t+1` if `a` is false at `t`). This avoids over-restricting the system.  
+
+### Example Trace:
+| Time | `a` | `b` | Valid?                                   |
+|------|-----|-----|------------------------------------------|
+| t    | true| false| ✅ (Next state must avoid `b=true`).    |
+| t+1  | false| true| ✅ (`a=false` at `t+1` → no constraint at `t+2`). |
+| t+2  | true| true| ❌ (Violation: `a=true` at `t+2` requires `b=false` at `t+3`, but `b=true` at `t+3`). |
+
+This formula ensures `a` **never** immediately precedes `b` in the next state, but places no other restrictions on `a` or `b`.

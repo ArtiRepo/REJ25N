@@ -1,0 +1,52 @@
+### Translation of LTL Formula: **X !(t | w)**
+
+#### 1. **Original LTL Formula**:  
+`X !(t | w)`  
+*(Note: `|` is the disjunction operator, equivalent to ∨)*  
+
+#### 2. **Parsing Tree (Syntax Breakdown)**:
+- **Leaves (Atomic Propositions)**:  
+  - `t`: Represents a system state/event (e.g., "the door is open").  
+  - `w`: Represents another system state/event (e.g., "the window is broken").  
+- **Level 1 (Disjunction)**:  
+  - `(t | w)`: `t` **OR** `w` holds now.  
+- **Level 2 (Negation)**:  
+  - `!(t | w)`: **Neither `t` NOR `w` holds now** (equivalent to `¬t ∧ ¬w` by De Morgan’s law).  
+- **Root (Temporal Operator)**:  
+  - `X !(t | w)`: The negated disjunction **must hold in the next state**.  
+
+#### 3. **Rebuilding Meaning (Semantics)**:  
+- **Step 1 (Base)**:  
+  - `t`: A proposition (e.g., "condition `t` is true").  
+  - `w`: A proposition (e.g., "condition `w` is true").  
+- **Step 2 (Disjunction)**:  
+  - `(t | w)`: At least one of `t` or `w` is true **now**.  
+- **Step 3 (Negation)**:  
+  - `!(t | w)`: **Both `t` and `w` are false now** (no other possibilities).  
+- **Step 4 (Next Operator)**:  
+  - `X(...)`: The formula inside `(...)` **must be true in the immediate next state** of the system.  
+- **Combined**:  
+  `X !(t | w)` requires that **in the next state**, **neither `t` nor `w`** holds.  
+
+#### 4. **Natural Language Phrasing (Clarity)**:  
+> **"In the very next state, both `t` and `w` must be false."**  
+
+### Key Explanations:
+- **When is it satisfied?**  
+  The formula is satisfied if, immediately after the current moment:  
+  - `t` does *not* hold, **and**  
+  - `w` does *not* hold.  
+
+- **Constraints over time**:  
+  - **No future flexibility**: Only the **immediate next state** is constrained (unlike operators like `G`/`F` that constrain all/some future states).  
+  - **Not about the present**: The current state can have any value for `t`/`w` (formula restricts *only* the next state).  
+  - **Atomic scope**: Constraints apply **solely** to `t` and `w`. Other propositions (e.g., `p`, `q`) are irrelevant.  
+
+### Example:  
+- If `t = "door is open"` and `w = "window is broken"`, then:  
+  `X !(t | w)` = **"In the next moment, the door must be closed AND the window must not be broken."**  
+
+---
+### Final Translation:  
+**"Next, neither `t` nor `w` holds."**  
+*(Or: "In the immediate next state, both `t` and `w` are false.")*

@@ -1,0 +1,55 @@
+### Translation of LTL Formula: **X a => X c**
+
+#### Original LTL Formula:
+`X a => X c`
+
+#### Parsing Tree Breakdown:
+1. **Root Operator**: Implication (`=>`).  
+   - *Interpretation*: The formula is an implication stating that **if** the left-hand side holds, **then** the right-hand side must hold.  
+2. **Left Subformula**: `X a`.  
+   - `X` is the **"Next" operator**, requiring that a property holds in the **immediately following state**.  
+   - `a` is an atomic proposition (a Boolean condition).  
+3. **Right Subformula**: `X c`.  
+   - `X` again denotes **"Next"**, and `c` is another atomic proposition.  
+
+**Parsing Tree Structure**:  
+```
+=>
+ ├── X a
+ └── X c
+```
+
+#### Step-by-Step Rebuilding of Meaning (Bottom-Up):
+1. **Atomic Propositions (`a` and `c`)**  
+   - `a`: A Boolean condition (e.g., "the system is in maintenance mode").  
+   - `c`: Another Boolean condition (e.g., "a warning light is on").  
+
+2. **Next Operator (`X`)**  
+   - `X a`: This holds in the **current state** if `a` is true in the **very next state**.  
+     - *Example*: *"`a` will be true in the immediate next timestep."*  
+   - `X c`: This holds in the **current state** if `c` is true in the **very next state**.  
+     - *Example*: *"`c` will be true in the immediate next timestep."*  
+
+3. **Implication (`=>`)**  
+   - `X a => X c`: **If** `X a` is true in the current state (i.e., `a` is true in the next state), **then** `X c` must also be true in the current state (i.e., `c` must be true in the next state).  
+   - **Key Insight**: The formula enforces that **whenever `a` holds in the next state, `c` must also hold in that same next state**. If `a` is false in the next state, the implication places no constraint on `c` (it may be true or false).  
+
+#### Refined Natural Language Translation:
+- **Direct Translation**:  
+  *"If in the next state `a` is true, then in the next state `c` must be true."*  
+
+- **More Fluent & Formal**:  
+  **"Whenever `a` becomes/is true in the immediate next state, `c` must also be true in that same next state."**  
+
+- **Constraints Over Time**:  
+  The formula must hold **at every moment** in the system's execution. For any current state:  
+  - If the **subsequent state** satisfies `a`, it **must also satisfy** `c`.  
+  - If the subsequent state does **not** satisfy `a`, there is **no requirement** for `c` (it can be `true` or `false`).  
+
+#### Key Notes:
+- **Scope**: The constraint is **localized to consecutive states**. It does not apply beyond the immediate next state (no long-term guarantees).  
+- **Tight Coupling**: `a` and `c` are constrained **in the exact same future state** (not separated in time).  
+- **LTL Semantics**: Over an infinite path, this formula must hold **for every state** (global constraint).  
+
+**Final Natural Language Interpretation**:  
+**"At every moment in the system's execution: if `a` is true in the immediate next state, then `c` must be true in that same next state."**

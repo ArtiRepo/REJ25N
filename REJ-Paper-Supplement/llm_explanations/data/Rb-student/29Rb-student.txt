@@ -1,0 +1,61 @@
+### Reasoning and Translation of LTL Formula: `F x | F y`
+
+#### 1. **Original LTL Formula**:  
+   `F x | F y`  
+   *(Note: In standard notation, `|` denotes logical OR (`∨`). Thus, the formula is `F x ∨ F y`)*  
+
+#### 2. **Parsing Tree Breakdown**:  
+The formula decomposes as follows:  
+```
+        ∨       (Disjunction: OR)
+       / \
+      /   \
+     F     F    (F: "Eventually" operators)
+     |     |
+     x     y    (Atomic propositions)
+```  
+- **Leaf level**: Atomic propositions `x` and `y` represent system states (e.g., "a network request is sent" or "a payment is processed").  
+- **F operators**: `F x` ("Eventually x") and `F y` ("Eventually y") constrain the *future* behavior of the system.  
+- **Top-level ∨**: Combines `F x` and `F y` with a logical OR.  
+
+#### 3. **Rebuilding Meaning (Bottom-Up)**:
+- **Step 1 (Leaf level)**:  
+  - `x`: Some proposition holds (e.g., "x is true").  
+  - `y`: Another proposition holds (e.g., "y is true").  
+- **Step 2 (F operators)**:  
+  - `F x`: **At least once in the future, `x` becomes true.**  
+    *(e.g., "The system must eventually enter a state where x occurs.")*  
+  - `F y`: **At least once in the future, `y` becomes true.**  
+    *(e.g., "The system must eventually enter a state where y occurs.")*  
+- **Step 3 (∨ operator)**:  
+  - `F x ∨ F y`: The system must satisfy **at least one** of the two `F` subformulas.  
+    - *Satisfied if*:  
+      - `x` becomes true at some future time, **or**  
+      - `y` becomes true at some future time, **or**  
+      - **Both `x` and `y` become true (at the same or different times)**.  
+    - *Violated only if*: **Neither `x` nor `y` ever becomes true.**  
+
+#### 4. **Refined Natural Language Phrasing**:  
+> **"Eventually, either `x` happens or `y` happens (or both)."**  
+
+##### Key Clarifications:
+- **When is it satisfied?**  
+  The formula holds if the system eventually reaches a state where `x` is true, a state where `y` is true, or both. For example:  
+  - `x` occurs at time `t=5`, but `y` never occurs → **Satisfied**.  
+  - `y` occurs at `t=10`, but `x` never occurs → **Satisfied**.  
+  - `x` occurs at `t=3` and `y` at `t=7` → **Satisfied**.  
+
+- **When is it constrained?**  
+  The system **cannot avoid both `x` and `y` forever**. If `x` never occurs, `y` must eventually occur (and vice-versa). This forbids infinite executions where neither `x` nor `y` ever holds.  
+
+- **Why not "at the same time"?**  
+  The ∨ operator does **not** require `x` and `y` to occur simultaneously. They can happen at different times.  
+
+##### Example Application:  
+Suppose `x` = "User submits a report" and `y` = "System generates an alert". The formula translates to:  
+> *"The system must eventually see either a user-submitted report or a generated alert (or both)."*  
+- **Satisfied**: User submits a report (even if no alert ever happens).  
+- **Violated**: User never submits a report, and the system never generates an alert.  
+
+#### Final Translation:  
+**"The system must eventually ensure that either `x` occurs or `y` occurs (or both occur) at some point in the future."**
