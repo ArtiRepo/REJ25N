@@ -1,0 +1,57 @@
+### Translation of LTL Formula: **G(a ∨ b)**
+
+#### Step 1: Original LTL Formula  
+`G(a or b)`  
+*(Globally, `a` or `b`)*  
+
+#### Step 2: Parsing Tree Breakdown  
+The formula has a hierarchical structure:  
+```
+      G     (Global operator)
+       |
+      ∨     (Disjunction: "or")
+      / \
+     a   b  (Atomic propositions)
+```  
+- **Leaves**:  
+  - `a`: Atomic proposition (e.g., "Door is closed").  
+  - `b`: Atomic proposition (e.g., "Alarm is active").  
+- **First Composition**:  
+  `(a ∨ b)` means "**`a` holds *or* `b` holds**" at a given time.  
+- **Outmost Operator**:  
+  `G` applies to `(a ∨ b)`, meaning "**globally**"—i.e., over *all future states*.  
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Atomic Propositions**:  
+   - `a` is true if condition `a` holds at a specific time.  
+   - `b` is true if condition `b` holds at that same time.  
+2. **Disjunction (a ∨ b)**:  
+   - Satisfied if **at least one** of `a` or `b` holds at a given state.  
+   - *Constraint*: Never both false simultaneously.  
+3. **Global Operator (G)**:  
+   - Applies `(a ∨ b)` to **every state** from now to infinity.  
+   - *Constraint*: At **no future point** can `a` *and* `b` *both* be false.  
+
+#### Step 4: Refined Natural Language Translation  
+> **"Always, at least one of `a` or `b` is true."**  
+
+##### Key Explanations:  
+- **When satisfied?**:  
+  The system must **continuously satisfy** `(a ∨ b)` across all future states.  
+  - *Valid traces*:  
+    - `a` always true; `b` irrelevant.  
+    - `b` always true; `a` irrelevant.  
+    - Alternating between `a` and `b` (but **never both false**).  
+- **Constraints imposed**:  
+  - The system is **forbidden** from entering any state where **both `a` and `b` are false**.  
+  - Even if `a`/`b` change over time, one must always be active.  
+- **Practical Example** (for intuition):  
+  > *"Eternally, the door must be closed OR the alarm must be active.  
+  > The system is faulty if both ever become false simultaneously."*  
+
+##### Common Pitfalls:  
+- ❌ `G(a) ∨ G(b)` (Always-`a` OR always-`b`): ≠ `G(a ∨ b)`.  
+- ✅ **Weaker requirement**: Only one of `a`/`b` needs to hold at any time—not forever.  
+
+**Final Translation**:  
+> **"At every future moment, proposition `a` is true or proposition `b` is true (or both)."**

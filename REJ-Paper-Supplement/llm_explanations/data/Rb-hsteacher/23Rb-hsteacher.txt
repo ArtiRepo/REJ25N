@@ -1,0 +1,55 @@
+### Translation of the LTL Formula: **`t ⇒ w`**
+
+#### Step 1: Original Formula  
+`t ⇒ w`  
+
+#### Step 2: Parsing Tree Breakdown  
+The formula `t ⇒ w` is an **implication** (⇒) between two atomic propositions:  
+- **Left child (antecedent)**: `t`  
+- **Right child (consequent)**: `w`  
+
+Parsing Tree:  
+```  
+   ⇒  
+  / \  
+ t   w  
+```  
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Atomic Propositions**:  
+   - `t`: Represents a state/condition at a specific time (e.g., "a trigger occurs").  
+   - `w`: Represents another state/condition at a specific time (e.g., "a warning is issued").  
+   *Both are evaluated at the same moment in time.*  
+
+2. **Operator Implication (⇒)**:  
+   - Logical definition: `t ⇒ w` ≡ `¬t ∨ w` (i.e., `t` must **NOT** be true without `w` also being true).  
+   - Temporal meaning: At **every moment** in the system's timeline:  
+     - If `t` is `true`, then `w` **must** be `true`.  
+     - If `t` is `false`, `w` can be either `true` or `false` (no constraint).  
+
+#### Step 4: Natural Language Translation (Refined for Clarity)  
+> **"Whenever `t` is true, `w` must be true *at the same time*."**  
+
+#### Explanation of Constraints:  
+- **When the formula is satisfied**:  
+  - If `t` holds at time `k`, then `w` **must hold at time `k`**.  
+  - If `t` *never* holds, the formula is satisfied regardless of `w` (e.g., `t` could be permanently false).  
+  - `w` can be true even when `t` is false (e.g., warnings can occur without triggers).  
+
+- **When it constrains the system**:  
+  - The formula **only restricts behavior when `t` occurs**: `t` must **never** be true unless `w` is simultaneously true.  
+  - It expresses a **safety property**: It forbids a "bad" state where `t` holds and `w` does not.  
+
+- **Temporal Scope**:  
+  - The constraint applies **globally** (at every time step).  
+  - Example violation: At noon, `t` is true (trigger occurs) but `w` is false (no warning).  
+
+#### Real-World Example:  
+- Let `t` = "System temperature exceeds 100°C".  
+- Let `w` = "High-temperature warning is active".  
+  > **Translation**: "Whenever the temperature exceeds 100°C, a warning must be active *at that exact moment*."  
+  - **Satisfied**: (1) At 10 am: `t=false`, `w=false`. (2) At 11 am: `t=true`, `w=true`.  
+  - **Violated**: At noon: `t=true`, `w=false` → *warning inactive during overheating*.  
+
+#### Key Takeaway:  
+This formula enforces **synchronicity** — the consequent (`w`) must be true **in the exact state** where the antecedent (`t`) is true.

@@ -1,0 +1,78 @@
+### Translation of LTL Formula: **F (o | u)**
+
+#### Original Formula:
+**F (o | u)**
+
+---
+
+#### Step 1: Parsing Tree Breakdown
+The formula can be decomposed into a parsing tree from highest to lowest precedence:
+1. **Top-level operator**: `F` (*Finally* or *Eventually*).  
+   - **Argument**: `(o | u)`.  
+2. **Inner operator**: `|` (*Logical OR*).  
+   - **Left operand**: Atomic proposition `o`.  
+   - **Right operand**: Atomic proposition `u`.  
+
+**Tree Visualization**:
+```
+     F
+     |
+     |
+    ( | )
+    /   \
+   o     u
+```
+
+---
+
+#### Step 2: Rebuilding Meaning Bottom-Up
+Start from the atomic propositions and move upward:
+
+1. **Atomic propositions**:  
+   - `o`: Represents a specific system state/event (e.g., "the system is operational").  
+   - `u`: Represents another state/event (e.g., "the system is undergoing maintenance").  
+
+2. **Logical OR (`|`)** application:  
+   - `(o | u)` means:  
+     > "At a given point in time, either `o` **is true**, or `u` **is true**, or **both are true**."  
+   - **Key insight**: This imposes **no timing constraints** yet—it only describes a condition required at a *single* time point.  
+
+3. **Finally (`F`)** application:  
+   - `F (o | u)` applies the `F` operator to `(o | u)`.  
+     > "At some point **in the future** (including now), either `o` is true, `u` is true, or both."  
+   - **Key insight**: This elevates `(o | u)` to a **temporal constraint**, requiring it to hold *eventually* in the system's execution.  
+
+---
+
+#### Step 3: Full Natural Language Translation & Constraints
+**Refined Phrasing**:  
+> "Eventually, **either `o` will occur, or `u` will occur, or both will occur at some future time."  
+
+**Key Explanations**:  
+- **When is it satisfied?**  
+  The formula holds if **at least one** of these scenarios occurs:  
+  - `o` becomes true at any future time (even if `u` never occurs).  
+  - `u` becomes true at any future time (even if `o` never occurs).  
+  - Both `o` and `u` become true (simultaneously or at different times).  
+
+- **Constraints on the system**:  
+  - The system **cannot avoid both `o` and `u` forever**. For example:  
+    - If the system indefinitely delays `o` *and* suppresses `u`, the formula is **violated**.  
+  - Order/Repetition:  
+    - The timing of `o` or `u` is flexible—they can happen **once**, **multiple times**, or **simultaneously**.  
+    - The formula **does not require** `o` or `u` to persist after they occur.  
+
+- **Why "future" includes the present?**  
+  In LTL, `F φ` includes the *current state* as part of the future. If `o` or `u` is true **now**, the formula is immediately satisfied.  
+
+---
+
+#### Final Natural Language Statement
+**Formula**: `F (o | u)`  
+**Translation**:  
+> "Eventually, **either `o` holds or `u` holds (or both) at some point in the future."  
+
+**Teaching Context**:  
+- Use **real-world examples** (e.g., `o` = "appointment booked", `u` = "user cancels request").  
+- Emphasize that `|` is a **logical OR** (not sequential), and `F` introduces **temporal flexibility**.  
+- Contrast with stricter operators like `G` (*Globally*) to highlight constraints over time.

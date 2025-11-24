@@ -1,0 +1,59 @@
+To translate the LTL formula **G (n => s)** into natural language, follow this structured reasoning:
+
+### 1. **Original LTL Formula**  
+`G (n => s)`  
+
+### 2. **Parsing Tree Breakdown**  
+- **Operators**:  
+  - `G` (*Globally*): Unary temporal operator.  
+  - `=>` (*Implies*): Binary logical operator.  
+- **Atomic Propositions**:  
+  - `n`: A state condition (e.g., "alarm is triggered").  
+  - `s`: Another state condition (e.g., "system logs activity").  
+
+**Tree Structure**:  
+```  
+     G  
+      \  
+       =>  
+      /   \  
+     n     s  
+```  
+
+### 3. **Rebuild Meaning Bottom-Up**  
+- **Step 1: Implication (`n => s`)**  
+  - Meaning: "*If `n` is true, then `s` must be true.*"  
+  - Formal logic: At a given time, if `n` holds, `s` must hold simultaneously.  
+  - Violation: `n` is true but `s` is false at the same moment.  
+
+- **Step 2: Globally (`G (n => s)`)**  
+  - Applies the implication constraint to **every point in time** during system execution.  
+  - Meaning: "*At all times, the rule 'if `n` then `s`' must hold.*"  
+  - Violation: Any occurrence of `n`-without-`s` at a single time point invalidates the entire formula.  
+
+### 4. **Refined Natural Language Translation**  
+> **"It is always the case that whenever `n` holds, `s` must also hold at the same time."**  
+
+#### **Key Explanations**:  
+- **When is the formula satisfied?**  
+  - All scenarios pass **except** moments where `n` is true and `s` is false.  
+  - Examples of valid states:  
+    - `n` false, `s` false/true → Implication holds.  
+    - `n` true and `s` true → Valid.  
+  - One counterexample (`n` true + `s` false) fails the entire run.  
+
+- **Constraint Over Time**:  
+  - The requirement is **continuously enforced**—every state in the system timeline must adhere to `n → s`.  
+  - "`n`" being false imposes **no obligation** on "`s`" (e.g., if `n` is false, `s` can be true *or* false without penalty).  
+
+### **Practical Example**  
+- Suppose:  
+  - `n`: "High temperature detected."  
+  - `s`: "Cooling system activates."  
+- Translation:  
+  > *"Whenever the system detects high temperature, the cooling system must activate immediately—and this rule must hold for all times."*  
+- **Violation**: A single instance of high temperature without cooling activation.  
+
+### **Why This Matters in Requirements Engineering**  
+- Encodes **safety properties** (e.g., "hazard `n` *always* requires response `s`").  
+- Time-agnostic: Ensures no gaps in enforcement across the system’s entire execution.

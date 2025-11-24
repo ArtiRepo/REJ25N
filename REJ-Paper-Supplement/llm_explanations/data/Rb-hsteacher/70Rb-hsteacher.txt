@@ -1,0 +1,51 @@
+**Step 1: Original LTL Formula**  
+The given formula is:  
+**`G(a → b)`**
+
+**Step 2: Parsing Tree Breakdown**  
+We decompose the formula hierarchically:  
+```
+      G         (Global operator: "Always in all future states")
+      |
+     →          (Implication: "If... then")
+    /   \
+   a     b      (Atomic propositions: basic system states/events)
+```  
+- **Leaf nodes (atomic propositions):**  
+  - `a`: Represents a specific system condition (e.g., "a user presses a button").  
+  - `b`: Represents another system condition (e.g., "a light turns on").  
+- **Implication (`→`):**  
+  A propositional logic operator meaning "if `a` is true, then `b` must be true" **in the same state/time instant**.  
+- **Global operator (`G`):**  
+  A temporal operator requiring that the inner formula holds **for every state** in the entire execution timeline.
+
+**Step 3: Rebuild Meaning from the Bottom Up**  
+1. **Atomic propositions layer:**  
+   - `a` and `b` are context-dependent states (e.g., `a` = "system overload," `b` = "alarm sounds").  
+2. **Implication layer (`a → b`):**  
+   - *Meaning:* "If `a` is true at a **specific time instant**, then `b` must *also* be true **at that exact same time**."  
+   - *Behavior:* If `a` is false at any moment, `b` can be true or false **without violating the formula**.  
+3. **Global operator layer (`G(...)`):**  
+   - *Meaning:* The condition `a → b` must hold **at every time instant** in the system's timeline.  
+   - *Temporal constraint:* For **all states** in the execution path, whenever `a` is true, `b` must be true *simultaneously*.  
+
+**Step 4: Refined Natural Language Phrasing**  
+> **"At every moment in time, if `a` holds, then `b` must also hold at that same moment."**
+
+**Key Explanations:**  
+- **When satisfied?**  
+  The formula holds if:  
+  - `a` is **never true** without `b` being true *in the identical state*.  
+  - `a` is **false** at any state (no constraint on `b`).  
+  *(Example: Satisfied if `b` is always true, even without `a`.)*  
+- **Constraints over time:**  
+  - Violated if **any state exists** where `a` is true but `b` is false.  
+  - Temporal scope: Applies to **all future states** (due to `G`).  
+- **Clarifications:**  
+  - `a` and `b` are evaluated **simultaneously**: No "later than" or "eventually" requirement.  
+  - "Moment" = discrete state in the execution path (e.g., a timestamp in system logs).  
+
+**Example:**  
+If `a = "door_open"`, `b = "alarm_on"`:  
+> "It is **always** true that if the door is open at any moment, the alarm **must be on** at the same moment."  
+> *Violation:* A state where the door is open but the alarm is off.

@@ -1,0 +1,59 @@
+### Translation of LTL Formula: `G (!f | !i)`
+
+**Original Formula:**  
+`G (!f | !i)`
+
+---
+
+#### Step 1: Parsing Tree (Syntax Breakdown)  
+The formula is parsed hierarchically from atomic propositions upward:  
+```
+       G        (Global/temporal operator)
+        |
+        ∨
+     (!f | !i)  (Disjunction: logical OR)
+      /     \
+     /       \
+   !f        !i    (Negations)
+    |         |
+    f         i    (Atomic propositions)
+```
+- **Leaves**: Atomic propositions `f` and `i` (e.g., `f` = "fire alarm active", `i` = "sprinkler inactive").  
+- **Negations**: `!f` means "f is false" (¬f), `!i` means "i is false" (¬i).  
+- **Disjunction**: `!f | !i` means "at least one of ¬f or ¬i is true".  
+- **Global operator**: `G` applies to the entire disjunction, enforcing it for all time steps.  
+
+---
+
+#### Step 2: Rebuilding Meaning (Bottom-Up Semantics)  
+1. **Atomic propositions**:  
+   - `f` and `i` describe system states (e.g., sensors, flags).  
+2. **Negations (!)**:  
+   - `!f`: "f is **not** true" (e.g., "fire alarm is **inactive**").  
+   - `!i`: "i is **not** true" (e.g., "sprinkler is **active**").  
+3. **Disjunction (|)**:  
+   - `!f | !i` → **"Either `f` is false, or `i` is false, or both."**  
+   - *Logical equivalence*: By De Morgan’s law, `¬f ∨ ¬i ≡ ¬(f ∧ i)`, meaning "it is **not** the case that both `f` and `i` are true simultaneously."  
+4. **Global operator (G)**:  
+   - `G(!f | !i)` → **"At every time step**, it holds that either `f` is false or `i` is false (or both)."  
+   - This forbids any state where `f` and `i` are **both true at the same time**, now and forever.  
+
+---
+
+#### Step 3: Natural Language Translation (Refined for Clarity)  
+- **Base translation**:  
+  > "Globally, `f` and `i` are never both true at the same time."  
+
+- **Refined interpretations**:  
+  - **Safety constraint**: "The system must **prevent simultaneous occurrence** of `f` and `i`." (e.g., "The fire alarm (`f`) and sprinkler inactivity (`i`) must **never coexist**.")  
+  - **Temporal guarantee**: "In **every state**, at least one of `f` or `i` **must be false**."  
+  - **Violation condition**: "If **both `f` and `i` ever become true together**, the formula is violated."  
+
+- **In formal terms**:  
+  > `G ¬(f ∧ i)` (equivalent to `G(!f | !i)`).  
+
+---
+
+**Final Natural Language Phrasing**  
+> "**Always, it is never the case that both `f` and `i` hold simultaneously.**"  
+> *Example*: "In a fire-alarm system, this means: *The alarm being active (`f`) and the sprinkler being inactive (`i`) must never occur at the same time.*"

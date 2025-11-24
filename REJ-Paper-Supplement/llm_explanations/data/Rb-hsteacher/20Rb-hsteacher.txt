@@ -1,0 +1,72 @@
+### Translation of the LTL Formula: `G t | F w`
+
+#### Step 1: Original LTL Formula  
+The formula is:  
+**`G t | F w`**  
+**Note:** The pipe `|` is logical OR (`∨`), so it represents:  
+**`G t ∨ F w`**
+
+---
+
+#### Step 2: Parsing Tree Breakdown  
+We deconstruct the formula hierarchically:  
+```
+       ∨ (OR)
+      /   \
+     /     \
+  G t      F w
+   |        |
+   t        w
+```  
+- **Leaves (atomic propositions)**:  
+  - `t`: Proposition `t` is true at a specific state.  
+  - `w`: Proposition `w` is true at a specific state.  
+- **Temporal operators**:  
+  - `G t`: Globally `t`. Requires `t` to hold **for every future state** from the current state onward.  
+  - `F w`: Finally `w`. Requires `w` to hold **in at least one future state** (now or later).  
+- **Logical operator**:  
+  - `∨`: OR-combination of `G t` and `F w`.
+
+---
+
+#### Step 3: Rebuilding Meaning (Bottom-Up)  
+1. **Meaning of `t` and `w`**:  
+   - `t` is true in a state.  
+   - `w` is true in a state.  
+
+2. **Meaning of `G t`**:  
+   - "`t` **always holds** from the current state onward."  
+   - *Constraint example*: If violated the moment `t` becomes false anywhere in the future.  
+
+3. **Meaning of `F w`**:  
+   - "`w` **eventually holds** at some future state (including now)."  
+   - *Constraint example*: If `w` never occurs, violated.  
+
+4. **Meaning of `G t ∨ F w`**:  
+   - At the current state, **either**:  
+     - `G t` holds (`t` is always true **forever**), **or**  
+     - `F w` holds (`w` is true **at least once** in the future).  
+   - *Logical equivalence*: `¬(G t) → F w` ("If `t` **does not** hold forever, then `w` **must** eventually hold").  
+
+---
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Clear translation**:  
+  > "**Either `t` holds continuously forever (from now on), or `w` becomes true at least once (now or later).**"  
+
+- **Alternative phrasing (using implication)**:  
+  > "**If `t` ever becomes false in the future, then `w` must eventually become true.**"  
+
+- **Constraints over time**:  
+  - **Option 1 (`G t` holds)**: `t` must never falsify. The system cannot drop `t`.  
+  - **Option 2 (`F w` holds)**: `w` must appear at least once at any future time, regardless of `t`.  
+  - **Implication constraint**: If `t` drops (even once), `w` must eventually occur to compensate.  
+
+---
+
+### Why This Captures the Formula  
+- **Case 1**: `t` holds forever → Formula **satisfied** (no need for `w`).  
+- **Case 2**: `w` occurs at least once → Formula **satisfied** (even if `t` drops).  
+- **Case 3**: `t` drops *and* `w` never occurs → Formula **violated**.  
+
+Thus, the formula ensures the system **cannot drop `t` without eventually enforcing `w`**, reflecting a liveness guarantee (`F w`) conditioned on a safety violation (`¬G t`).

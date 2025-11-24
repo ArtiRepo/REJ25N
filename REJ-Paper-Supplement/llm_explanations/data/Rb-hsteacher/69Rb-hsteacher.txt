@@ -1,0 +1,56 @@
+### Translation of LTL Formula: `FGa`
+
+#### Step 1: Original LTL Formula  
+`FGa` (interpreted as `F(Ga)`).  
+
+#### Step 2: Parsing Tree Breakdown  
+- **Root Operator**: `F` (Finally, meaning "eventually").  
+  - **Child Node**: `Ga` (where `G` is Globally, meaning "always").  
+    - **Grandchild Leaf**: `a` (atomic proposition).  
+
+Tree visualization:  
+```
+    F  
+    |  
+    G  
+    |  
+    a  
+```
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Base case (`a`):**  
+   - `a` represents a system state where proposition `a` is true.  
+   - *Meaning*: "`a` holds (is true)."  
+
+2. **Apply `G` (Globally) to `a`:**  
+   - `Ga` requires `a` to hold **at all future time points** from a given starting point onward.  
+   - *Meaning*: "`a` holds **everywhere in the future**."  
+
+3. **Apply `F` (Finally) to `Ga`:**  
+   - `F(Ga)` asserts that **at some future time**, the condition `Ga` becomes true.  
+   - *Meaning*: "**Eventually**, the system reaches a state where `a` holds **forever after**."  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Direct Translation**: "Eventually, `a` becomes always true."  
+- **Clarified Constraints**:  
+  - The system may **start with `a` being false or intermittently true/false**, but **there must exist a finite time `t`** such that:  
+    - For **all times `t' ≥ t`**, `a` is guaranteed to hold.  
+  - Before time `t`, `a` may:  
+    - **Fail temporarily** (e.g., `a` is false or toggles), or  
+    - **Satisfy `a` non-persistently** (e.g., `a` is transiently true but not forever).  
+
+#### Examples for Illustration  
+- **Satisfied Traces**:  
+  - `[a=false, a=false, a=true, a=true, a=true, ...]` (After `t=2`, `a` stays true).  
+  - `[a=true, a=true, a=true, ...]` (Immediately satisifes `FGa` at `t=0`).  
+- **Violated Traces**:  
+  - `[a=false, a=true, a=false, a=true, ...]` (Oscillates; no point where `a` holds forever).  
+  - `[a=false, a=false, a=false, ...]` (`a` never becomes true).  
+
+#### Final Translation  
+**"Eventually, `a` becomes and remains true forever."**  
+This captures:  
+- **Freedom before `t`**: No restrictions on `a` until the critical future time.  
+- **Strict constraint after `t`**: `a` must be permanently true once established.  
+
+This formula is critical for specifying "**latching properties**" (e.g., system reaching an irreversible state).

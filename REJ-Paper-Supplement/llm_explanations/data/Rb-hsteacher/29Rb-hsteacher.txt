@@ -1,0 +1,71 @@
+### Translation of LTL Formula: F x | F y
+
+**Original Formula:**  
+\(F  x \mid F  y\)  
+*(Note: In standard LTL syntax, \(\mid\) denotes logical OR, equivalent to \(\lor\).)*  
+
+---
+
+#### Step 1: Parsing Tree (Breakdown)
+The formula is parsed as follows:  
+```
+        OR (|)
+       /     \
+      /       \
+   F (x)     F (y)
+    |          |
+   x          y
+```  
+- **Top Operator:** Binary operator **OR** (\(\mid\)) combining two operands.  
+- **Left Operand:** Unary operator **F** (eventually) applied to atomic proposition \(x\).  
+- **Right Operand:** Unary operator **F** (eventually) applied to atomic proposition \(y\).  
+
+---
+
+#### Step 2: Rebuilding Meaning Bottom-Up
+1. **Atomic Propositions:**  
+   - \(x\): Represents a specific system condition (e.g., "the system enters a safe state").  
+   - \(y\): Represents another system condition (e.g., "a backup process completes").  
+
+2. **F Operator (Eventually):**  
+   - \(F  x\): **"At some future time, \(x\) must be true."**  
+     (There must exist at least one future state where \(x\) holds.)  
+   - \(F  y\): **"At some future time, \(y\) must be true."**  
+     (There must exist at least one future state where \(y\) holds.)  
+
+3. **OR Operator:**  
+   - \(F  x \mid F  y\): **"Either \(F  x\) is satisfied OR \(F  y\) is satisfied (or both)."**  
+     - The system can choose to satisfy either of the two requirements (or both).  
+     - As soon as **either** \(x\) or \(y\) becomes true at *any future point*, the entire formula is satisfied.  
+
+---
+
+#### Step 3: Refined Natural Language Phrasing
+> **"The system must eventually satisfy \(x\) or eventually satisfy \(y\) (or both)."**  
+
+##### Key Clarifications:
+- **Satisfaction Timing:**  
+  - There is **no deadline**; \(x\) or \(y\) may occur at any future time (even immediately).  
+  - Example: If \(x\) occurs in the first state, the formula is satisfied immediately, regardless of \(y\).  
+
+- **Constraints Over Time:**  
+  - Until either \(x\) or \(y\) happens, the system has **no restrictions** on behavior.  
+  - Once either occurs, the obligation is permanently fulfilled (even if the condition later becomes false).  
+  - **Violation Only If:** The system **never** satisfies \(x\) **and never** satisfies \(y\) in the entire timeline.  
+
+- **Non-Exclusivity:**  
+  - Both \(x\) and \(y\) **may occur**, but only **one is required** to satisfy the formula.  
+
+---
+
+### Final Translation  
+**Natural Language Equivalent:**  
+> **"Eventually, either \(x\) will happen or \(y\) will happen (or both)."**  
+
+**Practical Example (System Context):**  
+*"The system must eventually either shut down the reactor (\(x\)) or activate the cooling system (\(y\))."*  
+- This is satisfied if:  
+  - Reactor shuts down in 5 minutes (\(x\), no \(y\) needed).  
+  - Cooling activates in 3 minutes (\(y\), no \(x\) needed).  
+  - Both occur at different times.  
+- **Violated only if** neither action ever occurs.

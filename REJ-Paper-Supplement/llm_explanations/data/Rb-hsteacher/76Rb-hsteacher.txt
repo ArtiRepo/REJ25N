@@ -1,0 +1,53 @@
+### Translation of LTL Formula: **G(a → X¬b)**
+
+#### Step 1: Original LTL Formula  
+**G(a → X¬b)**
+
+#### Step 2: Parsing Tree Breakdown  
+The formula can be parsed into a tree as follows:  
+```
+      G           (Globally operator)
+      |
+      →          (Implication)
+     /   \
+    a     X      (a: proposition; X: Next operator)
+          |
+          ¬      (Negation)
+          |
+          b      (proposition)
+```  
+**Interpretation bottom-up**:  
+1. **`b`**: Atomic proposition (e.g., "the system is busy").  
+2. **`¬b`**: "b is false" (e.g., "the system is *not* busy").  
+3. **`X¬b`**: "In the **next** state, b is false".  
+4. **`a`**: Atomic proposition (e.g., "a request is received").  
+5. **`a → X¬b`**: "If `a` is true *now*, then `X¬b` must hold (i.e., in the **next state**, `b` is false)".  
+6. **`G(a → X¬b)`**: The entire implication **must hold in every state** of the system.  
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+- **Leaf Nodes (`a`, `b`)**: Base propositions (e.g., `a` = "request arrives", `b` = "system fails").  
+- **`¬b`**: Negation of `b` ("system does *not* fail").  
+- **`X¬b`**: Temporal constraint ("at the **immediately next state**, `b` is false").  
+- **`a → X¬b`**: Logical implication ("**whenever `a` is true now, `b` must be false next**").  
+- **`G(...)`**: Global constraint ("this rule applies **at every point in time**").  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **"Globally, whenever a request (a) occurs, the system must ensure it does not fail (b) in the very next step."**  
+
+**Key Insights**:  
+1. **When satisfied**:  
+   - If `a` is *false* at time `t`, the implication holds (no constraint on `b` at `t+1`).  
+   - If `a` is *true* at time `t`, `b` **must be false** at `t+1` (e.g., a request at `t=0` forbids failure at `t=1`).  
+2. **Temporal constraints**:  
+   - Affects **contiguous states**: A "request" at *any* state `t` locks `b` to `false` at `t+1`.  
+   - **No long-term constraints**: Only the immediate next state is constrained (e.g., `b` at `t+2` is unrestricted).  
+3. **Safety perspective**:  
+   - Prevents `a` followed by `b` in the *very next* state.  
+   - Does **not** restrict multiple `a` occurrences (e.g., `a` at `t=0` and `t=1` is allowed if `b` is false at `t=1` and `t=2`).  
+
+**Example**:  
+- **Valid sequence**: `a=false, b=true` → `a=true, b=false` → `a=false, b=true` (only checks `b` *after* active `a`).  
+- **Invalid sequence**: `a=true, b=true` → `...` (fails when `a=true` is followed by `b=true`).  
+
+**Final Translation**:  
+> "At every moment, if a request (a) is present, the system must avoid failure (b) in the immediate next moment."

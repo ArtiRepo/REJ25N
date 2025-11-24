@@ -1,0 +1,66 @@
+### Translation of LTL Formula: `a U c`
+
+**Original LTL Formula**:  
+`a U c`  
+
+---
+
+### Step 1: Parsing Tree Breakdown
+The formula `a U c` is parsed as follows:
+- **Operator**: `U` (the "Until" operator).  
+- **Operands**:
+  - Left operand: `a` (atomic proposition).  
+  - Right operand: `c` (atomic proposition).  
+
+**Parsing Tree**:  
+```
+    U
+   / \
+  a   c
+```
+
+---
+
+### Step 2: Rebuilding Meaning from the Bottom Up
+We interpret the formula hierarchically, starting from the atomic propositions and applying the operator's semantics:
+
+1. **Atomic Propositions (`a` and `c`)**:
+   - `a` means "the system satisfies property `a` in the current state."  
+   - `c` means "the system satisfies property `c` in the current state."  
+
+2. **Until Operator (`U`)**:
+   - `a U c` requires two conditions to hold:  
+     - **Eventuality of `c`**: `c` *must eventually become true* at some future state.  
+     - **Continuous `a` until `c`**: Starting from the current state, `a` must hold *in every state* **up to (but not including)** the state where `c` first becomes true.  
+   - **Special Case**: If `c` is true **now** (in the current state), there are no intermediate states, and `a` does not need to hold (i.e., the formula is satisfied immediately).
+
+---
+
+### Step 3: Refined Natural Language Translation
+Combining these semantics, `a U c` meanse:  
+> **"Property `a` must hold continuously until the system reaches a state where `c` holds, and `c` must eventually hold."**
+
+#### Key Clarifications:
+1. **`c` is inevitable**:  
+   - The system will *always* reach a state where `c` is true (either now or later). Failure to do so violates the formula.  
+2. **`a` applies *strictly* until `c`**:  
+   - If `c` holds **now**: `a` may be true or false — no constraints apply (since there are no "before" states).  
+   - If `c` holds **later**: `a` must be true from the **current state** up to **the state immediately before** `c` becomes true.  
+3. **No requirement for `a` at `c`**:  
+   - When `c` becomes true, `a` may or may not hold — only `c` needs to be true at that state.  
+
+#### Example Timeline (Discrete Steps):
+| Time | State      | Valid (`a U c` satisfied)                     | Invalid (`a U c` violated)               |
+|------|------------|-----------------------------------------------|------------------------------------------|
+| t=0  | `a=true`<br>`c=false` | ✅ `a` holds (waiting for `c`)                 | ❌ `a` is false                           |
+| t=1  | `a=true`<br>`c=false` | ✅ `a` holds                                 | ❌ `a` is false                           |
+| t=2  | `c=true`   | ✅ `c` holds (even if `a=false` here)         | ❌ `c` never holds → fails **eventuality** |
+
+---
+
+### Key Learning Points:
+- **Until Hierarchy**: Breaks into "`a` must persist until the future moment `c` interrupts it."  
+- **Eventuality is Crucial**: `c` must eventually hold; without this, `a` holding forever is insufficient.  
+- **Constraints on States**: Only states **strictly before `c`** must satisfy `a`; `c` itself has no `a` requirement.  
+
+This accurately captures the temporal constraints of `a U c` in natural language, aligning with LTL semantics.
