@@ -1,0 +1,67 @@
+### Translation of LTL Formula: `X(!g | !j)`  
+**Original formula:**  
+`X(!g | !j)`  
+
+---
+
+### Step-by-Step Breakdown:
+#### Parsing Tree (Syntax):
+```
+      X          (Next operator)
+        |
+        ∨        (Disjunction: OR)
+       /  \
+      !    !     (Negations)
+      |    |
+      g    j     (Atomic propositions)
+```
+
+- **Atomic propositions**: `g` and `j` represent system states (e.g., "gate is open", "job is running").  
+- **Negations**:  
+  - `!g` means "`g` is **false**".  
+  - `!j` means "`j` is **false**".  
+- **Disjunction (`|`)**: `!g | !j` means "**either `g` is false OR `j` is false**" (or both).  
+- **Next (`X`)**: `X(...)` applies to the entire disjunction, meaning "in the **immediately next state**".  
+
+---
+
+#### Rebuilding Semantics (Bottom-Up):
+1. **Leaf nodes (`g`, `j`)**:  
+   - `g` holds or fails at a given moment.  
+   - `j` holds or fails at a given moment.  
+
+2. **Negations (`!g`, `!j`)**:  
+   - `!g` constrains the state where `g` is **absent**.  
+   - `!j` constrains the state where `j` is **absent**.  
+
+3. **Disjunction (`!g | !j`)**:  
+   - The disjunction is satisfied if **at least one** of `!g` or `!j` holds.  
+   - This is equivalent to: **"`g` and `j` cannot both be true at the same time"** (by De Morgan’s law).  
+
+4. **Next (`X(!g | !j)`)**:  
+   - The constraint (`!g | !j`) must hold **specifically in the next immediate state**.  
+   - The formula ignores **all other states** (past, present, or future beyond the next step).  
+
+---
+
+#### Natural Language Translation (Refined):
+> "**In the immediate next moment, it is not the case that both `g` and `j` are true.**"  
+
+#### Explanation:
+- **When is it satisfied?**  
+  In any system trace where, at the **very next time step** after evaluation, at least one of these holds:  
+  - `g` is false,  
+  - `j` is false,  
+  - or both are false.  
+  Example: If the current time is `t`, the formula requires that `g` or `j` fails at `t+1`.  
+
+- **What constraint does it impose?**  
+  - **No restriction** on the **current state** (only the next state matters).  
+  - **No guarantee** about any state **beyond the next one** (only `t+1` is constrained).  
+  - Forbids the scenario where **`g` and `j` are simultaneously true at `t+1`**.  
+
+#### Alternative Phrasing:
+- "**At the next moment, `g` and `j` cannot both hold.**"  
+- "**Immediately after now, either `g` fails, `j` fails, or both fail.**"  
+
+> 💡 **Key Insight**: This formula is equivalent to `X(!(g ∧ j))` ("next, not both `g` and `j`"). It expresses a **local safety constraint** that prevents overlapping truths of `g` and `j` in the **very next state**.

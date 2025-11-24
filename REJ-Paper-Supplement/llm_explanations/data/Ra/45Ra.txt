@@ -1,0 +1,50 @@
+### Translation of LTL Formula: `X (!i) | X (j)`
+
+#### Step 1: Original Formula  
+`X (!i) | X (j)`
+
+#### Step 2: Parsing Tree Breakdown  
+- **Top-level operator**: Disjunction (`|`), meaning "OR".  
+  - **Left child**: `X (!i)`  
+    - `X` ("Next") applied to `!i`.  
+    - `!i`: Negation of atomic proposition `i` ("`i` is false").  
+  - **Right child**: `X (j)`  
+    - `X` ("Next") applied to atomic proposition `j` ("`j` is true").  
+
+Parsing tree structure:  
+```
+      | (OR)  
+     /   \  
+    /     \  
+ X(!i)   X(j)  
+   |       |  
+  !i       j  
+```
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Leaf-level meanings**:  
+   - `!i`: "`i` is false" (in the current state).  
+   - `j`: "`j` is true" (in the current state).  
+
+2. **Apply `X` (Next) to each subformula**:  
+   - `X (!i)`: "In the **immediately next state**, `i` is false."  
+   - `X (j)`: "In the **immediately next state**, `j` is true."  
+
+3. **Apply disjunction (`|`)**:  
+   - Combine both `X`-subformulas:  
+     *"Either in the next state `i` is false, OR in the next state `j` is true."*  
+
+#### Step 4: Refined Natural Language Translation  
+> **"In the immediate next state, either `i` is false or `j` holds (or both)."**  
+
+#### Key Explanation:  
+- **When satisfied?** The formula holds if **at least one** holds in the **very next state**:  
+  - `i` is false, or  
+  - `j` is true, or  
+  - Both occur simultaneously.  
+- **Constraint imposed**: The next state **cannot have `i` true while `j` is false**.  
+  - Failure case: If the next state has `i = true` and `j = false`, the formula is violated.  
+- **Temporal scope**: Only constrains the **next immediate state**; no requirements about past or distant future states.  
+
+#### Equivalent Simplified Form  
+The formula is equivalent to `X (!i ∨ j)` ("Next, either `i` is false or `j` is true"), which concisely captures the same constraint.

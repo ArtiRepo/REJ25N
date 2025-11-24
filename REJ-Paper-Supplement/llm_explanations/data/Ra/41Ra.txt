@@ -1,0 +1,63 @@
+### Translation of LTL Formula: `G (n => s)`
+
+#### Step 1: Original LTL Formula  
+`G (n => s)`
+
+#### Step 2: Parsing Tree Breakdown  
+- **Top-level operator**: `G` (Globally)  
+  - **Operand**: `(n => s)`  
+    - **Subformula**: `n => s`  
+      - **Left operand**: `n` (atomic proposition)  
+      - **Operator**: `=>` (implies)  
+      - **Right operand**: `s` (atomic proposition)  
+
+**Tree Visualization**:  
+```
+     G  
+     |  
+     =>  
+    /   \  
+   n     s  
+```
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+
+1. **Atomic Propositions (`n` and `s`)**:  
+   - `n`: Represents a specific event/state (e.g., "a request occurs").  
+   - `s`: Represents another event/state (e.g., "a response is sent").  
+
+2. **Implication (`n => s`)**:  
+   - **Meaning**: "If `n` is true **at any given time**, then `s` must **also be true at that exact same time**."  
+   - **Constraints**:  
+     - When `n` is true, `s` must be true simultaneously.  
+     - When `n` is false, `s` can be either true or false (no constraint).  
+
+3. **Global Operator (`G`)** applied to `(n => s)`:  
+   - **Meaning**: "The rule `n => s` must hold **at every future time step**."  
+   - **Constraints**: For **all future moments**, if `n` occurs, `s` must occur **simultaneously**.  
+
+#### Step 4: Refined Natural Language Translation  
+
+> "Always, whenever `n` is true, `s` must be true **at the same time**."  
+
+#### Key Implications:  
+- **Satisfaction Condition**: The formula holds if `n` **never** occurs without `s` occurring at the exact same moment.  
+- **Failure Condition**: If there exists **any future time** where `n` is true but `s` is false, the formula is violated.  
+- **Temporal Scope**: Applies **globally** (every moment from now onward).  
+- **Freedom in Absence of `n`**: When `n` is false (`¬n`), `s` can be true or false without affecting satisfaction.  
+
+#### Example Scenarios:  
+| Time | `n` | `s` | Satisfies `G (n => s)`? | Why?                                                                 |  
+|------|-----|-----|-------------------------|----------------------------------------------------------------------|  
+| `t₁` | F   | F   | ✅                      | No `n` → no requirement for `s`.                                     |  
+| `t₂` | F   | T   | ✅                      | No `n` → `s` can freely occur.                                      |  
+| `t₃` | T   | T   | ✅                      | `n` and `s` occur **simultaneously**; requirement met.               |  
+| `t₄` | T   | F   | ❌                      | `n` occurs **without `s`** → violates the rule.                     |  
+
+#### Final Refinement:  
+> **"Throughout the entire future, every occurrence of `n` requires `s` to occur simultaneously."**  
+
+This phrasing:  
+- Uses **"entire future"** to clarify the scope of `G`.  
+- Emphasizes **"simultaneously"** (since `n => s` constrains the *same* time step).  
+- Clearly defines the **cause-effect linkage** (`n` mandates `s` at that instant).

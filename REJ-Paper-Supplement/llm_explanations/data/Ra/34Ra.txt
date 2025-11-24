@@ -1,0 +1,64 @@
+### Translation of LTL Formula: `G (!f | !i)`
+
+#### Step 1: Write down the original LTL formula
+- **Formula**: `G (!f | !i)`
+
+#### Step 2: Break down the formula into a parsing tree
+The parsing tree is constructed from atomic propositions upward:
+```
+      G         (Globally)
+       |
+       |          (OR / Disjunction)
+      ( | )
+      /   \
+     !     !     (NOT operators)
+     |     |
+     f     i     (Atomic propositions)
+```
+
+- **Atomic propositions**: `f` and `i` (e.g., "feature is active" or "interrupt is asserted").
+- **Negations (`!`)**: 
+  - `!f`: "`f` is false".
+  - `!i`: "`i` is false".
+- **Disjunction (`|`)**: `!f | !i` means "either `f` is false **or** `i` is false (or both)".
+- **Global operator (`G`)**: `G (...)` means "**always**, in every future state".
+
+#### Step 3: Rebuild meaning from the bottom up
+1. **Base components**:
+   - `f`: Represents a system state (e.g., "Engine is on").
+   - `i`: Another system state (e.g., "Maintenance mode is active").
+
+2. **Apply negations**:
+   - `!f`: "Engine is **not** on".
+   - `!i`: "Maintenance mode is **not** active".
+
+3. **Apply disjunction (`|`)**:
+   - `!f | !i`:  
+     "Either the engine is **off**, OR maintenance mode is **inactive**, OR **both**."  
+     **Logical implication**: If `f` were true, then `!i` must be true (i.e., if the engine is on, maintenance must *not* be active). If `i` were true, then `!f` must be true (i.e., if maintenance is active, the engine *cannot* be on).  
+     **Violation**: Only if **both `f` and `i` are true** simultaneously (e.g., "Engine on **while** in maintenance mode").
+
+4. **Apply global operator (`G`)**:
+   - `G (!f | !i)`:  
+     "For **all states now and in the future**, either `f` is false, or `i` is false (or both)"  
+     → This means: **`f` and `i` can *never* be true at the same time**.
+
+#### Step 4: Refine natural language phrasing for clarity
+- **Key insight**: The formula forces `f` and `i` to be **mutually exclusive globally**.  
+- **Possible translations**:
+  1. > "At all times, `f` and `i` cannot both be true."  
+  2. > "The system must **always** ensure that `f` and `i` never happen simultaneously."  
+  3. > "Globally: Either `f` is disabled, or `i` is disabled, or both."
+
+**Final Refined Translation**:  
+> **"`f` and `i` are mutually exclusive at every moment: It is never allowed for both to be true simultaneously, now or in the future."**
+
+##### Examples:
+- **Satisfied**:  
+  - If `f` is true, `i` must be false.  
+  - If `i` is true, `f` must be false.  
+  - Both `f` and `i` are always false.  
+- **Violated**:  
+  - Any timeline where `f = true` and `i = true` **at the same time** (e.g., at time `t=3`).  
+
+This constraint ensures safety (e.g., no engine activation during maintenance) or logical consistency across all system states.

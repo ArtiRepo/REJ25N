@@ -1,0 +1,57 @@
+### Translation of the LTL Formula: \( \mathbf{X} \, t \rightarrow \mathbf{X} \, y \)
+
+#### Step 1: Original Formula  
+The LTL formula is \( \mathbf{X} \, t \rightarrow \mathbf{X} \, y \).  
+
+#### Step 2: Parsing Tree Breakdown  
+The formula breaks down as:  
+```
+      →
+     /   \
+    X     X
+    |     |
+    t     y
+```  
+- **Leaves**: Atomic propositions \( t \) and \( y \) (e.g., "task starts" and "alert triggers").  
+- **Next operators**: \(\mathbf{X} \, t\) (["t" in the next state](tree1)), \(\mathbf{X} \, y\) (["y" in the next state](tree2)).  
+- **Implication**: \(\rightarrow\) (logical "if-then").
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Atomic propositions**:  
+   - \( t \): A proposition true at a specific state (e.g., "a task starts").  
+   - \( y \): Another proposition (e.g., "an alert triggers").  
+
+2. **Next operators**:  
+   - \( \mathbf{X} \, t \): "**In the immediate next state**, \( t \) is true."  
+   - \( \mathbf{X} \, y \): "**In the immediate next state**, \( y \) is true."  
+
+3. **Implication (\(\rightarrow\))**:  
+   - \( \mathbf{X} \, t \rightarrow \mathbf{X} \, y \) means:  
+     **If \( \mathbf{X} \, t \) is true, then \( \mathbf{X} \, y \) must also be true.**  
+     - Equivalently (via \( p \rightarrow q \equiv \neg p \lor q \)):  
+       "Either \( \mathbf{X} \, t \) is **false**, **or** \( \mathbf{X} \, y \) is **true**."  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Key constraints**:  
+  - The formula **only constrains the next state** relative to the current evaluation point.  
+  - It **prohibits** the scenario where \( t \) holds in the next state and \( y \) **fails** in that same next state.  
+  - If \( t \) **does not hold** in the next state, \( y \) can be **true or false** without affecting satisfaction.  
+
+- **Natural Language Translation**:  
+  > **"If \( t \) holds in the next state, then \( y \) must also hold in that same next state."**  
+
+- **Explanation**:  
+  - **Satisfied when**:  
+    - \( t \) is **false** in the next state (no demand on \( y \)), **or**  
+    - \( t \) is **true** in the next state **and** \( y \) is **also true** in that state.  
+  - **Violated when**:  
+    - \( t \) is **true** in the next state **while \( y \) is false** in that state.  
+
+### Final Summary  
+- **Formula**: \( \mathbf{X} \, t \rightarrow \mathbf{X} \, y \)  
+- **Meaning**: **"If \( t \) becomes true in the immediate next state, \( y \) must also be true at that same next moment."**  
+- **Scope**: Only restricts behavior at the **very next state**; irrelevant to states beyond.  
+
+###### Example:  
+- **Satisfied**: Next state has \( t = \text{false} \) (no constraint on \( y \)) or both \( t \) and \( y \) true.  
+- **Violated**: Next state has \( t = \text{true} \) but \( y = \text{false} \).

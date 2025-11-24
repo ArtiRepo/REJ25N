@@ -1,0 +1,50 @@
+### Translation of LTL Formula: `t => w`
+
+#### Step 1: Original LTL Formula  
+`t => w`  
+
+#### Step 2: Parsing Tree Breakdown  
+- **Implication (`=>`)**  
+  - **Left child: Atomic proposition `t`**  
+    Represents a condition that can be true/false at a specific time.  
+  - **Right child: Atomic proposition `w`**  
+    Represents another condition at the same instant.  
+
+Tree structure:  
+```
+   =>  
+  / \  
+ t   w  
+```
+
+#### Step 3: Rebuilding Meaning Step-by-Step  
+1. **Atomic propositions (`t` and `w`):**  
+   - `t` holds at a moment if the system satisfies property `t` (e.g., "a timer expires").  
+   - `w` holds at a moment if property `w` is true (e.g., "a warning is issued").  
+
+2. **Implication (`t => w`):**  
+   - Semantics: `t IMPLIES w` ≡ `¬t ∨ w`.  
+   - At any state:  
+     - If `t` is true, `w` **must also be true** (enforcement).  
+     - If `t` is false, `w` can be true or false (no constraint).  
+
+3. **Temporal Scope:**  
+   - Since no temporal operators (e.g., `G`, `F`) are used, the formula applies **at every individual state** independently.  
+
+#### Step 4: Natural Language Translation  
+- **Clear phrasing:**  
+  > **"At any moment when `t` holds, `w` must also hold at that same moment."**  
+
+- **Refinements for clarity:**  
+  - **Scope:** Only constrains states where `t` is true; says nothing if `t` is false.  
+  - **Violation:** The formula fails at any state where `t` is true but `w` is false.  
+  - **Example:**  
+    - Rule: `"When the temperature exceeds 100°C (t), an alarm sounds (w)."`  
+    - Violation: Temperature is 105°C, but no alarm sounds.  
+
+#### Final Explanation  
+- **Satisfaction:** The formula is satisfied if, throughout the system's execution, `w` is true whenever `t` is true at the exact same moment.  
+- **Constraint:** It forbids scenarios where `t` is true but `w` is false at any point.  
+- **Illustrative Counterexample:** A trace `... {t=true, w=false} ...` falsifies `t => w` at the state with `(t=true, w=false)`.  
+
+**Key Insight:** This is a **state-local constraint**—it relates conditions at the same instant without involving future/past states.

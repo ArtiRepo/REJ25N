@@ -1,0 +1,61 @@
+Let's break down the LTL formula **`!G c`** step by step:
+
+### 1. **Original LTL Formula**
+   ```
+   !G c
+   ```
+
+### 2. **Parsing Tree Breakdown**
+```
+    𝗠𝗮𝗶𝗻 𝗼𝗽𝗲𝗿𝗮𝘁𝗼𝗿: ¬ (Negation)
+        |
+        └─── 𝗦𝘂𝗯𝗳𝗼𝗿𝗺𝘂𝗹𝗮: G (Global / Always)
+              |
+              └─── 𝘼𝘁𝗼𝗺𝗶𝗰 𝗣𝗿𝗼𝗽𝗼𝘀𝗶𝘁𝗶𝗼𝗻: c
+```
+- **Bottom (Leaf)**: Atomic proposition `c` represents a Boolean condition (e.g., "the system is in a safe state").
+- **Middle Operator**: `G` asserts that `c` must hold **in every state** along the entire timeline.
+- **Top Operator**: `!` negates `G c`, meaning the entire proposition "`c` always holds" is false.
+
+### 3. **Rebuilding Meaning (Semantics)**
+Start from the bottom of the parsing tree upwards:
+
+- **Base `c`**:  
+  "Condition `c` holds in the current state."  
+  *(Example: "The system is idle.")*
+
+- **Apply `G`**:  
+  `G c` binds to `c`, requiring:  
+  "Condition `c` holds **in every future state**."  
+  *(Example: "The system is idle at all times.")*
+
+- **Apply `!`**:  
+  `!G c` negates `G c`, meaning:  
+  "It is **not true** that `c` holds in every future state."  
+  This implies:  
+  "**There exists at least one state** in the future where `c` is **false**."  
+  *(Example: "The system is not always idle.")*
+
+### 4. **Refined Natural Language Phrasing**
+The formula `!G c` is equivalent to **`F ¬c`** ("eventually not c"). We refine implications for clarity:
+
+- **When is the formula satisfied?**  
+  The formula holds if **at any point (now or in the future)**, condition `c` **fails to hold**. This could happen:
+  - Immediately (if `c` is false in the current state), or
+  - After some time (if `c` is temporarily true but eventually becomes false).
+
+- **What constraint does it impose?**  
+  The system **cannot sustain** `c` **forever**; it **must eventually violate** `c` in some state.  
+  *(Example: "The system cannot remain idle indefinitely; it must start processing at some point.")*
+
+**Final Translation**:  
+> "Eventually, **c becomes false**.  
+> *(i.e., Condition `c` does not hold forever; it must fail at least once.)*"
+
+---
+
+### Key Insight
+- **`G c`**: Forces an **unchanging truth** for `c` across time (e.g., "always safe").  
+- **`!G c`**: Allows **change/instability** by requiring the **inevitable failure** of `c` (e.g., "safety will eventually be violated").  
+
+This captures liveness properties like "pending requests are eventually handled" (`c = request is pending` → failure = request handled).

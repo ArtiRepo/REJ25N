@@ -1,0 +1,49 @@
+### Translation of the LTL Formula: `a U c`
+
+#### Original LTL Formula:
+`a U c`
+
+#### Parsing Tree (Breakdown):
+```
+     U
+    / \
+   a   c
+```
+- **Leaves**:  
+  - `a`: Atomic proposition representing "`a` is true."  
+  - `c`: Atomic proposition representing "`c` is true."  
+- **Operator**:  
+  - `U` (Until): A binary operator requiring that `a` holds *until* `c` becomes true, and `c` *must eventually hold*.
+
+#### Step-by-Step Meaning Reconstruction:
+1. **Base meanings**:  
+   - `a`: True if the system satisfies condition `a` at a given time.  
+   - `c`: True if the system satisfies condition `c` at a given time.  
+
+2. **Apply `U` operator**:  
+   `a U c` imposes two constraints:  
+   - **Eventuality**: `c` must become true at some **finite future time** `j` (where `j` ≥ 0).  
+   - **Continuity**: For **all times** from now until (but excluding) time `j`, `a` must be true.  
+     - If `c` holds immediately (at time `j=0`), the "until" constraint is **vacuously satisfied** (no prior times exist to check `a`).  
+     - If `c` holds later (at `j>0`), `a` must hold at every step from time `0` to `j-1`.  
+
+#### Refined Natural Language Translation:
+- **Key point**: Explicitly clarify the two cases (immediate `c` vs. future `c`) and the role of `a`.  
+- **Final phrasing**:  
+  > "`c` must eventually become true. If `c` is not yet true, `a` must continuously hold until the moment immediately before `c` becomes true. If `c` is already true at the start, no restriction on `a` is imposed."  
+
+#### Explanation of When the Formula is Satisfied:
+- **Satisfied**:  
+  - Scenario 1: `c` is true **now**.  
+    - Example: If `c` holds at time `t=0`, the formula is satisfied (regardless of `a`).  
+  - Scenario 2: `c` is true at **future time** `j > 0`, and `a` holds at **all times** from `t=0` to `j-1`.  
+    - Example: `a` holds at `t=0, 1, 2`; `c` holds at `t=3`.  
+- **Violated**:  
+  - `c` **never** becomes true, or `a` **fails** at any time before `c`'s first occurrence.  
+    - Example 1: `c` never holds → violates *eventuality*.  
+    - Example 2: `a` is false at `t=1`, and `c` first holds at `t=2` → violates *continuity*.  
+
+#### Constraints Over Time:
+- Forces `a` to hold **uninterruptedly** until the **first occurrence** of `c`.  
+- Guarantees `c` occurs **finitely** (cannot be deferred infinitely).  
+- If `c` holds immediately, **no constraints** on `a` at any time.

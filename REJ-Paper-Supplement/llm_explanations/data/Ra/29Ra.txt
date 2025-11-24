@@ -1,0 +1,47 @@
+### Translation of the LTL Formula: `F x | F y`
+
+#### Step 1: Original LTL Formula  
+`F x | F y`  
+*(Note: `|` denotes logical OR, equivalent to `F x ∨ F y` in standard notation.)*
+
+#### Step 2: Parsing Tree Breakdown  
+```
+     ∨     (OR operator)
+    / \
+   /   \
+F(x)  F(y)  (F = "Finally" operator)
+ |      |
+ x      y   (Atomic propositions)
+```
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Atomic Propositions**:  
+   - `x`: A specific condition holds at a given time (e.g., "the system is in state X").  
+   - `y`: Another distinct condition holds at a given time (e.g., "the system is in state Y").  
+
+2. **`F` Operator (Finally)**:  
+   - `F x`: **"Eventually, `x` becomes true at least once."**  
+     (There exists some future time where `x` holds, even if only momentarily.)  
+   - `F y`: **"Eventually, `y` becomes true at least once."**  
+     (There exists some future time where `y` holds.)
+
+3. **`∨` Operator (OR)**:  
+   - `F x ∨ F y`: **"Eventually `x` is true, OR eventually `y` is true, OR both."**  
+     *Constraints*: The formula is violated **only if** neither `x` nor `y` ever holds in the entire future.  
+
+#### Step 4: Refined Natural Language Translation  
+> **"At least one of `x` or `y` must eventually occur (possibly both). The system cannot avoid both forever."**  
+
+##### Key Explanations:  
+- **When Satisfied?**  
+  If `x` occurs at any future time (even if `y` never occurs), the formula holds.  
+  If `y` occurs at any future time (even if `x` never occurs), the formula holds.  
+  If both `x` and `y` occur, the formula also holds.  
+
+- **When Constrained?**  
+  The system is **forbidden** from having an execution where neither `x` nor `y` **ever** becomes true.  
+  Example failure: `x` and `y` remain false for all future time points.  
+
+##### Example Use Case:  
+- *System behavior*: A network must either reconnect (`x`) or reset (`y`) at some point.  
+- *Translation*: "The network cannot run indefinitely without either reconnecting or resetting."
