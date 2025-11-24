@@ -1,0 +1,47 @@
+### Translation of the LTL Formula `!G c`
+
+#### Original LTL Formula:
+`!G c`
+
+#### Parsing Tree (Breakdown):
+1. **Atomic proposition**: `c` (a boolean condition).  
+2. **Subformula `G c`**: The **globally** operator (`G`) applied to `c`.  
+3. **Top-level negation**: The **negation** operator (`!`) applied to `G c`.  
+
+```
+  !        (negation)
+  |
+  G        (globally)
+  |
+  c        (atomic condition)
+```
+
+#### Rebuilding Meaning Step-by-Step:
+1. **Bottom of the tree (`c`)**  
+   - `c` represents a specific condition (e.g., "the system is active").  
+   - *Meaning*: "Condition `c` holds at the current state."  
+
+2. **Middle of the tree (`G c`)**  
+   - `G` asserts that `c` must hold **for all future states in the execution**, including the current state.  
+   - *Meaning*: "`c` holds **at every moment** of the system execution (from now onward)."  
+
+3. **Top of the tree (`!` applied to `G c`)**  
+   - Negation (`!`) reverses the meaning of `G c`.  
+   - *Meaning*: It is **false** that `c` holds at every future moment.  
+   - Logical equivalence: `!G c ≡ F !c` ("eventually not `c`").  
+
+#### Natural Language Phrasing (Refined for Clarity):
+- **Direct translation**:  
+  "It is **not** true that `c` holds **at every moment** of the system execution (from now on)."  
+
+- **Refined for conciseness and clarity**:  
+  > **"Condition `c` must eventually fail at least once (now or in the future)."**  
+
+#### Reasoning Summary:
+- **Key insight**:  
+  `G c` requires "`c` always holds." Negating this (`!G c`) means this condition is violated **at some point** (including the current state).  
+- **LTL equivalence**: `!G c` is logically identical to `F !c` ("eventually, `c` is false").  
+- **Practical implication**: In system verification, `!G c` specifies that `c` **cannot be true forever**; the system must eventually enter a state where `c` is false.  
+
+**Final Translation**:  
+"Condition `c` must fail at least once during system execution (starting now)."

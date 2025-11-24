@@ -1,0 +1,45 @@
+### Translation Reasoning for `G(a or b)`  
+
+#### Original LTL Formula  
+`G(a or b)`  
+
+#### Parsing Tree Breakdown  
+1. **Root operator**: `G` (Globally).  
+2. **Subformula**: `(a or` `b)`  
+   - **Operators**: `or` (logical disjunction).  
+   - **Atomic propositions**: `a,` `b`.  
+
+Tree structure:  
+```
+     G  
+      |  
+     OR  
+    /   \  
+   a     b  
+```  
+
+#### Rebuilding Meaning Bottom-Up  
+1. **Atomic propositions**:  
+   - `a`: "`a` holds" (at a given moment).  
+   - `b`: "`b` holds" (at a given moment).  
+2. **Disjunction (`or`)**:  
+   - Combines `a` and `b` → "`a` holds **or** `b` holds" (at a specific moment).  
+3. **Global operator (`G`)**:  
+   - Applies to `(a or b)` → "**At every future moment**, `a` holds or `b` holds" (from now onward).  
+
+#### Refined Natural Language Phrasing  
+- **Basic NL**: "At every moment in the system execution, `a` holds or `b` holds."  
+- **Clarity refinements**:  
+  - Explicitly define temporal scope to match `G` (all moments).  
+  - Replace "holds" with clearer wording (e.g., "is true").  
+  - Clarify `or` includes cases where only `a`, only `b`, or both are true.  
+  - Remove redundancy ("from now onward" is implied by `G`).  
+
+**Final Translation**:  
+> **"At every moment of the system execution, `a` must be true or `b` must be true (or both)."**  
+
+### Key Interpretation Insights  
+- **`G` dominates**: The entire subformula `(a or b)` is governed universally over time.  
+- **No sequentiality**: Unlike `X` (next), `G` covers **all** moments equally.  
+- **Inclusive `or`**: Both `a` and `b` can be true simultaneously—no mutual exclusion.  
+- **Practical reading**: The system **never** reaches a state where both `a` and `b` are false.

@@ -1,0 +1,51 @@
+**Original LTL Formula:**  
+`X (y => x & w)`
+
+**Parse Tree Breakdown:**  
+1. **Outermost operator:** `X` (Next).  
+   - Child: Implication `=>` with:  
+     - Left operand: Atomic proposition `y`.  
+     - Right operand: Conjunction `&` of:  
+       - Left: Atomic proposition `x`.  
+       - Right: Atomic proposition `w`.  
+
+```
+     X
+      |
+      =>
+     /  \
+    y    &
+        / \
+       x   w
+```
+
+**Step-by-Step Meaning Construction (Bottom-Up):**  
+1. **Atoms:**  
+   - `y`: "y holds"  
+   - `x`: "x holds"  
+   - `w`: "w holds"  
+
+2. **Conjunction (`x & w`):**  
+   "**x holds and w holds**"  
+   *Combines `x` and `w` into a single condition.*  
+
+3. **Implication (`y => x & w`):**  
+   - Formal: "If `y` is true, then the conjunction `x & w` must be true."  
+   - Simplified: "**If y holds, then both x and w hold**".  
+   *This does not require `y` to be true; it only specifies that when `y` *is* true, `x` and `w` must both be true.*  
+
+4. **Next (`X (...)`):**  
+   - Applies to the entire implication.  
+   - "**In the next moment of the system execution**, [implication]."  
+
+**Full Combined Meaning:**  
+"In the next moment of the system execution, if y holds, then both x and w must hold."  
+
+**Refined for Clarity:**  
+- Emphasize **conditional obligation**:  
+  "**At the immediate next state, whenever y is true, both x and w must also be true.**"  
+- Alternative phrasing:  
+  "**In the next step, y being true implies that both x and w are true.**"  
+
+**Conclusion:**  
+The formula `X (y => x & w)` expresses a **conditional requirement** for the very next system state: **if** `y` is true at that state, **then** `x` and `w` must both be true. It does *not* require `y` to be true but links its truth to `x` and `w` in the next moment.

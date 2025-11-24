@@ -1,0 +1,48 @@
+### Reasoning for Translating LTL Formula: ¬F (a ∧ b)
+
+#### 1. **Original LTL Formula**:  
+   ¬F (a ∧ b)
+
+#### 2. **Parsing Tree Breakdown**:  
+   We decompose the formula bottom-up:
+   - **Leaves**: Propositions `a` and `b`.  
+   - **Conjunction (∧)**: `(a ∧ b)` means "`a` **and** `b` hold **simultaneously**".  
+   - **Eventually (F)**: `F (a ∧ b)` means "**Eventually**, `a` **and** `b` hold together".  
+   - **Negation (¬)**: `¬F (a ∧ b)` negates the entire `F` expression.  
+
+   Tree Structure:
+   ```
+      ¬
+      |
+      F
+      |
+      ∧
+     / \
+    a   b
+   ```
+
+#### 3. **Rebuilding Meaning from Bottom-Up**:  
+   - **Step 1 (Propositions)**:  
+     `a` = "`a` is true", `b` = "`b` is true".  
+   - **Step 2 (Conjunction ∧)**:  
+     `(a ∧ b)` = "`a` **and** `b` are **both true at the same time**".  
+   - **Step 3 (Eventually F)**:  
+     `F (a ∧ b)` = "**At some future moment** (including now), `a` **and** `b` **are simultaneously true**".  
+   - **Step 4 (Negation ¬)**:  
+     `¬F (a ∧ b)` = "It is **not true** that at some future moment `a` and `b` are simultaneously true."  
+
+#### 4. **Refined Natural Language Phrasing**:  
+   - **Literal translation**:  
+     "It is never the case that `a` and `b` hold together in the future."  
+   - **Clarity refinements**:  
+     - Avoid redundancy (e.g., "at some moment" → "**ever**").  
+     - Emphasize temporal scope ("in the entire execution").  
+     - Replace negation structure for fluency ("never" instead of "not true that ever").  
+   - **Final phrasing**:  
+     > "`a` **and** `b` **never hold simultaneously in the future execution.**"  
+
+### Key Insights:
+- **Logic Flow**: Start from atomic propositions, build to compound temporal expressions.  
+- **Temporal Scope**: `F` includes ***all future states*** (current + later states).  
+- **Negation Impact**: `¬F` enforces a **global prohibition** (`a ∧ b` must ***never*** occur).  
+- **Conciseness**: Replace "it is not true that eventually" with "never" for simplicity.

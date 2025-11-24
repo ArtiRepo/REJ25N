@@ -1,0 +1,55 @@
+### Reasoning for Translation of LTL Formula: **(c & b) U a**
+
+#### Step 1: Original LTL Formula  
+`(c & b) U a`
+
+#### Step 2: Parsing Tree Breakdown  
+The formula has a **top-level operator "U" (Until)**, with two subformulas:  
+- **Left operand**: `(c & b)` (a conjunction)  
+- **Right operand**: `a` (an atomic proposition)  
+
+The conjunction `(c & b)` breaks down further:  
+- **Left leaf**: `c`  
+- **Right leaf**: `b`  
+
+**Parsing Tree**:  
+```
+      U  
+     / \  
+    &   a  
+   / \  
+  c   b  
+```
+
+#### Step 3: Rebuild Meaning Bottom-Up  
+1. **Atomic propositions (leaves)**:  
+   - `c` means "`c` holds (at the current moment)".  
+   - `b` means "`b` holds (at the current moment)".  
+
+2. **Conjunction `(c & b)`**:  
+   - Combines `c` and `b`: "**both `c` and `b` hold** (simultaneously at the current moment)".  
+
+3. **Until operator `(c & b) U a`**:  
+   - The `U` operator has two parts:  
+     - **Left part (`(c & b)`)** must hold **continuously** until...  
+     - **Right part (`a`)** becomes true **at some future moment**.  
+   - Semantics:  
+     - There must exist a **future moment** where `a` holds.  
+     - **Until that future moment**, `(c & b)` must hold **at every moment** (starting from now).  
+     - At the **exact moment** `a` holds, `(c & b)` may or may not hold (it is not required).  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Literal rebuild**:  
+  > "There exists a future moment where `a` holds, and at every moment until then, both `c` and `b` hold."  
+
+- **Refined for clarity and conciseness**:  
+  > "**Eventually, `a` must hold, and until then, both `c` and `b` must hold continuously.**"  
+
+#### Final Translation  
+`(c & b) U a` means:  
+**"Eventually, `a` must hold, and until then, both `c` and `b` must hold continuously."**  
+
+### Key Notes  
+- **"Until then"** implies `(c & b)` holds at **every step** from the current moment up to (but not necessarily including) the moment `a` holds.  
+- If `a` holds **immediately**, `(c & b)` is not required (the "until" condition is vacuously true).  
+- The translation emphasizes **continuity** of `(c & b)` until the eventual occurrence of `a`.

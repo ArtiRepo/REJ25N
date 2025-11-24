@@ -1,0 +1,45 @@
+### Translation Reasoning for LTL Formula: F (o | u)
+
+#### 1. **Original LTL Formula**  
+   \( F \, (o \mid u) \)
+
+#### 2. **Breakdown into Parsing Tree**  
+   - **Root operator**: `F` (eventually)  
+     - **Child**: `(o | u)` (logical OR)  
+       - **Left leaf**: `o` (atomic proposition)  
+       - **Right leaf**: `u` (atomic proposition)  
+
+   **Tree Structure**:  
+   ```
+      F
+      |
+      | (OR)
+      / \
+     o   u
+   ```
+
+#### 3. **Rebuild Meaning Bottom-Up**  
+   - **Step 1: Atomic propositions**  
+     - `o` means "`o` holds" (or "`o` is true").  
+     - `u` means "`u` holds" (or "`u` is true").  
+   - **Step 2: Disjunction (OR)**  
+     - `(o | u)` means "`o` holds **or** `u` holds" (at the same moment).  
+   - **Step 3: Temporal operator (F)**  
+     - `F` means "at **some future moment** in the system execution".  
+     - Combining with `(o | u)`: "At some future moment, `o` holds **or** `u` holds".  
+
+#### 4. **Refined Natural Language Phrasing**  
+   - **Initial phrasing**: "At some future moment, `o` holds or `u` holds."  
+   - **Refinements for clarity**:  
+     - Replace "holds" with stronger requirement language (e.g., "must hold" for specifications).  
+     - Emphasize **disjunction** ("either/or") for natural flow.  
+     - Specify "system execution" for context (consistent with the example).  
+   - **Final translation**:  
+     > **"In some future moment of the system execution, either `o` must hold or `u` must hold."**  
+
+### Key Takeaways  
+- **`F` (eventually)**: Focuses on a **future state** (no guarantee when).  
+- **`|` (OR)**: Requires **at least one** of `o` or `u` to be true **at that same future moment**.  
+- **Translation structure**: Temporal operator (`F`) defines **when**, logical operator (`|`) defines **what must be true** at that time.  
+
+This mirrors the example’s approach: break operators hierarchically, rebuild with temporal context, and refine for natural language.

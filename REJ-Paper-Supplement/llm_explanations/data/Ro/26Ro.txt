@@ -1,0 +1,41 @@
+### Translation Reasoning for LTL Formula: **X t => X y**
+
+#### 1. **Original LTL Formula**  
+   `X t => X y`
+
+#### 2. **Parsing Tree Breakdown**  
+   - **Root operator**: Implication (`=>`).  
+     - **Left operand**: `X t` (Next operator applied to `t`).  
+     - **Right operand**: `X y` (Next operator applied to `y`).  
+
+   **Tree Structure**:  
+   ```
+      =>
+     /  \
+    X    X
+    |    |
+    t    y
+   ```
+
+#### 3. **Rebuild Meaning Bottom-Up**  
+   - **Step 1: Atomic propositions**  
+     - `t` and `y` are atomic propositions (e.g., "task starts" or "system fails").  
+   - **Step 2: Next operators (`X`)**  
+     - `X t` → "At the **next moment**, `t` holds."  
+     - `X y` → "At the **next moment**, `y` holds."  
+   - **Step 3: Implication (`=>`)**  
+     - `A => B` means "If `A` is true, then `B` must be true."  
+     - Here, `A` is `X t` and `B` is `X y`:  
+       *"If (at the next moment, `t` holds), then (at the next moment, `y` holds)."*  
+
+#### 4. **Refined Natural Language Phrasing**  
+   - **Clarity refinement**:  
+     Both `X t` and `X y` refer to the **same next moment**. Merge the time references:  
+     > **"If `t` holds in the next moment, then `y` must hold in that same next moment."**  
+   - **Key nuances**:  
+     - The formula **only constrains the immediate next state** (not beyond).  
+     - If `t` is false at the next moment, the implication is **vacuously true** (no requirement for `y`).  
+     - If `t` is true at the next moment, `y` **must** be true simultaneously.  
+
+**Final Translation**:  
+"At the next moment of system execution, if `t` holds, then `y` must hold at that same moment."

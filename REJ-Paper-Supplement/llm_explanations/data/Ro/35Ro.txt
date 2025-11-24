@@ -1,0 +1,40 @@
+### Translation of LTL Formula: `F (f => j)`
+
+#### 1. **Original LTL Formula**:
+   - `F (f => j)`
+
+#### 2. **Parsing Tree Breakdown**:
+   - The formula can be decomposed into a tree:
+     ```
+          F       (Future/Eventually operator)
+          |
+          =>      (Implication: f => j)
+         /   \
+        f     j   (Atomic propositions)
+     ```
+
+#### 3. **Rebuilding Meaning (Bottom-Up)**:
+   - **Step 1 (Atomic propositions)**:
+     - `f` represents a proposition (e.g., "task starts").
+     - `j` represents a proposition (e.g., "task completes").
+   - **Step 2 (Innermost operator: `f => j`)**:
+     - `f => j` means "**if `f` holds at a moment, then `j` must hold at the same moment**" (logical implication).
+     - *Example*: "If a task starts (`f`), it must complete (`j`) at that same moment."
+   - **Step 3 (Outermost operator: `F`)**:
+     - `F` (Eventually) requires the inner formula `f => j` to hold **at some future moment** (not necessarily immediately).
+     - *Semantic*: There exists at least one future state where `f => j` is true.
+
+#### 4. **Refined Natural Language Translation**:
+   - **Direct Reconstruction**:  
+     *"Eventually, at some future moment of the system execution, if `f` holds at that moment, then `j` must hold at that same moment."*
+   - **Refined for Clarity**:  
+     *"At some point in the future, `f` being true implies that `j` is simultaneously true."*  
+     (Equivalently: *"Either `f` is false at all future times, or there is a future time where `f` is true and `j` must hold at that same time."*)
+
+#### Key Insight:
+- The formula **does not require**:
+  - `f` or `j` to hold instantly (only "eventually").
+  - The implication to hold **everywhere** (only **at least once** in the future).
+- It is satisfied if:
+  - `f` **never occurs** (since `false => anything` is true), or
+  - `f` occurs at least once **and, at that occurrence, `j` also holds**.

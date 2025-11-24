@@ -1,0 +1,42 @@
+### Step-by-Step Translation of G (n => s)
+
+1. **Original LTL formula:**  
+   `G (n => s)`
+
+2. **Breakdown into a parsing tree:**  
+   ```
+        G           (Global operator)
+        |
+        =>          (Implication operator)
+       /   \
+      n     s       (Atomic propositions)
+   ```
+   - **Leaves:** `n` and `s` represent atomic propositions (e.g., "n holds" or "s holds" at a given moment).  
+   - **Implication (`=>`):** Combines `n` and `s`—means "if `n` holds **in the current moment**, then `s` must hold **in that same moment**".  
+   - **Global (`G`):** Applies to the entire implication `(n => s)`.  
+
+3. **Rebuild the meaning from the bottom up:**  
+   - **Start with `n` and `s`:**  
+     - `n` → "n holds".  
+     - `s` → "s holds".  
+   - **Combine with `=>`:**  
+     - `n => s` → "If **n** holds (at the current moment), then **s** must hold (at the current moment)".  
+   - **Apply the `G` operator:**  
+     - `G (n => s)` → **Every moment** in the system execution must satisfy `(n => s)`.  
+
+4. **Refined natural language phrasing for clarity:**  
+   - Emphasize the **temporal scope** (`G`): Use "always", "continuously", or "at every moment."  
+   - Clarify the **implication** (`n => s`): Use natural conditional phrasing like "whenever", "if", or "implies".  
+   - Ensure atomic propositions are contextualized (e.g., "n holds").  
+   - **Final translation:**  
+     > "**At every moment** in the system execution, **if `n` holds, then `s` must hold**."  
+
+### Key Insights:
+- **`G` dominates:** It sets a requirement for **all moments** in the execution timeline.  
+- **Implication is instantaneous:** `n => s` binds `n` and `s` to the **same moment** (not future/past states).  
+- **Avoid common pitfalls:**  
+  - Don’t confuse `G (n => s)` with `n => G s` (which would imply if `n` ever holds, `s` must hold **forever after**).  
+  - Example: If `n` is "request" and `s` is "grant", `G (n => s)` means: "Requests must be granted **immediately** in the same cycle".  
+
+💡 **One-sentence summary:**  
+> **"Always, if `n` is true now, `s` must be true now."**

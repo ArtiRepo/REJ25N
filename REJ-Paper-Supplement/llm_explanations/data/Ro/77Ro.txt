@@ -1,0 +1,45 @@
+### Step-by-Step Reasoning for LTL Formula: `a U !a`
+
+#### Original LTL Formula:
+```
+a U !a
+```
+
+#### Breakdown into Parsing Tree:
+1. **Root Operator**: The main operator is `U` (Until), which connects two subformulas:
+   - Left operand: Atomic proposition `a`.
+   - Right operand: Negation `!` applied to `a` (i.e., `!a`).
+
+**Parsing Tree**:
+```
+      U
+     / \
+    a   !
+        |
+        a
+```
+
+#### Rebuilding Meaning from the Bottom Up:
+1. **Atomic Proposition (`a`)**:
+   - Basic meaning: "`a` holds (is true) at the current moment."
+2. **Negation (`!a`)**:
+   - Meaning: "`a` does NOT hold (is false) at the current moment."
+3. **Until (`a U !a`)**:
+   - Semantics of `φ U ψ`: "There exists a **future moment** \( j \) (starting from the current moment) such that:
+     - \( \psi \) (`!a`) holds at \( j \), and
+     - \( \varphi \) (`a`) holds at **every moment** from the current moment up to **but excluding** \( j \)."
+   - Applied to `a U !a`:
+     - There must be a future moment \( j \) where `a` becomes false (`!a` holds).
+     - From the current moment until \( j-1 \) (all moments before \( j \)), `a` must hold continuously.
+   - Special case: If `!a` holds **now** (at the current moment), \( j \) is the current moment. The requirement for `a` to hold "until \( j-1 \)" is vacuously true (no moments to check).
+
+#### Refined Natural Language Phrasing:
+- **Concise translation**:  
+  "`a` must hold until the first moment when `a` becomes false."  
+- **Detailed explanation**:  
+  "In the system execution, there exists a moment \( j \) (at or after the current moment) where `a` becomes false for the first time, and `a` holds continuously from the current moment until the moment immediately before \( j\). If `a` is already false at the current moment, the condition is immediately satisfied."
+
+#### Key Insights:
+- **Eventuality**: `!a` **must occur** at some finite time (if not already true now).
+- **Continuity**: `a` holds **without interruption** from the current moment until the step before `!a` occurs.
+- **Parsing Order**: Start from atomic propositions, apply operators (e.g., negation), then resolve temporal operators (e.g., `U`) by combining the subformula meanings contextually.

@@ -1,0 +1,84 @@
+### Reasoning for LTL Formula Translation: (y & !d) | (y => d)
+
+#### 1. **Original LTL Formula**
+```
+(y & !d) | (y => d)
+```
+
+#### 2. **Parsing Tree Breakdown**
+Break the formula into subexpressions using a bottom-up approach:
+
+- **Leaves (atomic propositions)**:
+  - `y`: "y holds".
+  - `d`: "d holds".
+  
+- **Unary operator (`!`)**:
+  - `!d`: "d does not hold".
+
+- **Binary operators (`&`, `=>`, `|`)**:
+  - `(y & !d)`:
+    - Left operand: `y` ("y holds").
+    - Right operand: `!d` ("d does not hold").
+    - Operator `&`: Conjunction ("and").
+  - `(y => d)`:
+    - Left operand: `y` ("y holds").
+    - Right operand: `d` ("d holds").
+    - Operator `=>`: Implication ("if ... then").
+  - Top-level operator `|`: Disjunction ("or") of `(y & !d)` and `(y => d)`.
+
+**Parsing Tree Structure**:
+```
+        |
+       / \
+      &   =>
+     / \  / \
+    y  !d y  d
+        |
+        d
+```
+
+#### 3. **Rebuild Meaning Bottom-Up**
+- **Step 1: Atoms**  
+  - `y` ➔ "y holds".  
+  - `d` ➔ "d holds".  
+
+- **Step 2: Negation (`!`)**  
+  - `!d` ➔ **"d does not hold"**.  
+
+- **Step 3: Conjunction (`&`)**  
+  - `(y & !d)` ➔ **"y holds and d does not hold"**.  
+
+- **Step 4: Implication (`=>`)**  
+  - `(y => d)` ➔ **"if y holds, then d must hold"**.  
+  *(Note: This also covers the case where `y` is false, as implications are true when the premise is false.)*  
+
+- **Step 5: Disjunction (`|`)**  
+  - `(y & !d) | (y => d)` ➔ **"Either (y holds and d does not hold) or (if y holds, then d must hold)"** in the current state.  
+
+#### 4. **Refined Natural Language Phrasing**  
+To improve clarity and flow:  
+- **Literal translation**:  
+  *"At the current state, either:  
+  (1) y holds and d does not hold, or  
+  (2) if y holds, d must hold."*  
+
+- **Refined to capture logic equivalence**:  
+  Notice that `(y => d)` is equivalent to `(!y | d)`. Substituting this into the formula:  
+  ```
+  (y & !d) | (!y | d)
+  ```  
+  This simplifies to `true` (always satisfied) because:  
+  - If `y` is **false**, `!y` is true ➔ whole formula is true.  
+  - If `y` is **true**, the formula becomes `(!d) | d` ➔ always true.  
+
+  However, if we translate without relying on equivalence:  
+  > **"At the current state, it is always true that one of the following holds:  
+  > (a) y holds but d does not, or  
+  > (b) whenever y holds, d must hold (which includes states where y is false)."**  
+
+- **Final concise phrasing** (focus on intent):  
+  *"In the current state, the properties `y` and `d` cannot violate the implication `y → d`; that is, we never have `y` true and `d` false without the alternative of the implication holding."*  
+
+### Summary Translation
+**"At the current moment, either `y` is true and `d` is false, or the condition 'if `y` is true then `d` is true' holds."**  
+*(This captures all cases since the formula is a tautology, but the translation remains faithful to the operator semantics.)*

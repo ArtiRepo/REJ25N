@@ -1,0 +1,59 @@
+### Translation of LTL Formula: F (o U u)
+
+#### Step 1: Original LTL Formula  
+**F (o U u)**  
+
+#### Step 2: Parsing Tree Breakdown  
+- **Top operator**: `F` (eventually)  
+  - **Child**: `(o U u)` (until)  
+    - **Left child**: `o` (atomic proposition)  
+    - **Right child**: `u` (atomic proposition)  
+
+Tree structure:  
+```
+    F
+     |
+     U
+    / \
+   o   u
+```
+
+#### Step 3: Rebuild Meaning from Bottom Up  
+1. **Atomic propositions**:  
+   - `o` means "`o` holds."  
+   - `u` means "`u` holds."  
+
+2. **Subformula `(o U u)`**:  
+   - `(o U u)` means:  
+     *"There exists a future time `j` where `u` holds, and for all times from **now** to `j-1`, `o` holds continuously."*  
+   - Example: If evaluated at time `t`, it requires:  
+     - `u` to hold at some `j ≥ t`,  
+     - `o` to hold at every `k` where `t ≤ k < j`.  
+
+3. **Outermost operator `F`**:  
+   - `F (o U u)` means:  
+     *"There exists a future time `i` where `(o U u)` holds."*  
+   - This shifts the starting point: `(o U u)` is evaluated **starting from `i`**, not necessarily from the current time.  
+
+Combined:  
+- At some future `i`, `(o U u)` holds →  
+  - At `i`, there is a `j ≥ i` where:  
+    - `u` holds at `j`,  
+    - `o` holds at every `k` in `[i, j-1]`.  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Literal translation**:  
+  *"Eventually, at some future moment `i`, `o` will hold continuously from `i` until a later moment `j-1`, and `u` will hold at `j`."*  
+
+- **Key simplification**:  
+  The formula **does not require `o` to hold before `i` or after `j`**. Crucially, `i` can equal `j` (if `u` holds at `i`, the interval `[i, j-1]` is empty, so `o` is vacuously satisfied). Thus:  
+  > **F (o U u) ≡ F u**  
+  *"Eventually, `u` will hold (regardless of `o`)."*  
+
+- **Final concise phrasing**:  
+  **"Eventually, `u` will hold."**  
+
+#### Reasoning Summary  
+- `(o U u)` at time `i` forces `u` to eventually hold from `i` onward, with `o` holding until then.  
+- `F` allows choosing `i` as the exact time `u` holds (`i = j`), making the `o`-requirement vacuous.  
+- Thus, the formula reduces to **`F u`**.

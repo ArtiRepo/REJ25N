@@ -1,0 +1,37 @@
+### Translation Reasoning for LTL Formula: `X !(t | w)`
+
+#### 1. **Original LTL Formula**  
+`X !(t | w)`
+
+#### 2. **Parsing Tree Breakdown**  
+Decompose the formula hierarchically (bottom-up):  
+- **Atomic propositions**: `t`, `w` (base elements).  
+- **Disjunction (|)**: `(t | w)` means "`t` holds **or** `w` holds".  
+- **Negation (!)**: `!(t | w)` negates the disjunction → "**not** (`t` or `w`)".  
+- **Next (X)**: `X !(t | w)` applies the "next" operator to the negated disjunction → "**in the next moment**, `!(t | w)` holds".  
+
+#### 3. **Rebuild Meaning Bottom-Up**  
+- **Step 1 (Leaves)**:  
+  - `t` = "`t` holds".  
+  - `w` = "`w` holds".  
+- **Step 2 (Disjunction)**:  
+  - `(t | w)` = "`t` holds **or** `w` holds".  
+- **Step 3 (Negation)**:  
+  - `!(t | w)` = "**neither** `t` **nor** `w` holds" (by De Morgan’s law: `!t & !w`).  
+- **Step 4 (Next Operator)**:  
+  - `X !(t | w)` = "**in the next moment**, neither `t` nor `w` holds".  
+
+#### 4. **Refined Natural Language Phrasing**  
+- **Core meaning**: "In the next moment of the system execution, neither `t` nor `w` holds."  
+- **Clarity refinements**:  
+  - Replace "should" with "must" for logical precision (LTL describes requirements).  
+  - Explicitly reference "system execution" for context.  
+  - Use "neither/nor" for conciseness (equivalent to "`t` does **not** hold **and** `w` does **not** hold").  
+
+**Final Translation**:  
+> "In the next moment of the system execution, neither `t` nor `w` must hold."  
+
+### Key Insights:
+- **Operator precedence**: `!` applies to `(t | w)` *before* `X`.  
+- **De Morgan’s law**: `!(t | w) ≡ !t & !w` simplifies the negation of disjunctions.  
+- **Temporal logic**: `X` scopes over the *entire* subformula `!(t | w)`.

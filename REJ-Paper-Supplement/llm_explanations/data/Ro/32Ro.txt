@@ -1,0 +1,61 @@
+### Translation Reasoning for LTL Formula: **(b | !a) & X (d U c)**
+
+---
+
+#### 1. **Original LTL Formula**  
+`(b | !a) & X (d U c)`
+
+---
+
+#### 2. **Parsing Tree Breakdown**  
+*(Parentheses define operator scope; resolve innermost first)*  
+```
+Top-level: AND (&)
+├── Left operand: OR (|) 
+│   ├── b (atomic prop)
+│   └── NOT (!) 
+│       └── a (atomic prop)
+└── Right operand: NEXT (X)
+    └── UNTIL (U)
+        ├── d (atomic prop)
+        └── c (atomic prop)
+```
+
+---
+
+#### 3. **Rebuild Meaning Bottom-Up**  
+**(Start from leaves → root)**
+
+- **Atomic propositions (a, b, c, d)**:  
+  Basic truths (e.g., "`a` holds" or "`b` is true").
+
+- **Negation (!a)**:  
+  "`a` does *not* hold" (at the current moment).
+
+- **Disjunction (b | !a)**:  
+  "Either `b` holds *or* `a` is false" (or both) at the **current moment**.
+
+- **Until (d U c)**:  
+  "`d` holds continuously *until* `c` becomes true" (and `c` must eventually hold).
+
+- **Next (X (d U c))**:  
+  "In the **immediately next moment**, `(d U c)` becomes true".
+
+- **Conjunction (&)**:  
+  Combine both parts:  
+  **"The current state satisfies `(b | !a)` AND the next state satisfies `(d U c)`"**.
+
+---
+
+#### 4. **Refined Natural Language Phrasing**  
+> **"At the present moment, either `b` holds or `a` is false (or both). Additionally, starting from the very next moment, `d` must hold continuously until `c` becomes true (and `c` must eventually hold at some future moment)."**
+
+---
+
+### Key Insights:
+- **Operator Precedence**: `X` binds tightly to `(d U c)` (not to `d` alone).  
+- **Temporal Flow**:  
+  - `(b | !a)` applies to **now**.  
+  - `X (d U c)` shifts the "until" requirement to the **next state onward**.  
+- **Eventuality**: `(d U c)` mandates `c` *must* hold in the future (after "next").  
+- **Clarity**: Explicitly separate "current" vs. "next moment" conditions.

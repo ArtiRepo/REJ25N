@@ -1,0 +1,34 @@
+**Original LTL formula:**  
+a U (b & c)  
+
+**Parsing tree breakdown:**  
+```
+     U  
+    / \  
+   a   &  
+      / \  
+     b   c  
+```  
+- **Leaves**: Atomic propositions `a`, `b`, `c` (basic state properties).  
+- **First composition**: `b & c` (a conjunction meaning both `b` and `c` must hold simultaneously).  
+- **Root**: `U` (the "Until" operator connecting `a` and `(b & c)`).  
+
+**Rebuilding meaning from the bottom up:**  
+1. **`b & c`**:  
+   - "At some moment in the execution, both `b` and `c` must be true **at the same time**."  
+2. **`a U (b & c)`**:  
+   - Combines the requirement above with `a` using `U`:  
+     - The `U` operator demands:  
+       - **Eventuality**: The state `(b & c)` (from step 1) must eventually occur.  
+       - **Continuity**: At every moment **from now** until **immediately before** `(b & c)` occurs, `a` must hold.  
+     - Example cases:  
+       - If `(b & c)` holds **now**, `a` is not required at any moment (vacuously satisfied).  
+       - If `(b & c)` holds in the **future**, `a` must hold **now and continuously** until the step just before `(b & c)`.  
+
+**Refined natural language phrasing for clarity:**  
+> "The system must eventually reach a state where both `b` and `c` are true at the same time. Until that state is reached (if it has not already occurred), `a` must hold **continuously from the current moment onward**."  
+
+### Key Notes:
+- **Eventuality**: `(b & c)` must happen at least once (strong guarantee).  
+- **Continuity**: `a` covers all states strictly **between now** and the moment `(b & c)` happens (excludes the `(b & c)` state itself).  
+- **Edge case**: If `(b & c)` is true now, no `a` is required.

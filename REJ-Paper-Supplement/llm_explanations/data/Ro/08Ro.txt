@@ -1,0 +1,45 @@
+### Reasoning for LTL Formula Translation: `b U !d`
+
+**Original LTL Formula**:  
+`b U !d`
+
+**Breakdown into Parsing Tree**:  
+- Top operator: **Until (`U`)**  
+  - Left operand: **Atomic proposition `b`**  
+  - Right operand: **Negation (`!`)**  
+    - Child: **Atomic proposition `d`**  
+
+```
+      U
+     / \
+    b   !
+        |
+        d
+```
+
+**Rebuild Meaning from Bottom Up**:  
+1. **Leaf `d`**:  
+   - "`d` holds" (atomic proposition).  
+2. **Negation `!d`**:  
+   - "`d` does not hold" (negation of `d`).  
+3. **Atomic proposition `b`**:  
+   - "`b` holds" (atomic proposition).  
+4. **Until (`b U !d`)**:  
+   - The `U` operator requires:  
+     - **Eventuality**: There exists a future moment where `!d` holds (i.e., `d` becomes false).  
+     - **Continuity**: `b` must hold at **every moment** from the current state until the state **immediately before** `!d` holds.  
+   - Note: `b` is **not required** at the exact moment `!d` holds.  
+
+**Refined Natural Language Phrasing for Clarity**:  
+> "`d` must eventually become false, and until the moment just before that happens, `b` must hold continuously at every step."
+
+### Key Clarifications:
+- **Eventuality is required**: `d` must become false at some future moment.  
+- **`b`'s requirement**: `b` must hold from **now** until the state **right before** `d` becomes false. If `d` is false now, no `b` checks are needed (vacuously true).  
+- **Exclusion of final moment**: At the exact moment `d` becomes false, `b` may or may not hold—only `!d` is enforced.  
+
+**Example**:  
+- If `d` becomes false at time `t=2`, `b` must hold at `t=0` and `t=1` (but not necessarily at `t=2`).  
+- If `d` is false now (`t=0`), the formula holds regardless of `b` at `t=0`.  
+
+This phrasing aligns with the formal semantics of `U` (strong until) and avoids ambiguity.

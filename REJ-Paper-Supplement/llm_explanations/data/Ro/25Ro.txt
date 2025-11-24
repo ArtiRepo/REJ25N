@@ -1,0 +1,32 @@
+
+### Translation of LTL Formula: `!X t`
+
+1. **Original LTL Formula:**  
+   `!X t`
+
+2. **Parsing Tree Breakdown (bottom-up):**  
+   - **Atomic proposition (leaf):** `t`  
+     *Meaning: "`t` holds at a specific moment."*  
+   - **Temporal operator `X`: (applied to `t`) → `X t`**  
+     *Meaning: "In the **next** moment of the system execution, `t` holds."*  
+   - **Negation operator `!`: (applied to `X t`) → `!X t`**  
+     *Meaning: "It is **not true** that in the next moment, `t` holds."*  
+
+3. **Rebuilding Meaning from the Tree:**  
+   - Start at the leaf: `t` → condition "`t` is true".  
+   - Apply `X`: Shifts `t` to the **immediately following state** → "At the next moment, `t` is true".  
+   - Apply `!`: Negates the entire `X t` proposition → "It is **false** that at the next moment, `t` is true".  
+   - **Semantic equivalence:** `!X t ≡ X !t`*, meaning "At the next moment, `t` is **false**".  
+
+4. **Refined Natural Language Translation:**  
+   > **"In the next moment of the system execution, `t` must *not* hold."**  
+   *(Where "`t`" is an atomic proposition, e.g., "the light is on").*  
+
+### Key Notes for Clarity:
+- **Operator Precedence:** `!` (negation) applies *directly* to `X t`, not to `t` alone.  
+- **Intuition:** `X` "shifts" evaluation one step forward; `!` flips the truth value of the shifted proposition.  
+- **Formal Equivalence:** `!X t` is logically equivalent to `X !t` ("in the next moment, `t` is false").  
+
+---  
+*\*Optional Verification:  
+  - `!X t` (negation of "next `t`") is identical to `X !t` ("next, not `t`") by LTL semantics.*

@@ -1,0 +1,48 @@
+### Translation Reasoning for G !a
+
+#### Step 1: Original LTL Formula  
+`G !a`
+
+#### Step 2: Parsing Tree Breakdown  
+- Root operator: `G` (Global/temporal "always" operator).  
+- Child node: `!a` (negation of atomic proposition `a`).  
+  - Leaf node: `a` (atomic proposition).  
+
+Tree structure:  
+```
+     G  
+     |  
+     !  
+     |  
+     a  
+```
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Leaf node (`a`):**  
+   - `a` is a boolean proposition (e.g., "the system is in error state").  
+   - **Meaning:** "`a` holds".  
+
+2. **Negation operator (`!a`):**  
+   - Applies to child `a`.  
+   - **Meaning:** "`a` does **not** hold" (i.e., "the system is **not** in error state").  
+
+3. **Global operator (`G !a`):**  
+   - Applies to child `!a`.  
+   - `G` enforces **all future moments** in the execution trace.  
+   - **Combined meaning:** "`a` does not hold **in every moment** of the execution".  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Literal translation:** "Globally, `a` does not hold" → **impersonal and technical**.  
+- **Polished version:**  
+  > **"At every moment of the system execution, `a` must never hold"**.  
+
+- **Why this phrasing?**  
+  - "At every moment" concretizes `G` (temporal ubiquity).  
+  - "Must never hold" emphasizes the **persistent requirement** of `!a`, avoiding ambiguity.  
+  - Example: If `a` = "system failure", this means:  
+    *The system must **never** fail at any point during execution.*  
+
+#### Key Insights  
+- `G φ` ≡ "Always φ" (for any subformula φ).  
+- `!a` ≡ "`a` is false".  
+- Combining them express **eternal avoidance** of `a` (safety property).

@@ -1,0 +1,39 @@
+### Translation of LTL Formula: `a U c`
+
+**Original LTL Formula**:  
+`a U c`
+
+**Parsing Tree Breakdown**:  
+- Operator: `U` (Until)  
+- Left operand: `a` (atomic proposition)  
+- Right operand: `c` (atomic proposition)  
+
+Tree structure:  
+```
+     U  
+    / \  
+   a   c  
+```
+
+**Rebuilding Meaning from Bottom Up**:  
+1. **Atomic propositions**:  
+   - `a` means "`a` holds at the current moment."  
+   - `c` means "`c` holds at the current moment."  
+
+2. **Operator `U` semantics**:  
+   - `P U Q` requires:  
+     - `Q` must hold **at some future moment** (including now).  
+     - `P` must hold **continuously** from the current moment **until** (and not including) the moment `Q` holds.  
+
+**Refined Natural Language Phrasing**:  
+> "Property `a` must hold continuously **until** property `c` becomes true, and `c` **must eventually hold** at some future moment."  
+
+**Key Clarifications**:  
+- **Continuity**: `a` must hold at every step starting now, without gaps, until `c` becomes true.  
+- **Eventuality**: `c` **must** occur at least once in the future (failure if `c` never holds).  
+- **Inclusion of present**: If `c` holds now, `a` is not required for prior steps (trivially satisfied).  
+
+**Example**:  
+- Valid execution: `[a, a, a, c, ...]` (a holds until c at step 3).  
+- Invalid execution: `[a, ¬a, c, ...]` (a breaks before c).  
+- Invalid execution: `[a, a, a, ...]` (c never holds).

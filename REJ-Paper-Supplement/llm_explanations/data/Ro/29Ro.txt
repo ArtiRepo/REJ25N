@@ -1,0 +1,51 @@
+### Translation Reasoning for LTL Formula: F x | F y
+
+**Original LTL Formula:**  
+`F x | F y`
+
+**Breakdown into Parsing Tree:**  
+- Root operator: `|` (logical OR)  
+  - Left subformula: `F x`  
+    - Operator `F` (eventually)  
+    - Atomic proposition `x`  
+  - Right subformula: `F y`  
+    - Operator `F` (eventually)  
+    - Atomic proposition `y`  
+
+**Tree Structure:**  
+```
+     | (OR)  
+   /   \  
+  F     F  
+  |     |  
+  x     y  
+```
+
+**Rebuild Meaning Bottom-Up:**  
+1. **Atomic propositions (`x` and `y`):**  
+   - `x` means "`x` holds in some state".  
+   - `y` means "`y` holds in some state".  
+
+2. **`F` operator (applied to `x` and `y`):**  
+   - `F x` → "Eventually, `x` must hold" (i.e., `x` becomes true at least once in the future).  
+   - `F y` → "Eventually, `y` must hold" (i.e., `y` becomes true at least once in the future).  
+
+3. **`|` operator (combining `F x` and `F y`):**  
+   - Disjunction of the two subformulas:  
+     Either `F x` is true OR `F y` is true (or both).  
+   - Meaning: "Either `x` must eventually hold, or `y` must eventually hold".  
+
+**Refined Natural Language Phrasing:**  
+- **Literal reconstruction:**  
+  "In the system execution, eventually `x` holds or, in the system execution, eventually `y` holds."  
+- **Clarity refinement:**  
+  - Remove redundancy ("in the system execution" repeated).  
+  - Emphasize disjunction ("either... or").  
+  - Use obligation language ("must") to reflect LTL's requirement semantics.  
+- **Final translation:**  
+  **"Either `x` must eventually hold or `y` must eventually hold."**  
+
+### Key Notes:
+- `F` (eventually) implies the proposition holds **at least once** in the future, not necessarily at the same time.  
+- `|` (OR) means **at least one** of the subformulas must be satisfied.  
+- The phrasing avoids implying simultaneity or ordering between `x` and `y`.

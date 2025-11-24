@@ -1,0 +1,54 @@
+### Translation of LTL Formula: **(d | !b) U !a**
+
+**1. Original LTL Formula:**  
+`(d | !b) U !a`
+
+**2. Parsing Tree Breakdown:**  
+- **Root operator:** `U` (Until)  
+  - **Left child:** Disjunction `(d | !b)`  
+    - *d* (atomic proposition)  
+    - `!b` (Negation of atomic proposition `b`)  
+  - **Right child:** `!a` (Negation of atomic proposition `a`)  
+
+Tree structure:  
+```
+      U  
+     / \  
+    /   \  
+ (d | !b) !a  
+  /   \  
+ d     !b  
+        \  
+         b (negated)  
+```
+
+**3. Rebuilding Meaning Bottom-Up:**  
+- **Atomic propositions:**  
+  - `d`: "`d` holds"  
+  - `b`: "`b` holds" → `!b`: "`b` **does not hold**"  
+  - `a`: "`a` holds" → `!a`: "`a` **does not hold**"  
+
+- **Left subformula (`d | !b`):**  
+  "`d` holds OR `b` does not hold."  
+  (True if either `d` is true or `b` is false at any moment.)  
+
+- **Root operator (`U`):**  
+  The `(d | !b) U !a` requires:  
+  1. `!a` must **eventually hold** at some future moment.  
+  2. Until `!a` holds, `(d | !b)` must hold **continuously** (at every moment before and including the moment `!a` becomes true).  
+
+**4. Refined Natural Language Phrasing:**  
+> "**At every moment of the system execution until (and including) the first time `a` becomes false, either `d` holds or `b` is false. Furthermore, `a` must eventually become false.**"  
+
+### Key Clarifications:
+- **Temporal Scope:**  
+  Condition `(d | !b)` must hold **uninterruptedly** from the start until the exact moment `a` becomes false.  
+- **Termination Requirement:**  
+  The formula mandates that `a` **must eventually become false**—the system cannot satisfy the formula if `a` stays true forever.  
+- **Inclusive "Until":**  
+  Condition `(d | !b)` must hold **at the moment `a` becomes false** (i.e., in the same state where `!a` occurs).  
+
+### Comparison to Initial Example (`X !e & X f`):  
+- Similar step-by-step parsing of operators (e.g., breaking `!b`/`!a` as negations, `|` as disjunction, `U` with temporal constraints).  
+- Focus on temporal keywords: "until" and "eventually" for `U`, atomic propositions mapped to system events.  
+- Explicit inclusion of constraints ("must hold continuously," "must eventually occur").

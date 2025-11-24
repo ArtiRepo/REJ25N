@@ -1,0 +1,47 @@
+
+### Reasoning for LTL Formula Translation: **G t | F w**
+
+#### 1. **Original LTL Formula**  
+   `G t | F w`
+
+#### 2. **Parsing Tree Breakdown**  
+   - **Operator Precedence**: Unary operators (`G`, `F`) bind tighter than binary operators (`|`).  
+     → The formula parses as `(G t) | (F w)`.  
+   - **Parsing Tree**:  
+     ```
+          |          (OR)
+         / \
+        /   \
+       G     F      (unary operators)
+       |     |
+       t     w      (atomic propositions)
+     ```
+
+#### 3. **Rebuild Meaning from Bottom-Up**  
+   - **Leaf Level (`t`, `w`)**:  
+     - `t`: Proposition `t` holds **at the current moment**.  
+     - `w`: Proposition `w` holds **at the current moment**.  
+   - **Unary Operators (Next Level)**:  
+     - **`G t`**: Globally `t` (always `t`).  
+       → "`t` holds **at every future moment** (including now)."  
+     - **`F w`**: Finally `w` (eventually `w`).  
+       → "`w` holds **at least once in the future** (could be now or later)."  
+   - **Root Operator (`|`)**:  
+     - `(G t) | (F w)` means either **(G t) is true** OR **(F w) is true** (or both).  
+       → Combined: "**Either `t` holds at every future moment, OR `w` holds at least once in the future.**"  
+
+#### 4. **Refined Natural Language Phrasing**  
+   - **Clarity Adjustments**:  
+     - Specify time scope: "**during the entire system execution**".  
+     - Avoid ambiguity: Explicitly state both scenarios:  
+       > *"Either `t` holds **continuously** throughout the entire system execution, OR `w` holds **at some point** during the system execution (or both)."*  
+
+### Final Translation  
+**"Either `t` is always true, or `w` eventually becomes true (or both) during the entire system execution."**  
+
+---  
+**Key Insights**:  
+- Parsing order matters: `G`/`F` apply first, then `|`.  
+- `G` requires **universal** future validity (all moments).  
+- `F` requires **existential** future validity (at least one moment).  
+- `|` covers both branches independently (no mutual exclusion).

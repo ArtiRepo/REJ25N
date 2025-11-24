@@ -1,0 +1,61 @@
+### Step-by-Step Translation of LTL Formula: **G(a→b)**  
+*(Following the requested structure)*  
+
+---
+
+#### 1. **Original LTL Formula**  
+`G(a→b)`  
+
+---
+
+#### 2. **Parsing Tree Breakdown**  
+- Top operator: **`G`** (Globally/Always)  
+  - Operand: **Implication `(a→b)`**  
+    - Left child: **Atomic proposition `a`**  
+    - Right child: **Atomic proposition `b`**  
+```
+    G  
+    |  
+    →  
+   / \  
+  a   b  
+```  
+
+---
+
+#### 3. **Rebuild Meaning from Bottom-Up**  
+Start with atomic propositions:  
+- `a`: "`a` holds."  
+- `b`: "`b` holds."  
+
+Build **implication **`(a→b)`**:  
+- **Meaning**: "*If `a` holds, then `b` must hold*" (**at the same moment in time**).  
+
+Apply the **`G` operator**:  
+- `G` imposes the requirement on **all moments** in the execution:  
+  - **Meaning**: "*The implication `(a→b)` must hold* ***at every moment*** *of the system execution.*"  
+
+Combine:  
+- "***In every moment of the execution, if `a` holds at that moment, then `b` must hold at that same moment.***"  
+
+---
+
+#### 4. **Refined Natural Language Phrasing**  
+- **Concise version**:  
+  > "*Globally, whenever `a` is true, `b` must be true.*"  
+
+- **Verbose/clarified version**:  
+  > "***Throughout the entire system execution, at every moment where proposition `a` holds, proposition `b` must also hold at that same moment.***"  
+
+- **Alternative intuitive phrasing**:  
+  > "*`a` is never true unless `b` is true at the same time, and this holds forever.*"  
+
+---
+
+**Key Insight**:  
+- `G` forces the condition `(a→b)` (same-time implication) to hold **continuously** during execution.  
+- `→` is evaluated **instantaneously** (same time point), unlike operators like `U` (Until) that span time intervals.  
+
+*Final Translation*:  
+**"At every moment in the execution, if a holds then b must hold."**  
+*(Matches the example format)*

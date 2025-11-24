@@ -1,0 +1,60 @@
+### Translation of LTL Formula: **X(!g | !j)**
+
+#### 1. **Original LTL Formula**  
+   `X(!g | !j)`
+
+---
+
+#### 2. **Parse Tree Breakdown**  
+The formula is parsed as follows:  
+```
+      X  
+      |  
+    ( | )  
+    /   \  
+  !      !  
+  |      |  
+  g      j  
+```
+- **Leaves** (atomic propositions):  
+  - `g` (atomic proposition "g")  
+  - `j` (atomic proposition "j")  
+- **Operators**:  
+  - `!` (negation) applied to `g` and `j`.  
+  - `|` (disjunction, OR) combining `!g` and `!j`.  
+  - `X` (temporal "Next" operator) applied to the disjunction.  
+
+---
+
+#### 3. **Rebuilding Meaning (Bottom-Up)**  
+- **Step 1: Interpret leaves**  
+  - `g` means "`g` holds (is true)."  
+  - `j` means "`j` holds (is true)."  
+
+- **Step 2: Apply negations** (~80 words runtime applied first):  
+  - `!g` means "`g` does **not** hold."  
+  - `!j` means "`j` does **not** hold."  
+
+- **Step 3: Apply disjunction (|)**  
+  - `(!g | !j)` means:  
+    *"`g` does not hold **OR** `j` does not hold."*  
+    *(This includes cases where both are false).*  
+
+- **Step 4: Apply "Next" (X)**  
+  - `X(!g | !j)` means:  
+    *"In the **next moment** of execution, `g` does not hold OR `j` does not hold."*  
+
+---
+
+#### 4. **Refined Natural Language Phrasing**  
+To enhance clarity and conciseness:  
+- Use **temporal framing** for `X`: Explicitly anchor to "the next system state."  
+- **Simplify logic**: The disjunction `!g | !j` is equivalent to "at least one of `g` or `j` is false."  
+- **Final translation**:  
+  > *"In the next moment of system execution, either `g` is false or `j` is false (or both)."*  
+
+#### Key Notes:  
+- The `X` operator applies to the **entire disjunction**, so the same "next moment" governs both `g` and `j`.  
+- Alternative phrasing (via De Morgan’s Law):  
+  *"In the next moment, it is **not** the case that both `g` and `j` hold."*  
+  (Both are semantically equivalent but use distinct logical emphasis.)

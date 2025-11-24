@@ -1,0 +1,52 @@
+### Translation Reasoning for LTL Formula: `a U b`
+
+**Original LTL Formula:**  
+`a U b` (where `U` is the "Until" operator)
+
+---
+
+#### Step 1: Parsing Tree Breakdown  
+- **Operator**: `U` (Until)  
+  - **Left operand**: `a` (atomic proposition)  
+  - **Right operand**: `b` (atomic proposition)  
+
+```
+     U
+    / \
+   a   b
+```
+
+---
+
+#### Step 2: Rebuilding Meaning Bottom-Up  
+1. **Atomic propositions**:  
+   - `a` means "`a` holds at the current moment."  
+   - `b` means "`b` holds at the current moment."  
+   *(Note: Temporal operators extend this to future moments.)*  
+
+2. **Operator `U` semantics**:  
+   - `a U b` requires:  
+     - **Existence of `b`**: There **must exist a future moment** (possibly now) where `b` holds.  
+     - **Continuity of `a`**: From the **current moment until (but not necessarily including)** the moment `b` holds, `a` must hold at **every intermediate moment**.  
+
+---
+
+#### Step 3: Refined Natural Language Phrasing  
+- **Direct translation**:  
+  "`a` must hold continuously until `b` holds, and `b` must eventually hold."  
+
+- **Clarity refinements**:  
+  - Explicitly state **temporal continuity** ("continuously until").  
+  - Emphasize **eventuality** ("must eventually hold").  
+  - Clarify **exclusion of the `b`-moment** for `a` (if `b` holds now, `a` is not required at all).  
+
+**Final Structured Translation**:  
+> "The system must satisfy `a` continuously until the moment when `b` becomes true, and `b` must eventually become true."  
+
+---
+
+#### Key Notes:  
+- **Why "continuously"?** Ensures `a` holds at **every step** between now and the `b`-moment.  
+- **Why "eventually"?** The `U` operator mandates `b` **must occur** (liveness property).  
+- **Edge case**: If `b` holds now, `a` is irrelevant (no intermediate moments).  
+- Contrast with `X` (next): `U` spans **multiple future moments**, not just the immediate next.

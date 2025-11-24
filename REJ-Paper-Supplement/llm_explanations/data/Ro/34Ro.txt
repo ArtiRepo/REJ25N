@@ -1,0 +1,55 @@
+
+### Translation of LTL Formula: G (!f | !i)
+
+#### Original LTL Formula:
+`G (!f | !i)`
+
+#### Parsing Tree Breakdown:
+1. **Root operator**: `G` (Globally).  
+   - Child: `!f | !i` (disjunction).  
+2. **Disjunction (`|`)** breaks into:  
+   - Left child: `!f` (negation of `f`).  
+     - Grandchild: `f` (atomic proposition).  
+   - Right child: `!i` (negation of `i`).  
+     - Grandchild: `i` (atomic proposition).  
+
+**Tree Structure**:
+```
+     G
+     |
+     OR
+    /   \
+  NOT   NOT
+  |      |
+  f      i
+```
+
+#### Rebuilding Meaning from the Bottom Up:
+1. **Atomic propositions**:  
+   - `f` means "`f` holds".  
+   - `i` means "`i` holds".  
+<br>
+2. **Apply negations**:  
+   - `!f` → "`f` does **not** hold".  
+   - `!i` → "`i` does **not** hold".  
+<br>
+3. **Apply disjunction (`|`)**:  
+   - `!f | !i` → **"`f` does not hold OR `i` does not hold"**.  
+     Equivalently: **"It is not the case that both `f` and `i` hold simultaneously"**.  
+<br>
+4. **Apply global operator (`G`)**:  
+   - `G (!f | !i)` → **"At every moment in the system execution, `f` does not hold OR `i` does not hold"**.  
+     Or rephrased: **"Globally, `f` and `i` are never true at the same time"**.  
+
+#### Refined Natural Language Phrasing:
+> **"Throughout the entire system execution, `f` and `i` can never both be true in the same state."**  
+
+### Key Reasoning Summary:
+- **`G` (Globally)** → Constraint over **all** future states.  
+- **`|` (Disjunction)** → Logical **OR** (at least one subformula must hold).  
+- **`!` (Negation)** → Flips the truth value (e.g., `!f` ≡ "`f` is false").  
+- **Combined meaning**:  
+  The disjunction `!f | !i` forces **exclusion** between `f` and `i` in every state.  
+  - If `f` is true, `i` must be false.  
+  - If `i` is true, `f` must be false.  
+  - Both can also be false, but **never simultaneous true**.

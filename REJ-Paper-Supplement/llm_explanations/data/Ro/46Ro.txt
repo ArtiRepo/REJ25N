@@ -1,0 +1,54 @@
+### Translation of LTL Formula: **F d | G !n**
+
+#### Step 1: Original LTL Formula  
+`F d | G !n`  
+
+#### Step 2: Parsing Tree Breakdown  
+- **Root operator**: `|` (OR)  
+  - **Left child**: `F d`  
+    - `F` (Eventually) → Unary operator  
+    - `d` → Atomic proposition  
+  - **Right child**: `G !n`  
+    - `G` (Globally) → Unary operator  
+    - `!n` → Negation of atomic proposition `n`  
+      - `!` (Not) → Unary operator  
+      - `n` → Atomic proposition  
+
+Tree structure:  
+```
+     |  
+   /   \  
+  F     G  
+  |     |  
+  d     !  
+        |  
+        n  
+```
+
+#### Step 3: Rebuild Meaning Bottom-Up  
+1. **Atomic propositions**:  
+   - `d`: "`d` holds at a moment."  
+   - `n`: "`n` holds at a moment."  
+2. **Negation (`!n`)**:  
+   - "`n` does **not** hold at a moment."  
+3. **Eventually (`F d`)**:  
+   - "At **some future moment**, `d` holds."  
+4. **Globally (`G !n`)**:  
+   - "At **every future moment** (including now), `n` does **not** hold."  
+5. **OR (`|`)**:  
+   - Combine `F d` and `G !n`:  
+     - "Either **at some future moment `d` holds**, OR **at every future moment `n` does not hold**."  
+
+#### Step 4: Refined Natural Language Phrasing  
+- **Final translation**:  
+  > *"In the system execution, either `d` eventually holds at some future moment, or `n` is always false from now onwards."*  
+
+#### Key Reasoning:  
+- **Operator precedence**: Unary operators (`F`, `G`, `!`) bind tighter than binary operators (`|`). Thus, `F d | G !n` parses as `(F d) | (G (!n))`.  
+- **Temporal logic semantics**:  
+  - `F d` → `d` becomes true **at least once** in the future.  
+  - `G !n` → `n` is **never true** (from the current moment onward).  
+- **Inclusive OR**: The formula holds if either subformula is true (or both).  
+- **Clarity refinement**:  
+  - Explicitly state time scope ("future moment", "from now onwards").  
+  - Use "always false" for `G !n` to emphasize persistent negation.

@@ -1,0 +1,32 @@
+### Translation Reasoning for LTL Formula: `FGa`
+
+**1. Original LTL Formula:**  
+`FGa` (equivalent to `F(G a)`).
+
+**2. Parsing Tree Breakdown:**  
+- **Leaf (atomic proposition):** `a`  
+  *Meaning: Property `a` holds in a state.*  
+- **First operator application:** `G a`  
+  *Meaning: "Globally `a`" – `a` holds in **all future states** from some point onward.*  
+- **Outermost operator application:** `F(G a)`  
+  *Meaning: "Finally `(G a)`" – `G a` must hold at **some future state**.*  
+
+**3. Rebuilding Meaning Bottom-Up:**  
+- Start with `a`:  
+  "`a` holds in a specific state."  
+- Apply `G` to `a`:  
+  "`a` holds **continuously forever** starting from some state `s`."  
+  *(i.e., from state `s` onward, `a` is always true)*  
+- Apply `F` to `(G a)`:  
+  "There **exists a future state** `s` where `(G a)` becomes true."  
+  *(i.e., at state `s`, `a` starts holding and **never stops**)*  
+
+**4. Refined Natural Language Phrasing:**  
+> "**Eventually, `a` becomes permanently true.**"  
+
+### Key Insights:
+- `G a` requires **persistent truth**: Once `a` holds, it *must hold forever after*.  
+- `F` shifts focus to **future fulfillment**: This persistence must start *at some point*.  
+- Combined: `a` may be false initially, but from *some future state onward*, it becomes **always true**.  
+
+*(Example: "Eventually the system enters a safe mode and never exits.")*

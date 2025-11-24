@@ -1,0 +1,48 @@
+### LTL Formula Translation: Fa -> Gb
+
+#### Original LTL Formula
+- **Fa -> Gb**
+
+#### Parsing Tree Breakdown
+```
+     Implication (->)
+     /           \
+    F a         G b
+    / \         / \
+   F   a       G   b
+```
+- **Leaf nodes**: Atomic propositions `a` and `b`.
+- **Next level**: 
+  - `F a`: The "eventually" operator (`F`) applied to `a`.
+  - `G b`: The "globally" operator (`G`) applied to `b`.
+- **Root**: Implication (`->`) between `F a` and `G b`.
+
+#### Rebuilding Meaning from Bottom Up
+1. **Atomic propositions**:
+   - `a`: "`a` holds."
+   - `b`: "`b` holds."
+   
+2. **Subformulas**:
+   - **`F a`**: "At **some future moment**, `a` holds."  
+     (An event where `a` becomes true eventually occurs.)
+   - **`G b`**: "At **every future moment** (including now), `b` holds."  
+     (`b` must be true continuously from the current state onward.)
+
+3. **Implication (`Fa -> Gb`)**:
+   - Logical structure: **If `F a` is true, then `G b` must be true**.
+   - Meaning: If the system reaches a state where `a` holds at some future point, then `b` must hold **globally** (at every moment, including now and before/after `a`).
+
+#### Refined Natural Language Phrasing
+- **Initial phrasing**: "If eventually `a` holds, then globally `b` holds."
+- **Refined for clarity**:  
+  > **"If at any future moment `a` becomes true, then `b` must hold at every moment from the current state onward."**
+
+#### Key Insights
+- **Implication scope**: The formula is satisfied if either:
+  - (a) `a` **never occurs** in the future (making `F a` false), or
+  - (b) `b` **holds continuously** (now and forever) whenever `a` occurs.
+- **Critical nuance**: If `a` occurs at time `t`, `G b` requires `b` to be true **starting at the initial state**, not just after `t`. Thus, `b` must hold both *before and after* `a` occurs.
+- **Equivalent logic**:  
+  `Fa -> Gb` ≡ `¬Fa ∨ Gb` ≡ "Either `a` never occurs, or `b` holds everywhere." 
+
+This reflects a strong constraint: The mere **possibility** of `a` (even once) forces `b` to hold **throughout the entire execution**.
