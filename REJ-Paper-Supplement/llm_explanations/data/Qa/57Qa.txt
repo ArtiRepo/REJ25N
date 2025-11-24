@@ -1,0 +1,28 @@
+- **Original LTL formula**:  
+  $ F a \land G(a \rightarrow X G \neg a) $  
+
+- **Breakdown (parsing tree)**:  
+  1. $ F a $: "Eventually a is true."  
+     - $ F $ (eventually) applies to $ a $.  
+  2. $ G(a \rightarrow X G \neg a) $: "Always, if a is true, then in the next step, a is never true again."  
+     - $ G $ (globally) applies to the implication $ (a \rightarrow X G \neg a) $.  
+     - $ a \rightarrow X G \neg a $: "If a holds at a moment, then in the next moment, a is globally false."  
+       - $ X G \neg a $: "At the next time step, a is always false (i.e., after the next step, a is never true)."  
+
+- **Rebuild meaning from the bottom up**:  
+  - $ G \neg a $: "a is never true in the future."  
+  - $ X G \neg a $: "After the next time step, a is never true."  
+  - $ a \rightarrow X G \neg a $: "If a is true at any time, it must be the last time a is true (since after the next step, a is false forever)."  
+  - $ G(a \rightarrow X G \neg a) $: "At all times, if a is true, it cannot be true again in the future."  
+  - $ F a $: "a is true at least once."  
+  - Combined: "a is true at least once, and whenever it is true, it is the last occurrence (i.e., a cannot be true again after that)."  
+
+- **Refined natural language phrasing**:  
+  **"Eventually, a becomes true, and once it is true, it remains false for all subsequent time steps."**  
+
+  **Explanation**:  
+  - **Satisfied**: When the system has a single occurrence of $ a $ at some time step $ t $, and $ a $ is false in all steps $ t+1, t+2, \dots $.  
+  - **Constraints**:  
+    - $ F a $ ensures $ a $ *must* occur at least once.  
+    - $ G(a \rightarrow X G \neg a) $ enforces that *after any occurrence of $ a $, it is never true again*. Thus, $ a $ can only be true once (or not at all, but $ F a $ nullifies that).  
+  - **Key implication**: This formula guarantees $ a $ has a *final occurrence*, and no later occurrences.

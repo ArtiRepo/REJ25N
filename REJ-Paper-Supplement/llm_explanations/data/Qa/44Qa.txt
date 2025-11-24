@@ -1,0 +1,22 @@
+- **Original LTL formula**: X(!g | !j)  
+- **Parsing tree breakdown**:  
+  - **Root**: X (Next)  
+    - **Child**: (!g | !j) (Disjunction)  
+      - **Left subtree**: !g (Negation of g)  
+      - **Right subtree**: !j (Negation of j)  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **!g** means "g is false" in the current state.  
+  2. **!j** means "j is false" in the current state.  
+  3. **!g | !j** means "Either g is false or j is false" in the current state.  
+  4. **X(!g | !j)** shifts this disjunction to the **next state**, meaning "In the next state, either g is false or j is false."  
+
+- **Refine natural language phrasing**:  
+  The formula **X(!g | !j)** translates to:  
+  **"In the next state, at least one of g or j must be false."**  
+  **Or more concisely**: **"The next state must not have both g and j true simultaneously."**  
+
+  **Explanation**:  
+  - The formula imposes a constraint on the system's behavior: **after every state transition**, the system must avoid a state where both **g** and **j** are true.  
+  - It is **satisfied** if, for every possible path in the system, the next state following any current state has **¬g ∨ ¬j**.  
+  - This effectively prevents the system from having two consecutive states where **g ∧ j** is true, ensuring that **g and j cannot both hold in the immediate next step**.

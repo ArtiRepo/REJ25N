@@ -1,0 +1,19 @@
+- **Original LTL formula**:  
+  $ F\,a $  
+
+- **Breakdown (parsing tree)**:  
+  - Root: $ F $ (Finally operator)  
+    - Subformula: $ a $ (Atomic proposition)  
+
+- **Rebuilding meaning from the bottom up**:  
+  - The atomic proposition $ a $ represents a specific condition or state (e.g., "the system is in state A" or "a sensor reads 'on'").  
+  - The $ F $ (Finally) operator modifies $ a $ to assert that $ a $ must hold at **some point in the future** along the system's execution path.  
+  - Together, $ F\,a $ means: **"There exists a time step $ t \geq 0 $ such that $ a $ is true at $ t $."**  
+
+- **Refined natural language phrasing**:  
+  **"Eventually, $ a $ must become true."**  
+  - This formula imposes a constraint that the system cannot avoid $ a $ forever. It requires that $ a $ is satisfied **at least once** during the system's operation.  
+  - **Satisfied when**: $ a $ is true at some point in the future (e.g., if $ a $ is true in the initial state, or later in the sequence).  
+  - **Violated when**: $ a $ is false for **all** time steps (e.g., the system never reaches a state where $ a $ is true).  
+
+**Example**: If $ a $ represents "the light turns on," $ F\,a $ translates to **"The light will eventually turn on."** This ensures the system does not indefinitely leave the light off.

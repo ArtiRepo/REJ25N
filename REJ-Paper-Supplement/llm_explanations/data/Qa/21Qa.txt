@@ -1,0 +1,25 @@
+- **Original LTL formula**: X(t & y)  
+  (This asserts that "in the next time step, both t and y are true.")
+
+- **Parsing tree breakdown**:  
+  - **X** (Next operator)  
+    - **∧** (Conjunction)  
+      - **t** (Atomic proposition)  
+      - **y** (Atomic proposition)  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **t** and **y** are atomic propositions representing specific conditions that can be true or false at any given time.  
+  2. **t & y** means both **t** and **y** are simultaneously true at a single time step.  
+  3. **X(t & y)** means that the condition **t & y** must hold at the *immediate next time step* following the current one.  
+
+- **Refined natural language phrasing**:  
+  "At every moment in time, the system must transition to a state where both **t** and **y** are true in the subsequent time step."  
+
+  **Explanation**:  
+  - The formula is satisfied if, for *every* time step **i**, the state at **i+1** (the next step) has **t** and **y** both true.  
+  - It imposes a constraint that the system’s behavior must guarantee that **t** and **y** are simultaneously true in *all* immediate future states. This ensures that no matter where the system is in its execution, it cannot stay in a state where the next step does not satisfy **t & y**.  
+
+  **Example**:  
+  If **t** represents "temperature is high" and **y** represents "pressure is low," then X(t & y) translates to:  
+  *"In the next step, the system must have both high temperature and low pressure."*  
+  This means the system is required to always move to a state where these two conditions are true, immediately after any current state.

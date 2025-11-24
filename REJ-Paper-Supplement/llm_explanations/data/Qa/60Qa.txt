@@ -1,0 +1,20 @@
+- **Original LTL formula**:  
+  `G(a -> Fb)`  
+
+- **Break the subformula into a parsing tree (breakdown)**:  
+  - The formula is a **Globally** (`G`) operator applied to a **material implication** (`a -> Fb`).  
+  - The implication `a -> Fb` consists of:  
+    - **Antecedent**: `a` (a proposition).  
+    - **Consequent**: `Fb` (a **Finally** (`F`) operator applied to `b`).  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **`Fb`** translates to *"b will eventually be true at some point in the future."*  
+  2. **`a -> Fb`** translates to *"If a is true at a given moment, then b will eventually be true after that moment."*  
+  3. **`G(a -> Fb)`** translates to *"This implication (a → Fb) must hold at all moments in time."*  
+
+- **Refine the natural language phrasing for clarity**:  
+  *"At every moment in time, if 'a' is true, then 'b' must eventually become true in the future."*  
+
+  **Explanation**:  
+  - **Satisfied**: The formula holds if, in every state where `a` is true, there exists some future state (possibly the next one) where `b` is true. For example, if `a` is never true, the formula is vacuously satisfied.  
+  - **Constraints on the system**: The system must ensure that **no occurrence of 'a'** is allowed without a subsequent **eventual occurrence of 'b'**. This creates a **requirement that 'a' cannot be true at any time without 'b' being true later**, effectively enforcing that `b` must "catch up" to every instance of `a`. If `a` is true in a state, the system must guarantee that `b` will eventually hold in the future, regardless of when `a` occurs.

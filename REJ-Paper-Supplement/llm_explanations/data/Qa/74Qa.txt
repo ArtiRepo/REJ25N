@@ -1,0 +1,23 @@
+- **Original LTL formula**: G(a ∨ b)  
+- **Parsing tree breakdown**:  
+  - Root: **G** (Globally)  
+    - Child: **∨** (Disjunction)  
+      - Left: **a** (Atomic proposition)  
+      - Right: **b** (Atomic proposition)  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. The atomic propositions **a** and **b** represent specific conditions or events in the system.  
+  2. The disjunction **a ∨ b** means "either **a** is true, or **b** is true, or both" at any given moment in time.  
+  3. Applying the **G** (Globally) operator to **a ∨ b** enforces that this disjunction must hold at **every moment** in the system's execution.  
+
+- **Refined natural language phrasing**:  
+  **"At all times, either **a** or **b** (or both) must be true."**  
+
+  **Explanation**:  
+  - The formula **G(a ∨ b)** is satisfied if, in every state of the system's execution, at least one of **a** or **b** is true.  
+  - It imposes a constraint that the system must **never** enter a state where **both a and b are false**.  
+  - If there exists even a single moment in time where neither **a** nor **b** holds, the formula is violated.  
+
+  **Example**: If **a** represents "The system is idle" and **b** represents "The system is running," the formula would translate to:  
+  **"The system must always be either idle or running (or both)."**  
+  This ensures the system is never in a state where it is neither idle nor running.

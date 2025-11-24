@@ -1,0 +1,29 @@
+- **Original LTL formula**:  
+  $ a \, \mathbf{U} \, G\!a $  
+
+- **Breakdown (parsing tree)**:  
+  1. The top-level operator is **Until (U)**, which connects two subformulas:  
+     - **Left subformula**: $ a $  
+     - **Right subformula**: $ G\!a $ (which itself is a **Globally (G)** operator applied to $ \!a $)  
+  2. **Globally (G)** means "always" (i.e., $ G\!a $ translates to "a is never true").  
+  3. **Until (U)** means "a holds until the right subformula becomes true, and at that point, the right subformula must be true."  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - Start with the right subformula: $ G\!a $ means "From the current time onward, a is false at all times."  
+  - The entire formula $ a \, \mathbf{U} \, G\!a $ means:  
+    **"a must be true at every time step until a point where, from that point onward, a is never true."**  
+  - This implies that **a must eventually become false** and **remain false forever**.  
+  - Additionally, **a must be true before this point** (i.e., for all times leading up to the moment it becomes false).  
+
+- **Refined natural language phrasing**:  
+  **"a holds at all times until it becomes false and remains false forever."**  
+  or  
+  **"a is true until it is finally and permanently false."**  
+
+**Explanation of constraints**:  
+The formula $ a \, \mathbf{U} \, G\!a $ imposes that:  
+- **At some point in the future**, a must transition to false and **never become true again**.  
+- **Before that transition**, a must be true at **every moment**.  
+- If a is already false from the start (i.e., $ G\!a $ is true at time 0), the formula is **automatically satisfied** because the "until" condition is met immediately.  
+- The formula is **not satisfied** if a is **always true** (since $ G\!a $ is false, and there is no time where the right subformula holds).  
+- It also **rejects cases where a becomes false but later returns to true**, as $ G\!a $ would then be violated.

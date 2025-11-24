@@ -1,0 +1,23 @@
+- **Original LTL formula**: F (o U u)  
+- **Breakdown into a parsing tree**:  
+  - **Top operator**: F (Eventually)  
+    - **Operand**: (o U u) (o Until u)  
+      - **Left operand of U**: o  
+      - **Right operand of U**: u  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **"o U u"** means "o holds at all times until u becomes true." For this to be satisfied, there must be some future time where u is true, and o is true for all times before that.  
+  2. **"F (o U u)"** adds the "Eventually" operator, meaning that the "o U u" condition must be true at **some specific time in the future**. This implies the system must reach a point where:  
+     - At that time, o is true.  
+     - From that time onward, o continues to hold until u is true (i.e., u must eventually occur, and o must not fail before u does).  
+  3. Together, **F (o U u)** requires the system to have at least one moment where "o persists until u is true," and u must eventually happen.  
+
+- **Refined natural language phrasing**:  
+  **"Eventually, o will hold continuously until u occurs."**  
+
+  **Explanation**:  
+  - **When satisfied**: The system must reach a future moment where o is true, and from that moment onward, o remains true until u becomes true. For example, if the system is a traffic light, this could mean: "At some point, the light will stay red until it turns green."  
+  - **Constraints on the system**:  
+    - The system must ensure that **u eventually happens** (since "o U u" requires u to be true at some future time).  
+    - At the moment when u becomes true, **o must have been true for all preceding times** (and possibly at the time of u itself).  
+    - This enforces a **finite window** where o is active, leading up to u’s occurrence.

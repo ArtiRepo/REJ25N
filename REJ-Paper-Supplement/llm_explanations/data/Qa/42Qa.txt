@@ -1,0 +1,49 @@
+- **Original LTL formula**: (y & !d) | (y => d)  
+  (Note: This appears to be a propositional logic formula, not a temporal one. However, assuming it is interpreted as a constraint on system states over time, we proceed as if it applies to each moment in a temporal sequence.)
+
+---
+
+### **Breakdown of the formula into a parsing tree**:
+```
+        OR
+    /         \
+  AND        IMPLIES
+ /   \         /   \
+ y   NOT d   y     d
+```
+
+---
+
+### **Rebuilding meaning from the bottom of the tree up**:
+1. **Leaf nodes**:
+   - `y`: "y is true"
+   - `!d`: "d is false"
+   - `d`: "d is true"
+
+2. **Subformula 1**: `y & !d`  
+   - "At some time, y is true **and** d is false."
+
+3. **Subformula 2**: `y => d` (equivalent to `!y | d`)  
+   - "At some time, if y is true, then d must be true."
+
+4. **Combined formula**: `OR` of the two subformulas  
+   - "Either: (y is true **and** d is false) **or** (if y is true then d is true)."
+
+---
+
+### **Refining the natural language phrasing for clarity**:
+- **Translation**: "At every moment in time, either y is true and d is false, or y implies d."  
+- **Explanation**:  
+  - The formula is **logically equivalent to a tautology** (always true).  
+    - If `y` is true: The first part `(y & !d)` is true when `d` is false, and the second part `(y => d)` is true when `d` is true. Since every scenario for `y` and `d` satisfies one of the disjuncts, the formula is trivially satisfied in all cases.  
+    - If `y` is false: `(y => d)` is vacuously true (a false premise makes the implication true), so the entire formula holds.  
+  - **Constraints on the system**:  
+    - The formula imposes **no meaningful constraints** because it is always true. It does not restrict the system's behavior in any way, as it cannot be violated.  
+    - However, if interpreted as a **propositional requirement** for each state (e.g., "At every point in time, either y and not d or y implies d"), it serves as a **redundant check** that is always satisfied.  
+
+---
+
+### **Final Answer**:
+The formula `(y & !d) | (y => d)` simplifies to a **tautology** (always true). In natural language, it translates to:  
+**"At every moment, either y is true and d is false, or y implies d."**  
+This statement **does not impose any constraints** on the system over time because it is logically guaranteed to hold in all possible scenarios.

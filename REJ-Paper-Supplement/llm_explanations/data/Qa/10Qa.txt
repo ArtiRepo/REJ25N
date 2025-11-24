@@ -1,0 +1,31 @@
+- **Original LTL formula**:  
+  (d | !b) U !a  
+
+- **Breakdown (parsing tree)**:  
+  The formula is structured as:  
+  - **Root**: Until operator (U)  
+    - **Left operand**: Disjunction (d | !b)  
+      - **Left child**: Proposition `d`  
+      - **Right child**: Negation of `b` (i.e., `!b`)  
+    - **Right operand**: Negation of `a` (i.e., `!a`)  
+
+- **Rebuild meaning from the bottom up**:  
+  1. The disjunction `d | !b` means: "Either `d` is true **or** `b` is false."  
+  2. The until operator `(d | !b) U !a` means: "The condition `d | !b` must hold **continuously until** the condition `!a` becomes true."  
+  3. In LTL, the `U` operator requires that `!a` **eventually** becomes true, and that `d | !b` is true in **all states prior to that moment**.  
+  4. Therefore, the formula imposes that:  
+     - **At every time step** (from the current moment onward), either `d` is true or `b` is false.  
+     - **At some point in the future**, `a` must become false.  
+
+- **Refined natural language phrasing**:  
+  The formula means: **"Either `d` is true or `b` is false must hold at all times until `a` becomes false, and `a` is guaranteed to eventually become false."**  
+
+  **When satisfied**:  
+  The system satisfies the formula if:  
+  - The condition `d | !b` (d or not b) is true in every state up to some future moment where `a` is false.  
+  - The value of `a` transitions to false at least once in the future.  
+
+  **Constraints on the system over time**:  
+  - From the start, the system must ensure that `d` is true or `b` is false in **every state**.  
+  - This requirement persists **until `a` is false**, at which point the formula is satisfied.  
+  - If `a` never becomes false, the formula **cannot be satisfied**, as the `U` operator mandates that `!a` must eventually occur.

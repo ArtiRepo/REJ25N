@@ -1,0 +1,19 @@
+- **Original LTL formula**: Fa → Gb  
+- **Parsing tree breakdown**:  
+  - Root: Implication (→)  
+    - Left child: F (Eventually) a  
+    - Right child: G (Globally) b  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **Fa** ("Eventually a") means that the proposition **a** must be true at some point in the future, starting from the current moment.  
+  2. **Gb** ("Globally b") means that the proposition **b** must be true at **all times** from the current moment onward.  
+  3. The implication **Fa → Gb** combines these: If **a** eventually becomes true, then **b** must be true at **every subsequent moment** (from the point where **a** occurs onward).  
+  4. This also implies that if **a** never occurs, the implication is vacuously true (no constraint on **b**).  
+
+- **Refined natural language phrasing**:  
+  **"If 'a' eventually occurs, then 'b' must always hold from that point onward."**  
+
+  **Explanation**:  
+  - The formula imposes a constraint: **If there is any moment in the future where 'a' is true, then from that moment, 'b' must be true in all subsequent steps**.  
+  - **When satisfied**: The system is valid if either **a** never happens (so the antecedent is false), or if **a** does happen and **b** remains true for all time after.  
+  - **When constraints are imposed**: The system must ensure that **b** is never false after **a** is true. If **a** occurs, **b** cannot be violated at any later time.

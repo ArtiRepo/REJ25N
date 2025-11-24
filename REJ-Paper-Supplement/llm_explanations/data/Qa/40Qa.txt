@@ -1,0 +1,23 @@
+- **Original LTL Formula**:  
+  $ F(o \lor u) $  
+
+- **Parsing Tree Breakdown**:  
+  - Root: $ F $ (Finally/Eventually operator)  
+    - Child: $ o \lor u $ (Disjunction operator)  
+      - Left: $ o $ (Atomic proposition)  
+      - Right: $ u $ (Atomic proposition)  
+
+- **Rebuilding Meaning from the Bottom Up**:  
+  1. **Atomic propositions**: $ o $ and $ u $ represent specific conditions or events that may hold in a system state.  
+  2. **Disjunction $ o \lor u $**: This means "either $ o $ is true, or $ u $ is true, or both" at a particular point in time.  
+  3. **Finally operator $ F $**: This imposes that the disjunction $ o \lor u $ must hold at **some point in the future** (i.e., at least once during the system's execution).  
+
+  Combining these, the formula $ F(o \lor u) $ asserts that **at least one of $ o $ or $ u $** must become true at **some future time** during the system's run. It does not require $ o $ or $ u $ to be true forever, only that their disjunction is eventually satisfied.  
+
+- **Refined Natural Language Phrasing**:  
+  **"Eventually, either $ o $ or $ u $ must occur."**  
+  **Explanation**:  
+  - **Satisfied**: When the system’s execution reaches a state where $ o $ is true or $ u $ is true at least once (e.g., $ o $ happens at step 5, or $ u $ happens at step 10).  
+  - **Imposes Constraints**: The system must not remain in a state where both $ o $ and $ u $ are false for all time. It guarantees that at some point in the future, at least one of the two conditions will be met.  
+
+  This formula ensures that the system avoids infinite inactivity where neither $ o $ nor $ u $ is ever triggered. It acts as a **liveness constraint**, requiring progress toward one of the two outcomes.

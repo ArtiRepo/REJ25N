@@ -1,0 +1,15 @@
+- **Original LTL formula**: G a  
+- **Breakdown (parsing tree)**:  
+  - **Top-level operator**: G ("Globally")  
+  - **Subformula**: a (a proposition, e.g., "a is true")  
+
+- **Rebuild meaning from the bottom up**:  
+  1. The proposition **a** represents a specific condition or state (e.g., "the system is online").  
+  2. The **G** operator ensures that **a** is true **at every moment in time** along all possible execution paths of the system.  
+  3. Combining these: **G a** enforces that the condition **a** must hold continuously and unconditionally throughout the entire timeline of the system.  
+
+- **Refined natural language phrasing**:  
+  **"a must always be true"** or **"a is always the case."**  
+  - **Explanation**: This formula specifies that the proposition **a** is permanently satisfied. For example, if **a** represents "the system is running," then **G a** means the system must never stop running.  
+  - **Constraints**: It imposes a strict requirement that **a** cannot be false at any point in time. If **a** ever becomes false, the formula is violated.  
+  - **Satisfaction**: The formula is satisfied if, in all future states (including the current one), **a** is true.

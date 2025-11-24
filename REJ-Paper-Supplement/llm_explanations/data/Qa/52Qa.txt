@@ -1,0 +1,25 @@
+- **Original LTL formula**: XXFXa  
+- **Breakdown (parsing tree)**:  
+  - The formula is parsed as `X(X(F(Xa)))`.  
+  - **Subcomponents**:  
+    - `a` (atomic proposition: a is true at the current time).  
+    - `Xa` (a is true at the *next* time step).  
+    - `F(Xa)` (eventually, in the *future*, `Xa` is true → a is true in some *future time step after the next*).  
+    - `X(F(Xa))` (at the *next* time step, `F(Xa)` is true → a is true in some time step ≥2).  
+    - `X(X(F(Xa)))` (at the *next next* time step, `F(Xa)` is true → a is true in some time step ≥3).  
+
+- **Rebuild meaning from the bottom up**:  
+  1. `a` → a is true *now*.  
+  2. `Xa` → a is true *one step ahead* (e.g., at time `t+1`).  
+  3. `F(Xa)` → *Eventually*, a is true *one step ahead* (there exists some `t ≥ 0` where a is true at `t+1`).  
+  4. `X(F(Xa))` → *Next*, `F(Xa)` is true (there exists some `t ≥ 1` where a is true at `t+1`).  
+  5. `X(X(F(Xa)))` → *Next next*, `F(Xa)` is true (there exists some `t ≥ 2` where a is true at `t+1`).  
+
+  This implies that starting from the current time, **two steps ahead**, the system must eventually reach a state where **a is true one step later** (i.e., **a must be true at some time ≥3**).  
+
+- **Refined natural language phrasing**:  
+  **"a must eventually be true at some time three or more steps from now."**  
+  **Explanation**:  
+  - The formula is satisfied in a system's behavior only if **a is true in the future at a time that is at least three steps away** from the current moment.  
+  - It imposes a constraint that **the system cannot have a true at time 0, 1, or 2**, but must have a true at time 3 or later.  
+  - For example, if a is true at time 3, the formula holds. If a is true at time 2, it does **not** satisfy the formula because `F(Xa)` at time 2 requires a to be true at time 3 or later.

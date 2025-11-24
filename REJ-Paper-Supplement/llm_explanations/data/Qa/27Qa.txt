@@ -1,0 +1,16 @@
+- **Original LTL formula**:  
+  $ X(t \lor w) $  
+
+- **Breakdown (parsing tree)**:  
+  - **Root operator**: $ X $ (Next)  
+    - **Child subformula**: $ t \lor w $ (t OR w)  
+      - **Left operand**: $ t $  
+      - **Right operand**: $ w $  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. The subformula $ t \lor w $ means "either $ t $ is true or $ w $ is true in the current state."  
+  2. The $ X $ (Next) operator shifts this requirement to the **next state**.  
+  3. Thus, $ X(t \lor w) $ enforces that **in the immediate next state** of any given point in the system's execution, **at least one of $ t $ or $ w $** must hold.  
+
+- **Refined natural language phrasing**:  
+  "$ X(t \lor w) $ translates to 'In the next state, either $ t $ or $ w $ must be true.' This means that for every state in the system's timeline, the subsequent state must satisfy $ t $ or $ w $. It imposes a temporal constraint that ensures the system transitions to a state where $ t $ or $ w $ is true **immediately after** the current state, but does not impose any requirements on states further into the future."

@@ -1,0 +1,29 @@
+- **Original LTL formula**:  
+  $ a \land X\,b $  
+
+- **Breakdown (parsing tree)**:  
+  - Root: $\land$ (conjunction)  
+    - Left child: $a$ (proposition, "a is true in the current state")  
+    - Right child: $X\,b$ (next operator, "b is true in the next state")  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. $a$ means "the proposition $a$ holds at the current time step."  
+  2. $X\,b$ means "the proposition $b$ holds at the next time step (immediately after the current one)."  
+  3. Combining these with $\land$, the formula requires **both** $a$ to be true now **and** $b$ to be true in the next moment.  
+
+- **Refined natural language phrasing**:  
+  *"At the current time step, $a$ must be true, and in the subsequent time step, $b$ must be true."*  
+
+  **Explanation**:  
+  - This formula imposes a **specific constraint** on the first two steps of a system's execution.  
+  - It does **not** require $a$ or $b$ to hold beyond the second time step.  
+  - For example, in a sequence of states $s_0, s_1, s_2, \dots$:  
+    - $a$ must be true in $s_0$ (the starting state).  
+    - $b$ must be true in $s_1$ (the next state after $s_0$).  
+    - $s_2$ and later states are irrelevant to this formula.  
+
+  **When satisfied**:  
+  If $a$ is true in the current state (e.g., $s_0$) **and** $b$ is true in the next state (e.g., $s_1$).  
+
+  **Constraints over time**:  
+  This formula enforces a **strict temporal order** between $a$ and $b$: $a$ must occur **before** $b$ in the sequence of states, and both must hold in their respective steps. It does not allow $a$ to be false in $s_0$ or $b$ to be false in $s_1$.

@@ -1,0 +1,31 @@
+- **Original LTL formula**:  
+  `Xa U Xb`  
+
+- **Parsing tree breakdown**:  
+  1. The root is the **Until (U)** operator.  
+  2. The left operand of `U` is `Xa` (next state of `a`).  
+  3. The right operand of `U` is `Xb` (next state of `b`).  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - The **Until operator** (`U`) requires that the right-hand side (`Xb`) eventually becomes true, and that the left-hand side (`Xa`) holds at all times *before* that.  
+  - `Xa` means `a` is true in the **next state** (immediately after the current time).  
+  - `Xb` means `b` is true in the **next state**.  
+  - Thus, `Xa U Xb` enforces that:  
+    - **Starting from the current time**, the **next state must have `a`**.  
+    - This condition (`Xa`) must **hold for all subsequent next states** (i.e., the next state of the next state, and so on).  
+    - The sequence of `Xa` (i.e., `a` in the next state) continues **until** a point where the **next state has `b`**.  
+    - Importantly, **`b` must eventually occur in a next state**, and **before that point, `a` must consistently occur in every next state**.  
+
+- **Refined natural language phrasing**:  
+  "**a must hold in every next state until b holds in some next state.**"  
+
+  This translates to:  
+  - At the current time, the next state must have `a`.  
+  - For all subsequent time steps, the next state of the current step must also have `a`.  
+  - This continues unconditionally until a time step is reached where the next state has `b`.  
+  - If `b` never occurs in any next state, the formula is **not satisfied** (since the right-hand side of `U` must eventually hold).  
+  - If `a` fails in any next state before `b` occurs, the formula is **violated**.  
+
+  **Example**:  
+  Imagine a system where `a` is the light being on, and `b` is the alarm ringing. The formula means:  
+  *"The light must stay on in the next moment, and continue to stay on in every subsequent next moment, until the alarm rings in the next moment."*

@@ -1,0 +1,19 @@
+- **Original LTL formula**:  
+  $ F(!y \land w) $
+
+- **Parsing tree breakdown**:  
+  - The formula is parsed as $ F(\text{[subformula]} ) $, where the subformula is $ !y \land w $.  
+  - The subformula $ !y \land w $ is further parsed into $ !y $ (negation of $ y $) and $ w $ (a proposition), connected by $ \land $ (conjunction).  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **$ y $** represents a proposition (e.g., "y is true").  
+  2. **$ !y $** means "y is false" at some point in the system's timeline.  
+  3. **$ w $** represents another proposition (e.g., "w is true").  
+  4. **$ !y \land w $** means "at a specific point in time, y is false and w is true."  
+  5. **$ F(!y \land w) $** adds the **Finally** operator, which requires that the condition $ !y \land w $ is satisfied at **some future time** (not necessarily always, but at least once).  
+
+- **Natural language phrasing**:  
+  "Eventually, w is true and y is false."  
+
+  **Explanation**:  
+  The formula $ F(!y \land w) $ imposes the constraint that in the system's execution, there must exist at least one time step where both $ w $ is true and $ y $ is false. It does not specify when this occurs or what must happen before or after, only that such a state is guaranteed to happen at some point. For example, if $ y $ represents "the system is in a safe state" and $ w $ represents "a warning is triggered," this formula would mean "A warning will eventually occur while the system is not in a safe state."	1

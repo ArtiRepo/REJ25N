@@ -1,0 +1,27 @@
+- **Original LTL formula**:  
+  **G(a → b)**
+
+- **Breakdown (parsing tree)**:  
+  - The formula has two main components:  
+    1. **G** (Globally): This operator ensures the subformula inside it is true at all time points.  
+    2. **a → b** (Implication): This means "if a is true, then b must also be true."  
+
+  The parsing tree structure is:  
+  ```
+  G
+  ├─ a → b
+  ```
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - **a → b** translates to: "In any given state, if a is true, then b is also true."  
+  - **G(a → b)** adds the global constraint: "This implication (a → b) must hold for all states in the system's execution timeline."  
+
+  Combined, the formula enforces that **every state** of the system must satisfy the condition that **a being true necessitates b being true**. There is no moment in time where a is true and b is false.
+
+- **Refined natural language phrasing**:  
+  **"At all times, if a is true, then b must also be true."**  
+  This captures the requirement that the system never allows a to occur without b being simultaneously true. It imposes a strict constraint on the system's behavior, ensuring **a and b are always aligned in their truth values**—specifically, **b cannot be false while a is true** in any state.  
+
+  Alternatively, phrased as:  
+  **"a must never be true without b being true in the same state."**  
+  This emphasizes the system's need to maintain consistency between a and b across all possible time steps.

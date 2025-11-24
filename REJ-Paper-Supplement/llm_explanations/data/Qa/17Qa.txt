@@ -1,0 +1,17 @@
+- **Original LTL Formula**: !G c  
+- **Parsing Tree Breakdown**:  
+  - Root: **Negation (!)**  
+    - Child: **Globally (G)**  
+      - Child: **Proposition (c)**  
+
+- **Rebuilding Meaning from the Bottom Up**:  
+  1. **G c** means "c is true at all future times" (i.e., c holds globally across the entire timeline).  
+  2. **!G c** negates this, meaning "it is not the case that c is true at all future times."  
+  3. This implies that **there exists at least one moment in time where c is false**.  
+
+- **Refined Natural Language Phrasing**:  
+  "The system must not have c hold indefinitely. There must be at least one point in time where c is false."  
+
+  **Explanation**:  
+  - **Satisfied**: When c is false at **some** moment in the system's execution.  
+  - **Constraints Over Time**: The formula prohibits c from being **always true**. It allows c to be true at some times but requires it to be false at **least one** time. Essentially, it enforces that c is not a perpetual condition.

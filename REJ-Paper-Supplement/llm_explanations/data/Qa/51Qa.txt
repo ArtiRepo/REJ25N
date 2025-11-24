@@ -1,0 +1,26 @@
+- **Original LTL formula**:  
+  `a -> XXXa`  
+
+- **Breakdown into a parsing tree**:  
+  - Root: Implication (`->`)  
+    - Left subformula: `a` (a proposition)  
+    - Right subformula: `XXXa` (composed of three **Next** (`X`) operators)  
+      - First `X`: "Next state"  
+      - Second `X`: "Next state after the next state" (i.e., "Next Next")  
+      - Third `X`: "Next state after the next next state" (i.e., "Next Next Next")  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. `a` is a proposition: "a is true in the current state."  
+  2. `Xa` means "a is true in the next state" (i.e., one time step forward).  
+  3. `XXa` means "a is true in the state two time steps forward."  
+  4. `XXXa` means "a is true in the state three time steps forward."  
+  5. The implication `a -> XXXa` translates to:  
+     - **If** `a` is true at a specific time step `t`,  
+     - **Then** `a` must be true at time step `t+3`.  
+
+- **Refined natural language phrasing**:  
+  "Whenever the condition `a` is true, it must also be true three time steps later."  
+
+  **Explanation**:  
+  - **Satisfied**: The formula holds if every occurrence of `a` is followed by `a` exactly three steps ahead in the sequence of states. For example, if `a` is true at time `t`, then `a` must also be true at `t+3`.  
+  - **Constraints on the system**: The system is required to ensure that `a` is not true at any point without being true again after three subsequent steps. This enforces a periodic or delayed repetition of `a` (e.g., `a` cannot be a one-time event unless it reoccurs after three steps). If `a` is true at `t` but false at `t+3`, the formula is violated. If `a` is never true, the formula is trivially satisfied.

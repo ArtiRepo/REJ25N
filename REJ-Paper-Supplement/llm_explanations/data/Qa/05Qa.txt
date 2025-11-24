@@ -1,0 +1,22 @@
+- **Original LTL formula**: X a ∧ b  
+- **Breakdown (parsing tree)**:  
+  ```  
+  ∧  
+  ├── X a  
+  └── b  
+  ```  
+  - **X a**: "In the next time step, a is true."  
+  - **b**: "At the current time step, b is true."  
+- **Rebuild meaning from the bottom up**:  
+  The formula X a ∧ b requires that both **b holds at the current time step** and **a holds at the next time step**. It imposes a **synchronous constraint** where the system must satisfy *b now* and *a immediately after*.  
+- **Natural language phrasing**:  
+  "At the current time step, b must be true, and in the next time step, a must be true."  
+
+**Explanation of satisfaction and constraints**:  
+- The formula is satisfied at a specific time step **t** if:  
+  - **b is true at t**, and  
+  - **a is true at t+1** (the immediate next step).  
+- It imposes constraints on the system's behavior by requiring:  
+  - A **present condition** (b) to hold in the current state, and  
+  - A **future condition** (a) to hold in the subsequent state.  
+  This ensures a transition where **b is active now and a is active directly afterward**, but does not enforce these conditions for all future steps (unlike G(X a ∧ b)).

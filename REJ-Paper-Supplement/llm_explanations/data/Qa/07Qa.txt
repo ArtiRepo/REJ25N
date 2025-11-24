@@ -1,0 +1,22 @@
+- **Original LTL formula**:  
+  `a U c`  
+
+- **Breakdown (parsing tree)**:  
+  - Root: `U` (Until operator)  
+    - Left child: `a` (proposition)  
+    - Right child: `c` (proposition)  
+
+- **Rebuilding meaning from the bottom up**:  
+  The formula `a U c` requires that:  
+  1. The proposition `a` is true in all states starting from the current time step, **until** the proposition `c` becomes true.  
+  2. The proposition `c` **must eventually** become true at some point in the future.  
+  In other words, `a` must hold continuously until `c` is satisfied, and `c` cannot be indefinitely false.  
+
+- **Refined natural language phrasing**:  
+  `"a must hold continuously until c occurs, and c is guaranteed to happen eventually."`  
+  or  
+  `"c must eventually become true, and a remains true at every moment before that."`  
+
+**Explanation of satisfaction and constraints**:  
+- The formula is **satisfied** if there exists a time step `k` where `c` is true, and for all time steps `0 ≤ i < k`, `a` is true.  
+- It **imposes constraints** on the system by ensuring that `a` never fails until `c` is achieved, and that `c` is not left unfulfilled indefinitely. If `c` never becomes true, or if `a` fails before `c` is true, the formula is violated.

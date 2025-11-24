@@ -1,0 +1,25 @@
+- **Original LTL formula**:  
+  $ b \ \&\ X (a \ U\ c) $
+
+- **Breakdown of the subformula into a parsing tree**:  
+  1. **Main operator**: Conjunction ($\&$)  
+     - **Left subformula**: $ b $ (a proposition, true in the current state)  
+     - **Right subformula**: $ X (a \ U\ c) $ (the "next" operator applied to the "until" subformula)  
+        - **Next operator ($X$)**: Shifts the evaluation to the next time step.  
+        - **Until operator ($U$)**: Expresses that $ a $ must hold continuously until $ c $ becomes true.  
+           - **Left subformula of $U$**: $ a $ (must hold until $ c $)  
+           - **Right subformula of $U$**: $ c $ (eventually becomes true)  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - $ a \ U\ c $: "At every time step until $ c $ becomes true, $ a $ must hold."  
+  - $ X (a \ U\ c) $: "In the next time step (i.e., starting at $ t+1 $), $ a $ must hold continuously until $ c $ becomes true."  
+  - $ b \ \&\ X (a \ U\ c) $: "At the current time step ($ t $), $ b $ is true, and in the next time step ($ t+1 $), $ a $ must hold until $ c $ is eventually true."  
+
+- **Refined natural language phrasing for clarity**:  
+  "The system must satisfy $ b $ in the present, and from the next moment onward, $ a $ must continue to hold until $ c $ becomes true at some future point."  
+
+  **Explanation of constraints**:  
+  - The formula imposes that $ b $ is true *now* (at the current time step).  
+  - It also requires that *after* the current time step, in the next time step ($ t+1 $) and beyond, $ a $ remains true until $ c $ is eventually true. This means:  
+    1. $ c $ must eventually occur in the future (from $ t+1 $ onward).  
+    2. All time steps *before* $ c $ becomes true (starting at $ t+1 $) must have $ a $ true.

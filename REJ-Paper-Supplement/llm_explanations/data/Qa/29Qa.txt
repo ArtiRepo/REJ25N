@@ -1,0 +1,17 @@
+- **Original LTL formula**:  
+  $ F x \lor F y $  
+
+- **Breakdown (parsing tree)**:  
+  - Root: Logical OR ($\lor$)  
+    - Left child: **Eventually** ($F$) applied to **x**  
+    - Right child: **Eventually** ($F$) applied to **y**  
+
+- **Rebuild meaning from the bottom up**:  
+  - $ F x $: "x will eventually be true at some point in the future."  
+  - $ F y $: "y will eventually be true at some point in the future."  
+  - $ F x \lor F y $: The formula is satisfied if **at least one** of the two eventually conditions holds. That is, the system must ensure that **either x becomes true at some point, or y becomes true at some point**, or both.  
+
+- **Refined natural language phrasing**:  
+  "The system must eventually satisfy either x or y. This means that in the future, at least one of the two properties (x or y) must hold true. If x is true at any point, or y is true at any point, the formula is satisfied. However, if neither x nor y ever becomes true, the formula is violated."  
+
+  **Explanation of constraints**: The formula imposes that **both x and y cannot be perpetually false**. It allows for scenarios where x happens first, y happens first, or both happen, but explicitly requires that **at least one** of them is true at some future time. This creates a temporal constraint ensuring that the system's behavior avoids an infinite sequence where neither x nor y is ever true.

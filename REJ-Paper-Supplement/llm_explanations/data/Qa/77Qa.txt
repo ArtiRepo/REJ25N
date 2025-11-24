@@ -1,0 +1,34 @@
+- **Original LTL formula**:  
+  $ a \, \mathcal{U} \, \neg a $  
+
+- **Breakdown (parsing tree)**:  
+  The formula is a **"Until" (U)** operator with two subformulas:  
+  - Left subformula: $ a $ (the atomic proposition "a is true").  
+  - Right subformula: $ \neg a $ (the negation of "a is true").  
+  The structure is:  
+  ```
+      U
+     / \
+    a  ¬a
+  ```  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **Atomic proposition $ a $**: "a is true."  
+  2. **Atomic proposition $ \neg a $**: "a is false."  
+  3. **"Until" operator $ a \, \mathcal{U} \, \neg a $**:  
+     - This requires that **"a is true at every time step until some future time** where **"a is false" becomes true.  
+     - In other words, **there exists a moment in the future where $ \neg a $ is true**, and **before that moment, $ a $ must always be true**.  
+  4. **Constraints over time**:  
+     - The system must satisfy $ a $ **initially**, but **eventually switch to $ \neg a $**.  
+     - If $ a $ remains true forever (i.e., $ \neg a $ never occurs), the formula is **not satisfied**.  
+     - If $ a $ is false at the start, the formula is **not satisfied** (since $ a $ must hold before $ \neg a $).  
+
+- **Refined natural language phrasing**:  
+  **"a must hold continuously until it becomes false, and it is guaranteed to become false eventually."**  
+
+**Explanation**:  
+- The formula is **satisfied** if the system starts with $ a $ being true and transitions to $ \neg a $ at some future point.  
+- It **imposes constraints** by ensuring:  
+  - $ a $ is true for all time steps up to a specific point (inclusive).  
+  - $ a $ is not allowed to remain true forever.  
+  - If $ a $ ever becomes false before the initial time, the constraint is violated.

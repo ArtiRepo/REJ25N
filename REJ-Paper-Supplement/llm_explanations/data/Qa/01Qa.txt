@@ -1,0 +1,21 @@
+- **Original LTL formula**:  
+  $ X\ a \Rightarrow X\ c $  
+
+- **Breakdown (parsing tree)**:  
+  - Root: Implication ($ \Rightarrow $)  
+    - Left child: Next ($ X $) of $ a $  
+    - Right child: Next ($ X $) of $ c $  
+
+- **Rebuild meaning from the bottom up**:  
+  1. $ X\ a $: "At the next time step, $ a $ is true."  
+  2. $ X\ c $: "At the next time step, $ c $ is true."  
+  3. $ X\ a \Rightarrow X\ c $: "If $ a $ is true in the next time step, then $ c $ must also be true in that same next time step."  
+
+  This formula ensures that **for all possible future paths of the system**, whenever the next state (i.e., the state immediately following the current one) contains $ a $, it must also contain $ c $. It does not impose constraints on the current state but restricts the relationship between $ a $ and $ c $ in the next state *at every moment in time*.  
+
+- **Refined natural language phrasing**:  
+  "In every next state, if $ a $ holds, then $ c $ must also hold."  
+
+  **Explanation**:  
+  - **When satisfied**: The formula is satisfied if, in all transitions of the system, the next state never includes $ a $ without also including $ c $. For example, if the system moves to a state where $ a $ is true, the same state must have $ c $ as well.  
+  - **Constraints over time**: This formula enforces a **local temporal constraint** on the system’s behavior. It does not require $ a $ to always be followed by $ c $ in the future (which would be $ a \Rightarrow F\ c $), but instead ties the truth of $ a $ and $ c $ to the *immediate next state*. It ensures consistency between $ a $ and $ c $ in the next step, preventing scenarios where $ a $ is true in the next state but $ c $ is false.

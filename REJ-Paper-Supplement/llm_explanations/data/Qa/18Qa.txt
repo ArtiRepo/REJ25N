@@ -1,0 +1,28 @@
+- **Original LTL formula**: `!F (a & b)`  
+  (This formula states that it is not true that "eventually a and b are both true".)
+
+- **Parsing tree breakdown**:  
+  The formula has the following structure:  
+  - Root: Negation (`!`)  
+    - Child: Future operator (`F`)  
+      - Child: Conjunction (`&`)  
+        - Left: Proposition `a`  
+        - Right: Proposition `b`  
+
+  The hierarchy is:  
+  `! [F [a & b]]` → "Not (Eventually (a and b))"
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **`a & b`**: Both `a` and `b` are true *at the same time*.  
+  2. **`F (a & b)`**: There exists *some future time* where `a & b` is true.  
+  3. **`!F (a & b)`**: It is *not the case* that there exists a future time where `a & b` is true. In other words, **for all future times**, `a & b` is false.  
+  4. This can be rephrased as: **"It is never true that both a and b hold simultaneously."**
+
+- **Refined natural language phrasing**:  
+  **"a and b must never occur together at any point in the future."**  
+  or  
+  **"The system must ensure that a and b are not both true at the same time."**  
+
+  **Explanation**:  
+  - **When satisfied**: The formula holds if, during the entire execution of the system, there is no moment where both `a` and `b` are true.  
+  - **Constraints over time**: It imposes a *non-concurrency* requirement on `a` and `b`—they must not be true in the same state, and this must remain true indefinitely.

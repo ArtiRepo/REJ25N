@@ -1,0 +1,30 @@
+- **Original LTL formula**:  
+  `!a U (a ∧ XG!a)`  
+
+- **Breakdown into a parsing tree**:  
+  - The formula is of the form `A U B`, where:  
+    - **A**: `!a` (a is false)  
+    - **B**: `a ∧ XG!a` (a is true **and** in the next state, a is always false)  
+      - **Subformula B**:  
+        - `a` (a is true at the current state).  
+        - `XG!a` (in the next state, a is always false).  
+          - `G!a` (a is always false from that next state onward).  
+          - `X` (shifts the evaluation to the next state).  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **XG!a**: At the next state, a must be **globally** false (i.e., a is false at all future times).  
+     - This implies that **once the next state is reached, a never becomes true again**.  
+  2. **B = a ∧ XG!a**: The current state must have a true, and the next state onward must have a always false.  
+     - So, **a must become true at some point in the future** (current state), and after that, **a is permanently false**.  
+  3. **A U B = !a U (a ∧ XG!a)**: The system must satisfy `!a` (a is false) at all times **until** B becomes true.  
+     - This means **a is false for some initial period**, then **at some point, a becomes true**, and from the next state onward, **a is always false**.  
+     - The formula requires that **B must eventually hold** (i.e., a must become true at least once), and that **after this point, a never returns to true**.  
+
+- **Refined natural language phrasing**:  
+  **"a must remain false until it becomes true for the first time, and once it becomes true, it stays false forever."**  
+
+  **Explanation**:  
+  - The formula ensures two constraints:  
+    1. **Initially, a is false** (or remains false for some time).  
+    2. **At some point, a becomes true**, and **from the next state onward, a is never true again**.  
+  - This captures both the "until" condition (a is false until a transition to true occurs) and the perpetual constraint after that transition.

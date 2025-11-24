@@ -1,0 +1,20 @@
+- **Original LTL formula**:  
+  $ X(f \land i) $
+
+- **Breakdown (parsing tree)**:  
+  - Root: $ X $ (Next operator)  
+    - Child: $ (f \land i) $ (Conjunction of propositions "f" and "i")  
+
+- **Rebuild meaning from the bottom up**:  
+  - The conjunction $ f \land i $ means "both f and i are true in the current state."  
+  - The $ X $ operator shifts this requirement to the *next state*: "The next state must satisfy $ f \land i $."  
+  - Together, $ X(f \land i) $ means: **In the next state after the current one, both f and i are true**.  
+
+- **Refined natural language phrasing**:  
+  **"The system must ensure that both f and i are simultaneously true in the immediate next time step."**  
+
+  **When is the formula satisfied?**  
+  The formula is satisfied in a path if, for the first next state (i.e., the state at time $ t+1 $), both $ f $ and $ i $ are true. This applies regardless of the current state (the formula does not impose constraints on the current state itself).  
+
+  **Constraints on the system over time**:  
+  The formula imposes a requirement on the system's *immediate transition*: Every state in the system's execution must be followed by a state where $ f $ and $ i $ are both true. It does not restrict the current state but enforces a condition on the next state in the sequence.

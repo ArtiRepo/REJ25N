@@ -1,0 +1,20 @@
+- **Original LTL formula**:  
+  $ d \land X (c \, U \, a) $  
+
+- **Breakdown (parsing tree)**:  
+  - Root: Conjunction ($ \land $)  
+    - Left child: Proposition $ d $  
+    - Right child: Temporal operator $ X $ (Next) applied to $ c \, U \, a $ (Until)  
+      - $ c \, U \, a $: "c holds until a becomes true"  
+
+- **Rebuild meaning from the bottom of the tree**:  
+  1. $ c \, U \, a $: In the future, starting from the current time, $ c $ must remain true until $ a $ becomes true. $ a $ must eventually occur.  
+  2. $ X (c \, U \, a) $: The above condition ($ c \, U \, a $) must hold in the **next** time step. That is, starting at the next state, $ c $ must hold until $ a $ is true.  
+  3. $ d \land X (c \, U \, a) $: At the **current** time, $ d $ must be true, and the condition $ c \, U \, a $ must be satisfied starting from the **next** time step.  
+
+- **Refined natural language phrasing**:  
+  "The system must have $ d $ true at the current time step, and in the next time step, $ c $ must hold continuously until $ a $ becomes true."  
+
+  This translates the formula to mean:  
+  - **Satisfaction condition**: The formula is satisfied when $ d $ is true now, and from the next state onward, $ c $ remains true until $ a $ is eventually true.  
+  - **Constraints over time**: The system must ensure $ d $ is active immediately, and the behavior of $ c $ being true until $ a $ is triggered is enforced starting from the next state onward.

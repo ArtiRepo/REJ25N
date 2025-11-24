@@ -1,0 +1,31 @@
+- **Original LTL formula**:  
+  $ b \ | \ !X\ a $  
+
+- **Breakdown (parsing tree)**:  
+  - The main operator is **disjunction** ($ \lor $), which connects two subformulas:  
+    1. **"b"**: A proposition that must be true in the current state.  
+    2. **"!X a"**: The negation of the **"next"** operator applied to "a", meaning "a is false in the next state."  
+  - The formula is evaluated along a path (sequence of system states).  
+
+- **Rebuilding meaning from the bottom of the tree up**:  
+  - **"X a"** translates to: "In the next state, a is true."  
+  - **"!X a"** translates to: "In the next state, a is **not** true."  
+  - The disjunction $ b \lor !X a $ means: "At the current state, **b is true**, or **the next state does not have a**."  
+  - Since LTL formulas are checked across all states in a path, this implies:  
+    **"For every state in the system's execution, either b holds in that state, or a does not hold in the following state."**  
+
+- **Refined natural language phrasing**:  
+  "At every point in time, either **b is true now**, or **a is false in the next moment**."  
+
+  **Explanation of satisfaction**:  
+  The formula is satisfied if, in **every state** of the system's behavior, **one of the following holds**:  
+  1. **b is true in the current state**, or  
+  2. **a is false in the immediately subsequent state**.  
+
+  **Constraints on the system over time**:  
+  - If **b is false** in a state, the system must ensure that **a is false** in the **next state**.  
+  - This creates a dependency: **a cannot be true in the next state unless b is true in the current state**.  
+  - The formula enforces that **a and b cannot both be true in consecutive states** (e.g., if a is true at time $ i $, then b must be true at time $ i-1 $).  
+
+  **Example**:  
+  A system where $ b $ is always true would satisfy this formula. Alternatively, if $ a $ is never true in the next state (e.g., $ a $ is false in all states), the formula is also satisfied. However, if there exists a state where $ b $ is false and $ a $ is true in the next state, the formula is violated.

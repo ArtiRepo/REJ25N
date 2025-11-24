@@ -1,0 +1,27 @@
+- **Original LTL formula**:  
+  $ X\, a \land \lnot G\, b $
+
+- **Parsing tree breakdown**:  
+  1. **Main operator**: $ \land $ (conjunction)  
+     - Left subformula: $ X\, a $  
+       - Operator: $ X $ (next)  
+       - Operand: $ a $  
+     - Right subformula: $ \lnot G\, b $  
+       - Operator: $ \lnot $ (negation)  
+       - Operand: $ G\, b $  
+         - Operator: $ G $ (globally)  
+         - Operand: $ b $  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. $ G\, b $: "b is true in all future states (at every time step)."  
+  2. $ \lnot G\, b $: "It is **not** the case that b is true in all future states → b is **false at least once** in the system's execution."  
+  3. $ X\, a $: "a is true in the **immediately following state** (i.e., the next time step)."  
+  4. **Combined meaning**: The system must satisfy both constraints simultaneously:  
+     - The **next state** (t+1) must have $ a $ true.  
+     - There must exist **some state in the future** (not necessarily the next one) where $ b $ is false.  
+
+- **Refined natural language phrasing**:  
+  "**In the next time step, a must be true, and at some point in the future, b must be false.**"  
+  This ensures:  
+  - $ X\, a $ imposes a **local constraint** on the immediate successor state.  
+  - $ \lnot G\, b $ imposes a **global constraint** that $ b $ cannot be unconditionally true throughout the system's execution.

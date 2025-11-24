@@ -1,0 +1,22 @@
+- **Original LTL formula**:  
+  $ X\,!(t \lor w) $
+
+- **Parsing tree breakdown**:  
+  1. The top-level operator is **X** (Next).  
+  2. The operand of **X** is **!** (Negation).  
+  3. The operand of **!** is **(t ∨ w)** (Disjunction of **t** and **w**).  
+
+- **Rebuild meaning from the bottom up**:  
+  - **(t ∨ w)**: "t or w" is true if either **t** (e.g., a task is completed) or **w** (e.g., a warning is triggered) is true in the current state.  
+  - **!(t ∨ w)**: "It is not the case that t or w is true" in the current state. By De Morgan’s law, this is equivalent to **!t ∧ !w**, meaning **neither t nor w is true** in the current state.  
+  - **X(!(t ∨ w))**: The above condition (**!t ∧ !w**) must hold in the **next state** (i.e., the state immediately following the current one).  
+
+- **Refined natural language phrasing**:  
+  "In the next state, **both t and w must be false**."  
+  **Explanation**:  
+  - The formula imposes a constraint that *after any current state*, the **immediately following state** must *not* have **t** (e.g., a task completed) or **w** (e.g., a warning triggered).  
+  - It is satisfied if, for every possible execution path of the system, the next step (time instant) avoids both **t** and **w**.  
+  - For example, if **t** represents "the system enters a critical mode" and **w** represents "a sensor triggers an alert," the formula ensures that *the next step cannot involve either of these events*.  
+
+**Final Translation**:  
+*"The next state must not have t or w. In other words, neither t nor w can be true in the immediately following time step."*

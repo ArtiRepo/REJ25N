@@ -1,0 +1,23 @@
+- **Original LTL formula**: `F d | G !n`  
+- **Breakdown (parsing tree)**:  
+  - Root: Disjunction (`|`)  
+    - Left child: Eventually (`F d`)  
+      - Subchild: Proposition `d`  
+    - Right child: Globally (`G !n`)  
+      - Subchild: Negation `!n`  
+
+- **Rebuild meaning from the bottom up**:  
+  1. `d` is a proposition (e.g., "a specific event or condition occurs").  
+  2. `F d` means "d will eventually occur at some point in the future."  
+  3. `!n` is the negation of proposition `n` (e.g., "a specific event or condition does not occur").  
+  4. `G !n` means "n is never true throughout the entire execution of the system" (i.e., `n` is **always false**).  
+  5. The disjunction (`|`) combines these: The system satisfies the formula if **either** (a) `d` eventually occurs **or** (b) `n` is never true.  
+
+- **Refined natural language phrasing**:  
+  "The system must ensure that either **d will eventually be true** at some point in the future, or **n is never true** throughout the entire timeline."  
+
+**Explanation of constraints**:  
+- The formula imposes a **requirement** that at least one of the two conditions must hold over time.  
+  - If `d` **does not** eventually hold (i.e., `F d` is false), then the system must strictly avoid `n` (i.e., `G !n` must be true).  
+  - Conversely, if `n` ever becomes true (violating `G !n`), then `d` must eventually hold (satisfying `F d`).  
+- This enforces a **trade-off** between the two propositions: The system cannot allow `n` to ever be true **unless** `d` is eventually satisfied, and cannot fail to satisfy `d` **unless** `n` is permanently false.

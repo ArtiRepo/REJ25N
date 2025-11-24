@@ -1,0 +1,21 @@
+- **Original LTL formula**: a U b  
+- **Breakdown (parsing tree)**:  
+  - The formula is a binary "Until" (U) operator.  
+  - Left subformula: **a** (a proposition).  
+  - Right subformula: **b** (a proposition).  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **a** and **b** are atomic propositions representing specific conditions.  
+  2. The **U** operator (until) imposes a temporal constraint: **a** must hold continuously at every moment in time **until** **b** becomes true.  
+  3. This means there must exist a **specific point in time** where **b** is true, and **a** is true for all time steps **before** that point.  
+
+- **Refined natural language phrasing**:  
+  **"a must hold continuously until b occurs, and b must eventually happen."**  
+
+  **Explanation**:  
+  - **When satisfied**: The formula is true if **b** becomes true at some future time step, and **a** is true at all time steps before that. For example, if the system's behavior is: a, a, a, b, then the formula is satisfied.  
+  - **When it imposes constraints**:  
+    - The system must ensure **a** remains true for as long as **b** is not yet satisfied.  
+    - **b** is not just a possibility—it must eventually be true (otherwise, the formula fails even if **a** is always true).  
+
+  **Key insight**: The "until" operator guarantees a progression where **a** is a persistent requirement until **b** is achieved, and **b** cannot be deferred indefinitely.

@@ -1,0 +1,35 @@
+- **Original LTL formula**:  
+  $(d \, \mathbf{U} \, c) \, \lor \, (a \, \mathbf{U} \, \neg c)$
+
+- **Parsing tree breakdown**:  
+  - Root: Logical OR (`$\lor$`)  
+    - Left child: **Until** (`$\mathbf{U}$`) with subformula **d** and **c**.  
+    - Right child: **Until** (`$\mathbf{U}$`) with subformula **a** and **$\neg c$** (not c).  
+
+- **Rebuilding meaning from the tree**:  
+  1. **Left subformula** ($d \, \mathbf{U} \, c$):  
+     - This means that **d must hold continuously until c becomes true** at some point in the future.  
+     - For example: If the system starts with **d** true, it must stay true until **c** turns true.  
+     - If **c** never becomes true, this subformula is **false**.  
+  2. **Right subformula** ($a \, \mathbf{U} \, \neg c$):  
+     - This means that **a must hold continuously until c becomes false** (i.e., $\neg c$ becomes true).  
+     - For example: If the system starts with **a** true, it must stay true until **c** turns false.  
+     - If **c** never becomes false, this subformula is **false**.  
+  3. **Combined formula** ($\lor$):  
+     - The entire formula is satisfied if **at least one** of the two until conditions is true.  
+     - The system must meet **either** the constraint on $d$ and $c$ **or** the constraint on $a$ and $\neg c$.  
+
+- **Natural language phrasing**:  
+  **"The system must ensure that either d holds continuously until c occurs, or a holds continuously until c stops occurring."**  
+
+  **Explanation**:  
+  - The formula is satisfied if **one of the following is true**:  
+    1. **d is always true until c becomes true** (e.g., d must persist, but c will eventually happen).  
+    2. **a is always true until c becomes false** (e.g., a must persist, but c will eventually stop being true).  
+  - **Constraints over time**:  
+    - If **c is never true** in the system's execution, the first subformula fails, but the second might still satisfy the formula if **a holds until c turns false**.  
+    - If **c is always true**, the second subformula fails (since $\neg c$ never happens), but the first might still satisfy the formula if **d holds until c is true** (which is trivially true if c is already true).  
+    - The system is **not required** to satisfy both conditions simultaneously, only **at least one**.  
+
+  **Refinement for clarity**:  
+  "The system must satisfy at least one of the following: Either **d remains true until c becomes true**, or **a remains true until c becomes false**."

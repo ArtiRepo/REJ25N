@@ -1,0 +1,30 @@
+- **Original LTL formula**:  
+  `G (!i) | F (f U i)`  
+
+- **Breakdown into parsing tree**:  
+  - The main operator is `|` (logical OR), connecting two subformulas:  
+    1. `G (!i)` (Globally, not i)  
+    2. `F (f U i)` (Eventually, f until i)  
+  - For `G (!i)`, the structure is:  
+    - `G` (Globally) applies to `!i` (negation of i).  
+  - For `F (f U i)`, the structure is:  
+    - `F` (Eventually) applies to `(f U i)` (f until i).  
+    - `(f U i)` is an **Until** operator, which means "f holds until i becomes true" at some future time.  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - **`f U i`**: "f holds continuously until i becomes true." This requires that i eventually happens, and all states before i are true for f.  
+  - **`F (f U i)`**: "At some point in the future, f holds continuously until i becomes true." This ensures that if i ever occurs, it must be preceded by a period where f is always true.  
+  - **`G (!i)`**: "i is never true at any point in time." This imposes a strict constraint: i is forcefully false throughout the system's execution.  
+  - **Final combination (`G (!i) | F (f U i)`)**: The system satisfies the formula if **either** (1) i is entirely avoided (never true), **or** (2) if i eventually occurs, then in all steps *before* that occurrence, f must hold.  
+
+- **Refined natural language phrasing**:  
+  "Either **i is never true** in the system’s execution, **or** **f remains true until i eventually occurs**."  
+
+**Explanation**:  
+- **Satisfied if**:  
+  - Case 1: i is **never true** (the first part, `G(!i)`).  
+  - Case 2: i eventually becomes true, and **before that moment**, f is **always true** (the second part, `F(f U i)`).  
+- **Constraints**:  
+  - If i occurs at any point, the system must have a history where f was true at every step before i’s occurrence.  
+  - If i is false forever, the formula is trivially satisfied.  
+- **Key insight**: The formula ensures that i is either *forbidden* entirely or *allowed only after f has consistently held*.

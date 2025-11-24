@@ -1,0 +1,25 @@
+- **Original LTL Formula**:  
+  $ G(a \rightarrow X\neg b) $
+
+- **Parsing Tree Breakdown**:  
+  - Root: $ G $ (Globally)  
+    - Child: $ a \rightarrow X\neg b $ (Implication)  
+      - Left Subtree: $ a $ (Proposition)  
+      - Right Subtree: $ X\neg b $ (Next + Negation)  
+        - Child: $ \neg b $ (Negation)  
+          - Child: $ b $ (Proposition)
+
+- **Rebuilding Meaning from the Bottom Up**:  
+  1. $ \neg b $: "b is false."  
+  2. $ X\neg b $: "In the next state, b is false."  
+  3. $ a \rightarrow X\neg b $: "If a is true at a given time, then in the next state, b must be false."  
+  4. $ G(a \rightarrow X\neg b) $: "This implication must hold at *all* times. Whenever a occurs, the system must ensure that b is false in the *immediately following* state."
+
+- **Refined Natural Language Phrasing**:  
+  "At all times, if **a** is true, then **b** must be false in the next state. This means **a** and **b** cannot occur consecutively: every occurrence of **a** must be immediately followed by a state where **b** is not true."  
+
+  **Explanation**:  
+  - The formula enforces a strict temporal constraint: **a** cannot be followed by **b** in the next time step.  
+  - If **a** is true at any moment, the system must *guarantee* **b** is false in the subsequent moment.  
+  - If **a** is false, no constraint is placed on **b** (it may be true or false).  
+  - Example violation: A sequence like $ a = \text{true}, b = \text{true} $ in consecutive states would break the rule.

@@ -1,0 +1,29 @@
+- **Original LTL formula**:  
+  `G (!f | !i)`  
+
+- **Breakdown (parsing tree)**:  
+  - The formula is a **Globally** (`G`) operator applied to a **Disjunction** (`|`) of two **Negations** (`!f` and `!i`).  
+  - **Subformulas**:  
+    - `G` (Globally)  
+    - `!f` (Negation of `f`)  
+    - `!i` (Negation of `i`)  
+    - `!f | !i` (Disjunction of the negations).  
+
+- **Rebuild meaning from the bottom up**:  
+  1. `!f` means "f is false" (at a given time).  
+  2. `!i` means "i is false" (at a given time).  
+  3. `!f | !i` means "At any time, either f is false or i is false (or both)."  
+  4. `G (!f | !i)` means "At **all times**, the condition `!f | !i` must hold."  
+
+  This translates to: **"For every moment in time, at least one of f or i must be false."**  
+
+- **Refined natural language phrasing**:  
+  **"It is always the case that either f is false or i is false."**
+
+  **Explanation**:  
+  - The formula is satisfied when **f and i are never both true at the same time**.  
+  - It imposes a **constraint over time**: in every state of the system's execution, at least one of the propositions `f` or `i` must be false.  
+  - If both `f` and `i` ever become true simultaneously, the formula is violated.  
+
+  **Alternative phrasing**:  
+  **"Both f and i cannot be true at the same time in any state of the system's behavior."**

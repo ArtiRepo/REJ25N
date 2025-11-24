@@ -1,0 +1,18 @@
+- **Original LTL formula**: G(n => s)  
+- **Breakdown (parsing tree)**:  
+  - Root: **G** (Globally)  
+    - Child: **(n => s)** (Implication)  
+      - Left: **n** (Atomic proposition)  
+      - Right: **s** (Atomic proposition)  
+
+- **Rebuild meaning from the bottom up**:  
+  1. The implication **n => s** means "If n is true at a given time, then s must also be true at that same time."  
+  2. The **G** (Globally) operator extends this to all time points: "At every time step, the implication **n => s** must hold."  
+  3. Combining these: "For all time, whenever n is true, s is also true."  
+
+- **Refined natural language phrasing**:  
+  **"Whenever n occurs, s must always occur."**  
+  - **Satisfaction condition**: The formula is satisfied if, in every state of the system's execution, the truth of **n** is guaranteed to be accompanied by the truth of **s**. There must be no moment where **n** is true and **s** is false.  
+  - **Constraint over time**: This imposes a persistent requirement on the system: any instance of **n** (e.g., an event, condition, or state) must lead to **s** being true immediately and at all future times. It ensures **s** is a necessary consequence of **n** throughout the system's operation, preventing scenarios where **n** is active without **s** being satisfied.  
+
+**Example**: If **n** represents "a user initiates a request" and **s** represents "the system acknowledges the request," the formula enforces that the system **must never** fail to acknowledge a request at any point in time.

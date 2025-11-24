@@ -1,0 +1,28 @@
+- **Original LTL formula**:  
+  **!X !(w | x)**  
+
+- **Parsing tree breakdown**:  
+  - The formula is a negation (!) of the **X** (next) operator applied to the negation of **(w | x)**.  
+  - Structure:  
+    ```  
+    !  
+    └── X  
+        └── !  
+            └── (w | x)  
+    ```  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **(w | x)**: "Either **w** or **x** is true at the current time step."  
+  2. **!(w | x)**: "It is not the case that **w** or **x** is true at the current time step," i.e., **w** and **x** are both false at the current time step.  
+  3. **X !(w | x)**: "In the next time step, **w** and **x** are both false."  
+  4. **!X !(w | x)**: "It is not true that in the next time step, **w** and **x** are both false."  
+
+- **Refined natural language phrasing**:  
+  **"In the next state, at least one of **w** or **x** must be true."**  
+  This formula ensures that **after every state** in the system's execution, the **immediately following state** cannot have both **w** and **x** false. It imposes the constraint that **w** or **x** must hold in the next time step at all times.  
+
+  **Explanation of satisfaction**:  
+  The formula is satisfied when, for the next time step (i.e., the immediate successor of the current state), **w** is true, **x** is true, or both are true. It is violated if the next state has **w** false and **x** false.  
+
+  **Temporal constraints**:  
+  The formula enforces that **the system must always avoid a situation where the next state has neither w nor x**. This is a **short-term constraint** on transitions between consecutive states: every step must be followed by a state where **w or x is true**.

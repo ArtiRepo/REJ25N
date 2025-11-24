@@ -1,0 +1,27 @@
+- **Original LTL formula**: F !b  
+  (This reads as "Eventually, not b" in LTL notation.)  
+
+- **Break the subformula into a parsing tree (breakdown)**:  
+  - The formula consists of the **Future (F)** operator, which applies to the subformula **!b**.  
+  - The **!b** (negation of proposition b) is a simple atomic formula with a negation applied to it.  
+  - Parsing tree:  
+    ```
+        F  
+        │  
+     ┌─────┐  
+     !     b  
+    ```  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. Start with **b**: This represents a proposition (e.g., "the system is in a safe state").  
+  2. Apply **!** (negation): **!b** means "b is false" (e.g., "the system is not in a safe state").  
+  3. Apply **F** (Future): **F !b** means "At some point in the future, **!b** is true" (e.g., "The system must eventually not be in a safe state").  
+
+- **Refine the natural language phrasing for clarity**:  
+  - **Translation**: "Eventually, b will be false."  
+  - **Explanation**:  
+    - The formula **F !b** is **satisfied** if, in the system's execution, there exists at least one moment in the future where **b** is false.  
+    - It **imposes a constraint** that **b cannot remain true forever**. The system must transition to a state where **b** is false at some point in time.  
+    - For example, if **b** represents "the light is on," then **F !b** translates to "The light must eventually turn off."  
+
+This phrasing emphasizes that the condition is about the **occurrence of a future event** where **b** is false, rather than a permanent state or a recurring one.

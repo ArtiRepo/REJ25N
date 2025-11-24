@@ -1,0 +1,33 @@
+- **Original LTL formula**:  
+  `b U (d & a)`  
+
+- **Breakdown (parsing tree)**:  
+  The formula is structured as a **"Until"** operator (`U`) with two subformulas:  
+  - **Left operand**: `b` (a proposition)  
+  - **Right operand**: `d & a` (a conjunction of two propositions, `d` and `a`).  
+
+  The parsing tree is:  
+  ```  
+  U  
+  ├── b  
+  └── &  
+      ├── d  
+      └── a  
+  ```  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **`d & a`**: This subformula requires that both `d` and `a` are **simultaneously true** at a specific point in time.  
+  2. **`b U (d & a)`**: This means that `b` must be **true at every time step until** the point where `d & a` becomes true. In other words:  
+     - **`b` must hold continuously until** the future moment when **both `d` and `a` are true**.  
+     - The system is constrained to keep `b` true until the **eventual occurrence** of `d & a`.  
+     - If `d & a` is never true, the formula is **not satisfied**.  
+
+- **Refined natural language phrasing**:  
+  **"b must remain true at all times until both d and a become true simultaneously. Once d and a are both true, the constraint is fulfilled, and b can then be either true or false."**  
+
+  **Key constraints**:  
+  - `b` is enforced to stay true **until** a future moment where `d` and `a` are both true.  
+  - The formula **requires that d and a eventually occur together**; if they never do, the system violates the constraint.  
+
+  **Example scenario**:  
+  If the sequence of events is: `[b, b, d, a]`, the formula is satisfied because `b` is true at all steps before `d & a` becomes true (step 3). If the sequence is `[b, d, a, b]`, it is also satisfied because `d & a` is true at step 2. However, if `d & a` is never true (e.g., `[b, b, b, ...]`), the formula fails.

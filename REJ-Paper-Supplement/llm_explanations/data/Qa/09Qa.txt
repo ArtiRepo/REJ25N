@@ -1,0 +1,20 @@
+- **Original LTL formula**:  
+  $(c \land b) \, \mathcal{U} \, a$  
+
+- **Parsing tree breakdown**:  
+  - The formula is composed of the **Until operator** $\mathcal{U}$, which takes two subformulas:  
+    - **Left subformula**: $c \land b$ (both propositions $c$ and $b$ are true simultaneously).  
+    - **Right subformula**: $a$ (proposition $a$ is true at some point in the future).  
+
+- **Rebuild meaning from the bottom up**:  
+  - The conjunction $c \land b$ requires that **both $c$ and $b$ are true at the same time**.  
+  - The **Until operator** $\mathcal{U}$ ensures that the left subformula ($c \land b$) holds **continuously at every time step until the right subformula ($a$) becomes true**.  
+  - Additionally, the formula imposes that **$a$ must eventually become true** (otherwise, the until condition is trivially false if $a$ never occurs).  
+
+- **Refined natural language phrasing**:  
+  **"Proposition $a$ must eventually become true, and at every moment before $a$ is true, both $b$ and $c$ must also hold simultaneously."**  
+
+  **Explanation**:  
+  - The formula is **satisfied** if there exists a future time where $a$ is true, and all previous time steps (including the current one) have both $b$ and $c$ true.  
+  - It imposes a **constraint on the system over time**: $b$ and $c$ must not fail at any point until $a$ is achieved, and $a$ must be guaranteed to occur eventually.  
+  - Example: If $a$ is "system terminates," $b$ is "resource is allocated," and $c$ is "no error," the formula would mean: *"The system must terminate eventually, and during all steps before termination, the resource must be allocated and no errors must occur."*

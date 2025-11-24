@@ -1,0 +1,15 @@
+- **Original LTL formula**: FGa  
+- **Breakdown (parsing tree)**:  
+  - Root: **F** (Eventually)  
+    - Child: **G** (Globally)  
+      - Grandchild: **a** (proposition)  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  1. **G(a)**: "a is always true from the current time onward."  
+  2. **F(G(a))**: "There exists a future moment where **G(a)** becomes true, meaning that from that moment onward, **a** is always true."  
+
+- **Refined natural language phrasing**:  
+  "Eventually, **a** will become true and remain true for all time thereafter."  
+  **Explanation**:  
+  - **Satisfaction condition**: The formula **FGa** is satisfied if, at some point in the system's execution, **a** starts being true and never becomes false again.  
+  - **Constraints over time**: It imposes that the system must *eventually* reach a state where **a** is permanently true. Before this point, **a** may be false, but once the "eventually" condition is met, **a** must hold indefinitely. For example, if **a** represents "the system is in a safe state," **FGa** ensures the system will *eventually* enter a safe state and *stay* safe forever.

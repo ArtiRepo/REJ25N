@@ -1,0 +1,23 @@
+- **Original LTL formula**:  
+  $ X t \Rightarrow X y $
+
+- **Breakdown (parsing tree)**:  
+  The formula is structured as an implication ($\Rightarrow$) between two "next" ($X$) operators.  
+  - **Root**: Implication ($\Rightarrow$)  
+    - **Left child**: $X t$ (Next $t$)  
+    - **Right child**: $X y$ (Next $y$)  
+  Each $X$ operator applies to a proposition ($t$ or $y$), referring to their truth in the immediate next state.
+
+- **Rebuild meaning from the bottom up**:  
+  - $X t$: "In the next state, $t$ is true."  
+  - $X y$: "In the next state, $y$ is true."  
+  - $X t \Rightarrow X y$: "If the next state satisfies $t$, then the next state must also satisfy $y$."  
+  This means that for every possible moment in the system's execution, **the next state's truth of $t$ guarantees the next state's truth of $y$**. The formula enforces a constraint on transitions: when the system moves to a state where $t$ holds, the subsequent state (immediately after) must also have $y$.
+
+- **Refined natural language phrasing**:  
+  "Whenever the next state has $t$, it must also have $y$."  
+  or more explicitly:  
+  "$y$ must be true in the state that follows any state where $t$ is true in the next state."  
+
+  **Explanation**:  
+  This formula imposes a strict temporal constraint on the system. It ensures that **after any transition where the next state includes $t$**, the **immediately subsequent state** (i.e., the one after that transition) **must include $y$**. For example, if $t$ is "temperature is high" and $y$ is "alarm is triggered," the formula would mean: "If the temperature becomes high in the next moment, then the alarm must be triggered in that same next moment."

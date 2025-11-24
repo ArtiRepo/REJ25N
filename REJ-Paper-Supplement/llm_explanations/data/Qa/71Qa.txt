@@ -1,0 +1,17 @@
+- **Original LTL formula**: G(a ∧ ¬b)  
+  **Explanation**: This formula asserts that the conjunction of "a" and "not b" must hold at all times in the system's execution.
+
+- **Parsing tree breakdown**:  
+  - Root: **G** (Globally)  
+    - Child: **∧** (Conjunction)  
+      - Left: **a** (a proposition)  
+      - Right: **¬b** (Negation of proposition b)  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **¬b** means "b is false" at a given point in time.  
+  2. **a ∧ ¬b** means "a is true **and** b is false" simultaneously at a given point.  
+  3. **G(a ∧ ¬b)** means this combined condition ("a is true and b is false") must **always** hold for **every moment** in the system's timeline.  
+
+- **Refined natural language phrasing**:  
+  "At all times, **a must be true** and **b must be false**."  
+  **Constraints**: This formula enforces that **a is permanently true** (never false) and **b is permanently false** (never true) throughout the system's execution. If at any point a becomes false or b becomes true, the formula is violated.

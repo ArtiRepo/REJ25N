@@ -1,0 +1,23 @@
+- **Original LTL formula**:  
+  `a U (b & c)`
+
+- **Parsing tree breakdown**:  
+  - Root: `U` (Until)  
+    - Left child: `a`  
+    - Right child: `b & c` (Conjunction of `b` and `c`).  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. The subformula `b & c` means **both `b` and `c` must be true simultaneously at a specific point in time**.  
+  2. The `U` operator (`a U (b & c)`) specifies that **`a` must hold continuously at every moment until** the first time when `b & c` becomes true.  
+  3. Importantly, the `U` operator **requires that `b & c` eventually becomes true** (i.e., the system must reach a state where both `b` and `c` are true). If `b & c` never occurs, the formula is **not satisfied**.
+
+- **Refined natural language phrasing**:  
+  **"a must remain true at all times until both b and c are simultaneously true, and it is guaranteed that eventually both b and c will be true together."**  
+
+  **Explanation**:  
+  - **Satisfied**: When `a` is true in every step up to some future time `t`, and at time `t`, both `b` and `c` are true.  
+  - **Constraints**:  
+    - The system must **not** violate `a` before `b & c` becomes true.  
+    - The system must **eventually** reach a state where `b` and `c` are both true (i.e., `b & c` cannot be omitted indefinitely).  
+
+  This phrasing captures both the **progressive requirement** on `a` and the **inevitability** of `b & c`.

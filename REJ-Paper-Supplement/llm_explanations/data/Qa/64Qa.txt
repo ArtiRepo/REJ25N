@@ -1,0 +1,20 @@
+- **Original LTL formula**: G(a -> XXXa)  
+- **Parsing tree breakdown**:  
+  - **Root**: G (Global)  
+    - **Subformula**: (a -> XXXa) (Implication)  
+      - **Left side**: a (Atomic proposition)  
+      - **Right side**: XXXa (Three "Next" operators applied to a)  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **a** is a simple atomic proposition: "a is true at the current time step."  
+  2. **Xa** means "a is true at the next time step" (t+1).  
+  3. **XXa** means "a is true at the time step after next" (t+2).  
+  4. **XXXa** means "a is true three time steps ahead" (t+3).  
+  5. The implication **a -> XXXa** translates to: "If a is true at time t, then a must also be true at time t+3."  
+  6. The **G** operator ensures this implication holds for **all time steps**.  
+
+- **Natural language phrasing**:  
+  The formula **G(a -> XXXa)** means: *"At every time step, if a is true, then it must also be true three steps ahead in the future."*  
+  - **Constraint**: Whenever a is true at any point in time, the system must ensure a is also true exactly three time units later.  
+  - **Satisfaction**: The formula is satisfied if, in the system's execution, every occurrence of a is followed by a recurrence of a at a time three steps later. For example, if a is true at time 0, it must be true at time 3, 6, 9, etc. If a is never true, the formula is vacuously satisfied.  
+  - **Key takeaway**: This enforces that the truth of a cannot occur without a "repetition" of a after a fixed delay of three steps. It does **not** demand that a is always true, but that its presence at any time t necessitates its presence at t+3.

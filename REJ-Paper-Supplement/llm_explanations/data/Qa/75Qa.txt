@@ -1,0 +1,24 @@
+- **Original LTL formula**:  
+  **F(a ∧ b)**  
+
+- **Breakdown (parsing tree)**:  
+  - The formula consists of the **"Finally"** operator (**F**) applied to the subformula **(a ∧ b)**.  
+  - The subformula **(a ∧ b)** is a logical **conjunction** (AND) of two propositions: **a** and **b**.  
+  - Structure:  
+    ```  
+    F  
+    └── ∧  
+        ├── a  
+        └── b  
+    ```  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **a ∧ b**: Both **a** and **b** must be true **simultaneously** at the same point in time.  
+  2. **F(a ∧ b)**: The requirement is that **at some future point in time**, the system must reach a state where **a ∧ b** is true. The "Finally" operator ensures that the conjunction **a ∧ b** is not just temporarily true but **eventually** holds at least once, without any restriction on what happens afterward.  
+
+- **Refined natural language phrasing**:  
+  **"Eventually, both a and b will be true at the same time."**  
+  - **Satisfaction condition**: The formula is satisfied if, during the system's execution, there exists a moment (in the future) where **a** and **b** are both true.  
+  - **Constraints over time**: The system must **eventually** reach a state where **a** and **b** are simultaneously true. If this never happens, the formula is not satisfied. Once **a ∧ b** becomes true, the condition is fulfilled regardless of subsequent behavior.  
+
+**Example**: If **a** represents "the system is online" and **b** represents "the server is responsive," the formula **F(a ∧ b)** means the system will **eventually** be both online and responsive.

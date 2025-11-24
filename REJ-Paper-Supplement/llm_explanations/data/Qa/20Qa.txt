@@ -1,0 +1,32 @@
+- **Original LTL formula**: G t | F w  
+  (Note: Here, "|" denotes logical OR, and the formula is interpreted as $ G(t) \lor F(w) $.)
+
+- **Breakdown into a parsing tree**:  
+  - **Root**: Logical OR (|)  
+    - **Left child**: Globally (G) applied to t  
+      - **Leaf**: Atomic proposition t  
+    - **Right child**: Finally (F) applied to w  
+      - **Leaf**: Atomic proposition w  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **t** is an atomic proposition (e.g., "the system is in a safe state").  
+     - $ G(t) $ means "t is **always true** throughout the entire system's execution."  
+  2. **w** is an atomic proposition (e.g., "a warning signal is triggered").  
+     - $ F(w) $ means "w is **eventually true** at some point in the future."  
+  3. The formula $ G(t) \lor F(w) $ combines these two conditions:  
+     - The system must satisfy **either** that t is always true **or** that w eventually occurs.  
+
+- **Refined natural language phrasing**:  
+  "The system must ensure that either **t is always true** throughout its operation, or **w eventually becomes true** at some point in the future."  
+
+  **Explanation**:  
+  - **Satisfied** if:  
+    - t holds in **every state** (e.g., the system is permanently safe), or  
+    - w occurs in **at least one future state** (e.g., a warning is triggered eventually).  
+  - **Imposes constraints over time**:  
+    - If t ever becomes false, the system must guarantee that w eventually becomes true.  
+    - If w never occurs, t must hold in all states.  
+
+  **Example**:  
+  Suppose t = "no errors occur" and w = "the system recharges". The formula translates to:  
+  "The system must either never have errors (always safe) or eventually recharge."

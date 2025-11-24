@@ -1,0 +1,21 @@
+- **Original LTL formula**: XXFa  
+- **Breakdown (parsing tree)**:  
+  The formula is parsed as `X(X(Fa))`, where:  
+  - The innermost subformula is `a` (an atomic proposition).  
+  - `F a` means "eventually a" (i.e., at some point in the future, a is true).  
+  - `X(F a)` means "next (eventually a)" (i.e., in the next time step, a will eventually be true).  
+  - `XXFa` means "next next (eventually a)" (i.e., two time steps from now, a will eventually be true).  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. `a` represents a specific condition being true in the current state.  
+  2. `F a` means that in the future, regardless of how the system evolves, there must be a time where `a` holds.  
+  3. `X(F a)` shifts this requirement to the **next time step**: if the system reaches the next state, then `F a` must hold from there onward.  
+  4. `XXFa` further shifts the requirement to the **second next time step**: starting from two steps into the future, `F a` must be satisfied. This implies that after two time units, `a` must eventually occur.  
+
+- **Refined natural language phrasing**:  
+  *"The system must ensure that the property `a` is true at some point **two or more steps into the future**."*  
+
+  **Explanation**:  
+  - The formula `XXFa` imposes a constraint that **two time units** after the current moment, the system must eventually reach a state where `a` is true.  
+  - This does **not** restrict when `a` occurs **before** two steps, but it **requires** that, for any valid execution of the system, there is **no point** where `a` is never true after the second step.  
+  - For example, if `a` occurs at step 3, the formula is satisfied. If `a` never occurs after step 2, the formula is violated.

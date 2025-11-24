@@ -1,0 +1,18 @@
+- **Original LTL formula**: G !a  
+- **Breakdown (parsing tree)**:  
+  - **Top operator**: Global (G)  
+    - **Subformula**: Negation (!a)  
+      - **Atomic proposition**: a  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **!a** means "a is false" at a specific point in time.  
+  2. **G !a** means "at all times in the future, a is false."  
+  3. Combined, this asserts that the proposition **a** must never hold true in any state of the system's execution.  
+
+- **Refined natural language phrasing**:  
+  **"a is never true"** or **"a must always be false."**  
+
+  **Explanation**:  
+  - The formula **G !a** is satisfied if the system's behavior ensures that **a** is false in **every** moment of its timeline.  
+  - It imposes a constraint that **a** must never occur (e.g., a signal stays off, a condition is never met, etc.).  
+  - For example, if **a** represents "an error happens," the formula would mean "no errors ever occur."

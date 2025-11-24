@@ -1,0 +1,24 @@
+- **Original LTL formula**:  
+  `!X t`  
+
+- **Breakdown (parsing tree)**:  
+  The formula is structured as:  
+  ```  
+    !  
+    └── X  
+        └── t  
+  ```  
+  - `t` is a proposition (e.g., "some condition holds").  
+  - `X t` means "t is true in the next state."  
+  - `!X t` means "it is not the case that t is true in the next state" (i.e., the negation of `X t`).  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. `t` represents a specific condition being true at a given moment.  
+  2. `X t` means that this condition (`t`) will be true in the **immediately following state** (the "next" step).  
+  3. `!X t` negates this, requiring that the condition (`t`) is **false in the next state**.  
+  4. Thus, the entire formula enforces that **at no point in time** can `t` be true in the next state.  
+
+- **Refined natural language phrasing**:  
+  "The formula `!X t` means that the proposition `t` **must not hold in the immediate next state** following any current state. This imposes a constraint on the system's behavior: **after every state**, the state that comes next **cannot satisfy `t`**. In other words, the system is required to avoid transitioning into a state where `t` is true in the next moment, ensuring `t` never occurs directly after any state."  
+
+  For example, if `t` represents "the system is in a critical state," then `!X t` ensures that the system **never enters a critical state in the next step**, regardless of its current state.

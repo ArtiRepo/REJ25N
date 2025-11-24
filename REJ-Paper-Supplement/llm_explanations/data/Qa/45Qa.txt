@@ -1,0 +1,23 @@
+- **Original LTL formula**:  
+  $ X(\neg i) \lor X(j) $
+
+- **Parsing tree breakdown**:  
+  - The formula is a logical **OR** ($ \lor $) of two subformulas:  
+    - $ X(\neg i) $: "Next state, $ i $ is false."  
+    - $ X(j) $: "Next state, $ j $ is true."  
+
+- **Rebuild meaning from the bottom up**:  
+  1. $ X(\neg i) $ means that the **immediate next state** must satisfy $ \neg i $.  
+  2. $ X(j) $ means that the **immediate next state** must satisfy $ j $.  
+  3. The OR operator combines these two: The system must ensure that **either** the next state has $ i $ false **or** the next state has $ j $ true.  
+
+- **Refined natural language phrasing**:  
+  "In the next time step, either $ i $ is false or $ j $ is true."  
+
+  **Explanation of satisfaction**:  
+  This formula is satisfied by a system's execution path if, for the **current state**, the **immediate next state** (i.e., the state at the next time step) meets **at least one** of the following:  
+  - $ i $ is false in the next state.  
+  - $ j $ is true in the next state.  
+
+  **Constraints over time**:  
+  The formula imposes a **single constraint** on the system's **first transition** (from the current state to the next). It does not impose ongoing constraints for all future states. However, if this formula were part of a larger specification (e.g., prefixed with $ G $ for "globally"), it would require that **every** next state in the system's execution satisfies $ \neg i \lor j $. As written, though, it only applies to the **immediate next state** once.

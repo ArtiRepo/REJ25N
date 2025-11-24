@@ -1,0 +1,16 @@
+- **Original LTL formula**: Fa ∧ Fb  
+- **Parsing tree breakdown**:  
+  - Main operator: ∧ (AND)  
+    - Left subformula: Fa (Eventually a)  
+    - Right subformula: Fb (Eventually b)  
+
+- **Rebuild meaning from the bottom of the tree up**:  
+  - "Fa" means that proposition **a** must hold at **some point in the future** during the system's execution.  
+  - "Fb" means that proposition **b** must hold at **some point in the future** during the system's execution.  
+  - The conjunction "∧" combines these two requirements: both **a** and **b** must hold at **some point in the future**, but not necessarily at the same time.  
+
+- **Natural language phrasing**:  
+  **"Both a and b must eventually occur during the system's execution."**  
+
+- **Explanation of satisfaction and constraints**:  
+  The formula **Fa ∧ Fb** is satisfied if, in the system's timeline, **a** becomes true at some future time and **b** becomes true at some (possibly different) future time. It imposes a constraint that neither **a** nor **b** can be permanently false; each must be fulfilled at least once as time progresses. For example, if the system never reaches a state where **a** is true, or never reaches a state where **b** is true, the formula is violated. However, if **a** and **b** occur at separate times, the formula is satisfied.

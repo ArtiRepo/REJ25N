@@ -1,0 +1,25 @@
+- **Original LTL formula**:  
+  $(c \ U \ a) \ \& \ (b \ U \ a)$
+
+- **Parsing tree breakdown**:  
+  - Main operator: **AND** ($\&$)  
+    - Left subformula: $c \ U \ a$ ("c until a")  
+    - Right subformula: $b \ U \ a$ ("b until a")  
+  - Each **UNTIL** ($U$) has:  
+    - Antecedent: $c$ (or $b$)  
+    - Consequent: $a$
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **$c \ U \ a$** means that $c$ must be true at every step until $a$ becomes true. This inherently requires $a$ to eventually occur.  
+  2. **$b \ U \ a$** similarly means that $b$ must be true at every step until $a$ becomes true.  
+  3. The **AND** operator combines these two: both conditions must hold simultaneously. This implies that $a$ must eventually occur, and **before $a$ occurs**, both $c$ and $b$ must be true at all times.  
+
+- **Natural language phrasing**:  
+  *"Both $c$ and $b$ must remain true until $a$ is eventually satisfied."*  
+  **Explanation**:  
+  - The formula enforces that $a$ occurs at some point in the future.  
+  - Until $a$ happens, the system must ensure that **both $c$ and $b$ are true at every moment**.  
+  - If $a$ never occurs, or if either $c$ or $b$ fails at any point before $a$, the formula is violated.  
+
+  **Alternative phrasing for clarity**:  
+  *"The system must maintain $c$ and $b$ as true throughout all time steps until $a$ is finally true."*

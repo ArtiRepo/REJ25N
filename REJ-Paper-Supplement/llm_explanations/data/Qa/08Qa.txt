@@ -1,0 +1,27 @@
+- **Original LTL formula**:  
+  `b U !d`  
+
+- **Breakdown (parsing tree)**:  
+  The formula is structured as a temporal **Until** (`U`) operator with two subformulas:  
+  - Left operand: `b` (a proposition).  
+  - Right operand: `!d` (the negation of proposition `d`).  
+
+  The operator `U` enforces a temporal relationship: `b` must hold **at every point in time until** the right subformula `!d` becomes true. Additionally, `!d` must eventually become true (otherwise the formula is not satisfied).  
+
+- **Rebuild meaning from the bottom up**:  
+  1. `b` is a proposition that must be true at some state.  
+  2. `!d` is the negation of `d`, meaning `d` is false at some state.  
+  3. The `U` operator combines these:  
+     - **"b must hold continuously until `!d` becomes true"** (i.e., `b` is true in all states before the first occurrence of `!d`).  
+     - **"`!d` must eventually occur"** (i.e., `d` is not always true; there is a future point where `d` is false).  
+
+  Together, the formula demands that `b` remains true until `d` is false, and that `d` will eventually be false.  
+
+- **Refined natural language phrasing**:  
+  **"b must remain true until d becomes false, and d must eventually become false."**  
+
+  **Explanation**:  
+  - The formula is **satisfied** if:  
+    - In all states from the current moment onward, `b` is true until a future state where `d` is false.  
+    - There exists at least one future state where `d` is false (ensuring the "until" condition is not vacuously infinite).  
+  - The formula **imposes constraints** on the system by requiring that `d` is not always true (it must eventually be false) and that `b` is not interrupted by `d` being true before that point.

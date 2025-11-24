@@ -1,0 +1,21 @@
+- **Original LTL formula**:  
+  $ G (j \rightarrow \neg f) $  
+
+- **Parsing tree breakdown**:  
+  - **G**: Global (always holds).  
+    - **(j → ¬f)**: Implication (if j is true, then ¬f must be true).  
+      - **j**: A proposition (e.g., "j occurs").  
+      - **¬f**: Negation of f (e.g., "f does not occur").  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **¬f** means "f is false at a given time."  
+  2. **j → ¬f** means "If j occurs, then f must not occur at the same time."  
+  3. **G (j → ¬f)** means this implication must hold **at all times** throughout the system's execution.  
+
+- **Refined natural language phrasing**:  
+  "The system must always ensure that if condition $ j $ is true, then condition $ f $ is false. This imposes a constraint that $ j $ and $ f $ cannot be true simultaneously at any point in time."  
+
+  **Explanation of satisfaction**:  
+  - The formula is **satisfied** if, in every state of the system's timeline, whenever $ j $ is true, $ f $ is explicitly false.  
+  - It **does not impose constraints** when $ j $ is false (since the implication is vacuously true) or when $ f $ is false (regardless of $ j $).  
+  - The formula is **violated** if there exists at least one time where $ j $ is true **and** $ f $ is also true.

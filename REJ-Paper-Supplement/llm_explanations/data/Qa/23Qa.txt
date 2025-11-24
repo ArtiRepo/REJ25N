@@ -1,0 +1,25 @@
+- **Original LTL formula**:  
+  $ t \Rightarrow w $  
+
+- **Breakdown (parsing tree)**:  
+  The formula is a logical implication between two atomic propositions, $ t $ and $ w $.  
+  - Root: Implication ($ \Rightarrow $)  
+    - Left child: Atomic proposition $ t $  
+    - Right child: Atomic proposition $ w $  
+
+- **Rebuild meaning from the bottom up**:  
+  1. **Atomic propositions**:  
+     - $ t $: A condition or event that is true at certain points in time.  
+     - $ w $: Another condition or event that is true at certain points in time.  
+  2. **Implication operator ($ \Rightarrow $)**:  
+     - The formula $ t \Rightarrow w $ states that **if $ t $ is true in a given state, then $ w $ must also be true in that same state**.  
+     - This is a **propositional constraint** (not involving temporal operators like "next" or "always"), meaning it applies to **each individual point in time** along the system's execution path.  
+
+- **Refined natural language phrasing**:  
+  "At all times, if $ t $ is true, then $ w $ must also be true."  
+  **Explanation**:  
+  - **Satisfaction**: The formula is satisfied when, in **every state** of the system's execution, the truth of $ t $ guarantees the truth of $ w $. For example, if $ t $ is "the system is in a critical state" and $ w $ is "the system is safe," then the formula enforces that the system **never enters a critical state without being safe**.  
+  - **Constraints over time**: It imposes a **safety constraint** that $ t $ and $ \neg w $ (t not w) cannot coexist in any state. This applies **uniformly across all time steps**—not just now, but at every moment.  
+
+**Final Translation**:  
+"Whenever $ t $ is true, $ w $ must also be true at the same time."

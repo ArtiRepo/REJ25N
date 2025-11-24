@@ -1,0 +1,33 @@
+- **Original LTL formula**:  
+  **X (y ⇒ x ∧ w)**  
+
+- **Breakdown (parsing tree)**:  
+  1. **Root node**: **X** (Next operator).  
+  2. **Child node**: **(y ⇒ x ∧ w)** (Implication).  
+     - **Left operand of ⇒**: **y** (a proposition).  
+     - **Right operand of ⇒**: **x ∧ w** (Conjunction of two propositions).  
+       - **Left operand of ∧**: **x** (a proposition).  
+       - **Right operand of ∧**: **w** (a proposition).  
+
+- **Rebuilding meaning from the bottom up**:  
+  - **x ∧ w**: Both **x** and **w** must be true in the same state.  
+  - **y ⇒ x ∧ w**: If **y** is true in a state, then **x** and **w** must both be true in that same state.  
+  - **X (y ⇒ x ∧ w)**: The implication **y ⇒ x ∧ w** must hold in the **next state** (i.e., the state immediately following the current one).  
+
+- **Refined natural language phrasing**:  
+  **"In the next state, if y is true, then both x and w must also be true."**  
+
+### Explanation of When the Formula is Satisfied:  
+The formula is satisfied if, for every time step **t**, the state at **t+1** satisfies **y ⇒ x ∧ w**. This means:  
+- If **y** is true in the next state **(t+1)**, then **x** and **w** must both be true in that same state **(t+1)**.  
+- If **y** is false in the next state **(t+1)**, the implication is trivially satisfied regardless of **x** and **w**.  
+
+### Constraints on the System Over Time:  
+The formula imposes a **strict temporal constraint**:  
+- It ensures that **after any state**, the **immediate subsequent state** must uphold the rule: **y cannot be true without x and w also being true**.  
+- This creates a dependency between states: If **y** occurs at time **t**, the system must guarantee **x ∧ w** at time **t+1**.  
+- It does **not** impose constraints on the current state (t) but enforces a condition on the **next state** (t+1) based on the current state's value of **y**.  
+
+### Final Translation:  
+**"After every state, the next state must satisfy that if y holds, then both x and w hold simultaneously."**  
+This captures the requirement that **y** in the next state triggers **x** and **w** in that same next state, ensuring a causal relationship between the current and next states.

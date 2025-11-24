@@ -1,0 +1,30 @@
+- **Original LTL formula**: (b | !a) & X (d U c)  
+- **Breakdown (parsing tree)**:  
+  ```  
+  &  
+  ├── (b | !a)  
+  │   ├── b  
+  │   └── !a  
+  └── X  
+      └── (d U c)  
+          ├── d  
+          └── c  
+  ```  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **d U c**: "d remains true until c becomes true" (i.e., **c must eventually hold**, and **d is true at all times before c holds**).  
+  2. **X (d U c)**: "In the **next state** (time *t+1*), **d must hold until c becomes true**."  
+  3. **(b | !a)**: "At the **current state** (time *t*), **b is true** or **a is false**."  
+  4. **Full formula**: The system must satisfy **both constraints simultaneously**:  
+     - At time *t*, either *b* is true or *a* is false.  
+     - At time *t+1*, *d* must hold until *c* becomes true.  
+
+- **Refined natural language phrasing**:  
+  **"The system must ensure that either *b* is true or *a* is false at the current time step, and in the next time step, *d* continues to hold until *c* is eventually true."**  
+
+### Explanation:  
+- The formula imposes **two constraints** over the system's behavior:  
+  1. **Local constraint** (at time *t*): *"b is true or a is false."*  
+  2. **Temporal constraint** (starting at time *t+1*): *"d must hold until c is true."*  
+- It does **not** require *c* to be true at the next time step, only that *d* persists until *c* becomes true at some future point (starting from *t+1*).  
+- If *c* never becomes true in the future, the formula is **violated** because the "until" condition fails.

@@ -1,0 +1,53 @@
+- **Original LTL formula**: (a U b) ∧ G(a)  
+  **Explanation**:  
+  This formula combines two conditions: (1) "a holds until b becomes true" (a U b) and (2) "a is always true" (G(a)).  
+
+---
+
+### **Parsing Tree Breakdown**  
+The formula can be decomposed into:  
+```
+        ∧  
+      /   \  
+    (U)    G(a)  
+   / \     /  
+  a   b   a  
+```  
+- The **top-level operator** is conjunction (AND), which requires both subformulas to hold.  
+- The **first subformula** (a U b) represents the **"until"** operator, meaning "a continues to hold until b becomes true."  
+- The **second subformula** G(a) represents the **"globally"** operator, meaning "a is always true."  
+
+---
+
+### **Rebuilding Meaning from the Bottom of the Tree**  
+1. **G(a)**: "a is true at all times" (forever, without exception).  
+2. **(a U b)**: "a is true until b becomes true." This requires that:  
+   - At some point in the future, **b becomes true**.  
+   - **Before that point**, **a is true** (and remains true until b is true).  
+3. **Combined logic**: Since G(a) ensures **a is always true**, the "until" condition (a U b) simplifies to:  
+   - **a is always true** (from G(a)), and **b eventually becomes true** (from (a U b)).  
+
+---
+
+### **Refined Natural Language Phrasing**  
+"The system must satisfy two constraints:  
+1. **a is always true** throughout its entire execution.  
+2. **b eventually occurs** at some point in the future.  
+
+**When the formula is satisfied**:  
+- At all time steps, **a is true**.  
+- At some time step, **b becomes true** (and this must happen before or at the same time as the end of the system’s execution).  
+
+**Constraints over time**:  
+- a cannot ever be false (due to G(a)).  
+- b must be true at least once in the future (due to the combination of a U b and G(a), as a is always true, ensuring the "until" condition only depends on b eventually being true)."  
+
+**Translation**:  
+"**a must always hold**, and **b will eventually occur**."  
+
+--- 
+
+### **Key Insight**  
+The conjunction ensures that:  
+- **a is forever true** (G(a)).  
+- **b is true at some future time** (since (a U b) requires b to eventually be true when a is always true).

@@ -1,0 +1,25 @@
+- **Original LTL formula**:  
+  `b U (a | d)`  
+
+- **Parsing tree breakdown**:  
+  - **Root operator**: **Until (U)**  
+    - **Left subformula**: `b` (a proposition)  
+    - **Right subformula**: `a | d` (a disjunction of propositions `a` and `d`)  
+
+- **Rebuilding meaning from the bottom up**:  
+  1. **Disjunction `a | d`**: This means "either `a` is true or `d` is true" (or both).  
+  2. **Until operator `b U (a | d)`**: This asserts that `b` must remain **true at all times** until the disjunction `a | d` becomes true. The formula is satisfied if:  
+     - There exists some time step `k` where `a | d` is true at `k`.  
+     - For all time steps `0 ≤ i < k`, `b` is true at `i`.  
+     - Importantly, `a | d` must eventually become true (otherwise, the formula is not satisfied).  
+
+- **Refined natural language phrasing**:  
+  "**b must hold continuously until either a or d occurs, and at least one of a or d must eventually occur.**"  
+
+  **Explanation of constraints**:  
+  - The system is required to maintain `b` as true throughout its entire execution **until** the first moment when `a` or `d` becomes true.  
+  - Once `a` or `d` is true, the condition is fulfilled, and `b` can be false afterward (if it ever is).  
+  - If `a` or `d` is true **initially**, the formula is satisfied immediately.  
+  - If neither `a` nor `d` ever becomes true, the formula is **violated**, as the "until" condition cannot be met.  
+
+  **Key takeaway**: The formula enforces a temporal dependency where `b` is a prerequisite for `a | d` to occur, and `a | d` must eventually be true.
