@@ -1,0 +1,1 @@
+The condition a must be true in every state of the execution, starting from the current state and continuing indefinitely into the future. If at any state a becomes false, the formula is violated. Therefore, a imposes a continuous and unending constraint on the system, requiring its truth at all times.

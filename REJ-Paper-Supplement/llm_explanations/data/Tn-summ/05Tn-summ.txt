@@ -1,0 +1,1 @@
+In the current state, b must be true, and in the very next state, a must be true. The formula does not impose any constraints beyond the next state, nor does it require b to be true in the next state or a to remain true beyond the next state.

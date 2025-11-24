@@ -1,0 +1,2 @@
+In summary, the formula b U (a ∨ d) requires that either a or d must eventually become true, and until that happens, b must be true in every state. Once a ∨ d is true, the requirement on b ceases.
+

@@ -1,0 +1,1 @@
+If t is true at any given moment, then both x and y must also be true at that same moment. If t is false, there are no constraints on x and y." This formula is concerned solely with the immediate truth values of t, x, and y, and does not impose any temporal constraints beyond the current state

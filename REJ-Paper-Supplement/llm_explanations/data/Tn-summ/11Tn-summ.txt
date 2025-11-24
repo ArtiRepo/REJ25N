@@ -1,0 +1,2 @@
+In summary, the formula a U (b ∧ c) imposes a requirement that b ∧ c must eventually be true, and until that happens, a must remain true. Once b ∧ c is satisfied, the constraints on a are lifted.
+

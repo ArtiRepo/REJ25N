@@ -1,0 +1,1 @@
+Eventually, there must be a state in the future where if  f is true, then j must also be true. Until such a state is reached, there are no constraints on f and j. The formula is satisfied if there is at least one future state where the implication holds, and it is violated if no such state exists

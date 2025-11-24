@@ -1,0 +1,2 @@
+The formula F (!y & w) requires that there must be at least one future state where y is false and w is true simultaneously. It does not impose any constraints on the current state or on the states leading up to the satisfaction of the condition. The formula is satisfied once such a state is found, and it does not impose any further constraints after that point. If no such state exists in the future, the formula is violated.
+

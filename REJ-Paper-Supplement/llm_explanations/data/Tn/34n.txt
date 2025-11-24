@@ -1,0 +1,40 @@
+The formula G (!f | !i) is expressed in Linear Temporal Logic (LTL) and can be translated into natural language as follows:
+ 
+
+ ### Explanation of the Formula
+ 
+
+ 1. **Immediate Evaluation and Constraints:**
+  - The formula G (!f | !i) is evaluated as a global constraint, meaning it applies to every state in the execution of the system.
+  - The expression (!f | !i) is a disjunction, meaning that at least one of the conditions must be true in every state.
+  - Specifically, for each state:
+  - Either `f` must be false, or `i` must be false, or both must be false.
+  - This imposes a constraint that in every state, it is not allowed for both `f` and `i` to be true simultaneously.
+ 
+
+ 2. **Ongoing Constraints Over Time:**
+  - The formula G (!f | !i) requires that the condition (!f | !i) holds in every state throughout the execution.
+  - This means that the system must continuously ensure that either `f` is false, `i` is false, or both are false at all times.
+  - There is no specific future state where the constraint ceases to apply; it is a perpetual requirement.
+ 
+
+ 3. **Satisfying Sequences:**
+  - A sequence satisfies the formula if, in every state of the sequence, at least one of `f` or `i` is false.
+  - For example, a sequence where `f` is always false, regardless of the value of `i`, satisfies the formula.
+  - Similarly, a sequence where `i` is always false, regardless of the value of `f`, also satisfies the formula.
+  - A sequence where both `f` and `i` are false in every state trivially satisfies the formula.
+ 
+
+ 4. **Violating Sequences:**
+  - A sequence violates the formula if there exists at least one state where both `f` and `i` are true simultaneously.
+  - For instance, if there is any state in the sequence where both `f` and `i` are true, the formula is violated.
+ 
+
+ 5. **Potential Misunderstandings:**
+  - It is crucial to understand that the formula does not allow for any state where both `f` and `i` are true. This is a common point of confusion, as some might mistakenly believe that the constraint applies only to certain states or that it can be temporarily violated.
+ 
+
+ ### Summary of the Translation
+ 
+
+ The formula G (!f | !i) translates to: "In every state of the system's execution, it must be the case that either `f` is false, `i` is false, or both are false. The system must never reach a state where both `f` and `i` are true simultaneously. This constraint applies globally and continuously throughout the entire execution of the system."

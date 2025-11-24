@@ -1,0 +1,2 @@
+There must not exist any future state where both a and b are true simultaneously. This imposes a constraint over the entire execution of the system, ensuring that a & b is false in every state. The formula is satisfied if a and b are never true at the same time in any state, and it is violated if there is at least one state where both are true.
+

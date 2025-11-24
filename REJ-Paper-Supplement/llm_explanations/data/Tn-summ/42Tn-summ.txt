@@ -1,0 +1,1 @@
+This formula is satisfied if, in the current state, either y is true and d is false, or if whenever y is true, d is also true. It does not impose any constraints on future states, as it lacks temporal operators. The formula is violated if y is true and d is true, or if y is true and d is false, failing both conditions.

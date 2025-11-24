@@ -1,0 +1,1 @@
+ The LTL formula `X !(t | w)` requires that in the very next state, neither `t` nor `w` can be true. This constraint applies only to the next state and does not affect any states beyond that. The formula is satisfied if both `t` and `w` are false in the next state and violated if either is true.

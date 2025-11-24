@@ -1,0 +1,1 @@
+In the very next state, t must be false." This imposes a constraint only on the immediate next state following the current one. Once the next state is evaluated, and t is confirmed to be false, the formula is satisfied, and no further constraints are imposed on t in subsequent states. If t is true in the next state, the formula is violated.

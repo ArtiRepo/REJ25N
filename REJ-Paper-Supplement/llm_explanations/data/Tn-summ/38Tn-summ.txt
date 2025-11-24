@@ -1,0 +1,1 @@
+Both b and d must eventually become true. Until b is true, a must remain true, and until d is true, c must remain true. Once b and d are true, the constraints on a and c no longer apply. The formula is satisfied if these conditions are met, and violated if they are not.

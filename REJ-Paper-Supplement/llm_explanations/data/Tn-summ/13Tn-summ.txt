@@ -1,0 +1,1 @@
+Either a or d must eventually become true. Until that happens, b must be true in every state. Once either a or  d becomes true, b no longer needs to hold.

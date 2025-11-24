@@ -1,0 +1,1 @@
+Whenever t is true, w must also be true in the same state. If t is false, the formula is satisfied regardless of the truth value of w. The formula imposes constraints only in states where t is true, requiring w to be true in those states. There are no ongoing constraints beyond the immediate evaluation of each state

@@ -1,0 +1,1 @@
+In summary, X !b & d requires that in the very next state, b must be false and d must be true. This constraint applies only to the next state and does not affect the current state or any subsequent states beyond the next one.

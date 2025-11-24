@@ -1,0 +1,1 @@
+In the very next state, either t or w must be true." This formula imposes a constraint only on the next state, requiring that at least one of the conditions t or w holds true. Once the next state is evaluated, the formula's constraints cease, and it does not affect any subsequent states.

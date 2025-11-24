@@ -1,0 +1,1 @@
+There must exist at least one future state where either o is true or u is true, or both are true. The formula does not impose any constraints on the current state or on any states before this condition is met. Once a state is reached where (o | u) holds, the formula is satisfied, and no further constraints apply

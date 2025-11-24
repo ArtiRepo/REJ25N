@@ -1,0 +1,2 @@
+In summary, the formula (c ∧ b) U a requires that a eventually becomes true, and until that happens, both c and b must be true. Once a is true, the constraints on c and b are lifted.
+

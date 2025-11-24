@@ -1,0 +1,1 @@
+Either i must always be false throughout the execution, or there must be a future point where i becomes true, with f  being true in every state leading up to that point. If i is always false, the formula is satisfied without further constraints on f . If i eventually becomes true, f must be true until that moment, after which no further constraints are imposed by this formula."

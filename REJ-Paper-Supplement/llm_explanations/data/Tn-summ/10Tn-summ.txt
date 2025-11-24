@@ -1,0 +1,2 @@
+In summary, the formula (d ∨ ¬ b) U ¬ a requires that ¬ a must eventually be true, and until that happens, either d must be true or b must be false. Once ¬ a is true, the constraints on d and b are lifted.
+

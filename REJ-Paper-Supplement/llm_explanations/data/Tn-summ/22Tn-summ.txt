@@ -1,0 +1,1 @@
+"In the next state, at least one of w or x must be true." This formula imposes a constraint only on the immediate next state after it is evaluated, requiring that either w or x (or both) be true in that state. There are no further constraints beyond this next state.

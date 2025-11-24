@@ -1,0 +1,2 @@
+In summary, the formula X b => !X d imposes a constraint only on the immediate next state, ensuring that if b is true, d must not be true in that same state. This constraint is evaluated and resolved in the next state, with no ongoing implications for future states beyond that point.
+

@@ -1,0 +1,2 @@
+In summary, the formula a & X b requires a to be true right now and b to be true in the next state. Once these conditions are checked, the formula imposes no further constraints on future states.
+

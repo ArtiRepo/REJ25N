@@ -1,0 +1,1 @@
+The formula X(!g | !j) requires that in the next state, at least one of g or j must be false. It does not impose constraints on the current state, nor does it enforce any conditions beyond the next state. The formula is satisfied if in the next state either g or j is false (or both). It is violated if, in the next state, both g and j are true.

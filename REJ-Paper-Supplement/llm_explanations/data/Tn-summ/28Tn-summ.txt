@@ -1,0 +1,1 @@
+In the very next state, if y is true, then both x and w must also be true. If y is false in the next state, there are no constraints on x and w." This formula is concerned only with the immediate next state and does not impose any constraints beyond that point.

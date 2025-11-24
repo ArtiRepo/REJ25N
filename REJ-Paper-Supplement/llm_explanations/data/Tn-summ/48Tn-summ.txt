@@ -1,0 +1,1 @@
+Currently, b must be true. In the very next state, a must hold continuously until c becomes true at some point in the future. Once c is true, the requirement for a to hold is lifted.

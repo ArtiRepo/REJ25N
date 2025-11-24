@@ -1,0 +1,1 @@
+In summary, X a => X c requires that if a is true in the next state, then c must also be true in that same next state. If a is not true in the next state, the formula imposes no constraints on c. The formula's constraints are limited to the transition from the current state to the next state and do not extend beyond that.

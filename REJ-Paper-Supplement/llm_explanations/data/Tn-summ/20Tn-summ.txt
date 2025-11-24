@@ -1,0 +1,2 @@
+The formula G t ∨ F w can be translated into natural language as follows: "Either t must be true in every state of the execution, or there must exist at least one future state where w is true. If t is true globally, the formula is satisfied
+

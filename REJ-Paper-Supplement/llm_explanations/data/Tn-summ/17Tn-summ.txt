@@ -1,0 +1,2 @@
+There must be at least one state in the execution where c is false. This means that c cannot be true in every state. The formula is satisfied if at least one state is found where c is false, and it is violated if c is true in every state of the execution. The constraint is ongoing until a state is found where c is false, at which point the formula is satisfied.
+

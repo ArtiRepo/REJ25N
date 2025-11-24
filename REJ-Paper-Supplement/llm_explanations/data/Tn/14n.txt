@@ -1,0 +1,35 @@
+The formula \((d \, U \, c) \, | \, (a \, U \, \neg c)\) can be translated into natural language as follows:
+ 
+
+ ### Immediate Evaluation and Constraints
+ 
+
+ This formula is a disjunction of two "Until" conditions: \((d \, U \, c)\) and \((a \, U \, \neg c)\). The formula is satisfied if at least one of these conditions is satisfied. Let's break down each part:
+ 
+
+ 1. **\((d \, U \, c)\):**
+  - **Immediate Evaluation:** This part of the formula is satisfied if \(c\) becomes true at some point in the future. Until \(c\) is true, \(d\) must be true in every state.
+  - **Constraints Over Time:** The constraint is that \(d\) must hold continuously until \(c\) becomes true. Once \(c\) is true, the constraint on \(d\) is lifted, and \(d\) no longer needs to hold.
+  - **Satisfying Sequences:** A sequence satisfies this part if \(c\) eventually becomes true, and \(d\) is true in every state leading up to that point.
+  - **Violating Sequences:** A sequence violates this part if \(c\) never becomes true, or if there is a state where \(d\) is false before \(c\) becomes true.
+ 
+
+ 2. **\((a \, U \, \neg c)\):**
+  - **Immediate Evaluation:** This part of the formula is satisfied if \(\neg c\) (i.e., \(c\) is false) becomes true at some point in the future. Until \(\neg c\) is true, \(a\) must be true in every state.
+  - **Constraints Over Time:** The constraint is that \(a\) must hold continuously until \(\neg c\) becomes true. Once \(\neg c\) is true, the constraint on \(a\) is lifted, and \(a\) no longer needs to hold.
+  - **Satisfying Sequences:** A sequence satisfies this part if \(\neg c\) eventually becomes true, and \(a\) is true in every state leading up to that point.
+  - **Violating Sequences:** A sequence violates this part if \(\neg c\) never becomes true, or if there is a state where \(a\) is false before \(\neg c\) becomes true.
+ 
+
+ ### Overall Formula Satisfaction
+ 
+
+ - **Immediate Satisfaction:** The formula is satisfied if either \((d \, U \, c)\) or \((a \, U \, \neg c)\) is satisfied. This means that either \(c\) eventually becomes true with \(d\) holding until then, or \(\neg c\) eventually becomes true with \(a\) holding until then.
+ - **Ongoing Constraints:** The constraints apply until either \(c\) becomes true (for the first part) or \(\neg c\) becomes true (for the second part). Once one of these conditions is met, the constraints on \(d\) or \(a\) cease to apply.
+ - **Potential Misunderstandings:** It's important to note that the formula does not require both parts to be satisfied simultaneously. Only one of the "Until" conditions needs to be satisfied for the entire formula to hold.
+ 
+
+ ### Conclusion
+ 
+
+ The formula \((d \, U \, c) \, | \, (a \, U \, \neg c)\) imposes constraints based on the satisfaction of either of its components. It requires either \(c\) to eventually be true with \(d\) holding until then, or \(\neg c\) to eventually be true with \(a\) holding until then. Once one of these conditions is met, the constraints on the respective variables are lifted.

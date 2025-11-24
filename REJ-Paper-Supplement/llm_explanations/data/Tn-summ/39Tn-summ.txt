@@ -1,0 +1,1 @@
+At some point in the future, both d and a must be true simultaneously. Until that moment, b must be true in every state. Once (d & a) is true, there are no further constraints on b.

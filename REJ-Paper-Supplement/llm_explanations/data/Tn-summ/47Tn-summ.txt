@@ -1,0 +1,1 @@
+The condition (c &d) must eventually become true. Until that happens, a  must be true in every state. If(c &d) is true at the initial evaluation, then a is not constrained. Once (c &d) becomes true, the requirement for a to be true is lifted.

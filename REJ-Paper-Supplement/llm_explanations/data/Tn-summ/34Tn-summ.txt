@@ -1,0 +1,1 @@
+In every state of the system's execution, it must be the case that either `f` is false, `i` is false, or both are false. The system must never reach a state where both `f` and `i` are true simultaneously. This constraint applies globally and continuously throughout the entire execution of the system."

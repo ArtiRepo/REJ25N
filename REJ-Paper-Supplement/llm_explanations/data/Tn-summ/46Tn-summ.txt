@@ -1,0 +1,1 @@
+Either there must be at least one future state where d is true, or n must be false in every state of the execution. The formula is satisfied if either condition holds, and it is violated if n is ever true or if d never becomes true in any future state

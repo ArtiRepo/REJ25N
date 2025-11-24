@@ -1,0 +1,37 @@
+Explanation of the LTL Formula: X(!g | !j)
+
+1. Immediate Evaluation:
+The formula X(!g | !j) states that in the very next state, at least one of !g (meaning g is false) or !j (meaning j is false) must be true.
+
+This means that when the formula is evaluated at a given moment, it does not impose any constraints on g or j in the current state.
+The constraint applies only to the next state in the execution.
+
+2. Constraints Over Time:
+The formula does not require that !g | !j holds beyond the next state—it only applies for a single transition.
+There is no requirement that g or j remain false in subsequent states after the next one.
+Unlike G(!g | !j), which would enforce this condition in every state, X(!g | !j) is a one-time constraint for the immediate next step.
+
+3. Satisfying Sequences:
+A sequence satisfies the formula if, in the next state, at least one of g or j is false.
+
+Examples of satisfying sequences:
+Current state:* (arbitrary values of *g* and *j**)
+  Next state: g = false, j = true -> satisying (since !g is true)
+Current state:* (arbitrary values of *g* and *j**)
+  Next state: g = true, j = false -> satisying (since !j is true)
+Current state:* (arbitrary values of *g* and *j**)
+  Next state: g = false, j = false  -> satisying (since both !g and !j are true)
+
+4. Violating Sequences:
+A sequence violates the formula if, in the next state, both g and j are true.
+
+Examples of violating sequences:
+Current state:* (arbitrary values of *g* and *j**)
+  Next state: g = true, j = true -> violating (since neither !g nor !j is true)
+
+5. Potential Misunderstandings:
+The formula X(!g | !j) does not mean that g and j must be false forever—it only applies in the very next state.
+It does not constrain the current state, nor does it impose any restrictions on states beyond the next one.
+
+Summary (Natural Language Translation):
+The formula X(!g | !j) requires that in the next state, at least one of g or j must be false. It does not impose constraints on the current state, nor does it enforce any conditions beyond the next state. The formula is satisfied if in the next state either g or j is false (or both). It is violated if, in the next state, both g and j are true.

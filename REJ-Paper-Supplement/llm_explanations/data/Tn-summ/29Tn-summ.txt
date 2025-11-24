@@ -1,0 +1,1 @@
+There must exist at least one future state where either x is true or y is true. The formula is satisfied if at least one of these conditions is met at some point in the future. Until then, the system is constrained to eventually satisfy one of these conditions. Once either x or y becomes true, the formula is satisfied, and no further constraints apply.

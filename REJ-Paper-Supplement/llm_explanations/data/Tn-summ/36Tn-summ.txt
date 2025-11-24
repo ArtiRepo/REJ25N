@@ -1,0 +1,1 @@
+In every state of the system's execution, if j is true, then f must be false. This constraint applies globally, meaning it must hold at every state throughout the entire execution. If there is any state where \( j \) is true and \( f \) is also true, the formula is violated. If \( j \) is false, the formula does not impose any constraint on \( f \) in that state.

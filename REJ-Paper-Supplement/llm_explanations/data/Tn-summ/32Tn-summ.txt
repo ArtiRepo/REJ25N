@@ -1,0 +1,1 @@
+In the current state, either b must be true or a must be false. In the very next state, c must eventually become true, and until it does, d must remain true. Once c is true, there are no further constraints on d.

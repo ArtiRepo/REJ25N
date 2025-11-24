@@ -1,0 +1,1 @@
+Currently, d must be true. In the very next state, a must eventually become true, and until that happens, c must remain true in every state. Once a becomes true, c no longer needs to hold. If d is false now, or if a never becomes true while c is continuously true, the formula is violated.

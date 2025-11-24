@@ -1,0 +1,1 @@
+In the very next state, a must be true, and there must be at least one state in the future where b is false." The constraint on a is immediate and applies only to the next state, while the constraint on b is ongoing until a state is found where b is false.

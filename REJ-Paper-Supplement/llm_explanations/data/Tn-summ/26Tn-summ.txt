@@ -1,0 +1,1 @@
+If t is true in the very next state, then y must also be true in that next state." This formula imposes a constraint only on the immediate next state following the current one, and it is satisfied unless t is true and y is false in that next state.

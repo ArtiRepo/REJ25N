@@ -1,0 +1,2 @@
+In summary, the formula a U c requires that c eventually becomes true, and until that happens, a must be true. Once c is true, the constraints on a are lifted, and the formula is considered satisfied.
+

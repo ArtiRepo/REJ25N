@@ -1,0 +1,2 @@
+The formula b U ¬ d is evaluated at a given moment in time. It requires that at some point in the future, ¬ d (meaning "d is false") must become true. Until ¬ d becomes true, b must be true in every state from the current state up to, but not including, the state where ¬ d first holds.
+

@@ -1,0 +1,1 @@
+In the very next state, either `i` must be false, or `j` must be true. This formula imposes a constraint only on the immediate next state, requiring that at least one of these conditions is met. Once the next state is evaluated, the formula no longer imposes any constraints on subsequent states.

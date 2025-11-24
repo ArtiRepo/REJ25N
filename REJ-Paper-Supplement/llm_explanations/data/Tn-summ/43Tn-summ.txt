@@ -1,0 +1,1 @@
+In the very next state, both f  and i must be true." This formula imposes a constraint only on the next state following the current one. It does not impose any constraints on the current state or any states beyond the next one. The formula is satisfied if both f  and i are true in the next state and violated if either is false.

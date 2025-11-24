@@ -1,0 +1,2 @@
+In summary, the formula b ∨ ¬ X a is satisfied if either b is true in the current state or a is false in the next state. The constraint on a applies only to the immediate next state and does not extend beyond that.
+

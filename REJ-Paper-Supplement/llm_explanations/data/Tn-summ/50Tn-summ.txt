@@ -1,0 +1,1 @@
+There must be a future point where u  becomes true. Until that point, o must be true in every state. Once u is true, there are no further constraints on o or u." This means that the system must eventually reach a state where u is true, and until then, o must consistently hold.

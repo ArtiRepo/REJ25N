@@ -1,0 +1,1 @@
+This formula imposes constraints based on the satisfaction of either of its components. It requires either c to eventually be true with d holding until then, or !c to eventually be true with a holding until then. Once one of these conditions is met, the constraints on the respective variables are lifted.
