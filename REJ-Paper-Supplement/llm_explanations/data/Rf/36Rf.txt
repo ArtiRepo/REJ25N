@@ -1,0 +1,50 @@
+### Reasoning for Translating LTL Formula: `G (j => !f)`  
+
+#### 1. **Original Formula**  
+   `G (j => ¬f)`  
+
+#### 2. **Parsing Tree Breakdown**  
+   - **Leaf Atoms**:  
+     - `j`: Atomic proposition (e.g., "the system is active").  
+     - `f`: Atomic proposition (e.g., "a failure occurs").  
+   - **Operators**:  
+     - **`¬f`**: Negation of `f` (i.e., "`f` is false").  
+     - **`j => ¬f`**: Implication (i.e., "if `j` is true, then `¬f` must be true").  
+     - **`G(...)`**: Global operator (i.e., "always, at every future time").  
+
+   **Tree Structure**:  
+   ```  
+      G  
+      │  
+      =>  
+     ╱  ╲  
+    j    ¬  
+          \  
+           f  
+   ```  
+
+#### 3. **Rebuilding Meaning Bottom-Up**  
+   - **Step 1: `f`**  
+     *Meaning*: "The proposition `f` holds (is true)."  
+   - **Step 2: `¬f`**  
+     *Meaning*: "The proposition `f` does **not** hold (is false)."  
+   - **Step 3: `j => ¬f`**  
+     *Meaning*: "**If `j` holds**, then `¬f` must hold."  
+     *Logic*: This is true if either:  
+       - `j` is false (no constraint on `f`), or  
+       - `j` is true → `f` **must be false** at the **same moment**.  
+   - **Step 4: `G (j => ¬f)`**  
+     *Meaning*: "**At every time step**, `j => ¬f` holds."  
+     *Logic*: The condition "if `j` then **not** `f`" must be true for **all states** in the timeline.  
+
+#### 4. **Refined Natural Language Phrasing**  
+   - **Key Constraints**:  
+     - When `j` is true → `f` **cannot** be true **simultaneously** (no overlap).  
+     - When `j` is false → `f` may be true or false (no restriction).  
+     - Applies **globally** → enforced at **every state forever**.  
+   - **Translation**:  
+     > **"At all times, whenever `j` is true, `f` must be false."**  
+     *(Equivalently: "The system must never allow `j` and `f` to be true at the same time.")*  
+
+**Final Interpretation**:  
+The formula specifies a **permanent mutual exclusion** between `j` and `f`. If the system ever reaches a state where both are true, it violates the specification. All other behaviors are acceptable.

@@ -1,0 +1,58 @@
+### Reasoning for Translation of LTL Formula: `X !(t | w)`
+
+#### 1. **Original LTL Formula**  
+`X !(t | w)`
+
+#### 2. **Parsing Tree Breakdown**  
+- **Root operator**: `X` (Next)  
+  - **Child**: `!` (Negation)  
+    - **Child**: `|` (OR)  
+      - **Left child**: Atomic proposition `t`  
+      - **Right child**: Atomic proposition `w`  
+
+Tree visualization:  
+```
+    X  
+    |  
+    !  
+    |  
+    |  
+   / \  
+  t   w  
+```
+
+#### 3. **Rebuilding Meaning from the Bottom Up**  
+- **Step 1: Innermost subformula `(t | w)`**  
+  - **Meaning**: At a given state, `t` is true **or** `w` is true (or both).  
+  - *Example*: "Either `t` holds or `w` holds in this state."  
+
+- **Step 2: Apply negation `!` to `(t | w)`**  
+  - **Meaning**: The negation flips the OR. By De Morgan's law, `!(t | w)` ≡ `!t ∧ !w`.  
+  - **Result**: At a given state, `t` is **false** **and** `w` is **false**.  
+  - *Example*: "Neither `t` nor `w` holds in this state."  
+
+- **Step 3: Apply `X` (Next) to `!(t | w)`**  
+  - **Meaning**: The subformula `!(t | w)` must hold in the **immediately next state**.  
+  - **Result**: In the state following the current one, `t` is **false** and `w` is **false**.  
+  - *Example*: "**In the next state**, neither `t` nor `w` holds."  
+
+#### 4. **Refined Natural Language Translation**  
+- **Final Translation**:  
+  > **"In the immediate next state, neither `t` nor `w` is true."**  
+
+- **Why this phrasing?**  
+  - Clarity: Explicitly defines the temporal constraint ("next state") and the requirement for both `t` and `w` to be false.  
+  - Precision: Uses "neither/nor" to emphasize the conjunction of negatives (`!t ∧ !w`), avoiding ambiguity from the negated OR.  
+- **Key Constraints**:  
+  - This formula **only constrains the next state**, not the current state.  
+  - If `t` or `w` is true in the next state, the formula is violated.  
+  - The current state is unconstrained (e.g., `t`/`w` can be true/false now).  
+
+#### Summary of Logic  
+| Time      | Current State | Next State (Requirement) |  
+|-----------|---------------|--------------------------|  
+| **`X !(t | w)`** | No constraint | `t` = **false**, `w` = **false** |  
+
+Example sequence where the formula holds:  
+- States: `[t=false, w=true]` → `[t=false, w=false]` → `[t=true, w=true]`  
+  - The formula is satisfied because the **second state** (next after the first) has `t` and `w` both false.

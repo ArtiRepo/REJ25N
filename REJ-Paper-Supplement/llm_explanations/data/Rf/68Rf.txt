@@ -1,0 +1,55 @@
+### Translation of LTL Formula: `a U b`
+
+#### 1. **Original LTL Formula**  
+`a U b`
+
+#### 2. **Parsing Tree Breakdown**  
+- **Operator**: `U` (Until)  
+  - **Left subformula**: `a` (atomic proposition)  
+  - **Right subformula**: `b` (atomic proposition)  
+
+*Tree Structure:*  
+```  
+     U  
+    / \  
+   a   b  
+```  
+
+#### 3. **Rebuilding Meaning from the Bottom Up**  
+- **Step 1: Atomic propositions**  
+  - `a`: Represents a distinct condition (e.g., "the system is in a safe state").  
+  - `b`: Represents another distinct condition (e.g., "a goal is reached").  
+  *Meaning at a state:* `a` or `b` holds at that specific state.  
+
+- **Step 2: Apply the `U` operator**  
+  - The `U` operator combines `a` and `b` across time.  
+  - **Core semantics**:  
+    - There must exist a **future state** where `b` holds.  
+    - At **every state** from the current state up to **but not including** the state where `b` first holds, `a` must hold.  
+  - **Boundary cases**:  
+    - If `b` holds *now*, no obligations for `a` (the interval `[now, b)` is empty).  
+    - If `b` never holds, the formula fails regardless of `a`.  
+
+#### 4. **Refined Natural Language Phrasing**  
+- **Core translation**:  
+  *"`a` holds continuously until `b` holds, and `b` must eventually hold."*  
+- **Refinements for clarity**:  
+  - **Emphasize inevitability of `b`**: Explicitly state `b` must occur.  
+  - **Clarify the role of states**:  
+    > "**`b` must become true at some future time**. From now until the moment *just before* `b` becomes true, **`a` must hold in every state**."  
+  - **Add contextual example** (optional):  
+    > "For instance, if `a` is 'the system is idle' and `b` is 'a task completes', the formula requires:  
+    > - The task completes eventually.  
+    > - The system remains idle until the task starts (but may change afterwards)."  
+
+#### Final Translation  
+**"`b` eventually becomes true, and `a` holds continuously from the current state until the state immediately before `b` becomes true."**  
+
+### Key Insights  
+- **Satisfaction**: Requires `b` to occur while `a` holds *uninterrupted* until the moment before `b`.  
+- **Violation**:  
+  - `b` never occurs, OR  
+  - A state before `b` occurs where `a` is false.  
+- **Constraint over time**: `a` must persist during the prefix of the timeline leading to `b`; no constraints after `b`.  
+
+This structure ensures the translation is logically precise while remaining accessible for temporal reasoning.

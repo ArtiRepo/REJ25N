@@ -1,0 +1,58 @@
+### Step-by-Step Reasoning for LTL Formula: `F x | F y`
+
+#### 1. **Original LTL Formula**:  
+`F x | F y`
+
+#### 2. **Parsing Tree Breakdown**:  
+- **Leaf-level subformulas**: Atomic propositions `x` and `y`.  
+- **Unary temporal operators**:  
+  - `F x` ("Eventually `x`").  
+  - `F y` ("Eventually `y`").  
+- **Top-level binary operator**:  
+  - `|` (logical **OR**).  
+  - Structure: `(F x) | (F y)`.  
+
+**Parsing Tree**:  
+```
+     OR  
+    /   \  
+  F x    F y  
+   |      |  
+   x      y  
+```
+
+#### 3. **Rebuild Meaning from Bottom-Up**:  
+- **Step 1 (Atomic propositions)**:  
+  - `x`: A state where property `x` holds.  
+  - `y`: A state where property `y` holds.  
+
+- **Step 2 (Unary operators `F`)**:  
+  - `F x`: **"`x` eventually holds at least once in the future."**  
+    - *Example*: If the trace is `[x, y]`, `x` is satisfied at the first step.  
+  - `F y`: **"`y` eventually holds at least once in the future."**  
+    - *Example*: In `[y, x]`, `y` is satisfied at the first step.  
+
+- **Step 3 (Binary operator `|`)**:  
+  - `(F x) | (F y)`: **"At least one of `F x` or `F y` holds."**  
+  - *Combined logic*:  
+    - If **either** `x` eventually occurs **or** `y` eventually occurs (or both), the formula is satisfied.  
+    - Only **fails** if **neither** `x` nor `y` ever occurs.  
+
+#### 4. **Refined Natural Language Phrasing**:  
+- **Key refinement**: Clarify temporal flexibility and mutual exclusivity:  
+  > **"Eventually, either `x` happens or `y` happens (or both)."**  
+
+- **Explanation of constraints over time**:  
+  - **Satisfaction condition**: The system must guarantee that **at least one** of the two events occurs *at some point* (timing is irrelevant; they can happen at the same or different times).  
+  - **Failure scenario**: The formula is **violated** if the system **never** reaches a state where `x` holds **and never** reaches a state where `y` holds.  
+  - **No order dependency**: No constraint is imposed on the order between `x` and `y`; they may occur in any sequence.  
+
+**Example Traces**:  
+- `[x]`, `[y]`, `[x, y]`, `[y, x]`: **Satisfied** (one or both occur).  
+- `[ ]` (neither `x` nor `y` ever occurs): **Violated**.  
+
+### Final Translation  
+**LTL Formula**: `F x | F y`  
+**Natural Language**:  
+> *Eventually, either `x` happens or `y` happens (or both occur at any times).  
+The system violates this only if neither event ever occurs.*

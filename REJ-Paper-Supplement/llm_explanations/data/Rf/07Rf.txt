@@ -1,0 +1,42 @@
+### Translation of LTL Formula: **a U c**
+
+#### Step 1: Original LTL Formula  
+**a U c**  
+
+#### Step 2: Parsing Tree Breakdown  
+```
+     U
+    / \
+   a   c
+```
+- **Leaves**: Atomic propositions `a` and `c`.  
+- **Operator**: `U` (Until), which combines `a` and `c` into one temporal constraint.  
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+- **Atomic propositions**:  
+  - `a`: Represents a system state where property **a** holds (e.g., "the light is green").  
+  - `c`: Represents a system state where property **c** holds (e.g., "the alarm sounds").  
+- **Until operator (`U`)**:  
+  - `a U c` means:  
+    - There must exist **some future state** (including now) where **c** holds.  
+    - At **every state from the current state up to (but excluding)** the state where **c** first holds, **a** must hold.  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **"a must remain true until c becomes true, and c must eventually occur."**  
+
+##### Explanation of Constraints:  
+1. **Satisfaction condition**:  
+   - *At a state where **c** holds now*: The formula is satisfied immediately (no need for **a** here).  
+   - *If **c** is false now*: **a** must hold now and in every subsequent state until a future state where **c** holds.  
+     - **Example**: If the current state has `a` true and `c` false, the system must continue satisfying **a** until a state where **c** becomes true.  
+   
+2. **Failure condition**:  
+   - If **c** never occurs, the formula fails (regardless of **a**).  
+   - If **a** fails at any state *before* **c** occurs, the formula fails immediately.  
+
+3. **Temporal semantics**:  
+   - *When **c** occurs*: **a** need **not** hold at this final state (e.g., **a** may become false exactly when **c** triggers).  
+   - *Before **c** triggers*: **a** must hold rigidly at every step.  
+
+##### Simplified Summary:  
+> "Eventually, **c** becomes true, and until that moment, **a** holds continuously."

@@ -1,0 +1,40 @@
+### Translation of the LTL Formula `!G c`
+
+#### Step 1: Original LTL Formula  
+`!G c`  
+
+#### Step 2: Parsing Tree Breakdown  
+The formula is parsed as follows:  
+```
+    !     → Negation operator
+      |
+      G   → Global operator ("Globally")
+      |
+      c   → Atomic proposition (e.g., "The system is safe")
+```  
+- **Atomic proposition `c`** represents a specific condition (e.g., "The door is closed").  
+- **`G c`** applies the `G` (Globally) operator: "`c` holds in **every** state of the path."  
+- **`!G c`** negates the entire `G c` formula: "It is **not true** that `c` holds in every state."  
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Base:** `c` is a state-specific condition (e.g., "The door is closed at time *t*").  
+2. **Apply `G`:** `G c` requires that at **every point in time**, `c` holds (e.g., "The door is always closed").  
+3. **Apply `!`:** `!G c` negates `G c`, meaning the system **violates** "always `c`". This implies:  
+   - There must exist **at least one point** where `c` fails (e.g., "There is a time when the door is **not** closed").  
+
+#### Step 4: Refined Natural Language Phrasing  
+- "**The system cannot always satisfy `c`; eventually, `c` must be false at least once.**"  
+  (e.g., "The door is **not permanently closed**; it must open (or fail) sometime.")  
+
+#### Key Insight  
+- `!G c` **prohibits paths where `c` holds forever**. It forces a future state where `c` is **false**, but imposes **no constraints** on:  
+  - When `c` becomes false (immediately or later),  
+  - How many times `c` fails (once or repeatedly),  
+  - What happens after the failure (e.g., `c` may become true again).  
+
+#### Formal Equivalence  
+`!G c` is equivalent to `F !c` ("Eventually, not `c`").  
+This equivalence simplifies real-world reasoning (e.g., robustness checks: "Must the system experience a failure of `c`?").  
+
+**Final translation:**  
+> "**The system cannot maintain `c` forever; there must be at least one time where `c` is false.**"

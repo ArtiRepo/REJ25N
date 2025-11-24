@@ -1,0 +1,50 @@
+### Translation of LTL Formula: \( t \implies w \)
+
+#### Step 1: Original Formula  
+\( t \implies w \)  
+(Implication between atomic propositions \( t \) and \( w \))  
+
+#### Step 2: Parsing Tree Breakdown  
+```
+    => (implies)
+   /   \
+  t     w
+```
+- **Leaves**: Atomic propositions (no temporal operators).  
+  - **\( t \)**: "Property \( t \) is true **at the current time**".  
+  - **\( w \)**: "Property \( w \) is true **at the current time**".  
+- **Root**: Logical operator \(\implies\) (implication).  
+
+#### Step 3: Rebuild Meaning from Bottom Up  
+1. **Atomic propositions**:  
+   - \( t \): Constraint **at a specific moment**.  
+   - \( w \): Constraint **at the same moment**.  
+2. **Implication (\(\implies\))**:  
+   - **Classic logic**: "If \( t \) is true, then \( w \) must be true".  
+   - **LTL context**: This must hold **for every time step** in the system's execution (since no explicit temporal operators are present, defaults to universal quantification over time).  
+   - Result: **"At every moment, if \( t \) holds, then \( w \) must hold simultaneously."**  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **Translation**:  
+> "Whenever \( t \) is true, \( w \) must **also be true at the same time**."  
+> 
+> **Key Implications**:  
+> - **When satisfied**:  
+>   - If \( t \) ever becomes true, \( w \) **must be simultaneously true** for the formula to hold.  
+>   - If \( t \) is false at a time, the formula is **automatically satisfied** (no constraint on \( w \)).  
+> - **Temporal scope**: Applies **instantaneously at every time step** (e.g., if \( t \) holds at time \( i \), \( w \) must hold at \( i \)).  
+> - **Weakness**: Does **not enforce future/past relationships** (e.g., if \( t \) holds at time \( i \), \( w \) need not persist beyond \( i \)).  
+
+**Example**:  
+- If \( t = \) "system overheats", \( w = \) "alarm sounds":  
+  > "Whenever the system overheats, the alarm must sound **at that exact moment**."  
+  - ✅ Valid: Overheating at \( t=5 \) → alarm sounds at \( t=5 \).  
+  - ❌ Violated: Overheating at \( t=5 \) → alarm silent at \( t=5 \) (even if it triggers later).  
+
+**Why this works**:  
+- The absence of temporal operators (\(\bigcirc\), \(\mathcal{U}\), \(\square\)) restricts constraints to **current-state dependencies**.  
+- Equivalent to \(\square (t \implies w)\) (always-implication) in LTL, but written succinctly.  
+
+--- 
+**Final Translation**:  
+"At every moment in time, \( t \) being true requires \( w \) to be true at that same moment."

@@ -1,0 +1,63 @@
+### Translation of LTL Formula: `G t | F w`
+
+#### Step 1: Original Formula  
+- **Formula:** `G t | F w`  
+- **Operator Precedence:** Unary operators (`G`, `F`) bind tighter than binary operators (`|`). Thus, the formula parses as `(G t) | (F w)`.
+
+#### Step 2: Parsing Tree Breakdown  
+```
+      OR (|)
+     /     \
+   G(t)    F(w)
+    |       |
+    t       w
+```
+
+- **Leaves (Atomic Propositions):**  
+  - `t`: Truth of atomic proposition `t` at the current state (represents "t holds now").  
+  - `w`: Truth of atomic proposition `w` at the current state (represents "w holds now").  
+- **Unary Operators (Applied Bottom-Up):**  
+  - `G t`: Globally enforces `t` for **all future states** (including the current state).  
+  - `F w`: Finally requires `w` to hold in **at least one future state** (current or later).  
+- **Binary Operator (Combines Subformulas):**  
+  - `|`: Logical OR between `G t` and `F w` (satisfied if either/both subformulas hold).
+
+#### Step 3: Rebuilding Meaning Bottom-Up  
+1. **Atomic Propositions:**  
+   - `t` means "t holds **now**".  
+   - `w` means "w holds **now**".  
+   *→ Placeholders for state-specific conditions.*  
+
+2. **Apply Temporal Operators:**  
+   - `G t`: Expands to "**For all states from now onward, t holds**".  
+     - *Constraint:* `t` must never fail in the entire future.  
+   - `F w`: Expands to "**There exists a state from now onward where w holds**".  
+     - *Constraint:* `w` must occur **at least once** in the future.  
+
+3. **Apply OR Operator (`|`):**  
+   - Combines `G t` and `F w`:  
+     - Satisfied if **either** `G t` is true (t holds forever), **or** `F w` is true (w eventually occurs), **or both**.  
+     - *System Behavior*:  
+       - If `t` holds continuously forever, the formula is satisfied (regardless of `w`).  
+       - If `t` ever fails, the system **must ensure `w` occurs eventually** to satisfy the formula.  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **"The system must either:**  
+> (a) **Always maintain `t` true from now on indefinitely,  
+> or**  
+> (b) **Ensure `w` eventually becomes true at least once in the future.  
+> (Both conditions may hold simultaneously.)"**  
+
+#### Key Nuances:  
+- **Implicit Constraint:** If `t` fails at any point (now or later), the system is **forced** to eventually satisfy `w`.  
+- **Minimal Compliance:** The system can **choose** to never satisfy `w`, but only if it **never lets `t` fail**.  
+- **Time Sensitivity:** `G t` requires immediate and perpetual truth of `t`; `F w` allows arbitrary delays (as long as `w` eventually happens).  
+
+#### Example Scenarios:  
+- ✅ Acceptable: `t=true, t=true, t=true, ...` (t always true, no `w` needed).  
+- ✅ Acceptable: `t=false, w=true` (t fails immediately, but `w` immediately occurs).  
+- ✅ Acceptable: `t=true, t=false, w=true` (t fails, but `w` occurs later).  
+- ❌ Violation: `t=false, w=false, w=false, ...` (t fails and `w` never occurs).  
+
+### Final Translation  
+**"Either `t` holds permanently from now on, or `w` must eventually occur."**

@@ -1,0 +1,61 @@
+### Step-by-Step Reasoning for LTL Formula: `F d | G !n`
+
+#### 1. **Original LTL Formula**  
+   `F d | G !n`  
+   *(Note: `|` denotes logical OR (`∨`), `F` means "eventually", `G` means "globally", `!` means "not")*  
+
+#### 2. **Parsing Tree (Breakdown)**  
+   - Root: **Disjunction (`∨`)**  
+     - Left child: **`F d`** ("eventually `d`")  
+       - Child: Atomic proposition **`d`**  
+     - Right child: **`G !n`** ("globally not `n`")  
+       - Child: Negation **`!`**  
+         - Leaf: Atomic proposition **`n`**  
+
+```
+      ∨
+     / \
+    /   \
+  F d   G !n
+  |      |
+  d      ¬
+         |
+         n
+```
+
+#### 3. **Rebuild Meaning Bottom-Up**  
+   - **Atomic propositions**:  
+     - `d`: "`d` is true in the current state."  
+     - `n`: "`n` is true in the current state."  
+   - **Negation (`!n`)**:  
+     - "`n` is false in the current state."  
+   - **`G !n`** ("Globally not `n`"):  
+     - "`n` is false **in every state from now onward**."  
+   - **`F d`** ("Eventually `d`"):  
+     - "There exists **at least one future state** where `d` is true."  
+   - **Disjunction (`F d ∨ G !n`)**:  
+     - "**Either** `F d` is satisfied, **or** `G !n` is satisfied."  
+
+#### 4. **Refined Natural Language Phrasing**  
+The formula describes **two mutually exclusive scenarios** for the system:  
+> **"Either `d` eventually becomes true at least once, or `n` is false forever from now on."**  
+
+##### Key Implications:  
+- **Satisfaction Conditions**:  
+  - **Scenario 1**: At any point in the future (e.g., next state, or in 100 states), `d` holds.  
+    *Example: If `d` occurs in the future (even once), the formula is satisfied (regardless of `n`).*  
+  - **Scenario 2**: `n` **never** holds in any future state.  
+    *Example: If `d` never occurs, but `n` remains perpetually false, the formula is satisfied.*  
+- **Constraint on the System**:  
+  - **If `n` ever becomes true**, the system **must** eventually satisfy `d` (otherwise, `G !n` fails and `F d` must hold).  
+  - **If `d` never occurs**, the system **must never allow `n` to be true again** (after the current state).  
+
+##### Why This Interpretation?  
+- `F d ∨ G !n` **does not require both conditions**—satisfying either suffices.  
+- The disjunction (`∨`) makes it a **safety net**:  
+  - The system can "choose" between making `d` true *eventually* or banning `n` *permanently*.  
+
+###### Final Translation:  
+> **"Eventually `d` holds, or `n` is always false."**  
+
+This phrasing is concise, covers both scenarios, and clarifies the constraints without ambiguity.

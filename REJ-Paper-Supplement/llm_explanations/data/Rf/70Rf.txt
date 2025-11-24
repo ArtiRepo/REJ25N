@@ -1,0 +1,53 @@
+### Translation of LTL Formula: **G(a → b)**
+
+#### 1. **Original LTL Formula**  
+   `G(a → b)`
+
+#### 2. **Parsing Tree Breakdown**  
+   - **Top-level operator**: `G` (Globally).  
+     - **Operand**: `(a → b)` (Implication).  
+        - **Left child**: `a` (atomic proposition).  
+        - **Right child**: `b` (atomic proposition).  
+
+```plaintext
+    G
+    |
+    →
+   / \
+  a   b
+```
+
+#### 3. **Rebuilding Meaning Bottom-Up**  
+   - **Step 1: Atomic propositions**  
+     - `a`: "`a` is true at the **current time**."  
+     - `b`: "`b` is true at the **current time**."  
+   - **Step 2: Implication `(a → b)`**  
+     - Meaning: **"If `a` is true now, then `b` must also be true now."**  
+     - Note: If `a` is false, `b` can be true or false (no constraint).  
+   - **Step 3: Globally `G(...)`**  
+     - Applies the implication to **every moment in the timeline**:  
+       _"For **all time points**, if `a` is true at that point, then `b` must be true at the **same time point**."_  
+
+#### 4. **Refined Natural Language Phrasing**  
+   - **Concise translation**:  
+     > "**Whenever `a` is true, `b` must be true at the same time.**"  
+   - **Key clarifications**:  
+     - **Temporal constraint**: The formula requires `b` to hold **instantaneously** with `a` across **all future moments**.  
+     - **Partial-state freedom**: If `a` is false at any moment, nothing is required of `b` (it can be true or false).  
+     - **Safety property**: This forbids scenarios where `a` holds without `b` **at any point**, making it a safety invariant.  
+
+#### Why This Works  
+- The bottom-up reconstruction ensures atomic propositions (`a`, `b`) are interpreted at individual time points.  
+- The implication `→` is a **per-state** constraint: no temporal shift (e.g., `a` now forcing `b` later).  
+- `G` rigidly propagates this constraint to **all states** (past/present/future) in the timeline.  
+
+#### Example Timeline  
+| Time | `a` | `b` | Valid? | Why?                                  |  
+|------|-----|-----|--------|---------------------------------------|  
+| t=0  | F   | F   | ✓      | `a` false → no requirement for `b`.   |  
+| t=1  | T   | T   | ✓      | `a` true → `b` true at *same* time. |  
+| t=2  | T   | F   | ✗      | **Violation!** `a` true but `b` false.|  
+| t=3  | F   | T   | ✓      | `a` false → `b` can be anything.      |  
+
+**Final Translation**:  
+"**Always, if `a` holds now, `b` must hold now.**"

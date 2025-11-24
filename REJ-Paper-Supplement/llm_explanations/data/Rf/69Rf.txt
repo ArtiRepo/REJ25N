@@ -1,0 +1,52 @@
+### Translation of LTL Formula: FGa  
+**Original formula:** `F Ga` (parsed as `F(G(a))`, where `a` is an atomic proposition).  
+
+---
+
+#### Step 1: Parsing Tree Breakdown  
+The formula is structured as:  
+```
+    F
+     \
+      G
+       \
+        a
+```  
+- **Leaf node:** `a` (atomic proposition).  
+- **First operator:** `G` (Globally/Always). Applies to `a` → `G(a)`.  
+- **Outermost operator:** `F` (Eventually). Applies to `G(a)` → `F(G(a))`.  
+
+---
+
+#### Step 2: Rebuilding Meaning Bottom-Up  
+- **Base case (`a`):**  
+  "`a` is true **at a specific time**."  
+- **Apply `G` (`G(a)`):**  
+  "`a` is true **at all future times starting now**."  
+  (If evaluated at time `t`, `G(a)` requires `a` to hold for every time `≥ t`.)  
+- **Apply `F` (`F(G(a))`):**  
+  "**At some future time** `i`, the statement `G(a)` holds."  
+  → At time `i`, `a` becomes true and **stays true for all times `≥ i`**.  
+
+---
+
+#### Step 3: Natural Language Phrasing  
+**Initial phrasing:**  
+"At some future point, `a` becomes true and remains true forever."  
+
+**Refined for clarity:**  
+- **Key constraint:** `a` must **eventually stabilize to true permanently**.  
+- **Edge cases covered:**  
+  - If `a` is already always true from the start: **satisfied immediately**.  
+  - If `a` is initially false but becomes true at time `i` and **never flips back**: **satisfied at `i`**.  
+  - If `a` keeps flipping true/false infinitely: **violated** (no point after which it "stays true forever").  
+
+**Final translation:**  
+"**Eventually, `a` becomes permanently true.**"  
+
+---
+
+### Summary  
+- **Satisfied when:** `a` eventually stops being false and remains true forever.  
+- **Violated when:** `a` infinitely often returns to false (no permanent stabilization).  
+- **Key insight:** `FGa` constrains the **end behavior** of `a`, requiring eventual permanence (e.g., a system that eventually enters an "`a`-only" state).

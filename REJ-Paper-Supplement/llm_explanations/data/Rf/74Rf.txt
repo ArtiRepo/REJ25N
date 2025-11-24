@@ -1,0 +1,48 @@
+### Translation of LTL Formula: **G(a or b)**
+
+1. **Original Formula:**  
+   `G(a or b)`
+
+2. **Parsing Tree Breakdown:**  
+   - Top operator: `G` (Global)  
+     - Child: `a ∨ b` (Disjunction: OR)  
+       - Left leaf: `a` (atomic proposition)  
+       - Right leaf: `b` (atomic proposition)  
+
+   ```
+      G
+      |
+     ∨
+    / \
+   a   b
+   ```
+
+3. **Rebuilding Meaning from Bottom Up:**  
+   - **Step 1: Atoms `a` and `b`**  
+     Represent system states, e.g., `a = "Process is active"`, `b = "Backup is enabled"`.  
+     *(Meaning: Standalone truths at a specific time.)*  
+   - **Step 2: Disjunction `a ∨ b`**  
+     At any point in time, **either `a` holds, or `b` holds, or both**.  
+     *(Example: "Either the process is active, or the backup is enabled, or both.")*  
+   - **Step 3: Global `G`**  
+     Applies to `a ∨ b` and means **"in every future state"**.  
+     Combined: The disjunction `a ∨ b` must hold **at every step indefinitely**.  
+
+4. **Refined Natural Language Phrasing:**  
+   > **"At every moment in time, either `a` is true, or `b` is true, or both."**  
+
+### Key Constraints Explained:  
+- **Satisfaction:** The formula holds if **no state exists** where `a` and `b` are both false.  
+- **Violation:** If the system reaches a state where **neither `a` nor `b`** holds (e.g., a moment with no active process and no backup), the entire formula fails.  
+- **Temporal Scope:** Constrains **all states** from now onward. Future violations cannot be "redeemed" by past compliance.  
+
+**Intuition:**  
+Think of `G(a ∨ b)` as a **permanent safety rule**:  
+- `a ∨ b` is a shield against `¬a ∧ ¬b` (neither `a` nor `b`).  
+- The system must ensure this shield exists **at every instant**.  
+
+#### Example Use Case:  
+- `a`: "Heartbeat signal detected"  
+- `b`: "Emergency protocol triggered"  
+  **Translation:** *"The system must always have either a heartbeat signal or an active emergency protocol at every moment."*  
+  **Consequence:** Failure occurs if both are ever missing simultaneously.

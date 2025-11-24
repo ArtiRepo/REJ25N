@@ -1,0 +1,71 @@
+### Translation of LTL Formula: `G(a and !b)`
+
+**Original LTL Formula:**  
+`G(a and !b)`  
+
+---
+
+#### Breakdown (Parsing Tree):
+```
+     G       [Global operator: "Always"]
+      |
+     and     [Logical AND operator]
+     /  \
+    a    !    [Negation operator]
+          \
+           b   [Atomic proposition]
+```
+
+1. **Atomic propositions**:  
+   - `a`: Proposition `a` is true.  
+   - `b`: Proposition `b` is true.  
+
+2. **Negation (`!`)**:  
+   `!b` means "`b` is false."  
+
+3. **Conjunction (`and`)**:  
+   `a and !b` means "`a` is true **and** `b` is false" (both must hold simultaneously).  
+
+4. **Global (`G`)**:  
+   `G(...)` requires that "`...` holds **at every time step**, now and forever in the future."  
+
+---
+
+#### Rebuilding Meaning (Bottom-Up):
+- **Base**:  
+  - `b` is a proposition: "`b` occurs."  
+  - `!b`: "`b` does **not** occur."  
+- **Combined with `and`**:  
+  `a and !b`: "`a` occurs **and** `b` does **not** occur" (simultaneously).  
+- **Wrapped in `G`**:  
+  `G(a and !b)`: "`a` occurs and `b` does not occur **at every time step**."  
+
+---
+
+#### Refined Natural Language Translation:  
+> **"At all times, `a` must be true and `b` must be false."**  
+
+#### Key Explanations:
+- **When satisfied?**  
+  Only if `a` is **constantly true** and `b` is **constantly false** for the entire duration of the system's execution.  
+- **Constraints imposed**:  
+  - `a` **cannot** be false at any point.  
+  - `b` **cannot** be true at any point.  
+  - There are **no exceptions**: The system **always** adheres to `a ∧ ¬b`.  
+- **Timeline perspective**:  
+  If visualized over time, every state in the sequence satisfies:  
+  ```
+  Time t0: [a=true, b=false]  
+  Time t1: [a=true, b=false]  
+  Time t2: [a=true, b=false]  
+  ... (forever)
+  ```
+
+---
+
+### Why This Phrasing?
+- **Clarity**: Explicitly ties `a`/`b` to "all times" and uses "must" to emphasize constraint.  
+- **Correctness**: Captures the **synchrony** of `a ∧ ¬b` (both conditions in the same moment) and the **perpetuity** of `G`.  
+- **Distribution Note**: `G(a ∧ ¬b)` is logically equivalent to `(G a) ∧ (G ¬b)`, meaning "`a` holds globally and `b` is globally false." Both interpretations align.  
+
+This formula forbids any deviation from `a ∧ ¬b`—violation occurs if `a` is ever false or `b` is ever true.

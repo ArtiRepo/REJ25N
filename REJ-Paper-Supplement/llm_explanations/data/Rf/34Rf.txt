@@ -1,0 +1,53 @@
+### Translation of LTL Formula: **G (!f | !i)**  
+**Goal:** Map the formal LTL formula to natural language and explain when it holds, while highlighting constraints on the system.  
+
+---
+
+#### Step-by-Step Reasoning:  
+1. **Original Formula:**  
+   `G (!f | !i)`  
+
+2. **Parsing Tree (Breakdown):**  
+   - **Root:** Temporal operator `G` (Globally).  
+   - **Inner Operator:** Disjunction `|` (OR) between:  
+     - `!f`: Negation of atomic proposition `f` (i.e., "`f` is false").  
+     - `!i`: Negation of atomic proposition `i` (i.e., "`i` is false").  
+
+   Visual Tree:  
+   ```  
+     G  
+     |  
+     OR  
+    /  \  
+   !f  !i  
+   ```  
+
+3. **Rebuilding Meaning Bottom-Up:**  
+   - **Layer 1: Atomic Propositions**  
+     - `!f`: "`f` is false" (absence of `f`).  
+     - `!i`: "`i` is false" (absence of `i`).  
+   - **Layer 2: Disjunction (|)**  
+     - `!f | !i`: **"At least one of `f` or `i` is false"** (i.e., `f` and `i` cannot both be true simultaneously).  
+   - **Layer 3: Globally (G)**  
+     - `G (!f | !i)`: **"Every moment in time must satisfy `!f | !i`."**  
+       → This prohibits any state where `f` and `i` are **both true** and requires that **at every future step**, at least one is false.  
+
+4. **Key Constraints Imposed:**  
+   - The formula is **violated** if there exists **any state** where `f` and `i` are simultaneously true.  
+   - It is **satisfied** if in **all states**, `f` is false, `i` is false, or both are false.  
+
+5. **Refined Natural Language Phrasing for Clarity:**  
+   > **"Globally, `f` and `i` never occur together."**  
+   or equivalently:  
+   > **"`f` and `i` are mutually exclusive for all time."**  
+
+---
+
+#### Why This Translation?  
+- **`!f | !i` ≡ ¬(f ∧ i)**: By De Morgan’s law, "at least one false" ≡ "not both true."  
+- **G enforces permanence**: The constraint applies to **every state** in the timeline without exception.  
+- **Practical implication**: The system must prevent scenarios where both `f` and `i` hold concurrently.  
+
+**Example:**  
+- If `f = "full"` (a tank is full) and `i = "ignited"` (a burner is ignited), the formula states:  
+  *"The tank must never be full while the burner is ignited."*
