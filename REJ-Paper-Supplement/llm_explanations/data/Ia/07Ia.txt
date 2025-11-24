@@ -1,0 +1,74 @@
+Here's a breakdown and translation of the LTL formula `a U c`:
+
+---
+
+### Original LTL formula
+
+`a U c`
+
+---
+
+### Breakdown (parsing tree)
+
+The formula `a U c` is a binary LTL operator (`U` for Until) applied to two atomic propositions, `a` and `c`.
+
+```
+      U
+     / \
+    a   c
+```
+
+*   **`a`**: An atomic proposition. It is true or false at any given moment.
+*   **`c`**: An atomic proposition. It is true or false at any given moment.
+*   **`U` (Until)**: A temporal operator that asserts that its right operand (`c`) will eventually become true, and until that happens, its left operand (`a`) must continuously remain true.
+
+---
+
+### Rebuild meaning from the bottom of the tree up
+
+1.  **`a` and `c` (Atomic Propositions):**
+    *   `a` simply means "proposition `a` is true at the current moment."
+    *   `c` simply means "proposition `c` is true at the current moment."
+
+2.  **`X U Y` (General Until Operator):**
+    The `Until` operator `X U Y` means that:
+    *   There must be some future moment (which could be the current moment) when `Y` is true.
+    *   At all moments *before* that specific future moment (including the current moment), `X` must be true.
+
+3.  **`a U c` (Applying to our formula):**
+    Combining the above, `a U c` means:
+    *   There must be a future point in time (let's call it `t_c`) where `c` becomes true.
+    *   At all time points from the current moment (`t_now`) up to, but *not including*, `t_c`, the proposition `a` must be true.
+    *   Crucially, if `t_c` is the current moment (`t_now`), then `c` is true now, and `a` must also be true now.
+
+---
+
+### Refine the natural language phrasing for clarity
+
+The LTL formula `a U c` translates to:
+
+**"Proposition `c` will eventually become true, and until `c` becomes true, proposition `a` must continuously remain true."**
+
+**Explanation of Satisfaction and Constraints:**
+
+*   **When the formula is satisfied:**
+    The formula `a U c` is satisfied at a given point in time (the "current" state) if and only if:
+    1.  There exists a future state (which could be the current state itself) where `c` is true.
+    2.  For all states from the current state up to (and including) the state *just before* `c` becomes true, `a` must be true.
+    3.  If `c` is true at the current state, then `a` must also be true at the current state for the formula to hold.
+
+*   **When the formula imposes constraints on the system over time:**
+    This formula imposes two types of constraints:
+    1.  **Safety Constraint (on `a`):** From the current moment onwards, `a` must be true in every state *as long as `c` has not yet become true*. If `a` ever becomes false *before* `c` becomes true, the formula is violated.
+    2.  **Liveness Constraint (on `c`):** `c` *must* eventually become true. If `c` never becomes true at any point in the future, the formula is violated, regardless of whether `a` was continuously true or not.
+
+**Example Scenario:**
+
+Imagine `a` means "the system is in a 'waiting' state" and `c` means "the 'start' button is pressed".
+
+The formula `waiting U start_button_pressed` would mean:
+"The 'start' button will eventually be pressed, and until it is pressed, the system must continuously remain in the 'waiting' state."
+
+*   If the system leaves the 'waiting' state before the 'start' button is pressed, the formula is violated.
+*   If the 'start' button is never pressed, the formula is violated.
+*   If the 'start' button is pressed now, the system must also be in the 'waiting' state now.

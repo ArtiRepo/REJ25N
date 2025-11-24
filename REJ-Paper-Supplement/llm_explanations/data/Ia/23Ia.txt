@@ -1,0 +1,51 @@
+Here's a breakdown and translation of the LTL formula `t => w`:
+
+---
+
+**Original LTL formula:**
+`t => w`
+
+**Breakdown (parsing tree):**
+
+```
+      =>
+     /  \
+    t    w
+```
+
+*   **Main Operator:** `=>` (Implication)
+*   **Left Operand:** `t` (Atomic Proposition)
+*   **Right Operand:** `w` (Atomic Proposition)
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`t` (Atomic Proposition):** This simply means that the proposition `t` is true at the *current moment* in time.
+2.  **`w` (Atomic Proposition):** This means that the proposition `w` is true at the *current moment* in time.
+3.  **`t => w` (Implication):** In LTL, `A => B` is a shorthand for `!A U B` (not always, but in this context, it's a point-wise implication, meaning `G(t -> w)` or `(NOT t) OR w` at every point in time). When used without a temporal operator, `A => B` means that at *every* moment in time, if `A` is true at that moment, then `B` must also be true at that *same* moment.
+
+    *   **When is `t => w` true at a specific moment?**
+        *   If `t` is false at that moment, the implication `t => w` is true (regardless of `w`).
+        *   If `t` is true at that moment, then `w` *must also be true* at that same moment for `t => w` to be true.
+    *   **When is `t => w` false at a specific moment?**
+        *   Only when `t` is true AND `w` is false at that same moment.
+
+    Since this formula is a top-level LTL property, it means this condition must hold *globally* (at all points in time from the current moment onwards).
+
+**Refine the natural language phrasing for clarity:**
+
+This formula means:
+
+"**At every moment in time, if proposition `t` is true, then proposition `w` must also be true at that exact same moment.**"
+
+**Explanation of when the formula is satisfied and when it imposes constraints:**
+
+*   **When the formula is satisfied:** The system satisfies this formula if, for every single step or state in its execution trace (starting from the current moment), the following holds:
+    *   Either `t` is false in that state,
+    *   OR `w` is true in that state (which implies `t` could be true or false).
+    *   It is *never* the case that `t` is true and `w` is false simultaneously at any point in time.
+
+*   **When it imposes constraints on the system over time:**
+    *   This formula imposes a **state-based constraint** that must hold *globally* (at all times).
+    *   It dictates that the system can never reach a state where `t` is active but `w` is not.
+    *   If `t` becomes true, the system is immediately constrained to ensure `w` is also true in that same state. If `w` is not true, the system violates the property.
+    *   If `t` is false, the formula imposes no constraint on `w` for that particular moment; `w` can be true or false without violating the property. The constraint only "activates" when `t` is true.

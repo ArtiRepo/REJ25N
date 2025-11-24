@@ -1,0 +1,48 @@
+Here's a breakdown and translation of the LTL formula `G t | F w`:
+
+---
+
+**Original LTL formula:**
+`G t | F w`
+
+**Breakdown (parsing tree):**
+
+```
+        OR
+       /  \
+      G t  F w
+      |    |
+      t    w
+```
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`t`**: This is an atomic proposition. It means "proposition `t` is true at the current moment."
+2.  **`w`**: This is an atomic proposition. It means "proposition `w` is true at the current moment."
+3.  **`F w` (Eventually `w`)**: This temporal operator means that `w` will be true at some point in the future, including the current moment. It asserts that there exists a state on the current path (starting from the current state) where `w` holds.
+4.  **`G t` (Globally `t`)**: This temporal operator means that `t` is true at the current moment, and at the next moment, and at every subsequent moment forever. It asserts that `t` holds in all states on the current path (starting from the current state).
+5.  **`G t | F w` (Globally `t` OR Eventually `w`)**: This is a logical disjunction (OR) between the two subformulas. For this entire formula to be true, at least one of its disjuncts must be true.
+    *   Either `G t` is true (meaning `t` is always true from now on).
+    *   OR `F w` is true (meaning `w` will eventually be true from now on).
+
+**Refine the natural language phrasing for clarity:**
+
+This LTL formula means:
+
+"**Either proposition `t` is true at all times from now into the infinite future, OR proposition `w` will eventually become true at some point in the future (including the present moment).**"
+
+**When the formula is satisfied:**
+
+The system satisfies this formula if, from the current moment onwards, one of the following conditions holds:
+
+1.  **`t` is perpetually true:** The proposition `t` holds in the current state, and in the next state, and in every state thereafter, forever.
+2.  **`w` eventually occurs:** There is at least one state on the execution path, starting from the current state, where the proposition `w` is true.
+
+**When it imposes constraints on the system over time:**
+
+This formula imposes a long-term constraint on the system's behavior, offering two alternative ways to satisfy it:
+
+*   **If the system ever allows `t` to become false:** Then, to satisfy the formula, the system *must* ensure that `w` eventually becomes true at some point after `t` becomes false (or even before). The moment `t` fails, the system is committed to eventually achieving `w`.
+*   **If the system never achieves `w`:** Then, to satisfy the formula, the system *must* ensure that `t` remains true at every single moment, forever.
+
+Essentially, it's a "fallback" or "alternative guarantee." The system is required to either maintain a continuous state (`t`) or eventually reach a specific state (`w`). If it fails one, it *must* succeed at the other.

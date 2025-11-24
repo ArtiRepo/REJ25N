@@ -1,0 +1,62 @@
+**Original LTL formula:**
+`(b U c) & (d U !b)`
+
+**Breakdown (parsing tree):**
+
+```
+                 &
+                / \
+               /   \
+            (b U c) (d U !b)
+           /  \     /  \
+          b    c   d    !b
+                      |
+                      b
+```
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **Atomic Propositions:**
+    *   `b`: Proposition `b` is true in the current state.
+    *   `c`: Proposition `c` is true in the current state.
+    *   `d`: Proposition `d` is true in the current state.
+
+2.  **Negation:**
+    *   `!b`: Proposition `b` is false in the current state.
+
+3.  **Until Operators:**
+    *   `(b U c)`: "b Until c"
+        *   **Meaning:** Proposition `c` must eventually become true. Until `c` becomes true, proposition `b` must be continuously true.
+        *   **When satisfied:** This subformula is satisfied if:
+            *   `c` is true in the current state, OR
+            *   `c` becomes true at some future state `k > 0`, AND `b` is true in all states from the current state up to (but not including) state `k`.
+        *   **Constraints over time:** It imposes a future obligation for `c` to occur. Until that future state, it imposes a continuous constraint that `b` must remain true.
+
+    *   `(d U !b)`: "d Until not b"
+        *   **Meaning:** Proposition `b` must eventually become false (`!b` must become true). Until `b` becomes false, proposition `d` must be continuously true.
+        *   **When satisfied:** This subformula is satisfied if:
+            *   `!b` is true in the current state (i.e., `b` is false), OR
+            *   `!b` becomes true at some future state `m > 0`, AND `d` is true in all states from the current state up to (but not including) state `m`.
+        *   **Constraints over time:** It imposes a future obligation for `b` to become false. Until that future state, it imposes a continuous constraint that `d` must remain true.
+
+4.  **Conjunction (Main Formula):**
+    *   `(b U c) & (d U !b)`: " (b Until c) AND (d Until not b) "
+        *   **Meaning:** Both `(b U c)` and `(d U !b)` must be true simultaneously. This means the system must satisfy both sets of conditions.
+        *   **When satisfied:** The entire formula is satisfied if both of the following hold:
+            1.  `c` eventually becomes true, and `b` is continuously true until `c` becomes true.
+            2.  `b` eventually becomes false, and `d` is continuously true until `b` becomes false.
+        *   **Constraints over time:** This combination imposes a stronger set of constraints due to the interaction of `b` and `!b`. Let `k` be the first state where `c` is true, and `m` be the first state where `!b` is true.
+            *   For `(b U c)` to hold, `b` must be true in all states `0, ..., k-1`.
+            *   For `(d U !b)` to hold, `d` must be true in all states `0, ..., m-1`.
+            *   If `m < k` (i.e., `b` becomes false before `c` becomes true), then `!b` is true at state `m`. However, `b U c` requires `b` to be true at state `m` (since `m < k`). This is a contradiction. Therefore, `m` cannot be less than `k`. This implies that `k <= m`. In other words, the moment `c` becomes true must happen at or before the moment `b` becomes false.
+
+**Refine the natural language phrasing for clarity:**
+
+The LTL formula `(b U c) & (d U !b)` means:
+
+"The system must ensure two concurrent conditions:
+
+1.  **Eventually, `c` must become true.** Until `c` becomes true, proposition `b` must be continuously true.
+2.  **Eventually, `b` must become false.** Until `b` becomes false, proposition `d` must be continuously true.
+
+These two conditions together imply a critical temporal ordering: **`c` must become true at or before the moment `b` becomes false.** If `b` were to become false before `c` has become true, the first condition (`b U c`) would be violated, as `b` would no longer be continuously true until `c`."

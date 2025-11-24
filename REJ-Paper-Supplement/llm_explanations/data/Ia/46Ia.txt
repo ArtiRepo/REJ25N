@@ -1,0 +1,60 @@
+Here's a breakdown and translation of the LTL formula `F d | G !n`:
+
+---
+
+**Original LTL formula:**
+`F d | G !n`
+
+---
+
+**Breakdown (parsing tree):**
+
+```
+        | (OR)
+       / \
+      /   \
+    F d   G !n
+    |      |
+    d      !n
+           |
+           n
+```
+
+---
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`n`**: This is an atomic proposition, meaning "proposition `n` is true at the current moment."
+2.  **`!n`**: This is the negation of `n`, meaning "proposition `n` is *not* true at the current moment."
+3.  **`d`**: This is an atomic proposition, meaning "proposition `d` is true at the current moment."
+4.  **`F d`**: This is the "Eventually" operator applied to `d`. It means "proposition `d` will be true at some point in the future (including the current moment)."
+    *   **Satisfaction:** This subformula is satisfied if, from the current moment onwards, there exists at least one state where `d` is true.
+    *   **Constraint:** It imposes a liveness constraint: `d` *must* eventually occur. If `d` never occurs, this part of the formula is violated.
+5.  **`G !n`**: This is the "Globally" operator applied to `!n`. It means "proposition `n` is *not* true at any point in the future (including the current moment)." In simpler terms, `n` never occurs.
+    *   **Satisfaction:** This subformula is satisfied if, from the current moment onwards, `n` is false in every single state.
+    *   **Constraint:** It imposes a safety constraint: `n` *must never* occur. If `n` ever occurs, this part of the formula is violated.
+6.  **`F d | G !n`**: This is the "OR" operator combining `F d` and `G !n`. It means "either `F d` is true OR `G !n` is true."
+
+---
+
+**Refine the natural language phrasing for clarity:**
+
+This LTL formula states that **the system must ensure that one of two conditions holds true throughout its execution:**
+
+1.  **Eventually, proposition `d` becomes true.** (It could be true now, or at any point in the future.)
+2.  **Proposition `n` is never true at any point in time.** (It must be false now and remain false forever.)
+
+**In simpler terms:**
+"Either `d` will eventually happen, or `n` will never happen."
+
+**When the formula is satisfied:**
+The formula is satisfied if, from the current moment onwards, at least one of the following is observed:
+*   There is some future state (or the current state) where `d` is true.
+*   There is no state (from now on) where `n` is true.
+*   Both of the above conditions are met.
+
+**When it imposes constraints on the system over time:**
+This formula imposes a disjunctive constraint. The system is considered compliant as long as it doesn't violate *both* conditions simultaneously.
+*   It constrains the system such that it cannot *both* avoid `d` forever *and* allow `n` to occur at some point.
+*   **If `d` never occurs**, then the system is constrained to ensure that `n` *must never* occur.
+*   **If `n` does occur at some point**, then the system is constrained to ensure that `d` *must eventually* occur.

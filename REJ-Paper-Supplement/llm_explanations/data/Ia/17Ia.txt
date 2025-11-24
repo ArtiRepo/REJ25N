@@ -1,0 +1,54 @@
+Here's a breakdown and translation of the LTL formula `!G c`:
+
+---
+
+**Original LTL formula:**
+`!G c`
+
+**Breakdown (parsing tree):**
+
+*   The outermost operator is `!` (negation).
+*   Its operand is `G c`.
+*   The operator within `G c` is `G` (globally/always).
+*   Its operand is `c` (an atomic proposition).
+
+```
+      !
+      |
+      G
+      |
+      c
+```
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`c`**: This atomic proposition means "c is true at the current moment."
+
+2.  **`G c`**: This means "Globally c" or "Always c".
+    *   **Meaning:** `c` must be true at the current moment, and `c` must be true in the next moment, and `c` must be true in the moment after that, and so on, *forever*.
+    *   **When satisfied:** `G c` is satisfied if `c` holds true in *every* state from the current state onwards.
+    *   **When violated:** `G c` is violated if there is *any* future state (including the current one) where `c` is false.
+
+3.  **`! (G c)`**: This is the negation of "Globally c".
+    *   **Meaning:** "It is NOT the case that 'c is always true from the current moment onwards'."
+    *   **When satisfied:** This formula is satisfied if the condition `G c` is *false*. As we saw above, `G c` is false if there is *any* future state (including the current one) where `c` is false.
+    *   **When violated:** This formula is violated if the condition `G c` is *true*. This means `c` must be true in *every* state from the current state onwards.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `!G c` directly translates to "It is not always the case that c is true."
+
+A more intuitive way to express "not always true" is "eventually false." If something is not always true, it means there must be at least one point in time when it is false.
+
+Therefore, `!G c` means:
+
+**"Eventually, c will be false."**
+
+**Explanation:**
+
+*   **When the formula is satisfied:** The formula `!G c` is satisfied if, at some point in the future (or even at the current moment), the proposition `c` becomes false. As soon as `c` is observed to be false, the formula is satisfied for that entire path.
+    *   *Example:* If `c` is true, true, true, then false, then true... the formula is satisfied at the point `c` becomes false.
+    *   *Example:* If `c` is false immediately, the formula is satisfied.
+
+*   **When the formula imposes constraints on the system over time:** This formula imposes a constraint that `c` cannot remain true indefinitely. The system is constrained such that `c` *must* eventually become false. If `c` were to remain true forever, the formula would be violated.
+    *   *Violation condition:* The formula is violated if `c` is true in the current state and remains true in all subsequent states, forever. In other words, if `c` is *always* true.

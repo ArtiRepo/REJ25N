@@ -1,0 +1,63 @@
+Here's a breakdown and translation of the LTL formula `G (!f | !i)`:
+
+---
+
+**Original LTL formula:**
+`G (!f | !i)`
+
+---
+
+**Breakdown (Parsing Tree):**
+
+```
+        G
+        |
+        OR
+       /  \
+      !f   !i
+     /      \
+    f        i
+```
+
+---
+
+**Rebuilding meaning from the bottom up:**
+
+1.  **Atomic Propositions:**
+    *   `f`: Represents the state where proposition `f` is true (e.g., "feature f is active").
+    *   `i`: Represents the state where proposition `i` is true (e.g., "feature i is active").
+
+2.  **Negation (`!`):**
+    *   `!f`: Means "f is not true" (e.g., "feature f is inactive").
+    *   `!i`: Means "i is not true" (e.g., "feature i is inactive").
+
+3.  **Disjunction (`|` - OR):**
+    *   `!f | !i`: This subformula means "f is not true OR i is not true".
+        *   This statement is true if `f` is false, or if `i` is false, or if both `f` and `i` are false.
+        *   Crucially, this statement is *false only if* both `f` is true AND `i` is true.
+        *   Therefore, `!f | !i` is logically equivalent to `!(f & i)` (by De Morgan's laws), meaning "it is NOT the case that both f AND i are true simultaneously."
+
+4.  **Globally (`G`):**
+    *   `G (...)`: The "Globally" operator means that the subformula in parentheses must be true at *every* state, from the current moment onwards, forever into the future.
+
+5.  **Combining all parts:**
+    *   `G (!f | !i)`: This means "Globally, (f is not true OR i is not true)".
+    *   In other words, "At every point in time, it must be the case that f is not true OR i is not true."
+    *   Or, using the equivalent form from step 3: "Globally, it is NOT the case that both f AND i are true simultaneously."
+
+---
+
+**Refine the natural language phrasing for clarity:**
+
+This formula expresses a **mutual exclusion** or **safety** property.
+
+*   **Natural Language Translation:**
+    "**It is always the case that feature 'f' and feature 'i' are not simultaneously active.**"
+    or
+    "**Features 'f' and 'i' are mutually exclusive; they can never both be active at the same time.**"
+
+*   **When the formula is satisfied:**
+    The system satisfies this formula if, at every single moment in time (from the beginning of the system's execution and indefinitely into the future), it is impossible for both `f` and `i` to be true simultaneously. If `f` is true at a given moment, then `i` *must* be false at that same moment. If `i` is true, then `f` *must* be false. If both `f` and `i` are false, the condition is also satisfied.
+
+*   **When it imposes constraints on the system over time:**
+    This formula imposes a continuous, global constraint. From the very first state and for all subsequent states, the system must ensure that the state where both `f` and `i` are simultaneously active is never reached. It's a strict, ongoing requirement that prevents a specific "bad" state (where both `f` and `i` are true) from ever occurring.

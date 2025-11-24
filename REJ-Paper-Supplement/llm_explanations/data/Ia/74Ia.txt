@@ -1,0 +1,47 @@
+Here's how to translate the LTL formula `G(a or b)`:
+
+---
+
+**Original LTL formula:**
+`G(a or b)`
+
+---
+
+**Breakdown (Parsing Tree):**
+
+*   The outermost operator is `G` (Globally/Always).
+*   Its operand is the subformula `(a or b)`.
+*   Within `(a or b)`, the operator is `or` (disjunction).
+*   The operands of `or` are the atomic propositions `a` and `b`.
+
+```
+      G
+      |
+     or
+    /  \
+   a    b
+```
+
+---
+
+**Rebuild Meaning from the Bottom Up:**
+
+1.  **`a`**: This represents an atomic proposition, meaning "condition `a` is true at the current moment."
+2.  **`b`**: This represents an atomic proposition, meaning "condition `b` is true at the current moment."
+3.  **`(a or b)`**: This is a disjunction. It means "condition `a` is true at the current moment, OR condition `b` is true at the current moment (or both are true)." In simpler terms, at least one of `a` or `b` must be true *right now*.
+4.  **`G(X)`**: The `G` (Globally or Always) operator asserts that its operand `X` must be true at *all* future moments in time, starting from the current moment and continuing indefinitely.
+5.  **`G(a or b)`**: Combining these, this means that the condition `(a or b)` must be true at the current moment, AND it must be true at the next moment, AND it must be true at the moment after that, and so on, for every single moment in the system's execution path.
+
+---
+
+**Refine the Natural Language Phrasing for Clarity:**
+
+This formula means:
+
+"**At every point in time, either condition 'a' is true or condition 'b' is true (or both).**"
+
+**Explanation of Satisfaction and Constraints:**
+
+*   **When the formula is satisfied:** The formula `G(a or b)` is satisfied if, when observing the system's behavior from the current moment onwards, we find that in *every single state* the system enters (including the current one), the condition `(a or b)` holds. This means that in no state along the execution path are *both* `a` and `b` simultaneously false.
+
+*   **When it imposes constraints on the system over time:** This formula imposes a strong, continuous constraint on the system. It dictates that the system must *never* reach a state where neither `a` nor `b` is true. It's a safety property, ensuring that a specific "bad state" (where `a` is false AND `b` is false) is perpetually avoided. The system must always maintain a state where at least one of `a` or `b` is active or true.

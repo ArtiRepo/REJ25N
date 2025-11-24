@@ -1,0 +1,51 @@
+Here's a breakdown and translation of the LTL formula `F x | F y`:
+
+---
+
+**Original LTL formula:**
+`F x | F y`
+
+---
+
+**Breakdown (Parsing Tree):**
+
+```
+        OR ( | )
+       /       \
+    F x         F y
+   /             \
+  x               y
+```
+
+---
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`x`**: This is an atomic proposition. It means "proposition `x` is true at the current moment."
+2.  **`y`**: This is an atomic proposition. It means "proposition `y` is true at the current moment."
+3.  **`F x` (Finally x / Eventually x)**: This temporal operator means that at some point in the future, including the current moment, proposition `x` will be true.
+    *   *When satisfied:* The path contains at least one state where `x` is true.
+    *   *Constraints:* The system cannot evolve indefinitely without `x` ever becoming true.
+4.  **`F y` (Finally y / Eventually y)**: Similar to `F x`, this means that at some point in the future, including the current moment, proposition `y` will be true.
+    *   *When satisfied:* The path contains at least one state where `y` is true.
+    *   *Constraints:* The system cannot evolve indefinitely without `y` ever becoming true.
+5.  **`F x | F y` (Eventually x OR Eventually y)**: This combines the two eventualities with a logical OR. It means that either `x` will eventually become true, OR `y` will eventually become true (or both). The occurrences of `x` and `y` do not need to be at the same time, nor does one need to precede the other.
+
+---
+
+**Refine the natural language phrasing for clarity:**
+
+This formula means:
+
+"**At some point in the future, `x` must occur, or at some point in the future, `y` must occur.**"
+
+**Explanation of when the formula is satisfied and when it imposes constraints:**
+
+*   **When the formula is satisfied:**
+    The formula is satisfied if, along the current execution path, you can find *at least one state* where `x` is true, **OR** you can find *at least one state* where `y` is true.
+    *   If `x` happens eventually (even if `y` never does), the formula is satisfied.
+    *   If `y` happens eventually (even if `x` never does), the formula is satisfied.
+    *   If both `x` and `y` happen eventually (at the same or different times), the formula is also satisfied.
+
+*   **When it imposes constraints on the system over time:**
+    This formula imposes a constraint on the *entire future behavior* of the system. It dictates that the system cannot evolve indefinitely without *both* `x` *and* `y` failing to occur. In other words, it prevents any execution path where `x` *never* becomes true **AND** `y` *never* becomes true. At least one of these eventualities (`x` occurring or `y` occurring) must materialize at some point.

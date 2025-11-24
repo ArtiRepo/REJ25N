@@ -1,0 +1,48 @@
+Here's a detailed translation of the LTL formula `X (!i) | X (j)`:
+
+---
+
+**Original LTL formula:**
+`X (!i) | X (j)`
+
+**Breakdown (parsing tree):**
+
+```
+        OR ( | )
+       /      \
+      /        \
+   X (!i)     X (j)
+   / \        / \
+  X   !i     X   j
+      / \
+     !   i
+```
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`i`**: This is an atomic proposition. It means "proposition `i` is true in the current state."
+2.  **`j`**: This is an atomic proposition. It means "proposition `j` is true in the current state."
+
+3.  **`!i`**: This is the negation of `i`. It means "proposition `i` is *false* in the current state."
+
+4.  **`X (!i)`**: The `X` (Next) operator applies to `!i`. This means "in the *next* state, proposition `i` must be false."
+
+5.  **`X (j)`**: The `X` (Next) operator applies to `j`. This means "in the *next* state, proposition `j` must be true."
+
+6.  **`X (!i) | X (j)`**: The `|` (OR) operator combines the two `X` subformulas. This means "either `X (!i)` is true, OR `X (j)` is true (or both are true)."
+    *   Therefore, the formula is satisfied if:
+        *   In the next state, `i` is false, OR
+        *   In the next state, `j` is true.
+
+**Refine the natural language phrasing for clarity:**
+
+This formula states a condition that must hold in the immediate future.
+
+**Natural Language Translation:**
+
+"**In the very next moment in time, it must be the case that either proposition `i` is false, or proposition `j` is true (or both).**"
+
+**Explanation of when the formula is satisfied and its constraints:**
+
+*   **When satisfied:** The formula is satisfied at any given point in time if, when you look at the *very next state* (the state immediately following the current one), you find that `i` is not true, OR `j` is true. If both `i` is false and `j` is true in the next state, the formula is also satisfied.
+*   **Constraints imposed:** This formula imposes a strict constraint on the system's immediate transition. It dictates that the system cannot move to a state where `i` is true *and* `j` is false simultaneously. In other words, if `i` is true in the next state, then `j` *must also be true* in that same next state to satisfy the formula. If `i` is false in the next state, then `j` can be anything (true or false) and the formula will still be satisfied.
