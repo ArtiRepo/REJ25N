@@ -1,0 +1,55 @@
+### Translation of LTL Formula: `FGa`  
+**Original formula:** `FGa`  
+(Equivalent to `F(G(a))` after parsing)
+
+---
+
+#### Step 1: Parsing Tree (Breakdown)  
+- **Leaf node:** `a`  
+  - *Meaning:* "`a` is true in the current state" (atomic proposition).  
+- **Intermediate node:** `G(a)`  
+  - *Structure:* `G` (Globally operator) applied to `a`.  
+- **Root node:** `F(G(a))`  
+  - *Structure:* `F` (Finally operator) applied to `G(a)`.  
+
+---
+
+#### Step 2: Rebuilding Meaning from the Bottom Up  
+1. **Meaning of `a`:**  
+   - "`a` holds (is true) in a specific state."  
+
+2. **Meaning of `G(a)`:**  
+   - "`a` holds **in every state of the entire execution**."  
+   - *Constraint:* This requires `a` to be true in the current state and all future states without exception.  
+
+3. **Meaning of `F(G(a))`:**  
+   - The `F` operator applied to `G(a)` shifts focus to a **future starting point**.  
+   - "There exists **some future state `s`** such that `G(a)` is satisfied **from `s` onward**."  
+   - This means:  
+     - `a` does **not** need to hold immediately or in all initial states.  
+     - At a **specific future state `s`**, `a` becomes true, **and then `a` remains true in every state after `s`.**  
+
+---
+
+#### Step 3: Refined Natural Language Translation  
+> "**Eventually, `a` becomes permanently true.**"  
+>   
+> **Explanation:**  
+> - *Satisfaction condition:* There must be a **finite point in time** after which `a` is **always true** for the rest of the execution.  
+> - *Constraints over time:*  
+>   - Before this point, `a` may be `true` or `false` arbitrarily.  
+>   - After this point, `a` **cannot be false in any subsequent state**.  
+> - *Negation insight:*  
+>   `¬(FGa)` means "`a` never stabilizes to `true` forever" (i.e., `a` is false infinitely often).  
+
+---
+
+### Key Implications  
+- **Example valid execution:**  
+  States: `[a=False, a=False, a=True, a=True, a=True, ...]`  
+  *Reason:* At state 3, `a` becomes true and **stays true forever after**.  
+- **Example invalid execution:**  
+  States: `[a=True, a=False, a=True, a=False, ...]` (alternates forever)  
+  *Reason:* No point exists after which `a` is always true.  
+
+This formula describes **eventual stabilization** of `a` to `true`.

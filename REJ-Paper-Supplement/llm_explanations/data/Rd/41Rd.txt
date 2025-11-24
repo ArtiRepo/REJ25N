@@ -1,0 +1,43 @@
+### Translation of LTL Formula: \( G (n \implies s) \)
+
+#### Step-by-Step Reasoning:
+1. **Original Formula**:  
+   \( G \, (n \implies s) \)
+
+2. **Parsing Tree Breakdown**:  
+   - **Root operator**: \( G \) (Globally).  
+     - **Child operand**: The implication \( (n \implies s) \).  
+     - **Implication breakdown**:  
+       - Left operand: Atomic proposition \( n \).  
+       - Right operand: Atomic proposition \( s \).  
+
+3. **Rebuilding Meaning (Bottom-Up)**:  
+   - **Implication \( n \implies s \)** (innermost):  
+     - Natural Language: **"If \( n \) is true now, then \( s \) must also be true now"**.  
+     - Behavior: This imposes a constraint *only in states where \( n \) is true* (requiring \( s \) to hold simultaneously). If \( n \) is false, the constraint does nothing.  
+   - **Globally \( G(\cdots) \)** (outermost):  
+     - Applies the inner formula to **every state** in the execution.  
+     - Combines with \( n \implies s \): **"In every state, if \( n \) holds, then \( s \) holds"**.  
+
+4. **Refined Natural Language Phrasing**:  
+   - **Final Translation**:  
+     **"It is always the case that if \( n \) is true, \( s \) must be true at the same time."**  
+
+#### Key Explanation:
+- **When Satisfied**:  
+  The formula holds if, for *every state* in the execution:  
+  - If \( n \) is true, \( s \) is **also true** (simultaneously).  
+  - If \( n \) is false, the state **automatically satisfies** the formula (no constraint on \( s \)).  
+  - **Example Valid Execution**: \( n \) false forever (any \( s \)), or sequences like \( \{\text{n=false, s=true}\}, \{n=\text{true}, s=\text{true}\}, \{n=\text{false}, s=\text{false}\} \).  
+
+- **Key Constraints**:  
+  - **Never** allow a state where \( n \) is true and \( s \) is false.  
+  - The requirement is **local to the moment \( n \) holds** (e.g., \( n \) being true at time \( t \) forces \( s \) true at \( t \), with no future/past obligations).  
+
+- **Negation Insight**:  
+  \( \neg G (n \implies s) \) would mean **"At least once, \( n \) is true and \( s \) is false"**. This clarifies that \( G (n \implies s) \) **forbids** any such violating state.  
+
+#### Summary:
+\( G (n \implies s) \) declares a **permanent invariant**:  
+> **"Whenever \( n \) is true, \( s \) must be true in that exact moment."**  
+It tolerates states where \( n \) is false (regardless of \( s \)) but breaks irrevocably if \( n \) ever appears without \( s \) in the same state.

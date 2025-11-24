@@ -1,0 +1,46 @@
+### Translation and Explanation of LTL Formula: `F d | G !n`
+
+#### Step 1: Original Formula  
+`F d ∨ G ¬n` (where `|` denotes logical OR, and `¬` denotes negation).
+
+#### Step 2: Parse Tree Breakdown  
+The formula is a disjunction (`∨`) of two subformulas:  
+- **Left child**: `F d` (Eventually `d`).  
+- **Right child**: `G ¬n` (Globally not `n`).  
+
+The atomic propositions are:  
+- `d`: Represents a state where the property `d` holds.  
+- `n`: Represents a state where the property `n` holds.  
+
+#### Step 3: Rebuild Meaning from Bottom Up  
+1. **Atomic proposition `d`**:  
+   - *Meaning*: `d` must hold in a specific state.  
+   - *In context of `F`*: `F d` means **"There exists at least one future state where `d` is true."**  
+
+2. **Atomic proposition `n` and negation `¬n`**:  
+   - `¬n`: `n` must be **false** in a specific state.  
+   - *In context of `G`*: `G ¬n` means **"`n` is false in every state of the execution (i.e., `n` never holds)."**  
+
+3. **Disjunction (`∨`)**:  
+   - The top-level operator (`∨`) means the formula holds if **at least one** subformula is satisfied:  
+     - Either `F d` holds (`d` eventually becomes true),  
+     - Or `G ¬n` holds (`n` is never true).  
+
+#### Step 4: Refined Natural Language Translation  
+**"Either `d` must eventually become true at least once, or `n` must never be true throughout the entire execution."**  
+
+**Key Implications for the System**:  
+- **Satisfied if**:  
+  - `d` holds in **any future state** (e.g., `d` occurs at time `t=2`), regardless of the behavior of `n`.  
+  - `n` **never holds** in any state (even if `d` never holds).  
+- **Violated if**:  
+  - `d` **never holds**, and **`n` holds in at least one state**.  
+
+**Examples**:  
+- ✅ Valid execution: `[n=false, d=false] → [n=false, d=true] → ...` (`F d` holds).  
+- ✅ Valid execution: `[n=false, d=false] → [n=false, d=false] → ...` (`G ¬n` holds).  
+- ❌ Invalid execution: `[n=false, d=false] → [n=true, d=false] → ...` (both `F d` and `G ¬n` fail).  
+
+#### Final Translation  
+**"d eventually happens, or n never happens."**  
+This captures the core constraint: The system must guarantee at least one occurrence of `d`, or a total absence of `n`. Both conditions can occur simultaneously, but at least one is mandatory.

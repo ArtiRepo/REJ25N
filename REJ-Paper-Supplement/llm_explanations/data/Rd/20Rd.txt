@@ -1,0 +1,72 @@
+### Original LTL Formula
+`G t | F w`
+
+**Note:** `|` represents logical OR (`∨`). The formula is `G(t) ∨ F(w)`.
+
+---
+
+### Step 1: Parsing Tree Breakdown
+The formula has two top-level subformulas combined with **OR** (`∨`):
+1. **Left operand:** `G t` (Globally `t`)
+2. **Right operand:** `F w` (Finally `w`)
+
+**Parsing Tree:**
+```
+     ∨
+    / \
+   /   \
+ G(t)  F(w)
+```
+
+---
+
+### Step 2: Rebuild Meaning from the Bottom Up
+
+#### **Subformula 1: `G t`**
+- **Operator:** `G` (Globally)
+- **Meaning:** `t` must be true in **every state** of the execution.  
+  *Violation condition:* If `t` is false in **any state** (even one), `G(t)` fails.
+
+#### **Subformula 2: `F w`**
+- **Operator:** `F` (Finally)
+- **Meaning:** `w` must be true in **at least one future state** (including the current state).  
+  *Violation condition:* If `w` is **never true** in the entire execution, `F(w)` fails.
+
+#### **Combined with OR (`∨`)**
+- The formula `G(t) ∨ F(w)` is satisfied if **at least one** subformula is true:  
+  - Either `t` holds **globally** (`G(t)` is true), **OR**  
+  - `w` holds **at least once** (`F(w)` is true),  
+  - Or **both** conditions hold.  
+  *Violation condition:* Only violated if **both** subformulas are false:  
+  - `t` fails in **at least one state** (so `G(t)` is false), **AND**  
+  - `w` is **never true** (so `F(w)` is false).
+
+---
+
+### Step 3: Refined Natural Language Translation
+> **Translation:**  
+> "The system must ensure that **either `t` is always true, or `w` eventually occurs (or both)."  
+
+#### Explanation of Constraints:
+- **When is it satisfied?**  
+  - If `t` holds **in every state** (no restrictions on `w`).  
+    *Example:* Trajectory `[t, t, t, ...]` → **valid**.  
+  - If `w` becomes true **at least once**, even if `t` fails somewhere.  
+    *Example:* Trajectory `[¬t, t, w, ...]` → **valid** (regardless of `t` later).  
+  - If **both** conditions hold.  
+    *Example:* Trajectory `[t, w, t, ...]` → **valid**.
+
+- **When is it violated?**  
+  Only if **both** constraints fail:  
+  - `t` is false in **at least one state**, **AND**  
+  - `w` is **never true** in the entire execution.  
+  *Example:* Trajectory `[t, ¬t, ¬w, ¬w, ...]` → **violated** (`t` fails at state 2, `w` never occurs).
+
+---
+
+### Key Insight
+- This formula **does not mandate `t` to hold forever** if `w` eventually occurs.  
+- It **relaxes the requirement** for `t`: As long as `w` appears *sometime*, `t` may fail intermittently.  
+- Only if `w` **never occurs** does the system **strictly require `t` to hold globally**.  
+
+This balances constraints: safety (`G t`) and eventual recovery/completion (`F w`).

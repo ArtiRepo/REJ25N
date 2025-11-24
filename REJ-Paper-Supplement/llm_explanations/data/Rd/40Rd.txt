@@ -1,0 +1,54 @@
+### Translation of LTL Formula: **F (o | u)**  
+
+**Original Formula:**  
+`F (o ∨ u)`  
+*(Note: `|` is the logical OR operator, equivalent to `∨`)*  
+
+---
+
+### Step-by-Step Reasoning:  
+
+#### 1. **Parsing Tree Breakdown**  
+- **Outermost operator:** `F` (Finally/Eventually).  
+- **Subformula inside `F`:** `(o ∨ u)` (OR-disjunction of atomic propositions `o` and `u`).  
+
+#### 2. **Rebuilding Meaning from the Bottom Up**  
+- **Base propositions:**  
+  - `o`: "`o` is true in a specific state."  
+  - `u`: "`u` is true in a specific state."  
+- **Disjunction (`o ∨ u`):**  
+  "At least **one** of `o` or `u` is true in a specific state."  
+  *(This holds if `o` is true, `u` is true, or both are true.)*  
+- **Finally (`F`)** applied to `(o ∨ u)`:  
+  "There **exists at least one future state** where `(o ∨ u)` holds."  
+
+#### 3. **Combined Semantics:**  
+The formula `F (o ∨ u)` requires that:  
+> **Eventually, `o` or `u` (or both) must become true at least once.**  
+
+---
+
+### Natural Language Translation (Refined for Clarity):  
+> **"The system must eventually reach a state where either `o` is true, `u` is true, or both are true."**  
+
+---
+
+### Key Explanations:  
+- **When is it satisfied?**  
+  The formula is satisfied if **at any point in the execution** (including the current state), `o` or `u` becomes true. Examples:  
+  - Immediate satisfaction: `o` is true in the first state.  
+  - Delayed satisfaction: `o` and `u` are false for 10 states, then `u` becomes true at state 11.  
+  - No restriction: Before the "eventual" state, `o` and `u` can be `true`/`false` any number of times.  
+
+- **When does it constrain the system?**  
+  It **only fails** if `o` and `u` are **never true in any state** (e.g., both remain `false` forever).  
+
+- **Practical implication:**  
+  The system must **guarantee at least one occurrence** of `o` or `u` (e.g., "eventually an error is handled (`o`) or a fallback is triggered (`u`)").
+
+---
+
+### Why This Interpretation?  
+- `F(φ)` means "φ holds **sometime in the future**."  
+- `φ = o ∨ u` means "**either `o`, `u`, or both** hold in a single state."  
+- No constraints are imposed on `o`/`u` after the first satisfying state.

@@ -1,0 +1,60 @@
+### Translation of the LTL Formula: `Fa -> Gb`
+
+**Original Formula:**  
+`Fa -> Gb` (equivalent to `F(a) → G(b)`)
+
+---
+
+#### Step 1: Breakdown of Subformulas (Parsing Tree)
+The formula is an **implication** (`→`) between two subformulas:
+- **Left operand (`Fa`):** `F(a)` ("Eventually `a`").  
+- **Right operand (`Gb`):** `G(b)` ("Globally `b`").  
+
+The parsing tree is:  
+```
+      →
+     / \
+    F   G
+    |   |
+    a   b
+```
+
+---
+
+#### Step 2: Rebuilding Meaning Bottom-Up
+**1. Subformula `F(a)` ("Eventually `a`"):**  
+> *"There exists at least one future state where `a` is true."*  
+
+**2. Subformula `G(b)` ("Globally `b`"):**  
+> *"`b` must be true in every state of the execution (past, present, and future)."*  
+
+**3. Combining via Implication (`Fa → Gb`):**  
+An implication `P → Q` means: *"If `P` is true, then `Q` must be true."*  
+- Case 1: If `F(a)` holds (i.e., `a` eventually becomes true), then `G(b)` must hold.  
+- Case 2: If `F(a)` is false (i.e., `a` never becomes true), `Gb` can be **either true or false** without affecting the outcome (no constraint).  
+
+Thus, `Fa → Gb` =  
+> *"If `a` becomes true at any point, then `b` must hold in **every state** of the execution. Otherwise, if `a` never becomes true, there are **no constraints** on `b`."*
+
+---
+
+#### Final Natural Language Translation (Refined for Clarity)
+> **"If the event `a` ever occurs, then `b` must be true in *every single state* of the system’s execution (from the beginning of time onward).  
+> If `a` never occurs, `b` may be true in some states and false in others."**
+
+---
+
+### Key Implications:
+- **When `a` occurs:**  
+  `b` must hold *continuously* in **all states** (including states *before* and *after* `a` occurs).  
+  *Example:* If `a` occurs at time `t=10`, `b` must be true at `t=0, t=1, ..., t=10, t=11, ...`  
+
+- **When `a` never occurs:**  
+  No requirements on `b`: It can be true/false at any state.  
+
+- **System Safeguard:**  
+  To satisfy the formula, a system must either:  
+  1. **Prevent `a` from ever occurring** (making `Fa` false), OR  
+  2. **Ensure `b` is true everywhere** from the start (so if `a` occurs, it doesn’t retroactively invalidate `b`).  
+
+This avoids the risk of violating `Gb` retroactively if `a` occurs unexpectedly.

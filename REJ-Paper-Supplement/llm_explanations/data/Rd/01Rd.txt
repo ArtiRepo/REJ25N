@@ -1,0 +1,50 @@
+### Translation of LTL Formula: \(X(a) \implies X(c)\)
+
+**Original Formula:**  
+\(X(a) \implies X(c)\)
+
+**Step 1: Formula Breakdown (Parsing Tree)**  
+This formula is an **implication** (\(\implies\)) with two sub-formulas:  
+- Left operand: \(X(a)\) ("a must be true in the very next state").  
+- Right operand: \(X(c)\) ("c must be true in the very next state").  
+
+The structure is:  
+```
+      IMPLIES
+      /      \
+     X(a)    X(c)
+```
+
+**Step 2: Bottom-Up Meaning Reconstruction**  
+- **Base meanings:**  
+  - \(X(a)\): Requires `a` to hold in the immediate next state.  
+  - \(X(c)\): Requires `c` to hold in the immediate next state.  
+- **Implication (\(\implies\)):**  
+  \(P \implies Q\) means:  
+  > *"Whenever \(P\) is true, \(Q\) must also be true."*  
+    
+  Here, \(P = X(a)\) and \(Q = X(c)\), so:  
+  > *"If \(X(a)\) holds (a is true in the next state), then \(X(c)\) must hold (c must *also* be true in that same next state)."*  
+
+**Step 3: Refined Natural Language Translation**  
+- **Core meaning:**  
+  > **"If `a` is true in the next state, then `c` must be true in that same next state."**  
+
+- **Implicit constraints:**  
+  - This **only constrains the immediate next state**, not the current state or future states beyond the next one.  
+  - If `a` is false in the next state, the formula is **automatically satisfied** (no requirement for `c`).  
+  - If `a` is true in the next state, `c` **must be true there too** (avoiding the case where `a` is true and `c` is false at that step).  
+
+**Violation Condition:**  
+The formula is violated **only if**, in the next state:  
+- \(a\) is true, but \(c\) is false.  
+
+**Example:**  
+- Valid execution: Next state has `a = false`, `c = true` → satisfied.  
+- Valid execution: Next state has `a = true`, `c = true` → satisfied.  
+- **Invalid execution:** Next state has `a = true`, `c = false` → violated.  
+
+**Final Natural Language Phrasing:**  
+> **"If `a` holds in the next state, then `c` must also hold in that same state."**  
+
+This emphasizes the critical constraint in the immediate future while clarifying that no other states are affected.

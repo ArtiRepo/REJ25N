@@ -1,0 +1,41 @@
+### Translation of LTL Formula: **X (t | w)**
+
+#### Step 1: Original LTL Formula  
+`X (t | w)`  
+*(Read as: "Next (t or w)")*
+
+#### Step 2: Parsing Tree Breakdown  
+- **Root operator**: `X` (Next)  
+  - **Child**: Logical disjunction `(t | w)`  
+    - **Leaves**: Atomic propositions `t` and `w`.  
+
+#### Step 3: Bottom-Up Meaning Reconstruction  
+1. **Innermost subformula (`t | w`)**:  
+   - "Either `t` is true **or** `w` is true (or both) in **a single state**."  
+   - *Example*: If `t` means "task is done" and `w` means "warning is issued," this holds if either/both occur at the same moment.  
+
+2. **Apply `X` operator to `(t | w)`**:  
+   - Shifts the requirement from the current state to the **immediate next state**.  
+   - Result: "In the **next state** of the system, either `t` must be true or `w` must be true."  
+
+#### Step 4: Refined Natural Language Translation  
+> "The system must ensure that **in the very next state**, **either `t` holds or `w` holds (or both)**."  
+
+#### Key Insights:  
+- **Satisfaction Condition**:  
+  - The formula is satisfied if, immediately following the current state, at least one of `t` or `w` is true.  
+  - *Example*: If the next state has `t = true` (and `w = false`), the formula holds. If both are true, it still holds.  
+- **Constraints Over Time**:  
+  - **Current state**: No constraints on `t` or `w` (they can be true/false).  
+  - **Future beyond the next state**: No constraints. Only the **immediately following state** is governed.  
+- **Corner Cases**:  
+  - If `t` and `w` are both **false in the next state**, the formula is **violated**.  
+  - **No strict ordering**: If `t`/`w` hold in the next state, subsequent states are irrelevant.  
+
+#### Why this phrasing?  
+- `X` explicitly targets the **next state** per the key guideline.  
+- `(t | w)` is treated as a **propositional subformula** evaluated **within that single state**.  
+- Uses "either/or (or both)" for clarity (avoids implying mutual exclusivity).  
+
+Final Translation:  
+> **"In the immediate next state, either t or w (or both) must be true."**

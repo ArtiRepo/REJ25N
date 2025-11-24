@@ -1,0 +1,48 @@
+### Translation and Reasoning for LTL Formula: `¬G c`
+
+#### Step 1: Original Formula
+- **LTL Formula**: `¬G c`
+
+#### Step 2: Parsing Tree Breakdown
+```
+    ¬   (Negation)
+     |
+    G   (Global operator)
+     |
+    c   (Atomic proposition)
+```
+- **Root**: Negation (`¬`)
+- **Child**: Globally operator (`G`)
+- **Leaf**: Atomic proposition `c`
+
+#### Step 3: Rebuilding Meaning (Bottom-Up)
+
+1. **Base Case: `c`**  
+   - "`c` must be true in the state where it is evaluated, with no constraints on other states."
+
+2. **Apply `G` to `c`: `G c`**  
+   - "`c` must hold **in every state** of the execution (now and always)."
+
+3. **Apply Negation to `G c`: `¬G c`**  
+   - Negation flips the meaning:  
+     "It is **not true** that `c` holds in every state."  
+   - Logically, this means:  
+     "**There exists at least one state in the execution where `c` is false."  
+     (Equivalent to `F ¬c`: "Eventually `c` becomes false.")
+
+#### Step 4: Refined Natural Language Translation
+- **Final Phrasing**:  
+  "**`c` is not always true**; there must be **at least one state** in the execution where `c` is **false**."  
+
+#### Key Insights:
+- **Satisfaction Condition**: The formula is satisfied if the system **fails to satisfy `c` in at least one state** (even if `c` holds in most states).
+- **Constraint Over Time**:  
+  - No guarantee is required for `c` after the failure state.  
+  - `c` may hold infinitely before the failure, but **it must eventually break** (e.g., "the system must violate `c` at least once").
+- **Example**:  
+  If `c` = "the system is operational", then `¬G c` requires that **the system eventually fails at least once** (though it may recover later).
+
+#### Equivalent Form:
+- `¬G c` is logically equivalent to `F ¬c`, which translates to:  
+  "**Eventually, `c` becomes false.**"  
+  (This concise form is also acceptable but retains the same core meaning.)

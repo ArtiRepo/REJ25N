@@ -1,0 +1,54 @@
+### Translation of LTL Formula: `X !(t | w)`
+
+#### Step 1: Original LTL Formula
+`X !(t | w)`
+
+#### Step 2: Parsing Tree Breakdown
+The formula is parsed into a tree of subformulas from the bottom up:
+```
+    X         (Outermost operator: "Next")
+     |
+    !         (Negation of the disjunction)
+     |
+   (t | w)    (Disjunction: "t OR w" at the atomic level)
+```
+
+#### Step 3: Rebuilding Meaning from the Bottom Up
+1. **Atomic propositions `t` and `w`**:
+   - `t`: Represents a proposition that might mean "task starts" (or a specific system state).
+   - `w`: Represents a proposition that might mean "warning occurs" (or another distinct state).
+
+2. **Disjunction `(t | w)`**:
+   - **Meaning**: "At least one of `t` or `w` is true in the current state."
+   - *Example*: If `t` is true or `w` is true (or both), the disjunction holds.
+
+3. **Negation `!(t | w)`**:
+   - **Meaning**: The disjunction `(t | w)` is **false**.
+   - **Logical equivalence**: By De Morgan's law, `!(t | w)` ≡ `!t ∧ !w`.
+   - **Refined meaning**: "**Neither `t` nor `w` is true** in the current state. Both must be false."
+
+4. **Next operator `X !(t | w)`**:
+   - **Meaning**: The subformula `!(t | w)` must hold **in the very next state** (i.e., the state immediately following the current one).
+   - **Result**: "**In the immediate next state, both `t` and `w` must be false**."
+
+#### Step 4: Refined Natural Language Phrasing
+> **Translation**:  
+> "*In the immediate next state of the system, neither `t` nor `w` may occur (both must be false).*"
+
+#### Key Implications:
+- **When satisfied**:  
+  The constraint applies *only* to the **next state**. Current or later states (beyond the next one) are unaffected. For example:
+  - If the current state has `t=true`/`w=true`, the formula is still satisfiable if **both are false in the next state**.
+  - Future states (after the next) can have `t` or `w` true freely.
+
+- **When violated**:  
+  The formula fails **if the next state has either `t=true` or `w=true`**. Both must be absent.
+
+---
+
+### Summary
+- **Formula Scope**: Constrains **only the immediate next state**.
+- **Requirement**: The next state must explicitly **avoid** both propositions `t` and `w`.
+- **Practical Example**:  
+  If `t` = "task starts" and `w` = "warning occurs", the formula demands:  
+  > "*In the very next system step, no task starts and no warning occurs.*"

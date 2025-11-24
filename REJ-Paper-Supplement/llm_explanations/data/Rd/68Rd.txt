@@ -1,0 +1,54 @@
+To translate the LTL formula **`a U b`** (a **U**ntil b) into natural language, follow this structured reasoning process:
+
+### Step 1: Original LTL Formula
+- Formula: `a U b`
+
+### Step 2: Parsing Tree Breakdown
+- **Operator**: `U` (Until)  
+- **Operands**: 
+  - Left child: Atomic proposition `a`  
+  - Right child: Atomic proposition `b`  
+- **Tree Structure**:
+  ```
+     U
+    / \
+   a   b
+  ```
+
+### Step 3: Rebuild Meaning from the Bottom Up
+1. **Atomic Propositions** `a` and `b`:
+   - `a`: Must be true in a specific state (e.g., "switch is on").
+   - `b`: Must be true in a specific state (e.g., "alarm triggers").
+
+2. **Until Operator (`U`)**:
+   - Constraints for `a U b`:
+     - **Requirement 1**: `b` must become true *at least once* in some future state.  
+     - **Requirement 2**: From the **current state** onward, `a` must hold *continuously* **until the exact moment** `b` becomes true.  
+   - Once `b` becomes true:
+     - The obligation for `a` to hold *ceases* at and after the state where `b` is true.  
+     - Future states after `b` becomes true have no constraints (unless defined by other formulas).
+
+### Step 4: Refine Natural Language Phrasing
+**Simple Translation**:  
+> *"`b` must eventually become true, and `a` must hold continuously until that moment."*
+
+#### Further Clarification
+- **Why "until the moment" and not "including the moment"?**  
+  The requirement for `a` to hold ends **as soon as `b` becomes true**.  
+  - Example:  
+    - States: `[a=true, a=true, b=true, ...]` → **Valid** (at `b`'s state, `a` "hands off" to `b`).  
+    - States: `[a=true, a=false, b=true, ...]` → **Invalid** (`a` broke *before* `b` became true).  
+
+- **What if `b` is true now?**  
+  The formula is **immediately satisfied** (no prior requirement for `a` applies).  
+
+- **What if `b` never holds?**  
+  The formula is **never satisfied**, even if `a` holds forever.  
+
+### Final Translation
+> "**`b` must eventually become true, and `a` must hold continuously until the exact state where `b` becomes true.**"  
+
+This phrasing emphasizes  
+- The **inevitability** of `b`,  
+- The **unbroken requirement** for `a` *until* `b`’s occurrence,  
+- And freedom for `a` to vary once `b` is true.

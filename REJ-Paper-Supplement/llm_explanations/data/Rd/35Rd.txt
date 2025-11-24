@@ -1,0 +1,56 @@
+### Translation of the LTL Formula: **F (f ⇒ j)**
+
+#### Step 1: Original Formula  
+**F (f ⇒ j)**
+
+#### Step 2: Parsing Tree Breakdown  
+The formula **F (f ⇒ j)** can be decomposed as:  
+- **Outermost operator**: **F** (*Eventually*).  
+- **Inner formula**: **(f ⇒ j)** (*Implication*, meaning "if f then j").  
+
+The implication **(f ⇒ j)** is logically equivalent to **¬f ∨ j** (i.e., "**f** is false OR **j** is true").  
+Thus, the formula simplifies to: **F (¬f ∨ j)**.
+
+#### Step 3: Rebuilding Meaning from the Bottom Up  
+1. **Base meaning of (f ⇒ j)**:  
+   - **(f ⇒ j)** is satisfied at a given state if:  
+     - **f** is **false** in that state, OR  
+     - **j** is **true** in that state.  
+   - *Equivalently*: The state avoids the scenario where **f** is true and **j** is false.  
+
+2. **Apply F (Eventually)**:  
+   - **F (¬f ∨ j)** requires that:  
+     - There exists **at least one future state** (including the current state) where **(f ⇒ j)** holds.  
+   - *Key detail*: This requires a **single state** in the entire timeline where either:  
+     - **f** is false, OR  
+     - **j** is true (or both).  
+
+#### Step 4: Refined Natural Language Translation  
+- **Literal translation**:  
+  > "Eventually, at some point in time, either **f is false** or **j is true** (or both) in that same state."  
+
+- **More intuitive phrasing**:  
+  > "There must be a future state where **j is true** if **f is true** at that state."  
+
+- **Alternative emphasis**:  
+  > **f** must never be universally true while **j** is universally false. Specifically, the system cannot delay forever a state where **f**'s truth forces **j** to be true.  
+
+#### Key Insights:  
+- **When is the formula satisfied?**:  
+  - If **f** is false at any state, the **implication holds** immediately (no need for j).  
+  - If **j** becomes true at any state, the formula holds **regardless of f**.  
+  - Example valid execution:  
+    - State 1: `f=false, j=false` → **F (f⇒j)** holds immediately (since `f=false`).  
+    - State 1: `f=true, j=false` → State 2: `f=true, j=true` → holds at State 2.  
+
+- **When is it violated?**:  
+  - Only if **j is always false** AND **f is always true**, for **all states**.  
+  - Example violation: An infinite execution where every state has `f=true, j=false`.  
+
+### Final Natural Language Translation  
+> **"At some future state, if feature `f` is present, then feature `j` must also be present at that same state."**  
+
+This captures the **implication** (`f ⇒ j`) in an intuitive way while emphasizing:  
+- The constraint is about a **single coincident state** in the future.  
+- `j` is only mandated when `f` is true *at that specific state*; if `f` is false there, `j` can be anything.  
+- The system cannot indefinitely avoid such a state.

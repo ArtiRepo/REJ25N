@@ -1,0 +1,44 @@
+### Translation and Explanation of LTL Formula: **G(a ∨ b)**  
+**Step 1: Original Formula**  
+`G(a ∨ b)`  
+
+**Step 2: Parsing Tree Breakdown**  
+- **Top operator**: `G` (globally)  
+- **Subformula**: `(a ∨ b)` (logical OR of atomic propositions `a` and `b`)  
+- **Atomic propositions**: `a`, `b` (base states).  
+
+**Step 3: Rebuilding Meaning Bottom-Up**  
+1. **Atomic propositions**:  
+   - `a` = "`a` is true in the current state."  
+   - `b` = "`b` is true in the current state."  
+2. **OR operator (`∨`)**:  
+   - `(a ∨ b)` = "In the current state, `a` is true **or** `b` is true (or both)."  
+3. **Globally operator (`G`)** applied to `(a ∨ b)`:  
+   - `G(a ∨ b)` = "In **every state** of the execution, `a` is true **or** `b` is true (or both)."  
+
+**Step 4: Refined Natural Language Translation**  
+> "**At every point in time, either `a` or `b` (or both) must be true.**"  
+
+---
+
+### Key Implications:
+- **Satisfaction Condition**: The formula holds if **no state exists** where both `a` and `b` are false simultaneously.  
+- **Constraint on Behavior**:  
+  - The system can never enter a state where `a` **and** `b` are both false.  
+  - If `a` is false at any point, `b` **must** be true in that state (and vice versa).  
+- **Flexibility**:  
+  - Both `a` and `b` can be true together in any state (no conflict).  
+  - `a` and `b` may alternate or hold continuously over time, as long as one is always true.  
+
+### Examples:
+| Time (States) | Valid Execution                    | Invalid Execution              |  
+|---------------|------------------------------------|--------------------------------|  
+| **State 0**   | `a=true`, `b=false`               | `a=false`, `b=false` ✗        |  
+| **State 1**   | `a=false`, `b=true`               | `a=false`, `b=false` ✗        |  
+| **State 2**   | `a=true`, `b=true`                | `a=false`, `b=true`           |  
+| **State 3**   | `a=true`, `b=false`               | ...                           |  
+| **Result**    | ✅ Formula satisfied              | ❌ Violation at State 0 or 1   |  
+
+---
+### Summary  
+`G(a ∨ b)` **constantly requires** `a` or `b` (or both) to hold, forbidding any state where both are false. It is weaker than `G(a) ∨ G(b)` (which would require one to hold globally forever) and permits dynamic alternation between `a` and `b`.
