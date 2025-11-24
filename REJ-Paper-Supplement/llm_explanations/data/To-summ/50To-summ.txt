@@ -1,0 +1,1 @@
+Eventually, there will be a point in the future where u occurs, and up until that point, o must hold continuously.

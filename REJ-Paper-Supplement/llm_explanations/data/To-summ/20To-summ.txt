@@ -1,0 +1,1 @@
+In every possible execution of the system, it must be the case that either the condition t is always true, or the condition w becomes true at least once.

@@ -1,0 +1,1 @@
+At some point in the future, whenever condition f becomes true, condition j must also be true.

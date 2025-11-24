@@ -1,0 +1,1 @@
+In the next moment of the system execution, a must hold, and there must be at least one moment in the future where b does not hold.

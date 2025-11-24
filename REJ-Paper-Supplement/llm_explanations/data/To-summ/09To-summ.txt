@@ -1,0 +1,1 @@
+In the system execution, both conditions c and b must hold at the same time continuously until condition a eventually becomes true. At that point, c and b no longer need to hold.

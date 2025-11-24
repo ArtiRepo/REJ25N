@@ -1,0 +1,1 @@
+Eventually, in the course of the system's execution, either condition o must hold, or condition u must hold, or both conditions must hold.

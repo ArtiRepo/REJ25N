@@ -1,0 +1,1 @@
+In the system execution, it is required that eventually b occurs, with a holding at every moment up to that point, and simultaneously, eventually d occurs, with c holding at every moment up to that point.

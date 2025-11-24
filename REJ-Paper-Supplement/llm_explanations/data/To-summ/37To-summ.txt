@@ -1,0 +1,1 @@
+Throughout the entire execution of the system, either the condition i never holds, or there will eventually come a time when f holds continuously until i becomes true.

@@ -1,0 +1,1 @@
+If condition t holds, then condition w must also hold.

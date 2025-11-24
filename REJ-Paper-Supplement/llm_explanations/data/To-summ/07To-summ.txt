@@ -1,0 +1,1 @@
+Condition a must hold at every moment until condition c becomes true. Once c is true, a does not need to hold anymore.

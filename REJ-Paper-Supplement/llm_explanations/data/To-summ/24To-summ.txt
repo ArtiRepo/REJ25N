@@ -1,0 +1,1 @@
+In any system execution, whenever condition t is true, it must be the case that both conditions x and y are also true.

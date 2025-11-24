@@ -1,0 +1,1 @@
+In the next moment of the system execution, both t and y must be true.

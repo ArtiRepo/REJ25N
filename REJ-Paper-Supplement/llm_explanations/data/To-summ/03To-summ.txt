@@ -1,0 +1,1 @@
+Currently, a must hold, and in the next moment of the system execution, b must hold.

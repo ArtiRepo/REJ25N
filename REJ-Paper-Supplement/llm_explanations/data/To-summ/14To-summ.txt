@@ -1,0 +1,1 @@
+Either eventually c will occur, with d holding continuously until then, or eventually c will not occur, with a holding continuously until that point.

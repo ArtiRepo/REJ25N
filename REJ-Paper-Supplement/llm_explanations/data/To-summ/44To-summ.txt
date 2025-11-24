@@ -1,0 +1,1 @@
+In the next moment of system execution, either g must not hold or j must not hold (or both)

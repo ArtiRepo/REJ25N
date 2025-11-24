@@ -1,0 +1,1 @@
+In the current moment of the system execution, b must hold. Furthermore, in the next moment, it should be the case that eventually c will hold, and until that happens, a must continuously hold.

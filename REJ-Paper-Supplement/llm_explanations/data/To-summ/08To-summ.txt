@@ -1,0 +1,1 @@
+In the system execution, the condition b must hold continuously until a point is reached where the condition d does not hold.

@@ -1,0 +1,1 @@
+In the next moment of the system execution, if a holds, then c must also hold in that same next moment.

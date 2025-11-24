@@ -1,0 +1,1 @@
+At all times during the system execution, either condition f must not hold, or condition i must not hold, or both conditions must not hold.

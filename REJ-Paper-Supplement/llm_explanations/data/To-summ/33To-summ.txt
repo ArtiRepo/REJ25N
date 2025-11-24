@@ -1,0 +1,1 @@
+In the system execution, b must hold continuously until c eventually holds, and simultaneously, d must hold continuously until b no longer holds.

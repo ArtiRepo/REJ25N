@@ -1,0 +1,1 @@
+In the current moment of the system execution, either condition b holds, or in the next moment, condition a should not hold.

@@ -1,0 +1,1 @@
+Throughout the entire execution of the system, whenever condition n holds, condition s must also hold.

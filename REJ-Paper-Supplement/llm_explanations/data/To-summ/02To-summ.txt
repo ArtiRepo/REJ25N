@@ -1,0 +1,1 @@
+If in the next moment of the system execution, b holds, then in the next moment of the system execution, d must not hold.

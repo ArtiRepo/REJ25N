@@ -1,0 +1,1 @@
+In the system execution, it is not true that condition c holds at all times.

@@ -1,0 +1,1 @@
+In the system execution, either y holds while d does not hold, or if y holds, then d must also hold.

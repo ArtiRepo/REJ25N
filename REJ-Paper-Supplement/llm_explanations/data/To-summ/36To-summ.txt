@@ -1,0 +1,1 @@
+In every moment of the system execution, if condition j holds, then condition f must not hold.

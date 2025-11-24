@@ -1,0 +1,1 @@
+In the next moment of the system execution, if condition y is true, then conditions x and w must both be true.

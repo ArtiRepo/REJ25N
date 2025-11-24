@@ -1,0 +1,1 @@
+In the system execution, both of the following conditions must be satisfied: First, condition c must hold continuously until condition a eventually holds. Simultaneously, condition b must also hold continuously until condition a eventually holds.

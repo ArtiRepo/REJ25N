@@ -1,0 +1,1 @@
+It will never be the case that both a and b hold true at the same time in any future moment of the system execution.
