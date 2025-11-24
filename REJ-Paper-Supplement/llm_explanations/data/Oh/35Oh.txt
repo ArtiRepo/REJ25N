@@ -1,0 +1,48 @@
+**Original LTL formula**  
+`F (f => j)`
+
+---
+
+### Bottom‑up reconstruction  
+
+1. **Innermost subformula**: `f => j`  
+   *In any particular state it is true iff either `f` is false or `j` is true.*  
+   The implication is violated only when `f` holds and `j` does not.
+
+2. **Outer operator**: `F ϕ` where `ϕ` is `f => j`  
+   *“Eventually (at some future state) the subformula ϕ must be true.”*  
+   We look along the execution for the first state that satisfies `f => j`.
+
+---
+
+### Refined natural‑language phrasing  
+
+**“There is at least one state that the system will reach in the future (possibly the current state) where, if `f` holds, then `j` also holds; otherwise `f` is not true at that point.”**
+
+---
+
+### Constraints and their lifetimes  
+
+* The formula imposes **no constraint** until we encounter the first state that satisfies `f => j`.  
+* Up to and including that state, the execution may freely have `f` true and `j` false; the formula is not yet satisfied.  
+* The moment we reach a state where `f` is false **or** where `f` is true and `j` is true, the formula becomes true.  
+  From that point onward the formula remains satisfied regardless of what happens next.
+
+### Satisfying sequences  
+
+| State | f | j | f ⇒ j | How formula is satisfied |
+|-------|---|---|--------|--------------------------|
+| 0 (now) | false | *any* | true | `F` satisfied immediately |
+| 0 | true | true | true | `F` satisfied immediately |
+| 0 | true | false | false | `F` not yet satisfied; look ahead |
+| 1 | true | false | false | still not satisfied |
+| 2 | false | *any* | true | `F` satisfied at state 2; subsequent states irrelevant |
+
+### Violating sequence  
+
+All states have `f` true and `j` false.  
+Then every instance of `f ⇒ j` is false, so no state ever satisfies the inner implication, and `F(f ⇒ j)` remains false forever.
+
+---
+
+**Key takeaway** – `F (f => j)` only demands that at some point in the future the implication holds; it does **not** enforce that `f` implies `j` from the present onward. The constraint disappears as soon as the first satisfying state is reached.

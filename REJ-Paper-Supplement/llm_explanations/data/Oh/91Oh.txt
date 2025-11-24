@@ -1,0 +1,13 @@
+- **Original LTL formula**  
+  \[
+  (x \land y)\;|\;(y \Rightarrow \neg x)
+  \]
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. **Leaves**: the propositions `x` and `y` each mean “`x` (respectively `y`) is true in the current state.”  
+  2. **AND node**: `x ∧ y` means “both `x` and `y` are true.”  
+  3. **IMPLIES node**: `y ⇒ ¬x` is equivalent to `¬y ∨ ¬x` and means “if `y` holds, then `x` must not hold.”  
+  4. **OR node**: `(x ∧ y) | (y ⇒ ¬x)` means “either `x` and `y` are both true, **or** the implication `y ⇒ ¬x` holds.”
+
+- **Refined natural‑language phrasing**  
+  “This statement is always satisfied; it places no restriction on the truth of `x` or `y` in any state.”  (Because the formula is a tautology.)

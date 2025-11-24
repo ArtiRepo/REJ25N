@@ -1,0 +1,33 @@
+**Original LTL formula**  
+`X a => X c`
+
+---
+
+### Rebuild meaning from the bottom of the tree up
+
+1. **Left operand – `X a`**  
+   *“`a` must be true in the very next state.”*  
+   At the current state `t`, this requires that when we move to state `t+1`, the proposition `a` holds.
+
+2. **Right operand – `X c`**  
+   *“`c` must be true in the very next state.”*  
+   Similarly, this demands that in state `t+1` the proposition `c` holds.
+
+3. **Implication – `X a => X c`**  
+   *“If the condition on the left is true, then the condition on the right must also be true.”*  
+   Thus, at the current state we ask:  
+   - **If** `a` holds in `t+1` **then** `c` must also hold in `t+1`.  
+   - **If** `a` does **not** hold in `t+1`, the implication is automatically true regardless of `c`.
+
+The formula does **not** constrain anything in the current state itself; all constraints are about the *next* state. Once we evaluate the next state, the implication’s obligation ends – there is no ongoing constraint beyond `t+1`.
+
+---
+
+### Refined natural‑language phrasing
+
+**“If in the next state the proposition `a` is true, then the proposition `c` must also be true in that same next state.”**  
+
+- The formula is violated only when **`a` is true in the next state** while **`c` is false** in that next state.  
+- It is satisfied either if **both** `a` and `c` are true next, or if **`a` is false** next (in which case no constraint on `c` applies).  
+
+This captures the exact moment when the constraint is active (just before seeing the next state) and when it ceases (after that next state has been examined).

@@ -1,0 +1,14 @@
+- **Original LTL formula**  
+  `F d & ! F t`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. **`F d`** – “There must exist at least one future state where `d` is true.”  
+  2. **`F t`** – “There must exist at least one future state where `t` is true.”  
+  3. **`! F t`** – “There is **no** future state where `t` is true” (i.e., `t` is false in every state).  
+  4. **`F d & ! F t`** – “Both of the above must hold at the same time: `d` must eventually become true, and `t` must never become true.”
+
+- **Refined natural‑language phrasing**  
+  “An execution is successful **iff** at some point in the future the event `d` occurs, and throughout the entire execution the event `t` never occurs.”  
+  - The constraint “`d` eventually occurs” ceases to apply after the first occurrence of `d`.  
+  - The constraint “`t` never occurs” remains in force for every state, even after `d` has happened.  
+  Thus, a sequence satisfies the formula when it contains at least one `d` and zero `t`s; it violates the formula if it either never contains a `d` or contains any occurrence of `t`.

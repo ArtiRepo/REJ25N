@@ -1,0 +1,27 @@
+**Original LTL formula**  
+```
+a
+```  
+
+**Rebuilding meaning (bottom‑up)**  
+
+* `a` is an atomic proposition (`p` in the guideline).  
+* No temporal operators wrap it, so the formula is evaluated only in the single state where it is checked.  
+
+**Refined natural‑language phrasing**  
+
+- “In the current state, variable `a` must be true; otherwise the formula is violated.  
+- Once this state has been evaluated, the formula imposes no further constraints on the execution – all future states may be arbitrary, whether or not `a` holds.”  
+
+**Illustrations**  
+
+*Satisfying sequence*:  
+State 0: `a = true` → formula true.  
+States 1, 2, …: unconstrained.  
+
+*Violating sequence*:  
+State 0: `a = false` → formula false.  
+States 1, 2, …: unconstrained.  
+
+**Key takeaway**  
+The formula only concerns the current state; it does not require `a` to hold in any subsequent state and it imposes no ongoing restrictions once it has been evaluated.

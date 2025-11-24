@@ -1,0 +1,11 @@
+- **Original LTL formula**  
+  `F a`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. Bottom: `a` – an atomic proposition whose truth is evaluated in each state.  
+  2. Above: `F a` – the “eventually” operator applied to `a`.  
+     - It requires that **some future state** (including the current one) satisfies `a`.  
+     - If the current state already satisfies `a`, the formula is true immediately; otherwise, the system must reach a state where `a` is true at some point later.
+
+- **Refined natural‑language phrasing**  
+  “There must be at least one state in the future (possibly the current one) where `a` holds.”

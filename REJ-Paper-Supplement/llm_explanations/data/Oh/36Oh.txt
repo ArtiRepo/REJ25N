@@ -1,0 +1,38 @@
+**Original LTL formula**  
+\[
+G\;(j \Rightarrow \neg f)
+\]
+
+**Bottom‑up reasoning**
+
+| Tree level | Element | Meaning |
+|------------|---------|---------|
+| Leaf | `j` | proposition “\(j\) is true” |
+| Leaf | `f` | proposition “\(f\) is true” |
+| Unary | `¬f` | “\(f\) is false” |
+| Binary | `j ⇒ ¬f` | “if \(j\) holds, then \(f\) must be false; otherwise the formula is trivially true” |
+| Unary | `G( j ⇒ ¬f )` | “the implication holds in every state of the execution” |
+
+**Refined natural‑language phrasing**
+
+> “In every state, whenever \(j\) is true, \(f\) must not be true.  
+> Outside of such moments, the value of \(f\) is unrestricted.”
+
+**Explanation of constraints**
+
+* At any concrete step:
+  * If the current state satisfies \(j\) and also satisfies \(f\), the formula is violated immediately.
+  * If the current state satisfies \(j\) and does **not** satisfy \(f\), or if \(j\) is false, the formula is satisfied for that state, but the global operator still forces the condition to hold in every later state.
+
+* Because of the outer `G`, the constraint never disappears: from the first step onward, the relationship **must** hold forever.  
+  * A violating sequence: \([j,T,f,T], [j,T,f,T], …\) – the presence of \(f\) while \(j\) is true at any point is a failure.  
+  * A satisfying sequence: \([j,T,\neg f,T], [j,F,?,T], ...\) – whenever \(j\) appears, \(f\) is absent.
+
+**Potential misunderstanding**
+
+* One might think “\(j\) triggers a restriction on \(f\) only once.”  
+  * In fact, `G` renews the requirement at every step, so the restriction on \(f\) applies *continuously* as long as the system runs.
+
+**Summary**
+
+The formula globally guarantees that the proposition \(f\) can never be true at the same time as \(j\); this rule applies in **every** state of the execution. If at any time \(j\) holds and \(f\) also holds, the property is violated; otherwise, the system satisfies the property indefinitely.

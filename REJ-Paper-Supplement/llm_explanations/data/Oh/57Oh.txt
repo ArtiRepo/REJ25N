@@ -1,0 +1,55 @@
+**Original LTL formula**  
+```
+F a ∧ G( a → X G ¬a )
+```
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **`a`** – is a proposition that may become true or false in any state.  
+2. **`F a`** – *“there exists a future state where `a` is true”*.  
+3. **`¬a`** – *“`a` is false”* in every state.  
+4. **`G ¬a`** – *“`a` is false in all future states”*.  
+5. **`X G ¬a`** – *“in the next state and onwards, `a` is always false”*.  
+6. **`a → X G ¬a`** – *“if `a` holds now, then from the next state on `a` never holds again”*.  
+7. **`G( a → X G ¬a )`** – *“the implication above is required in every state of the execution”*.  
+8. **`F a ∧ G( a → X G ¬a )`** – the conjunction of two constraints:
+   *   eventually `a` appears,  
+   *   everywhere, whenever `a` appears, it is the *last* time it will appear.
+
+---
+
+### Refined natural‑language phrasing  
+
+- **Constraint imposed by `F a`** – *“At some moment in the future, `a` must be true.”*  
+  Until that moment is reached, `a` is unrestricted; it may be true or false arbitrarily.
+
+- **Constraint imposed by `G( a → X G ¬a )`** – *“In every state, if `a` is true now, then from the next state onward `a` is permanently false.”*  
+  Hence, as soon as an occurrence of `a` is observed, a constraint becomes active: starting with the following state, `a` must forever remain false.  
+  Once this constraint is triggered, it never “re‑activates” because the only way to re‑activate is for `a` to be true again, which the constraint forbids.
+
+- **Combined meaning of the formula** –  
+  “Eventually, `a` becomes true at least once.  
+  After that first true instance, `a` never becomes true again (it is false in all subsequent states).  
+  Therefore `a` can appear at most once, and that occurrence is unavoidable.”
+
+---
+
+### Illustrative sequences
+
+| Execution (states indexed 0,1,…) | Satisfaction |
+|---------------------------------|--------------|
+| `a` true at state 2; false thereafter | ✔︎ (both constraints met) |
+| `a` never true | ✖︎ (`F a` fails) |
+| `a` true at states 1 and 3 | ✖︎ (`G(a→XG¬a)` violated at state 1: after 2, `a` appears again) |
+| `a` true at states 4, then `a` false forever | ✔︎ |
+
+---
+
+### Potential misunderstandings
+
+- **Thinking `G(a→XG¬a)` forces `a` to be false in the current state whenever it is ever true** – No; it only forces `a` to stay false *after* the current state. The current state may hold `a`.
+- **Believing the constraint becomes irrelevant after `F a` is satisfied** – No; the constraint is continuously active at *every* state because it is wrapped in a global `G`. It only activates its more demanding part when `a` becomes true, and that part never relaxes afterward.
+
+Thus, the formula expresses a **single, mandatory occurrence** of `a`, after which `a` is forever precluded.

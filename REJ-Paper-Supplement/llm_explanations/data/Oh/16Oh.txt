@@ -1,0 +1,33 @@
+**Original LTL formula**  
+`F !b`
+
+---
+
+### Rebuild meaning from the bottom of the tree up
+1. **Bottom node**: `!b`  
+   *This is the negation of the proposition `b` – it means “`b` is false” in the considered state.*
+
+2. **Apply the `F` (Eventually) operator**: `F !b`  
+   *The formula requires that there exists **some** state in the future (including possibly the present) where `!b` holds.*  
+   *While we are still before that state, `F !b` is not yet satisfied but it does not restrain the truth of `b` in the intervening states.  
+   Once a state with `b` false is reached, the formula becomes true and stays true from that point onward.*
+
+---
+
+### Refined natural‑language phrasing
+
+> **“Eventually, `b` must become false.”**
+
+**What this means in practice**
+
+| Situation | Evaluation | Implication |
+|-----------|------------|-------------|
+| The first state has `b = false` | `F !b` is true right away. | No further constraints; the property is satisfied immediately. |
+| `b` is true for several states then becomes false | Until the state where `b` turns false, `F !b` is not yet satisfied. | No restriction on `b` while waiting; the only obligation is that a future state with `b = false` must occur. |
+| `b` is true at every state forever | `F !b` is never satisfied. | The execution violates the property. |
+
+**Key points**
+
+* The formula imposes *no* constraint on the truth of `b` before the eventual false state; it merely demands that such a state will eventually appear.
+* Once that state is reached, the formula remains true forever; no further obligation remains.
+* A misinterpretation would be to think that every state before the false state must have `b` false; this is incorrect—those states may be either true or false.

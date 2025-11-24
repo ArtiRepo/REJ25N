@@ -1,0 +1,19 @@
+**Original LTL formula**  
+`b U !d`
+
+**Bottom‑up reconstruction**  
+- `!d` → “d is false at this state.”  
+- `b U !d` → “There must be a future state where `!d` holds, and in every state preceding that point, `b` must hold.”  
+  - `!d` itself imposes no restriction on `b` at the moment it becomes true; the requirement on `b` stops there.
+
+**Refined natural‑language explanation**  
+- “Continue to enforce `b` in every state until `d` first becomes false.  
+  When `d` turns false, the requirement on `b` disappears; from that point onward `b` may be true or false.”  
+
+**Behavioural notes**  
+- *Immediate satisfaction*: If `d` is already false in the current state, the formula is satisfied right away; no `b` constraint is needed at that instant.  
+- *Constraint lifetime*: As long as `d` is true, `b` must remain true in every state.  
+- *Violation scenarios*:  
+  - If `d` never becomes false, the formula is never satisfied.  
+  - If `b` becomes false at any state while `d` is still true, the formula is violated (even if `d` later turns false).  
+- *After satisfaction*: Once a state with `!d` is reached, the formula’s truth value is fixed to true, and future states are irrelevant to its satisfaction.

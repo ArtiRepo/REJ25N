@@ -1,0 +1,52 @@
+**Original LTL formula**  
+```
+a -> XXXa
+```
+
+**Bottom‑up reconstruction**
+
+1. `X a` – “a must hold in the next state.”  
+2. `X(X a)` – “a must hold two steps from now.”  
+3. `X(X(X a))` (denoted `XXXa`) – “a must hold three steps from now.”  
+4. `a -> XXXa` – “if a holds now, then a must hold three steps later.”
+
+**Natural‑language phrasing**
+
+> **If a is true in the current state, then a must also be true exactly after the next three transitions.**  
+
+**When does it impose a constraint?**  
+- Only when `a` is true now.  
+- The formula becomes a vacuous assertion if `a` is false now, imposing no requirement at all.
+
+**How it is evaluated**
+
+| Step | Requirement | Explanation |
+|------|-------------|-------------|
+| 0 (current) | check `a` | If `a` is false → formula true, no future constraint. |
+| 1 | evaluate `XXXa` after confirming `a` true | `a` must be true in state +3. |
+| 2 | evaluate hidden “two steps ahead” from `XXXa` | Not directly checked unless needed to verify `XXXa`. |
+| 3 | evaluate hidden “next state” from `XXXa` | Only needs to check that `a` holds in that state. |
+
+**Satisfying sequence example**
+
+```
+t0: a   (triggers requirement)
+t1: …
+t2: …
+t3: a   (holds three steps later, formula satisfied)
+```
+
+**Violating sequence example**
+
+```
+t0: a   (triggers requirement)
+t1: …
+t2: …
+t3: ¬a   (fails the requirement → formula violated)
+```
+
+**Key takeaways**
+
+- The implication guards the future obligation: when `a` is false now, the whole formula is satisfied without imposing any future requirement.  
+- When `a` is true now, the obligation becomes active and must be met precisely at time +3; it disappears once that future state is evaluated.  
+- Forgetting that the obligation only matters after the first `a` leads to misunderstanding its scope.

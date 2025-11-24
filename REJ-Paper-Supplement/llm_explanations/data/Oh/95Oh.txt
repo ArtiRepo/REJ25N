@@ -1,0 +1,36 @@
+**Original formula**  
+\( \neg F\;( i\;U\;j ) \)
+
+---
+
+### Bottom‑up reconstruction
+
+1. **\(i\;U\;j\)** – “\(j\) eventually becomes true, and until that moment every state contains \(i\)”.  
+   The pattern is false if either \(j\) never happens or some state before \(j\) violates \(i\).
+
+2. **\(F\,\phi\)** – “There exists a future state in which \(\phi\) is true”.  
+   Here \(\phi = i\;U\;j\), so \(F(i\;U\;j)\) says “there is a future point where \(j\) occurs and \(i\) has held continuously up to that point”.
+
+3. **\(\neg F\,\phi\)** – “\(\phi\) never becomes true in any future state”.  
+   Applied to the inner formula gives: “the pattern \(i\;U\;j\) never happens”.
+
+---
+
+### Natural‑language phrasing
+
+> **“It never occurs that \(i\) holds continuously until a \(j\) appears.”**  
+>  
+> Equivalently: *At no point in the execution can a \(j\) arise while all preceding states contain \(i\); either \(j\) never occurs, or whenever it does, \(i\) was false at some earlier step.*  
+
+**Constraint dynamics**
+
+- The formula imposes a global constraint: the system must never produce a run of \(i\)’s that ends with a \(j\).  
+- This constraint applies from the start and remains active for the entire execution; it does **not** cease after any particular state.  
+- If a violating sequence occurs (e.g., \(i, i, j\) with no preceding break in \(i\)), the formula becomes false immediately and stays false thereafter.  
+- A satisfying sequence (e.g., \(i, \neg i, j\), or no \(j\) at all) keeps the formula true at every point.
+
+**Common pitfalls**
+
+- Confusing \(\neg F\) with a “future initial” restriction: remember that \(\neg F\) means *no occurrence ever*.
+- Thinking that the constraint only matters while \(i\) is currently true: the prohibition targets the entire *pattern*, not just individual states.
+- Assuming the constraint disappears after a \(j\): it does not; the pattern is forbidden at all times.

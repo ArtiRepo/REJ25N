@@ -1,0 +1,55 @@
+**Original LTL formula**
+
+`b & X (a U c)`
+
+---
+
+### Bottom‑up reconstruction of meaning  
+
+1. **`a U c`** – “`c` must eventually become true, and until that moment **each** state must satisfy `a`.”  
+   *Once `c` appears, the obligation on `a` stops.*
+
+2. **`X (a U c)`** – “In the very next state, the sub‑formula `a U c` must hold.”  
+   *Thus, constraints on `a` and `c` only start applying from the next state onward.*
+
+3. **`b & X (a U c)`** – “`b` must be true in the current state, **and** the next state must satisfy `a U c`.”  
+   *Both parts are required simultaneously.*
+
+---
+
+### Refined natural‑language phrasing
+
+> **“The current state must satisfy `b`.  
+> In the next state, `a` must hold in every state until some future state where `c` becomes true; after `c` appears no further requirement on `a` remains.”**
+
+---
+
+### How the formula is evaluated and when constraints apply
+
+| Time | What is evaluated | Constraint in force |
+|------|-------------------|---------------------|
+| **0** (current) | `b` | `b` must hold now. |
+| **1** | `a U c` starts | `a` must hold in state 1, 2, … until a state with `c`. The requirement on `a` ends at the first `c`. |
+| Subsequent | `c` may or may not still hold | Once `c` has occurred, no further obligations on `a` (or `c`) are imposed.|
+
+- **Immediate satisfaction**: The formula is considered satisfied at a point if all required conditions hold from that point forward (viewed as an infinite trace).  
+- **Ongoing constraints**: Until `c` appears in the future, the system must keep `a` true; after `c`, that particular constraint disappears.
+
+---
+
+### Example sequences  
+
+| Sequence | Evaluation | Formula holds? |
+|----------|------------|----------------|
+| `t0: b` ; `t1: a`; `t2: a`; `t3: c` | `b` true at `t0`. `a` continually true until `c` at `t3`. | **Yes** – all conditions satisfied. |
+| `t0: ¬b` ; `t1: a`; `t2: c` | `b` fails at current state. | **No** – fails immediately. |
+| `t0: b` ; `t1: ¬a`; `t2: c` | `a` fails before the first `c`. | **No** – violates the `a U c` part. |
+| `t0: b` ; `t1: a`; `t2: a`; `t3: a` … forever | `c` never occurs. | **No** – `F(c)` part of `a U c` never satisfied. |
+
+---
+
+### Common misunderstandings highlighted
+
+* The conjunction does **not** mean “`b` must hold forever.” Only the next‑state part involves a temporal constraint; after the next state, `b` is no longer enforced.
+* The requirement on `a` only matters **up to** the first occurrence of `c`. After that, `a` may be true or false without affecting the formula.
+* If `c` never appears, the formula is unsatisfied regardless of how `a` behaves after the next state.

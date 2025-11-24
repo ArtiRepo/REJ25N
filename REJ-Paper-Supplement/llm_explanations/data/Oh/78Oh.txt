@@ -1,0 +1,33 @@
+**Original LTL formula**  
+`! G ! h`
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+| Tree level | Symbol | Translation | Meaning in execution |
+|-----------|--------|-------------|----------------------|
+| 1 | `h` | proposition | “\(h\) may be true or false in a given state.” |
+| 2 | `!h` | “\(h\) is false in this state.” | Forces that in the current state the proposition \(h\) does **not** hold. |
+| 3 | `G !h` | “\(h\) is false in **every** state.” | Imposes a persistent constraint: \(h\) can never become true in any future state. |
+| 4 | `! (G !h)` | “It is **not** true that \(h\) is always false.” | There **must exist** at least one state where \(h\) holds. |
+
+---
+
+### Refined natural‑language phrasing
+
+**“Eventually \(h\) becomes true; \(h\) cannot stay false forever.”**
+
+- The constraint is *active* until the first state where \(h\) is true.  
+- While all states seen so far satisfy \(!h\), the formula remains **false**.  
+- Once a state with \(h\) true is reached, the formula becomes **true** and stays true regardless of later states.  
+
+**Satisfying example:**  
+State 0: \(!h\)  
+State 1: \(!h\)  
+State 2: \(h\) → formula satisfied from state 2 onward.  
+
+**Violating example:**  
+All states: \(!h\) → formula never satisfied (remains false forever).  
+
+**Common misunderstanding:** People may think the formula demands \(h\) to stay false; the outer negation actually flips that, requiring at least one true \(h\).

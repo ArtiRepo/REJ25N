@@ -1,0 +1,29 @@
+**Original LTL formula**  
+`g U X m`
+
+---
+
+### Bottom‑up reconstruction  
+
+1. **\(X m\)** – “In the **very next state**, the proposition \(m\) must be true.”  
+2. **\(g U X m\)** – “The proposition \(X m\) must eventually become true, and **until that particular moment** every state must satisfy \(g\).  
+   When \(X m\) becomes true, the requirement on \(g\) ends.”
+
+---
+
+### Refined natural‑language phrasing  
+
+- **When evaluated at the current state,** the formula does **not** impose any immediate constraint on \(m\) or \(g\); it looks for a future point.  
+- **Execution is satisfied** if there is some position \(k\) such that:
+  - At position \(k\) the formula \(X m\) holds, which means *the state immediately after \(k\) (position \(k+1\)) must have \(m\) true*;
+  - For every position \(i\) with the current evaluation point \(\le i < k\), the proposition \(g\) must be true.
+- After the value of \(k\) is reached, the obligation on \(g\) ceases; future states may or may not satisfy \(g\) as long as the *past* constraint has already been met.
+- **Violation scenarios**:
+  1. \(g\) becomes false at some point before any state satisfies \(X m\); the formula cannot ever become true, so it fails.
+  2. There is no future state where \(X m\) holds; the “until” can never be satisfied, so the formula fails.
+  3. If \(X m\) holds at a position \(k\) but the *next* state (position \(k+1\)) does not satisfy \(m\), then \(X m\) is false and the formula fails at \(k\).
+
+---
+
+**Bottom line**:  
+“Let the system run until a point where one step ahead will satisfy \(m\). While you’re running toward that point, keep \(g\) true in every state. Once you reach the point where one step ahead has \(m\), the requirement on \(g\) ends; the formula is satisfied.”

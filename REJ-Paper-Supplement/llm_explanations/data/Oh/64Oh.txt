@@ -1,0 +1,23 @@
+**Original LTL formula**  
+```
+G( a -> XXXa )
+```
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **`a`** – an atomic proposition that may be true or false in the current state.  
+2. **`X a`** – `a` must be true in the *next* state (one step ahead).  
+3. **`X X a`** – `X a` must hold in the *next* state, i.e. `a` must be true two steps ahead.  
+4. **`X X X a` (or `XXXa`)** – `a` must be true three steps ahead.  
+5. **`a -> XXXa`** – an implication: if `a` is true now, then `a` must also be true exactly three steps later.  
+6. **`G( a -> XXXa )`** – the above implication must hold *at every state along the execution*; it is a global constraint over the whole run.
+
+**Refined natural‑language phrasing**  
+
+> “Throughout the entire execution, every time the condition `a` holds, it must also hold exactly three time steps later. If `a` never holds, the formula is trivially satisfied. If `a` holds at some state but fails to hold three steps ahead, the formula is violated.”
+
+When the formula is evaluated, the implication is checked at the current state.  
+- If `a` is false, the implication is automatically true (vacuously satisfied).  
+- If `a` is true, the system must ensure that `a` also becomes true in the state three steps ahead; otherwise a violation is reported.  
+
+Thus, the only non‑trivial constraint imposed by the formula is the requirement that any occurrence of `a` be followed, with a gap of exactly three transitions, by another occurrence of `a`. Once that future state is reached, the constraint for the current state ceases to apply.

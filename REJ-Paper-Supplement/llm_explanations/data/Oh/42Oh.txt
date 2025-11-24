@@ -1,0 +1,27 @@
+**Original LTL formula**  
+\[(y \,\&\, \neg d)\; \mid\; (y \Rightarrow d)\]
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - `y`: the proposition y must be true in the current state.  
+   - `d`: the proposition d must be true in the current state.
+
+2. **Negation**  
+   - `¬d`: d must be false in the current state.
+
+3. **Conjunction**  
+   - `y & ¬d`: both y is true *and* d is false in the current state.
+
+4. **Implication**  
+   - `y ⇒ d` (equivalently `¬y ∨ d`): if y is true, then d must also be true in the current state; otherwise the implication is automatically satisfied.
+
+5. **Disjunction**  
+   - `(y & ¬d) ∨ (y ⇒ d)`: either the pair “y true and d false” holds, **or** the implication “if y then d” holds.
+
+**Refined natural‑language phrasing**
+
+The formula says:  
+“At every state, either y holds while d does not, or if y holds then d must hold.”  
+
+Because the second alternative already covers the case where y is false, the whole formula is satisfied in all possible truth assignments to y and d; it imposes no constraint on the system.

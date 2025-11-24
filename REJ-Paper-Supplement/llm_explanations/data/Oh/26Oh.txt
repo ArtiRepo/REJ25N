@@ -1,0 +1,20 @@
+**Original LTL formula**  
+`X t => X y`
+
+### Rebuild meaning from the bottom of the tree up
+
+1. `t` – atomic proposition.  
+2. `X t` – “`t` must be true in the very next state”.  
+3. `y` – atomic proposition.  
+4. `X y` – “`y` must be true in the very next state”.  
+5. `X t => X y` – the implication: *if* the property on the left is true, *then* the property on the right must be true.
+
+### Refined natural‑language phrasing
+
+> **If the next state satisfies `t`, then that same next state must also satisfy `y`.**  
+> The formula imposes no constraints on the current state. It is checked right now: evaluate whether `t` holds in the immediate next state.  
+> - **If `t` is true in the next state**, the system is required to ensure that `y` is also true in that very next state.  
+> - **If `t` is false in the next state**, the implication is automatically satisfied, regardless of whether `y` holds.  
+
+Once the next state has been observed, the formula’s constraint no longer applies; subsequent states are not covered by this implication.  
+*Common misunderstanding:* believing that `y` must hold ever after, or that the implication constrains the current state. The correct interpretation is that both `t` and `y` are evaluated only in the next state, and the implication is enforced for that single future moment.

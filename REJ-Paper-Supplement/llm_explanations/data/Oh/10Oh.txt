@@ -1,0 +1,48 @@
+**Original LTL formula**  
+\[
+(d \;|\; \neg b)\; \mathbf{U}\; \neg a
+\]
+
+**Bottom‑up reconstruction**
+
+| Layer | Expression | Meaning |
+|-------|------------|---------|
+| 0 | \(d\), \(b\), \(a\) | atomic propositions |
+| 1 | \(\neg b\) | “\(b\) is false” |
+|   | \(\neg a\) | “\(a\) is false” |
+| 2 | \(d \;|\; \neg b\) | “\(d\) is true **or** \(b\) is false” |
+| 3 | \((d \;|\; \neg b)\; \mathbf{U}\; \neg a\) | “The proposition \(d \;|\; \neg b\) must hold at every state *until* the first state where \(\neg a\) (i.e., \(a\) is false) becomes true. Once \(\neg a\) occurs, no further constraints are imposed.”
+
+**Refined natural‑language phrasing**
+
+> **Until the first time \(a\) becomes false, the system must always satisfy “\(d\) is true or \(b\) is false”.**  
+> Once \(a\) is false, the formula is satisfied and the earlier requirement no longer applies.
+
+**Evaluating the formula**
+
+- **Checking at a state**: Look ahead to the first future state where \(a\) is false.  
+  - If such a state exists **and** every state before it satisfies “\(d\) or not \(b\)”, the formula is true.  
+  - If before the first false‑\(a\) state a state violates “\(d\) or not \(b\)”, or if no state with \(\neg a\) ever occurs, the formula is false.
+
+- **Immediate vs. ongoing constraints**:  
+  - *Immediate*: In any current state, the formula is *not* checked; it is a future‑looking condition.  
+  - *Ongoing*: While waiting for \(\neg a\) to hold, the system must continually ensure \(d \lor \neg b\).  
+  - *Stop*: Once \(\neg a\) becomes true, the ongoing constraint ceases; afterwards the formula is permanently satisfied.
+
+**Illustrative sequences**
+
+| Sequence (states) | Evaluation | Result |
+|-------------------|------------|--------|
+| \(d\), \(d\), \(\neg a\) | All intermediate states satisfy \(d\) | **True** |
+| \(d\), \(\neg b\), \(\neg a\) | All intermediate states satisfy \(d \lor \neg b\) | **True** |
+| \(d\), \(\neg b\), \(d\) (no \(\neg a\)) | No \(\neg a\) occurs | **False** |
+| \(d\), (!\(d\)), \(\neg a\) | Intermediate state violates \(d \lor \neg b\) | **False** |
+
+**Common misunderstandings**
+
+- Thinking the formula restricts the system *after* \(\neg a\).  
+  → The constraint ends exactly at the first \(\neg a\).
+- Believing the formula checks \(d \lor \neg b\) at the state where \(\neg a\) appears.  
+  → That state satisfies \(\neg a\) and is exempt from the left side.
+- Confusing “at least one future state” (as in \(F(p)\)) with “eventually first state” (as in \(\mathbf{U}\)).  
+  → \(\mathbf{U}\) requires a *specific* first state where the right side holds.

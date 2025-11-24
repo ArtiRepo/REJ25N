@@ -1,0 +1,15 @@
+**Original LTL formula**  
+`t => w`
+
+**Rebuild meaning from the bottom of the tree up**  
+- The leaves are the atomic propositions `t` and `w`.  
+- These are combined by the implication operator `=>`.  
+- No temporal operator (X, G, F, U, etc.) wraps the implication, so its scope is just the current state.
+
+**Refined natural‑language phrasing**  
+“**In the state where the formula is checked, if `t` holds, then `w` must also hold. If `t` is false, the implication is automatically satisfied regardless of `w`.**”
+
+- The formula is evaluated only at the present state; it imposes no constraints on future states.  
+- It holds in a sequence when the initial state satisfies the implication (either `t` is false or both `t` and `w` are true).  
+- It is violated when `t` is true but `w` is false in that same state.  
+- To enforce the pattern over all states, one would write `G(t => w)`.

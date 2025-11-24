@@ -1,0 +1,34 @@
+**Original LTL formula**  
+`d & X (c U a)`
+
+---
+
+### Bottom‑up reconstruction  
+
+| Subformula | Meaning (bottom‑up) |
+|-----------|--------------------|
+| `c U a`   | “Eventually `a` becomes true, and up to (but not after) the first state where `a` holds, `c` must be true in every state.” |
+| `X (c U a)` | “In the **next** state of the execution, the property `c U a` must hold.”  (The constraint applies starting at the following state and persists until `a` occurs.) |
+| `d & X (c U a)` | “`d` must be true **now**, and from the next state onward `c` must be true at every step until `a` finally becomes true.  Once `a` holds, the requirement on `c` stops; subsequent values of `d` no longer matter.” |
+
+---
+
+### Refined natural‑language phrasing  
+
+- **Immediate requirement**: `d` is true in the current state.  
+- **Future requirement**: Beginning with the next state, the system must satisfy “`c` holds in every state until a point where `a` becomes true.”  
+  * As long as `a` has not yet occurred, every state must have `c` true.  
+  * The moment `a` first becomes true, the `c` requirement is lifted (the `U` is satisfied).  
+  * After that, no further constraint is imposed by this formula (the truth of `d` no longer matters).  
+
+**Satisfying example**  
+- State 0: `d` true.  
+- State 1: `c` true, `a` false.  
+- State 2: `c` true, `a` false.  
+- State 3: `c` false (allowed because `a` is true now).  
+
+**Violating example**  
+- State 0: `d` false → formula violated immediately (no need to look at future).  
+- Or: State 0: `d` true; State 1: `c` false while `a` still false → violation because `c` must stay true until `a` occurs.  
+
+The key misconception to avoid: the `X` operator only starts the `c U a` constraint in the **next** state; it does not lock `c` or `a` in the current state, and once `a` becomes true, the `c` requirement is no longer enforced.

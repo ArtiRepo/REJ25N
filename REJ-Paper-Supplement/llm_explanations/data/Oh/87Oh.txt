@@ -1,0 +1,31 @@
+**Original LTL formula**  
+`a => XX G b`
+
+---
+
+### Rebuild meaning from the bottom of the tree up
+
+1. **`G b`** – From a given point onward, every state must satisfy `b`.  
+2. **`XX G b`** – In the state that is two steps *after* the current one, the property `G b` must hold, meaning that from that point on, `b` must be true in every subsequent state.  
+3. **`a => XX G b`** – The implication says:  
+
+   *If* the condition `a` is true in the **current** state, *then* the property `XX G b` must be satisfied.  
+   If `a` is false, the implication is automatically true and imposes no requirement on any variable.
+
+---
+
+### Refined natural‑language phrasing
+
+> **If `a` holds now, then starting two steps from now, `b` must hold in every future state.**  
+
+> Otherwise, if `a` is false, the formula causes no constraints on `b`. The obligation on `b` only arises after the two‑step delay and then remains forever.  
+
+---
+
+### Key points to remember  
+
+* **Immediate satisfaction** – When `a` is false, the implication is satisfied immediately; no constraint is imposed on `b`.  
+* **Constraining phase** – When `a` is true, the formula only starts to constrain the system two steps later; all states before that point may be arbitrary.  
+* **Ongoing constraint** – From the state two steps ahead onward, `b` must stay true in every state; this requirement never lifts.  
+* **Violation scenario** – If `a` is true but `b` is **not** true in every state from the second successor onward, the formula is violated.  
+* **Common misunderstanding** – It is easy to think that `b` must start being true immediately after `a`; the two‑step delay (`XX`) is the critical nuance here.

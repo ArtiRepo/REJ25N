@@ -1,0 +1,28 @@
+**Original LTL formula**  
+\[
+a \;|\; b \;|\; !c
+\]
+
+---
+
+### Bottom‑up rebuilding of the tree  
+1. **Leaves** – atomic propositions:  
+   - \(a\)  
+   - \(b\)  
+   - \(c\)  
+2. **Negation** – \(!c\) (c must be false).  
+3. **Disjunction** – first combine \(a\) and \(b\): \(a \;|\; b\).  
+4. **Disjunction** – combine the result with \(!c\): \((a \;|\; b) \;|\; !c\).  
+
+This is the full parse tree; there are no temporal operators.
+
+---
+
+### Refined natural‑language phrasing  
+"**In the current state, at least one of the following must hold: a, b, or not c**."
+
+*Because there are no temporal operators*, the formula is checked only in the state where it is evaluated.  
+- **Satisfied**: if \(a\) is true, or \(b\) is true, or \(c\) is false.  
+- **Violated**: if \(a\) is false, \(b\) is false, and \(c\) is true—all three disjuncts fail.  
+
+No future or past constraints are imposed; once the formula is evaluated, no ongoing restrictions remain.

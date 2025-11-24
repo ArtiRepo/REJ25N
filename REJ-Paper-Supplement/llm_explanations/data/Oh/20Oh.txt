@@ -1,0 +1,47 @@
+**Original LTL formula**  
+\( G\,t \;|\; F\,w \)
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **Atomic propositions**  
+   * \(t\) – some variable that can be true or false in each state.  
+   * \(w\) – another variable that can be true or false in each state.  
+
+2. **Temporal operators**  
+   * \(G\,t\) (“globally \(t\)”) – requires \(t\) to be true in **every** state of the whole execution.  
+   * \(F\,w\) (“finally \(w\)”) – requires that there is **at least one** future state where \(w\) becomes true.  No requirement on the states before that one.
+
+3. **Disjunction**  
+   * \(G\,t \;|\; F\,w\) – the whole formula is true if **either** side is true.  
+   * If the left side is true, the right side can be anything;  
+   * if the left side fails, the right side must hold for the formula to succeed.
+
+---
+
+### Refine the natural‑language phrasing  
+
+**“Either** \(t\) is true in every state of the execution, **or** there is some future state (possibly the current one) where \(w\) becomes true.**  
+
+* **When the formula imposes a constraint on variables**  
+  * If the execution satisfies \(G\,t\): the constraint is that \(t\) must remain true forever.  
+  * If \(G\,t\) fails, then the only remaining requirement is the existence of a state with \(w\); no constraint is imposed on \(t\) afterward.  
+
+* **How the formula is evaluated at the moment it is checked**  
+  * At any time step, we look ahead at the *entire* future to see whether the global condition \(t\) will always hold, and whether there will eventually be a \(w\).  
+  * The truth value can change:  
+    * If at first \(t\) was violated, \(G\,t\) is forever false, but \(F\,w\) may still become true later, satisfying the disjunction.  
+    * If \(t\) has never been violated yet, \(G\,t\) might still hold; as soon as a violation appears, \(G\,t\) fails, and the formula then relies on \(F\,w\).  
+
+* **Immediate satisfaction vs. ongoing constraints**  
+  * Immediate satisfaction: once a state satisfies \(w\), the disjunction becomes true and remains true for all later states, regardless of subsequent \(t\) values.  
+  * Ongoing constraints:  
+    * While \(G\,t\) is still the active contributor, every state must keep \(t\) true.  
+    * Once \(w\) becomes true, the constraint on \(t\) is lifted, even if \(t\) later becomes false.
+
+* **Potential misunderstanding**  
+  * One might think that \(w\) must be true *before* any false‑\(t\) state. In fact, any false‑\(t\) state immediately *disqualifies* the \(G\,t\) side, but the formula can still be satisfied if a \(w\) appears later, even after many false‑\(t\) states.  
+  * Conversely, if a \(w\) never occurs, the formula depends solely on \(t\) remaining true forever; a single false‑\(t\) state will violate the whole formula.
+
+---

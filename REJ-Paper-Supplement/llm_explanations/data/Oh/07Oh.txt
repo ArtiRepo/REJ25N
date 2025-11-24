@@ -1,0 +1,14 @@
+- **Original LTL formula**  
+  \( a \; U \; c \)
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. Bottom nodes: `a` and `c` are atomic propositions. They impose no constraints on their own; they simply state “`a` is true in this state” or “`c` is true in this state.”  
+  2. The top node: `U` is the *Until* operator. Its semantics are: “there must be some future state where the right‑hand operand (`c`) is true, and in every state up to but not including that state the left‑hand operand (`a`) must be true.”
+
+- **Refined natural‑language phrasing**  
+  “From now on, `a` must stay true in every state until eventually `c` becomes true. Once `c` is true, the requirement on `a` disappears.  
+  *Immediate satisfaction:* if `c` is true in the current state, the formula is true right away and no further constraint is needed.  
+  *Ongoing constraint:* as long as `c` has not yet occurred, each state must satisfy `a`.  
+  *Violation:* the formula fails if at any point before the first `c` occurs `a` is false, or if there is no future state where `c` becomes true (even if `a` stays true forever).”
+
+This explanation shows exactly when the formula forces behavior, when it is already satisfied, and when it is broken.

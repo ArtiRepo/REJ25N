@@ -1,0 +1,30 @@
+**Original LTL formula**  
+\(X a \ \&\  !G b\)
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - \(a\): a property that may or may not hold in the current state.  
+   - \(b\): another property with no immediate positional constraint.
+
+2. **Negated globally**  
+   - \(G b\): “\(b\) holds in every state along the execution.”  
+   - \(!G b\): “It is **not** the case that \(b\) holds everywhere,” i.e., “there exists at least one state where \(b\) is false.”
+
+3. **Next‑state operator**  
+   - \(X a\): “\(a\) must be true in the very next state (the state immediately after the current one).”  
+   - No requirement on \(a\) in the present state; the constraint applies only to the next state.
+
+4. **Conjunction**
+
+   - \(X a \ \&\  !G b\): “Both of the above conditions must hold simultaneously on the same execution.”
+
+**Refined natural‑language phrasing**
+
+The system must satisfy two separate, time‑dependent conditions:
+
+1. **Immediate future requirement** – In the very next state, the proposition \(a\) must be true. (Nothing is specified about \(a\) now.)
+
+2. **Non‑universal past requirement** – Throughout the entire execution, there must be at least one state where \(b\) is false. In other words, \(b\) cannot hold in every state; there must exist a counterexample state where \(\neg b\) holds.
+
+Both constraints together form the formula \(X a \ \&\  !G b\). If either the next‑state condition fails (i.e., \(a\) is false in the next state) or the “somewhere‑false‑\(b\)” condition fails (i.e., \(b\) is true in all states), the whole formula is violated. Otherwise, the formula holds.

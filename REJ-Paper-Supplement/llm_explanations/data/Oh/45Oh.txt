@@ -1,0 +1,31 @@
+**Original LTL formula**  
+```
+X (!i) | X (j)
+```
+
+**Bottom‑up breakdown**
+
+| Symbol | Meaning (info required) | Evaluation at a state |
+|--------|--------------------|-----------------------|
+| `i`, `j` | atomic propositions | value of `i` / `j` in the *next* state |
+| `!` | negation | `!i` is true iff `i` is false in the next state |
+| `X` | “next” | `X(!i)` requires `!i` to hold one step ahead; `X(j)` requires `j` to hold one step ahead |
+| `|` | disjunction | the whole formula is true if either `X(!i)` **or** `X(j)` is true |
+
+**Refined natural‑language description**
+
+At the current moment the formula imposes a constraint only on the *next* state: that state must have either **i false** or **j true** (or both).  
+The formula is satisfied in the current state if *either* of the following holds in the next state:
+
+* `i` is false, or
+* `j` is true.
+
+If the next state makes both `i` true and `j` false, the formula is violated.  
+Once the next state is examined, the formula’s constraint no longer applies to later states; there are no ongoing obligations.  
+
+**Example sequences**
+
+- Satisfying: next state = `(i = false, j = false)` → satisfies `X(!i)`;  
+  next state = `(i = true, j = true)` → satisfies `X(j)`.
+
+- Violating: next state = `(i = true, j = false)` → neither `!i` nor `j` holds, so the disjunction is false.

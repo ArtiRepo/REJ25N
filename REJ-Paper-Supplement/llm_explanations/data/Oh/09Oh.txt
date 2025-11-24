@@ -1,0 +1,27 @@
+**Original LTL Formula**  
+\[
+(c \land b)\;U\;a
+\]
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+| Element | Meaning | How it is evaluated |
+|--------|---------|---------------------|
+| \(c\) | Proposition *c* is true in the current state. | Immediate check at the current state. |
+| \(b\) | Proposition *b* is true in the current state. | Immediate check at the current state. |
+| \(c \land b\) | Both *c* **and** *b* are true in the current state. | Requires that both hold at each state examined so far. |
+| \(a\) | Proposition *a* is true in the current state. | Immediate check at the current state. |
+| \((c\land b)\;U\;a\) | *a* must eventually become true; until that very state, every state must satisfy both *c* and *b*. | Evaluated over the execution trace:  
+1. Scan states forward until the first state where *a* holds.  
+2. All states before that point must have *c* and *b* true.  
+3. Once *a* occurs, the requirement stops – no further constraints on *c* or *b*. |
+
+---
+
+### Refined natural‑language phrasing  
+
+> **“Eventually *a* becomes true, and until the first state where *a* is true, both *c* and *b* must be true in every state.”**  
+
+This captures that the formula constrains the system only up to the moment that *a* holds; thereafter no obligation remains on *c* or *b*. If *a* never occurs, or if either *c* or *b* fails before *a*, the formula is violated. If *a* appears immediately (in the current state), the antecedent \(c \land b\) is vacuously satisfied, and the formula holds immediately.

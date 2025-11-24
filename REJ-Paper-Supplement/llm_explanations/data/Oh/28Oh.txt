@@ -1,0 +1,31 @@
+**Original LTL formula**  
+```
+X (y ⇒ (x ∧ w))
+```
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - `y` – proposition that may be true or false in any state.  
+   - `x` – proposition that may be true or false.  
+   - `w` – proposition that may be true or false.
+
+2. **Conjunction**  
+   - `x ∧ w` is true only when **both** `x` and `w` are true in the same state.
+
+3. **Implication**  
+   - `y ⇒ (x ∧ w)` is false only when `y` is true **and** `x ∧ w` is false.  
+   - It is vacuously true when `y` is false, regardless of `x` or `w`.
+
+4. **Next operator**  
+   - `X (…)` forces the sub‑formula to be true in the **very next state** (state *t+1* when the formula is checked at state *t*).  
+   - No requirement is imposed on the current state (state *t*) or on states beyond *t+1*.
+
+**Refined natural‑language phrasing**
+
+- “In the very next state, if **y** holds, then **both x and w** must hold as well.”  
+- The formula does **not** constrain the current state; it only checks the next state.  
+- The constraint applies **only** to that immediately following state; there is no ongoing requirement on later states.  
+- If the next state satisfies the implication (y false, or y true with x and w true), the formula is satisfied at the current point.  
+- If the next state violates the implication (y true but either x or w false), the formula is violated at the current point and the execution is rejected with respect to this formula.  
+- The truth value is evaluated only at the moment it is checked; once the next state has been examined, the constraint no longer applies.

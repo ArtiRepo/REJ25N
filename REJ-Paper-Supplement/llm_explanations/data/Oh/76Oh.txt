@@ -1,0 +1,10 @@
+- **Original LTL formula**  
+  `G(a -> X!b)`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. `X!b` – “b must be false in the very next state.”  
+  2. `a -> X!b` – “if a is true in the current state, then b must be false in the next state; if a is false, no requirement about b in the next state.”  
+  3. `G(a -> X!b)` – “in every state of the execution, the implication ‘if a then in the next state b is false’ must hold.”
+
+- **Refined natural‑language phrasing**  
+  *In every instant of the run, whenever a holds, the very next instant must not have b. If a does not hold, nothing is required about b in the following instant. The requirement clears after the following instant, unless a holds again at a later time.*

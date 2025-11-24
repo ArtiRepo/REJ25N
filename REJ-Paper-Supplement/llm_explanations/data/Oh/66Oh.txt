@@ -1,0 +1,18 @@
+**Original LTL formula**  
+`F a ∧ F b`
+
+**Rebuild meaning from the bottom of the tree up**  
+
+1. **\(a\)** – “\(a\) is true in the current state.”
+2. **\(b\)** – “\(b\) is true in the current state.”
+3. **\(F a\)** – “There is at least one future state where \(a\) holds.”  
+   - At the moment the formula is checked, no constraint is imposed yet.  
+   - Once a state satisfying \(a\) is reached, the remaining obligation of \(F a\) disappears.
+4. **\(F b\)** – “There is at least one future state where \(b\) holds.”  
+   - Analogous to \(F a\): no immediate constraint; satisfied once a \(b\)-state occurs.
+5. **\(F a ∧ F b\)** – “Both of the following must be true somewhere in the future:  
+   - there is a state where \(a\) holds, and  
+   - there is a state where \(b\) holds.”
+
+**Refined natural‑language phrasing**  
+"At some point in the future, the proposition \(a\) will become true, and at some (possibly the same or a different) future point, the proposition \(b\) will become true. The two eventualities are independent: each is satisfied once its respective proposition becomes true, after which its obligation is lifted."

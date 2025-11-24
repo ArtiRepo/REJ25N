@@ -1,0 +1,21 @@
+**Original LTL formula**  
+\(X a \; \& \; b\)
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Leaf nodes**  
+   - \(b\): the proposition \(b\) must hold *in the current state*.  
+   - \(X a\): the proposition \(a\) must hold *in the very next state*; it places no restriction on the current state.
+
+2. **Boolean operator \(\&\)**  
+   - Both child sub‑formulas must be satisfied simultaneously for the conjunction to be true.
+
+**Natural‑language phrasing (refined)**  
+
+"**The current state must satisfy \(b\), and in the next state \(a\) must hold.**"
+
+- **Constraint on the current state:** \(b\) has to be true now; otherwise the formula is immediately false.  
+- **Constraint on the future state:** the truth of the formula depends on whether \(a\) becomes true in the next state.  
+- **Evaluation moment:** when the formula is checked, \(b\) is evaluated immediately; the satisfaction of \(X a\) is deferred until the next state.  
+
+If \(b\) is true now and \(a\) is true in the next state, the formula holds; otherwise it fails. The constraint on \(a\) applies only up to that next state and does not linger beyond.

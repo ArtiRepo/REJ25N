@@ -1,0 +1,27 @@
+**Original LTL formula**  
+`X(!g | !j)`
+
+---
+
+### Rebuild meaning from the bottom of the tree up
+
+| Symbol | Immediate meaning (at the state where it is evaluated) | Effect when lifted by higher operators |
+|--------|--------------------------------------------------------|----------------------------------------|
+| `g`    | Atomic proposition `g` is true in that state.         | None yet.                              |
+| `!g`   | `g` is false in that state.                           | Contributes to the OR condition.       |
+| `j`    | Atomic proposition `j` is true in that state.         | None yet.                              |
+| `!j`   | `j` is false in that state.                           | Contributes to the OR condition.       |
+| `!g | !j` | In that state, at least one of `g` or `j` is false (they may both be false). | The whole expression must hold.       |
+| `X(!g | !j)` | When the formula is tested **now**, look at the **next** state: in that next state, the condition `!g | !j` must hold. | The formula is satisfied or violated only by the next state; no further constraints. |
+
+---
+
+### Refined natural‑language phrasing
+
+**“In the next state, at least one of the variables **g** or **j** must be false.”**
+
+- The current state places **no** restriction on `g` or `j`.
+- At the instant the formula is evaluated, the system examines the *immediate* next state.
+- If `g` is false, or `j` is false, or both are false, the formula is true and the system continues without further obligation concerning these variables.
+- If both `g` and `j` are true in the next state, the formula is false and the run violates the specification.
+- After that next state has been inspected, no further constraints from this formula apply.

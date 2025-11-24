@@ -1,0 +1,38 @@
+**Original LTL formula**
+
+\[
+F (d \Rightarrow \neg h)
+\]
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **Inner formula \(d \Rightarrow \neg h\)**  
+   *If* \(d\) is true *then* \(h\) must be false.  
+   Semantically, the implication holds in a state whenever either  
+   – \(d\) is false, **or**  
+   – \(d\) is true and \(h\) is false.  
+   The only way the implication is false is **exactly** when both \(d\) and \(h\) are true in the same state.
+
+2. **Outer operator \(F\)**  
+   *There exists at least one future state* (possibly the current one) where its body—that is, the implication—is true.  
+   Thus, the formula does **not** require the implication to hold at every state; it only requires that somewhere in the future, the implication is satisfied.
+
+---
+
+### Refined natural‑language phrasing
+
+*“The system must eventually reach a point where **it is not the case that both \(d\) and \(h\) are true at the same time**.”*
+
+* In every state prior to that point, the formula is not yet satisfied, so **no constraint is imposed** on \(d\) or \(h\) by this formula.
+* At the point where either \(d\) is false or \(h\) is false, the implication holds, satisfying the \(F\) requirement; after that point the formula remains satisfied, and its constraint no longer applies.
+* A sequence that never contains a state with \(d\bigsqcup h\) **fails** the formula (e.g., an infinite run where \(d\) and \(h\) are always true).  
+* A sequence that contains at least one state where \(d\) is false or \(h\) is false **succeeds** (e.g., any sequence that eventually switches “off” either \(d\) or \(h\)).  
+
+**Key takeaways**
+
+- The formula only cares about a **single** future state.  
+- Until that state is reached, there is **no restriction** on the values of \(d\) and \(h\).  
+- Once that state is found, the requirement is satisfied forever; further states are unconstrained by this formula.  
+- Misconception alert: interpreting the formula as imposing \(d \Rightarrow \neg h\) at every point would be incorrect; it requires the implication to hold **only at some** future point.

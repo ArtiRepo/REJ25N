@@ -1,0 +1,63 @@
+**Original LTL formula**  
+`a U Gb`
+
+---
+
+### Step‑by‑step reconstruction (bottom‑up)
+
+1. **Inner operator**: `G b`  
+   - “From that state onward, `b` is true in **every** state.”  
+   - When this holds, it never ceases to be required.
+
+2. **Next up**: `a U (G b)`  
+   - “There must be a future state where `G b` becomes true, *and*  
+     until (but not including) that state, `a` must be true in **every** state.”  
+   - At the moment that `G b` holds, the obligation on `a` disappears.
+
+3. **Whole formula** (`a U Gb`)  
+   - “Continue to keep `a` true until we reach a point from which `b` remains true forever.”  
+   - At the point where `G b` starts, the formula requires that `b` be true always thereafter; after that point, the only ongoing requirement is the perpetual truth of `b`.
+
+---
+
+### Natural‑Language Phrasing (refined)
+
+> **“Maintain `a` at every state until you reach a state from which `b` will remain true forever; from that point onward you need only keep `b` true (interval before that point: `a` must hold continuously).**"
+
+---
+
+### When the formula imposes constraints
+
+| Phase | Constraint imposed | When it stops |
+|-------|--------------------|---------------|
+| Until `G b` becomes true | `a` must be true in every state | At the first state where `G b` holds |
+| From that state onward | `b` must stay true forever (i.e., `G b`) | Never; the requirement is permanent after the transition |
+
+---
+
+### Evaluation and truth‑value dynamics at the checking time
+
+- **Checking point**: We look ahead to find a future state `k` such that `G b` holds at `k`.  
+- **During evaluation**:  
+  * If `G b` already holds now (i.e., `b` is forever true from the current state), the formula is satisfied immediately and the “`a` until” part is vacuous – `a` does **not** have to hold now.  
+  * Otherwise, the current state must satisfy `a`, and we must continue observing `a` until the upcoming state where `G b` first becomes true.  
+- **After the transition point**: Satisfaction depends only on `b` staying true forever; the truth value of `a` is irrelevant.
+
+---
+
+### Example sequences
+
+| Sequence | Current satisfaction of `a U Gb` | Reason |
+|----------|----------------------------------|--------|
+| `a a a b b b …` | Satisfied | `G b` becomes true at the first `b`; all prior states satisfy `a`. |
+| `a a ¬a b b b …` | Violated | `a` fails before `G b` is reached. |
+| `b b b …` | Satisfied immediately | `G b` holds at the current state, so no `a` needed. |
+| `¬a a a …` with no eventual `b` | Violated | No future `G b`; the until condition can never be fulfilled. |
+
+---
+
+**Key takeaways**
+
+* `a U Gb` stresses *continuous* holding of `a` **until** a horizon from which `b` is forever true.  
+* The obstacle to satisfaction is either an early failure of `a` or the absence of any future `G b`.  
+* Once the horizon is reached, the only lasting obligation is the perpetual truth of `b`; the obligation on `a` disappears.

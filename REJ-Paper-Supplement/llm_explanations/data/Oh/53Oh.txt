@@ -1,0 +1,56 @@
+**Original LTL Formula**  
+`Fa -> Gb`
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **Atomic propositions**  
+   - `a` – “the property *a* holds in the current state.”  
+   - `b` – “the property *b* holds in the current state.”  
+
+2. **Future operator**  
+   - `Fa` – “there will be at least one future state where *a* is true.”  
+
+3. **Globally operator**  
+   - `Gb` – “*b* is true in every state of the entire execution”.
+
+4. **Implication**  
+   - `Fa -> Gb` – “If the future property `Fa` is satisfied, then the global property `Gb` must also be satisfied; otherwise the implication is automatically true.”
+
+---
+
+### Refined natural‑language phrasing  
+
+> **If the system will eventually observe property *a*, then property *b* must hold in every state of the execution (before, during, and after that observation).**  
+>  
+> In other words, the formula is **satisfied** in two cases:  
+
+> 1. Property *a* never becomes true in any future state – then the implication is true regardless of *b*.  
+> 2. Property *a* becomes true at some point *and* property *b* is true in every state of the execution – then the implication holds.  
+
+> The formula is **violated** only when *a* eventually occurs **and** there exists at least one state (may be before or after that occurrence) where *b* is false.  
+
+---
+
+### Illustrative execution traces  
+
+| Trace (states) | `Fa`? | `Gb`? | Formula `Fa → Gb`? | Explanation |
+|----------------|-------|-------|--------------------|-------------|
+| `¬a ¬b, ¬a β, …` | No | – | **True** | *a* never holds → implication true. |
+| `b, b, a, b, …` | Yes | Yes | **True** | *a* occurs; *b* true everywhere. |
+| `b, ¬b, a, …` | Yes | No | **False** | *a* occurs but *b* false at state 2 → violation. |
+| `b, a, ¬b, …` | Yes | No | **False** | *a* occurs; *b* false at state 3 → violation. |
+| `¬a, ¬b, a,  …` | Yes | No | **False** | *a* occurs; *b* never true → violation. |
+| `¬a, ¬b, …` | No | No | **True** | *a* never occurs → implication true. |
+
+---
+
+### Key take‑aways  
+
+* The implication imposes **no requirement on `b` until we know that `a` will eventually occur**.  
+* Once it becomes *known* that `Fa` will be true, the entire execution is required to satisfy `Gb`.  
+* If a state with `¬b` is observed before `a` happens, the formula **has already failed** because `Gb` is false at that point.  
+* If `a` never occurs, the system is free to let `b` fluctuate arbitrarily.  
+
+This concise formulation captures both the *when* the constraints apply and *when* they cease.

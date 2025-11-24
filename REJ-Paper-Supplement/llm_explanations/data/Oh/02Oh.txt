@@ -1,0 +1,25 @@
+**Original LTL formula**  
+\( \mathbf{X}\,b \;\Rightarrow\; \neg\,\mathbf{X}\,d \)
+
+**Rebuilding meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - \(b\): “\(b\) is true in the current state.”  
+   - \(d\): “\(d\) is true in the current state.”
+
+2. **Next operator**  
+   - \(\mathbf{X}\,b\): “\(b\) must be true in the *very next* state.”  
+   - \(\mathbf{X}\,d\): “\(d\) must be true in the *very next* state.”
+
+3. **Negation**  
+   - \(\neg\,\mathbf{X}\,d\): “It must *not* be the case that \(d\) is true in the next state,” i.e., “\(d\) is false in the next state.”
+
+4. **Implication**  
+   - \(\mathbf{X}\,b \;\Rightarrow\; \neg\,\mathbf{X}\,d\):  
+     “If the condition that \(b\) holds in the next state is satisfied, then the condition that \(d\) is false in that same next state must also be satisfied.”
+
+**Refined natural‑language phrasing**
+
+*“If, in the next step, the variable \(b\) becomes true, then in that same next step the variable \(d\) must be false. If \(b\) is not true in the next step, the formula places no restriction on \(d\) in that step.”*
+
+This statement clarifies that the constraint is evaluated immediately at the current state, applies only to the following state, and ceases to apply once the next state has been examined (or if the antecedent fails, the whole implication holds vacuously).

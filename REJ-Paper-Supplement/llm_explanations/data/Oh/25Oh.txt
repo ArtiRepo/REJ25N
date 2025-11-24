@@ -1,0 +1,12 @@
+- **Original LTL formula**  
+  `!X t`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. **Bottom:** `t` – the atomic proposition `t` is evaluated in a state.  
+  2. `X t` – “`t` must be true **in the very next state**.”  
+  3. `!X t` – “It is **not** the case that `t` is true in the next state.”  
+     Therefore the formula demands that `t` be false **in the next state**.
+
+- **Refined natural‑language phrasing**  
+  **"t is false in the next state."**  
+  This statement imposes a one‑step constraint: at the current state, the system must ensure that the proposition `t` will not be true in the following state. The constraint applies only to that immediate next state; if `t` is false there, the formula is satisfied and no further obligation regarding `t` follows. If `t` becomes true in the next state, the formula is violated. The current state itself is unconstrained by this formula.

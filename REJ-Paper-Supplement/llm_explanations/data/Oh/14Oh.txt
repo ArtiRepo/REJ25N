@@ -1,0 +1,45 @@
+**LTL formula**  
+\[
+(d \;U\; c)\;|\;(a\;U\;\neg c)
+\]
+
+---
+
+### Rebuilding meaning (bottom‑up)
+
+| Subformula | Intuition |
+|------------|-----------|
+| \(c\) | “\(c\) is true in the current state.” |
+| \(\neg c\) | “\(c\) is false in the current state.” |
+| \(d\) | “\(d\) holds in the current state.” |
+| \(a\) | “\(a\) holds in the current state.” |
+| \(d \;U\; c\) | “\(c\) will become true at some future step, and every step **before** that step must have \(d\) true.”  As soon as the first \(c\) appears, the constraint from this part ends. |
+| \(a \;U\; \neg c\) | “\(\neg c\) will become true at some future step, and every step **before** that step must have \(a\) true.”  The constraint ends when the first \(\neg c\) (i.e., a state where \(c\) is false) materialises. |
+| \((d \;U\; c) \;|\; (a \;U\; \neg c)\) | “Either the first until condition holds **or** the second until condition holds.”  The whole formula is satisfied if at least one of the two until sub‑formulas is true.  Once either sub‑formula becomes true, no further obligation is imposed by the whole formula. |
+
+---
+
+### Refined natural‑language description
+
+The specification demands **one of two possible behaviours**:
+
+1. **Maintain \(d\) until \(c\) occurs**  
+   • Wait for a state where \(c\) becomes true.  
+   • Until that state, \(d\) must be true in every earlier state.  
+   • When the first \(c\) is reached, the obligation of this part disappears.  
+
+2. **Maintain \(a\) until \(c\) becomes false**  
+   • Wait for a state where \(c\) is false (i.e., \(\neg c\)).  
+   • Until that state, \(a\) must be true in every earlier state.  
+   • At the first \(\neg c\), this part of the obligation ends.  
+
+**Overall rule**  
+The running system satisfies the formula as soon as **either** of the above behaviours is realised. If neither \(c\) ever becomes true nor \(c\) ever becomes false (i.e., \(c\) is perpetually true or perpetually false), the formula is never satisfied because neither until condition can be fulfilled.  
+
+**Important points for evaluation**
+
+- At the moment the formula is checked, we cannot yet know which future state will satisfy the corresponding \(U\)-condition.  
+- If the current state already satisfies the consequent of an \(U\)-formula (e.g., \(c\) now or \(\neg c\) now), that \(U\)-formula is true immediately, and no prior constraint is enforced (the “before” part is vacuously satisfied).  
+- Once one of the two sub‑formulas becomes true, the entire disjunction becomes true and no further constraints are imposed by this formula.  
+
+This captures both the **immediate possibility** of satisfaction and the **ongoing constraints** that persist until the relevant event occurs.

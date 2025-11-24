@@ -1,0 +1,27 @@
+**Original LTL formula**  
+`X (t | w)`
+
+---
+
+### Bottom‑up reconstruction  
+
+1. **Atomic level**  
+   - `t` and `w` are proposition atoms – their truth is evaluated in whichever state the formula is currently at.  
+
+2. **Disjunction**  
+   - `t | w` means “at the state being examined, either `t` is true, `w` is true, or both are true.”  
+
+3. **Next operator**  
+   - `X( … )` moves the evaluation one step forward: it ignores the current state and requires the inner formula to hold **exactly in the very next state**.
+
+Combining these, `X(t | w)` says: “Look at the state that comes immediately after the current one; in that state, `t` or `w` (or both) must be true.”
+
+---
+
+### Refined natural‑language phrasing  
+
+- **Immediate constraint** – At the instant you evaluate the formula, nothing is demanded of the current state.  
+- **Forward constraint** – As soon as the system moves to the next state, the requirement that *either `t` or `w` holds* becomes active.  
+- **Termination of constraint** – The requirement is only for that single next state; once that state satisfies the disjunction, the constraint ends, and no further obligations are imposed by this formula.
+
+Thus, `X(t | w)` is satisfied if the next state contains at least one of the propositions `t` or `w`; it is violated if the next state contains neither. The formula imposes no restrictions on the current state.

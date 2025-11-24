@@ -1,0 +1,18 @@
+- **Original LTL formula**  
+  \[
+  G (\lnot i) \;|\; F (f\, U\, i)
+  \]
+
+- **Rebuild meaning (bottom‑up)**  
+
+  1. **\(\lnot i\)** – “\(i\) is false in this state.”  
+  2. **\(G(\lnot i)\)** – “\(i\) is never true in *any* state of the execution.”  
+  3. **\(f\,U\,i\)** – “From the current state onward, \(f\) holds in every state *until* a state where \(i\) becomes true; that final state must satisfy \(i\).”  
+  4. **\(F(f\,U\,i)\)** – “There is *some future* state where the pattern \(f\,U\,i\) holds – i.e., there will eventually be an \(i\) that is preceded only by \(f\)’s.”  
+  5. **\(G(\lnot i)\;|\;F(f\,U\,i)\)** – “Either \(i\) never appears, or there will come a time when \(i\) becomes true and all states leading up to that time have \(f\). At least one of these two conditions must hold; if both fail the formula is false.”
+
+- **Refined natural‑language phrasing**  
+
+  *Either the property “\(i\) never occurs” holds throughout the whole execution, or there is a point in the future where \(i\) becomes true and every state up to (but not including) that point satisfies \(f\).*  
+
+  *When the formula is checked at the current state, it immediately evaluates whether \(i\) is already false in all remaining states – if so, the first disjunct is satisfied and the system faces no further restrictions. Otherwise the system must ensure that eventually an \(i\) is produced and that, along the way, only \(f\) holds; after that \(i\) the constraints of the second disjunct disappear. The formula is violated only if \(i\) ever appears without the preceding \(f\)‑only prefix and also never appears at any future point.*

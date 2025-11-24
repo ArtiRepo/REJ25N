@@ -1,0 +1,36 @@
+- **Original LTL formula**  
+  \[
+  G\,(a \,\&\, X\,b)
+  \]
+
+- **Rebuild meaning from the bottom of the tree up**
+
+  1. **Bottom level**  
+     - `a` – “a must be true in the current state.”  
+     - `X b` – “b must be true in the next state.”  
+     - `a & X b` – “a is true now, and b is true immediately in the following state.”  
+  2. **Level above**  
+     - `G (a & X b)` – “for **every** state of the execution the sub‑formula `a & X b` holds.”  
+       Hence we require  
+       * For each state `i`: `a_i` is true.  
+       * For each state `i`: `b_{i+1}` is true (the successor of `i`).  
+
+- **Refined natural‑language phrase**
+
+  *“At every step of the run, a must hold, and the immediately next step must satisfy b.”*  
+  Equivalently, *“a is true in every state, and starting with the second state onward b is true in every state as well (b_0 is unrestrained).”*
+
+- **Satisfying vs. violating behaviour**
+
+  * Satisfying:  
+    `a a a ...` in all states, and `b` true in states 1, 2, 3, … (state 0 free).  
+  * Violating:  
+    * If ever some state `k` has `¬a_k`, the formula fails immediately.  
+    * If some state `k+1` has `¬b_{k+1}` while `a_k` is true, the formula fails at state `k+1`.  
+
+- **When the constraint applies or stops**
+
+  * `a` is constrained at all states; the constraint never stops.  
+  * `b` is constrained at all successors of any state; thus, starting with state 1, `b` must forever stay true. The constraint on `b` applies after the first state and never stops.  
+
+This concise translation captures both the immediate constraints (`a` now, `b` next) and the continuous nature enforced by the outer `G`.

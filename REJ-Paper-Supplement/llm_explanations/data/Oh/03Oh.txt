@@ -1,0 +1,37 @@
+**Original LTL formula**  
+`a ∧ X b`
+
+**Bottom‑up reconstruction**
+
+1. **Leaf nodes**  
+   - `a` – evaluates to *true* in the current state.  
+   - `b` – will be evaluated in the next state (`X`).
+
+2. **X operator**  
+   `X b` – the formula is satisfied if, immediately in the very next state, `b` holds; otherwise it is false. It imposes no requirement beyond that one future step.
+
+3. **Conjunction**  
+   `a ∧ X b` – both sub‑formulas must be true at the point of evaluation.  
+
+**Refined natural‑language phrasing**  
+- “In the current state, \(a\) must be true.  
+- In the immediately following state, \(b\) must be true.  
+- Aside from these two obligations, the system is unconstrained—no further temporal restrictions are imposed.”
+
+**What the formula constrains**
+
+- **Immediate constraint:** `a` at the current state.  
+- **Next‑state constraint:** `b` at the next state.  
+- After the next state, the formula stops imposing constraints (it does not talk about *later* states).
+
+**Checking vs. truth evolution**
+
+- *At the moment of evaluation*: `a ∧ X b` is true iff `a` holds now **and** `b` holds in the next state.
+- *If either fails* (e.g., `a` is false now, or `a` is true but `b` is false in the next state), the formula becomes false at that instant and remains false for that execution trace.
+
+**Satisfying vs. violating traces**
+
+- **Satisfying sequence**: `[a, ? , …]` where `a` is true in state 0, and state 1 contains `b` (doesn't matter what follows).  
+- **Violating sequence**: `[¬a, b, …]` (fails for `a`), or `[a, ¬b, …]` (fails for `b` in next state).  
+
+The formula’s satisfaction is determined solely by those two specific states; no other parts of the execution influence its truth.

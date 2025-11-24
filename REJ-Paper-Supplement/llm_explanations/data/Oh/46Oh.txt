@@ -1,0 +1,24 @@
+**Original LTL formula**  
+```
+F d | G !n
+```
+
+### Bottom‑up reconstruction  
+
+1. **`F d`** – “there exists a future state in which `d` is true”.  
+2. **`G !n`** – “for every state of the execution, `n` is false”.  
+3. **`|`** (disjunction) – “the overall formula is true if at least one of its operands is true”.
+
+### Refined natural‑language description  
+
+> The system satisfies the formula whenever **either**  
+> * `d` becomes true at least once in the future, **or**  
+> * `n` remains false in every state of the run.  
+
+- At the moment the formula is evaluated (any state), the “`G !n`” part already imposes an ongoing constraint: `n` must stay false forever.  
+- The “`F d`” part imposes a one‑shot constraint that is satisfied as soon as a future state with `d` = true is reached; after that, the constraint on `d` disappears, but the formula may still be false if `G !n` is also false.  
+- If `F d` is satisfied **before** the first violation of `G !n`, the overall disjunction is already true, so later occurrences of `n` becoming true no longer render the formula false.  
+- If `d` never becomes true, then the truth of the formula depends entirely on `G !n`; any state where `n` is true will make `G !n` false, and thus the whole formula false.  
+
+**Summary:**  
+The formula demands that the execution contain at least one occurrence of `d`, or that `n` never be true at all. Once `d` occurs, the requirement on `n` becomes irrelevant; but if `d` never occurs, `n` must stay false forever for the formula to hold.

@@ -1,0 +1,22 @@
+**Original LTL formula**  
+`!F (a & b)`
+
+**Rebuild meaning from the bottom of the tree up**  
+- `a & b`: the conjunction is true in a state exactly when both `a` and `b` are true.  
+- `F (a & b)`: “there exists a state in the current or any future execution step where `a` and `b` are simultaneously true.”  
+- `!F (a & b)`: “the previous proposition is false, i.e., no such state exists from the current point onward.”
+
+**Refined natural‑language phrasing**  
+“**`a` and `b` are never true at the same time in this execution** – not even in the current state, and not in any future state.”  
+
+*Key points to remember*  
+1. **Constraint imposed**: The formula forces a perpetual restriction that prohibits any state where both `a` and `b` hold together.  
+2. **When the constraint stops applying**: It never stops; once `a & b` occurs, the formula has already been violated and will remain false for all subsequent checks.  
+3. **Satisfying sequence example**: `a=true,b=false` → `a=false,b=true` → `a=true,b=false` … (never both true). The formula holds from the start.  
+4. **Violating sequence example**: `a=true,b=true` at the initial state (or at any future state) immediately falsifies the formula.  
+
+**Common misunderstandings**  
+- Thinking the formula allows a single occurrence of `a & b` somewhere later (wrong; it forbids any occurrence).  
+- Confusing the negation of `F` with a negation of the immediate state (note: `!F` refers to the entire future, including the current state).  
+
+The formula thus establishes an invariant that `a` and `b` are mutually exclusive throughout the entire ongoing execution.

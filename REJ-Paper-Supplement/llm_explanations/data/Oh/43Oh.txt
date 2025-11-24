@@ -1,0 +1,11 @@
+- **Original LTL formula**  
+  `X (f & i)`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. `f` and `i` are *atomic propositions* – each must simply be true or false in any state; their truth is unrestricted by the formula.  
+  2. `f & i` states that **both** `f` and `i` must be true in a particular state.  
+  3. `X (f & i)` applies the *next* operator to that conjunction, forcing the requirement on the **immediate next state** of the execution.
+
+- **Refined natural‑language phrasing**  
+  *“In the next state of the system, the propositions `f` and `i` must both hold.”*  
+  The formula imposes no constraints on the current state; it only constrains the successor state. The formula is `TRUE` at the current point if and only if `f` and `i` are both true in the following state. It becomes `FALSE` immediately if the next state fails to satisfy either `f` or `i`. No further constraints remain once that next state is evaluated.

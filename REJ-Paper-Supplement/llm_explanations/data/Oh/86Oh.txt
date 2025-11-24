@@ -1,0 +1,17 @@
+**Original LTL formula**  
+`t`
+
+**Bottom‑up reconstruction**
+
+| LTL fragment | Meaning | Constraint applied | Time domain |
+|--------------|---------|--------------------|-------------|
+| `t` (atomic) | `t` must be true in the current state | Yes, only the present state | Present only |
+
+There are no temporal operators (`X`, `G`, `F`, `U`, etc.). Thus the formula does **not** impose any requirement on future or past states; it only asserts a property of the current state.
+
+**Refined natural‑language phrasing**
+
+- *“The proposition `t` must hold in the current state.”*  
+  This is the only constraint the formula places on the system. If `t` is false now, the entire formula evaluates to false. There are no ongoing constraints thereafter; once the current state has been evaluated, the formula’s truth value is fixed for the current execution.  
+
+- *Potential misunderstanding*: Since the formula lacks temporal operators, readers might mistakenly think `t` is required forever (`G t`). In fact, only the present instant is relevant. 

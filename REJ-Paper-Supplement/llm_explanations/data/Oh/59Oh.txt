@@ -1,0 +1,56 @@
+**Original LTL formula**  
+`G((a ∧ X a) → X X ¬a)`
+
+---
+
+### 1. Rebuild meaning from the bottom of the tree up  
+
+| Symbol | Interpretation (in the current state) | Temporal span |
+|--------|----------------------------------------|---------------|
+| `a` | “*a* is true now.” | current |
+| `X a` | “*a* will be true in the *next* state.” | one step ahead |
+| `a ∧ X a` | “*a* is true now **and** it will stay true in the next state.” | now & next |
+| `X X ¬a` | “in *two* steps from now, *a* will be false.” | two steps ahead |
+| `(a ∧ X a) → X X ¬a` | “If *a* holds now and continues to hold in the next state, then in two steps *a* must not hold.” | now → later |
+| `G (…)` | “The previous implication must be true in **every** state along the whole execution.” | all states |
+
+---
+
+### 2. Refined natural‑language phrasing  
+
+> **Global rule**: *In every state of the system, whenever the proposition *a* is true today and will also be true tomorrow, it is required that **two days later** proposition *a* is false.*
+
+---
+
+**How the formula is evaluated**
+
+1. **At a given instant t**  
+   * Test the antecedent `a ∧ X a`.  
+   * *If* the antecedent is **false** (i.e., either *a* is false now or *a* is false in the next state), the implication is automatically true for that instant – no constraint is imposed from that point on.  
+   * *If* the antecedent is **true**, the implication requires that the future state at `t+2` satisfies `¬a`.  
+
+2. **Over time**  
+   * The outer `G` insists this test‑and‑require step happens at **every** state along the execution.  
+   * Once a particular state is checked and found to satisfy the implication, that state imposes no further constraints beyond the already‑stated “two‑steps‑later not‑a” requirement.  
+   * Future states are checked independently.
+
+---
+
+### 3. Satisfaction vs. violation examples  
+
+| Execution (states indexed 0,1,2,…) | Check at state 0 | Outcome | Explanation |
+|-----------------------------------|------------------|---------|-------------|
+| `a, a, !a, …`                     | antecedent true  | ✓       | `¬a` holds at state 2, satisfies the requirement. |
+| `a, a, a, …`                      | antecedent true  | ✗       | `¬a` is false at state 2 → violation. |
+| `a, !a, a, …`                     | antecedent false | ✓ (vacuous) | Next state not `a`, so no constraint is imposed. |
+| `!a, a, a, …`                     | antecedent false | ✓ (vacuous) | Since the antecedent fails, there is no requirement. |
+| `!a, !a, !a, …`                   | antecedent false | ✓       | Always satisfied because the antecedent never holds. |
+
+---
+
+### 4. Key points to avoid misunderstandings  
+
+* The constraint **only** activates when *a* is true **now** **and** true **next**.  
+* Once the antecedent fails, the implication is trivially true – no “memory” of past `a` values remains.  
+* The requirement about `¬a` at two steps ahead applies **only** to the specific instance where the antecedent held; it does not impose any continued pattern on `a` beyond that two‑step horizon.  
+* The outer `G` guarantees the test is performed at every state, so a violation anywhere causes the entire formula to fail.

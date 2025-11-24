@@ -1,0 +1,38 @@
+**Original LTL formula**  
+\[
+(a \wedge d)\; U\; (c \vee b)
+\]
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Base propositions**: `a`, `d`, `c`, `b` – each is true in a particular state or not.  
+2. **Logical combinations**:  
+   * `a ∧ d` means both `a` and `d` must be true in the same state.  
+   * `c ∨ b` means either `c` or `b` (or both) must be true in the same state.  
+3. **Until operator** `U`:  
+   * The right‑hand side `(c ∨ b)` must eventually become true **in some future state**.  
+   * Until that future state is reached, the left‑hand side `(a ∧ d)` has to hold **in every state** that comes before it.  
+   * After the first state where `c ∨ b` is true, the requirement on `a ∧ d` stops; the formula is then satisfied and no further constraints from this formula apply.
+
+**Refined natural‑language description**
+
+> “Keep taking steps where both *a* **and** *d* are true until, eventually, you reach a step where either *c* **or** *b* is true; as soon as that step is reached, the requirement stops—no further obligation arises from the formula.”
+
+*What triggers the constraint?*  
+- At the moment the formula is checked, it imposes the requirement that `a ∧ d` holds in every state *until* `(c ∨ b)` becomes true.  
+
+*When does the constraint cease?*  
+- Immediately after the first state where `c ∨ b` is true; from that point on, the formula is satisfied and imposes no more constraints.  
+
+*Satisfying sequence example*  
+- State 1: `a = true`, `d = true`, `c = false`, `b = false`  
+- State 2: `a = true`, `d = true`, `c = false`, `b = true`  
+  → `a ∧ d` holds in all states before the encounter of `c ∨ b`; `b` becomes true at state 2, so the formula is satisfied.
+
+*Violating sequence example*  
+- State 1: `a = true`, `d = true`, `c = false`, `b = false`  
+- State 2: `a = true`, `d = false`, `c = false`, `b = false`  
+  → `a ∧ d` fails at state 2 before `c ∨ b` ever becomes true; the formula is violated.
+
+*Common misunderstanding*  
+- Assuming that `a` or `d` needs to remain true *after* `c ∨ b` becomes true. The Until operator’s left side applies only **up to**, but not including, the first occurrence of the right side. Once `c ∨ b` holds, the constraint on `a ∧ d` is lifted.

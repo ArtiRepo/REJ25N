@@ -1,0 +1,28 @@
+**Original LTL formula**  
+`G(a -> b)`
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **Leaf nodes**  
+   - `a` – a property that can be true or false in a state.  
+   - `b` – another property that can be true or false in a state.
+
+2. **Parent node** – implication  
+   - `a -> b` is logically equivalent to `(!a) or b`.  
+   - In a state the formula is satisfied if **either** `a` is false **or** `b` is true (or both).
+
+3. **Top node** – global operator  
+   - `G(a -> b)` means: *in every state of the execution, the sub‑formula `a -> b` must hold*.
+
+---
+
+### Refined natural‑language phrasing
+
+> **In every state, if `a` holds then `b` must also hold in that same state.**  
+> The formula places a constraint only on those states where `a` is true; in all other states the formula is automatically satisfied regardless of `b`.  
+> • **Satisfying execution:** any trace in which no state has both `a` true and `b` false.  
+> • **Violating execution:** a trace containing at least one state where `a` is true while `b` is false.  
+> The constraint does not carry over beyond the specific state where `a` occurs.  
+> A common misunderstanding is to think that `b` must stay true forever after `a`; the formula actually requires `b` only in the same state where `a` is true.

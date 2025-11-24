@@ -1,0 +1,36 @@
+**Original LTL formula**  
+`!X !(w | x)`
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+| Step | Sub‑formula | Interpretation |
+|------|-------------|----------------|
+| 1 | `w | x` | “w or x” |
+| 2 | `!(w | x)` | “neither w nor x” (both are false) |
+| 3 | `X !(w | x)` | “in the very next state, neither w nor x holds” |
+| 4 | `!X !(w | x)` | “it is *not* the case that in the next state neither w nor x holds” |
+
+Equivalent rewrite: `!X ¬(w|x) ≡ X (w|x)` → “in the next state, `w` **or** `x` must be true.”
+
+---
+
+### Refined natural‑language phrasing  
+
+> **The next state must contain at least one of the propositions `w` or `x`.**  
+>  
+>  * When this formula is checked in a current state, it looks at the immediate next state.  
+>  * If that next state has either `w` true or `x` true, the formula is satisfied and no further constraints arise.  
+>  * If both `w` and `x` are false in that next state, the formula is violated.  
+>  * The constraint applies only to that one time step; after the next state the formula imposes nothing else.  
+
+**Illustrative sequences**
+
+| Current | Next | `!X !(w|x)` | Verdict |
+|---------|------|-------------|---------|
+| any | `w` true, `x` false | ✅ | Satisfied |
+| any | `w` false, `x` true | ✅ | Satisfied |
+| any | `w` false, `x` false | ❌ | Violated |
+
+Potential misunderstanding: thinking the condition applies to all future states or beyond the next step. In fact it restricts only the immediate successor; once the next state is examined, the formula no longer imposes any requirement.

@@ -1,0 +1,12 @@
+- **Original LTL formula**  
+  `X (t & y)`
+
+- **Bottom‑up reconstruction**  
+  1. **Leaf nodes**: `t` and `y` – both are atomic propositions that must be true in a state.  
+  2. **Middle node**: `t & y` – requires **both** `t` and `y` to hold simultaneously in the same state.  
+  3. **Root node**: `X (t & y)` – applies the *next* operator to the conjunction, demanding that the truth of the conjunction be evaluated **only** in the immediately following state.
+
+- **Refined natural language explanation**  
+  At the moment the formula is checked (current state), it imposes **no requirement** on `t` or `y`.  
+  It requires that **in the very next state** both `t` and `y` hold simultaneously.  
+  Hence, the formula is satisfied iff the next state has `t = true` **and** `y = true`; it is violated if either proposition is false in that next state (or if no next state exists).

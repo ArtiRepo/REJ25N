@@ -1,0 +1,19 @@
+**Original LTL formula**  
+`b U (d & a)`
+
+**Rebuild meaning from the bottom of the tree up**  
+1. The sub‑formula `(d & a)` is a conjunction: it becomes true exactly when **both** propositions `d` and `a` are true in the same state.  
+2. The `U` operator is an “until”: `b U (d & a)` requires that the right‑hand side, `(d & a)`, **eventually** becomes true; until that moment, the left‑hand side, `b`, **must hold** in every intermediate state.  
+3. Once `(d & a)` holds, the entire formula is satisfied and no further obligations remain.
+
+**Natural‑language phrasing for clarity**  
+- The system is required to **keep `b` true at every moment until the first time** a state is reached where **both `d` and `a` are true together**.  
+- After that state is reached, the requirement on `b` disappears; subsequent states may have `b` false or true, and the formula remains satisfied.  
+
+**Evaluation and constraint dynamics**  
+- At any state prior to the `(d & a)` moment, the formula is true iff `b` holds now and the formula will be true at the next state.  
+- If `b` becomes false before `(d & a)` occurs, the formula can never become true—constraint violated.  
+- If `(d & a)` never occurs, the formula never becomes true; the system forever fails to satisfy it.  
+- When `(d & a)` finally holds, the formula evaluates to true instantly and will stay true thereafter, even if `b` subsequently becomes false.  
+
+This explanation captures the timing of constraints, their persistent enforcement while `b` is true, and their cessation once `d & a` is satisfied.

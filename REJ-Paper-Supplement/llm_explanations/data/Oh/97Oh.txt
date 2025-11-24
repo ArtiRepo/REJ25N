@@ -1,0 +1,23 @@
+**Original LTL formula**  
+`!s U g`
+
+**Rebuild meaning from the bottom of the tree up**  
+- **!s** = “s is false in the current state.”  
+- **U** = “until.”  
+- **g** = “g is true in some future state.”
+
+Putting them together: the sub‑formula `!s` has to hold in every state **up to** the first state where `g` becomes true; once `g` occurs, the requirement on `!s` ends.
+
+**Refined natural‑language phrasing**  
+“*The proposition g must eventually become true, and until that moment the proposition s must remain false. After g becomes true, there are no further constraints on s.*”
+
+**When does the formula impose a constraint?**  
+- From the start of the execution until the first occurrence of g, every state must satisfy ¬s.  
+- The constraint ceases once g is true.
+
+**When does the formula get violated?**  
+- If g never occurs, the formula is violated (because the “until” never resolves).  
+- If s becomes true at any state before the first g, the formula is violated immediately at that state.  
+
+**When is the formula satisfied?**  
+- When there is a future state where g holds, and all intermediate states have s false. The formula is then true starting from the current state and remains true thereafter, with no ongoing requirement on s.

@@ -1,0 +1,10 @@
+- **LTL formula**  
+  `G(a -> Fb)`
+
+- **Bottom‑up reconstruction**  
+  1. **Fb**: “There must exist some future step (≥0 ahead) in which \(b\) holds.”  
+  2. **a -> Fb**: “If \(a\) is true in the current state, then the future‑existence requirement for \(b\) must be satisfied; otherwise (when \(a\) is false) the implication is automatically true, so no requirement is imposed.”  
+  3. **G(a -> Fb)**: “The implication above must hold in every state along the execution. Therefore, in every state where \(a\) becomes true, a guarantee that \(b\) will eventually hold is enforced; in states where \(a\) is false, nothing is required.”
+
+- **Refined natural‑language phrasing**  
+  “Every time \(a\) occurs, there must later be a state where \(b\) becomes true; otherwise nothing is constrained. The requirement applies continuously—at each step, check whether \(a\) holds; if it does, ensure that some future step will satisfy \(b\); if it does not, the rule is vacuously satisfied for that step.”

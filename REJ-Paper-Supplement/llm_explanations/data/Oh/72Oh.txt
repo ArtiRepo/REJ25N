@@ -1,0 +1,10 @@
+- **Original LTL formula**  
+  `G !a`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. Bottom node: `!a` – “`a` must be false in the current state.”  
+  2. Top node: `G ( … )` – “… must hold in **every** state of the execution.”  
+  3. Combined: In each state, `a` is false; this must hold for all time.
+
+- **Refined natural‑language phrasing**  
+  “The property `G !a` states that the proposition `a` is never true – at every state of the system, `a` must be false. If `a` becomes true in any state, the property is violated, and the constraint never relaxes.”

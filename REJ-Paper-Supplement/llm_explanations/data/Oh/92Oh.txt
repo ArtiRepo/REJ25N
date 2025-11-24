@@ -1,0 +1,31 @@
+**Original LTL formula**  
+```
+X t => u
+```
+
+---
+
+### Rebuilding meaning from the bottom of the tree up  
+
+1. **Atomic propositions**  
+   - `t` – unconstrained by itself.  
+   - `u` – unconstrained by itself.
+
+2. **Next operator**  
+   - `X t` means “`t` must be true in the very next state.”  
+   - It places a constraint only on the *future* state, not on the current one.
+
+3. **Implication**  
+   - `X t => u` is evaluated in the **current** state.  
+   - Its truth value depends on:  
+        *If `X t` is true (i.e., `t` will hold next) then `u` must be true now.*  
+   - If `X t` is false, the implication is automatically true, so no requirement on `u`.
+
+---
+
+### Refined natural‑language phrasing
+
+“**If** `t` will be true in the next state, **then** `u` must be true now.  
+Otherwise, `u` is unconstrained.”
+
+This captures that the formula imposes a constraint on the current variable `u` **only** when a future state requirement (`t` in the next state) is triggered. If `t` does not hold in the next state, the implication holds vacuously, and no obligation is placed on `u`.

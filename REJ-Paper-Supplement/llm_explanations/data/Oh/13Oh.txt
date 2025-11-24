@@ -1,0 +1,28 @@
+**Original LTL formula**  
+\[
+(c \;U\; a)\ \wedge\ (b \;U\; a)
+\]
+
+---
+
+### Building the meaning (bottom‑up)
+
+1. **\(c \;U\; a\)**  
+   * \(a\) must become true at some future state.  
+   * Until that future state, every state satisfies \(c\).
+
+2. **\(b \;U\; a\)**  
+   * \(a\) must become true at some future state.  
+   * Until that same future state, every state satisfies \(b\).
+
+3. **\((c \;U\; a)\ \wedge\ (b \;U\; a)\)**  
+   * Both until–conditions must hold simultaneously.  
+   * Therefore, a single future state must contain \(a\), and every state **before** that state must satisfy **both** \(c\) and \(b\).
+
+---
+
+### Refined natural‑language description
+
+*“There must be a future state where \(a\) holds, and **every** state leading up to that first \(a\) must satisfy both \(c\) and \(b\).  
+After \(a\) becomes true, no further constraints are imposed on \(c\) or \(b\).  
+If no such future \(a\) exists, or if any preceding state violates either \(c\) or \(b\), the formula is violated.”*

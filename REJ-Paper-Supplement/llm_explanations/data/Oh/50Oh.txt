@@ -1,0 +1,17 @@
+- **Original LTL formula**  
+  `F (o U u)`
+
+- **Rebuild meaning from the bottom of the tree up**
+
+  1. **Inner part** `o U u`  
+     *`u` must eventually become true.*  
+     *Until that first `u`, `o` has to be true in every state.*  
+     After `u` happens, nothing else about `o` is required.
+
+  2. **Outer part** `F (…)`  
+     *There must be at least one future state where the inner requirement is satisfied.*  
+     So we look forward until we reach a state that satisfies the “`o` until `u`” pattern.
+
+- **Refined natural‑language phrasing**
+
+  “At some point in the future, we will reach a state from which the proposition `o` holds continuously until a later state where `u` becomes true; after that `u` occurs, the requirement on `o` stops. The system is allowed to have any behaviour before that point, but somewhere on the run this sequence of `o`‑then‑`u` must occur.”

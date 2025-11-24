@@ -1,0 +1,13 @@
+- **LTL Formula**  
+  `G (n ⇒ s)`
+
+- **Bottom‑of‑the‑tree reconstruction**  
+  * `n ⇒ s` is a propositional implication: it is true whenever `n` is false or `s` is true in the same state.  
+  * `G (n ⇒ s)` is a global operator: the implication must hold in **every** state along an execution trace.
+
+- **Natural‑language description**  
+  **In every state, if `n` holds then `s` must also hold; otherwise there is no requirement on `s`.**  
+  At each point the system checks the current values of `n` and `s`:  
+  * if `n` is false, the implication is satisfied regardless of `s`;  
+  * if `n` is true, it forces `s` to be true in that same state;  
+  * this requirement persists forever—once violated, the formula becomes false for the entire execution, and no further changes to `s` can restore truth.

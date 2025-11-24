@@ -1,0 +1,26 @@
+**Original LTL formula**  
+`a U (b ∧ c)`
+
+---
+
+### Bottom‑up breakdown
+
+1. **(b ∧ c)**  
+   - A state in which **both** `b` and `c` are true.
+
+2. **a U (b ∧ c)**  
+   - There is *some* future state where `(b ∧ c)` holds.  
+   - In **every** state from the present up to, but not including, that future state, `a` must be true.  
+   - Once `(b ∧ c)` becomes true, the “until” requirement is satisfied and `a` is no longer constrained.
+
+---
+
+### Refined natural‑language phrasing
+
+> “There must eventually be a state where both **b** and **c** hold; until that moment, **a** must be true in every step. After **b** and **c** become true, **a** need not hold anymore.”
+
+---
+
+- **Immediate constraint when checked:** from the current state onward, `a` must be true until the first state that satisfies `b ∧ c`.
+- **Persistence if violated:** If no state ever satisfies `b ∧ c`, the formula never becomes true, and the requirement on `a` continues indefinitely, leading to a violation.
+- **Once satisfied:** After the first occurrence of `b ∧ c`, the formula is satisfied, the constraint on `a` is lifted, and subsequent behaviour is unconstrained by this formula.

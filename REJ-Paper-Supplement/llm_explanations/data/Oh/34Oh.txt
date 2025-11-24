@@ -1,0 +1,28 @@
+**Original LTL formula**  
+\(G\,(\neg f \,\lor\, \neg i)\)
+
+---
+
+### Rebuild meaning from the bottom of the tree up  
+
+1. **\(\neg f\)** – In the current state the proposition **f** is false.  
+2. **\(\neg i\)** – In the current state the proposition **i** is false.  
+3. **\(\neg f \,\lor\, \neg i\)** – In the current state **either f is false or i is false (or both)**.  
+4. **\(G(\neg f \,\lor\, \neg i)\)** – The above disjunction must hold **in every state of the execution**; no state may violate it.
+
+---
+
+### Refined natural‑language phrasing  
+
+"**In every moment of the system’s execution, at least one of the propositions f or i must be false; it is forbidden for both f and i to be true at the same time.**"
+
+---
+
+**Constraint vs. satisfaction**
+
+- **Constraint**: The formula continuously enforces that at no state can `f && i` hold.  
+- **When the formula is evaluated**: At each state, the check looks at the truth values of `f` and `i`.  
+  - If **both true**, the formula immediately becomes false and the execution violates the property.  
+  - If **at least one false**, the formula remains true for that state; it will continue to be checked at each subsequent state.  
+
+The property imposes no restrictions on how `f` and `i` may change over time, except that they cannot be true together in any state. Once a violation occurs, the property is permanently violated; if the property never fails, it holds throughout the entire execution.

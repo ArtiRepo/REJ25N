@@ -1,0 +1,20 @@
+**Original LTL formula**  
+\[
+!G\,c
+\]
+
+**Rebuild meaning from the bottom of the tree up**  
+
+1. \(G\,c\) means *“c is true in every state of the execution.”*  
+2. The leading “!” is a negation, so \( !G\,c \) means *“it is not the case that c is true in every state.”*  
+3. By the guidelines, this is equivalent to: *“There must be at least one state where c is false.”*
+
+**Refined natural‑language phrasing**  
+
+The system must **eventually violate** property c: at some point in the execution, c must be false.  
+If c is already false in the current state, the formula is immediately satisfied.  
+If c holds now, the formula still requires that a future state exists where c becomes false.  
+Once that first false occurrence of c occurs, the formula is satisfied and no further temporal constraint remains.  
+
+*Violation scenario*: If c stays true in every state (never becomes false), the formula \(!G\,c\) is not satisfied.  
+*Potential misunderstanding*: \(!G\,c\) does **not** forbid c from ever being true; it only forbids c from being true forever.

@@ -1,0 +1,22 @@
+**Original LTL formula**  
+`G a`
+
+---
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Atomic proposition** `a`  
+   - Meaning: “\(a\) is true in the current state.”  
+
+2. **Globally operator** `G` applied to `a`  
+   - `G a` means “\(a\) must be true in every state of the execution.”  
+   - The constraint persists forever; there is no later point where the requirement disappears.
+
+---
+
+**Refined natural‑language phrasing**
+
+“\(a\) must hold at every instant of the run.  
+When checked in the current state, if \(a\) is false the formula fails immediately;  
+if \(a\) is true, the condition continues to hold for all future states.  
+The requirement never relaxes—if \(a\) ever becomes false, the entire formula is violated for the rest of the execution.”

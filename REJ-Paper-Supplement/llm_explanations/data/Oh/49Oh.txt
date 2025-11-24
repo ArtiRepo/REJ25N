@@ -1,0 +1,19 @@
+- **Original LTL formula**  
+  \[
+  X\;\neg(t \,\lor\, w)
+  \]
+
+- **Bottom‑up reasoning**  
+  1. **Atomic propositions**: \(t\) and \(w\) are variables that may be true or false in any state.  
+  2. **Disjunction**: \(t \lor w\) is true if either \(t\) or \(w\) is true in the state under consideration.  
+  3. **Negation**: \(\neg(t \lor w)\) is true only when *both* \(t\) and \(w\) are false in that state.  
+  4. **Next operator**: \(X(\cdot)\) takes the truth value of its argument in the *next* state. Thus \(X\,\neg(t \lor w)\) demands that the negated disjunction be true in the state immediately following the one in which the formula is being checked.
+
+- **Refined natural‑language description**  
+
+  > “Immediately after the current point in the execution, neither \(t\) nor \(w\) may be true; both must be false in that next state. The formula places a one‑step constraint only on that upcoming state – it says nothing about the current or any later state.”  
+
+**Satisfying scenario**: current state with any values of \(t,w\); next state has \(t=false\) and \(w=false\).  
+**Violating scenario**: next state has \(t=true\) or \(w=true\) (or both).  
+
+After the next state is examined, the formula no longer imposes any further requirements. This highlights that constraints are only on the immediate successor, not on the ongoing behavior.

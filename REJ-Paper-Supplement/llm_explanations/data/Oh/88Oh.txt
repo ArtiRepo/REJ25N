@@ -1,0 +1,44 @@
+**Original LTL formula**  
+```
+X !F (r | s)
+```
+
+---
+
+### Bottom‑up reconstruction
+
+1. **`r | s`** – “in the current state, either `r` or `s` is true.”  
+   No global constraint; it only talks about the present valuation.
+
+2. **`F (r | s)`** – “there will be **at least one** future state (including the present) in which `r` or `s` holds.”  
+   The formula becomes true only if such a future state exists; it places a *future* requirement but does not forbid anything else up to that point.
+
+3. **`!F (r | s)`** – “it is **not** the case that `r` or `s` will eventually hold.”  
+   From the moment this sub‑formula is evaluated, a permanent constraint is imposed: every state from now on must keep `r` and `s` both false.  
+   *Immediate satisfaction*: if the evaluation point is already in a state where `r` and `s` will never become true, the subformula is satisfied right away.  
+   *Ongoing constraint*: until a point is reached where either `r` or `s` becomes true, the subformula remains true; once `r` or `s` occurs, the subformula permanently becomes false.
+
+4. **`X !F (r | s)`** – “**in the next state**, it must hold that `r` and `s` never become true thereafter.”  
+   At the current state this formula is *not yet evaluated*; its truth depends on the state one step ahead.  
+   From that next state onward, the constraint of point 3 applies: every future state must keep `r` and `s` false.  
+   The formula is satisfied in the current execution if and only if **starting from state 1** (the next state), `r` and `s` stay false forever.
+
+---
+
+### Refined natural‑language phrasing
+
+> “In the very next state, the system must guarantee that neither `r` nor `s` ever becomes true again.  
+>   
+>  This imposes a lifelong restriction on all states starting with the next one: at each of those states, both `r` and `s` must be false.  
+>  If at any point thereafter either `r` or `s` holds, the formula is violated.  
+>  The current state does not itself constrain `r` or `s`; the requirement takes effect only after the next transition.”
+
+**Satisfying sequence**  
+State 0: arbitrary values for `r` and `s`  
+State 1: `r = false`, `s = false`  
+State 2 onward: `r = false`, `s = false` ⇒ formula holds.
+
+**Violating sequence**  
+State 0: arbitrary values  
+State 1: `r = true` (or `s = true`) ⇒ from state 1 onward the requirement fails.  
+Thus the formula is not satisfied.

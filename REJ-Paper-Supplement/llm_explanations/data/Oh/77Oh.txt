@@ -1,0 +1,44 @@
+**Original LTL formula**
+
+```
+a U !a
+```
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **`!a`** – “`a` is false in the current state.”  
+2. **`a U !a`** – The *until* operator requires  
+   * a state where `!a` holds (i.e., `a` becomes false), and  
+   * until that state is reached, **every** preceding state must satisfy `a` (i.e., `a` is true).
+
+**Refined natural‑language phrasing**
+
+> “Keep `a` true **until** you encounter a state where `a` becomes false.  
+> If `a` is already false in the current state, the requirement is satisfied immediately; no further constraints apply after the first false occurrence.”
+
+**When the formula imposes a constraint**
+
+- From the moment it is checked up to, but not including, the first state where `a` is false, the system *must* keep `a` true.
+- Once a state with `a` false is reached, the constraint stops—subsequent states are unconstrained.
+
+**Immediate satisfaction vs. ongoing constraints**
+
+- *Immediate satisfaction*: if the current state satisfies `!a` (i.e., `a` is false), the formula is true right away and imposes no further requirements.
+- *Ongoing constraint*: if `a` is true now, the formula forces the system to maintain `a` in every subsequent state until a state with `a` false appears.  
+- After that point, the formula no longer limits the behavior.
+
+**Satisfying vs. violating sequences**
+
+| Sequence of `a` (T=true, F=false) | Status relative to `a U !a` |
+|-------------------------------------|------------------------------|
+| F …                                 | Satisfied immediately.      |
+| T T F …                             | Satisfied; `a` true until the F. |
+| T T T ... (never F)                 | Violated – `!a` never occurs. |
+| T F … (a false after one true)      | Satisfied.                   |
+
+**Potential misunderstandings**
+
+- Thinking that the requirement continues *after* the first `F`.  
+  The constraint ends exactly at the transition to `!a`; no further obligations on `a` follow.
+- Assuming `a U !a` requires `a` to be true forever.  
+  It only demands that `a` remain true *until* it becomes false, which is the very event that satisfies the formula.

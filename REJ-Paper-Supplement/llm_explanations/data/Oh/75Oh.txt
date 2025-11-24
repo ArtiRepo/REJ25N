@@ -1,0 +1,42 @@
+**Original LTL formula**  
+\( F(\,a \land b\,)\)
+
+**Rebuild meaning from the bottom of the tree up**  
+
+1. \(a \land b\) – a state in which *both* propositions are true.  
+2. \(F(\,a \land b\,)\) – “there exists at least one future state where  
+   \(a \land b\) holds”.
+
+**Refined natural‑language phrasing**  
+
+*“At some point in the future, both a and b become true at the same time.”*
+
+- **Constraint imposition**  
+  - The formula imposes **no constraint** on a or b in the present or until that future point.  
+  - Once a state is reached where both a and b are true, the formula evaluates to true and no longer restricts the system.  
+
+- **Evaluation over time**  
+  - At the moment the formula is checked it is *false* if no such future state has yet been seen.  
+  - It turns *true* exactly when a state with \(a \land b\) is encountered.  
+  - After that moment it remains true perpetually.  
+
+- **Satisfying sequence**  
+  ```text
+  t0: a = false, b = true
+  t1: a = true,  b = false
+  t2: a = true,  b = true   ← both hold → formula true
+  ```
+
+- **Violating sequence**  
+  ```text
+  t0: a = false, b = true
+  t1: a = true,  b = false
+  t2: a = false, b = false
+  ...
+  (never a & b) → formula false forever
+  ```
+
+- **Common misunderstandings**  
+  - Thinking the formula requires a and b to be true from the start.  
+  - Interpreting it as “a and b will hold in every future state.”  
+  In reality, only one future occurrence is needed; after that, no ongoing constraints exist.

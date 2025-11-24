@@ -1,0 +1,61 @@
+**Original LTL formula**  
+`F (a & X b)`
+
+--------------------------------------------------------------------
+
+### Bottom‑up reconstruction
+
+1. **`X b`** – “`b` must be true in the *very next* state.”  
+2. **`a & X b`** – “both **`a` is true in the current state** *and* **the very next state** satisfies `b`.”  
+3. **`F (a & X b)`** – “There **exists at least one state** in the future where the conjunction `a & X b` holds.”
+
+--------------------------------------------------------------------
+
+### Natural‑language phrasing
+
+> *“At some point later in the execution, the machine will reach a state where `a` is true, and in the very next state `b` is true.”*
+
+--------------------------------------------------------------------
+
+### When does it impose a constraint?
+
+- **Before the satisfying state is reached** – no obligation: the formula can be true regardless of `a` or `b` at earlier states.
+- **At the satisfying state `s`** – `a` must be true in `s` and `b` must be true in `s+1`.  
+  This is the only time the formula places a direct requirement on the system.
+- **After the satisfying state** – the formula remains true; no further constraints are needed.
+
+--------------------------------------------------------------------
+
+### Evaluation behaviour
+
+1. **Checking at time `t`**  
+   - The system inspects future states. As soon as it finds a state `s ≥ t` where `a` holds and `b` holds in the immediately following state, the formula evaluates to *true* at `t`.  
+   - Until such a state is found, the formula remains *false* at `t`.
+
+2. **Truth evolution**  
+   - If the condition is never met, the formula stays *false* forever.  
+   - Once met, the formula becomes *true* forever (from that checking point onward).
+
+--------------------------------------------------------------------
+
+### Example sequences
+
+| Σ step | a | b | Reasoning |
+|-------|---|---|-----------|
+| State 0 | false | – | `a` not satisfied, `F` still looking ahead |
+| State 1 | true  | true | `a` true now, `b` true in next state → `F` satisfied at time 0 |
+| State 2 | false | – | Already satisfied; no further obligations |
+
+**Violation**: if no state has `a = true` followed immediately by `b = true`, the formula is never satisfied and remains false.
+
+--------------------------------------------------------------------
+
+### Common misunderstandings
+
+* “What if `a` is true now but `b` never appears next?” → The conjunction fails; the `F` still looks for a later state.
+* “Does `b` have to stay true after its next state?” → No. The pattern stops after that single transition.
+* “If `a` is true now, does the formula become true immediately?” → Only if `b` also holds in the next state; otherwise the `F` continues searching.
+
+--------------------------------------------------------------------
+
+*Final translation:* *There must eventually be a pair of consecutive states, the first satisfying `a` and the second satisfying `b`.*

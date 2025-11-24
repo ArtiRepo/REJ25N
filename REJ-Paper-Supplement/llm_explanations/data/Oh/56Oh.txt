@@ -1,0 +1,50 @@
+**LTL formula**  
+`(!a) U (a ∧ XG!a)`
+
+---
+
+### Rebuilding the meaning (bottom‑up)
+
+| Sub‑formula | Current‑state meaning | Constraint over time |
+|-------------|-----------------------|----------------------|
+| `!a` | *a* must be **false** in the present state. | Holds only in the current state; no continuous requirement. |
+| `a` | *a* must be **true** in the present state. | Holds only in the present state. |
+| `XG!a` | In the **next** state, *a* will be false and will stay false forever. | From that next state onward, *a* must remain false; the constraint does **not** apply to the state where `XG!a` is evaluated. |
+| `a ∧ XG!a` | *a* is true now **and** it guarantees that from the next step onward *a* stays false forever. | Until the next step, the truth of *a* is fixed; from that point on the “ever‑false” requirement starts. |
+| `(!a) U (a ∧ XG!a)` | “Eventually we get a state where **a** is true and from the next step onward *a* stays false forever, and before that point *a* must be false in every state.” | *a* must be false in *all* states **until** the first state that satisfies the right‑hand side. Once that state is reached, the constraint on *!a* disappears; only the `XG!a` part keeps *a* false thereafter. |
+
+---
+
+### Refined natural‑language phrasing
+
+> **Eventually a true state occurs.**  
+> Prior to that first `a`, **a must be false** in every intervening state.  
+> When the true state finally happens (**at that moment a is true**), **in the very next state and forever after, a must stay false**.
+
+---
+
+### How the formula is evaluated
+
+* At the instant the formula is checked, the current state must satisfy `!a` or must already be the eventual `a` state.  
+* While no `a ∧ XG!a` state has appeared, the formula remains **waiting**; its truth value is **undetermined** but it imposes the persistent constraint `!a`.
+* Once a state satisfying `a ∧ XG!a` is encountered, the formula becomes **true** and the `!a` constraint ceases to apply. From that point on only `G!a` (starting at the next step) enforces that `a` never becomes true again.
+
+---
+
+### Satisfying vs. violating executions
+
+| Execution (states of a) | Does the formula hold? | Why? |
+|-------------------------|-----------------------|------|
+| !a !a !a a !a !a !a … | **Yes** | The first `a` occurs after a run of `!a`; after that, `a` is false forever. |
+| !a a !a … | **No** | Right after the first `a`, a becomes true again, violating `XG!a`. |
+| a … | **No** | The very first state is `a`; the requirement `!a` holds up to the first `a ∧ XG!a` but must be true *before* the `a` state, which is not satisfied. |
+| !a !a !a … (never `a`) | **No** | `a ∧ XG!a` never becomes true, so the Until never resolves; the formula is never satisfied. |
+
+---
+
+### Potential misunderstandings
+
+* **`XG!a` does not constrain the state where `a` is true** – the `G` part starts from the *next* state.  
+* The `!a` requirement only applies **until** the first state satisfying `a ∧ XG!a`. Once that state is reached, `!a` need not hold even presently.  
+
+This gives a complete, concise interpretation of `(!a)U(a ∧ XG!a)`.

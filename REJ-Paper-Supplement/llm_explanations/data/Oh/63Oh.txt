@@ -1,0 +1,36 @@
+**Original LTL formula**  
+`X X X a`
+
+---
+
+### Rebuilding meaning from the bottom of the tree up  
+
+1. **Leaf node** – `a`  
+   - “`a` is a proposition that may be true or false in a given state.”
+
+2. **First X** – `X a`  
+   - “In the immediate next state (one step ahead), `a` must be true.”
+
+3. **Second X** – `X (X a)`  
+   - “Two steps ahead from the current state, `a` must be true.  
+     Until that two‑step‑ahead state is reached, nothing else is required.”
+
+4. **Third X** – `X (X (X a))`  
+   - “Three steps ahead from now, `a` must be true.  
+     From the current state up to (but not including) that third step, the formula imposes no constraints on `a`.  
+     Only at the third future state does the truth of `a` matter for the formula’s satisfaction.”
+
+---
+
+### Refined natural‑language phrasing
+
+> **"The proposition `a` must hold exactly three steps (states) after the current instant.**  
+>  
+>  – *When the formula is checked, it does not constrain the truth of `a` in the present, next, or second‑next state.  
+>  – At the third state onward, the formula is satisfied if `a` is true in that state; otherwise, the formula is violated.*  
+
+**Possible misunderstandings**
+
+- Someone might think `a` has to be true *in every* of the next three states. That is incorrect; only the state three steps ahead matters.
+- The formula does not force any constraint on `a` before that state, so `a` can be true or false freely in the first, second, or presently.
+- If the execution terminates or has fewer than three future states, the formula evaluates to false, because the required future state does not exist.

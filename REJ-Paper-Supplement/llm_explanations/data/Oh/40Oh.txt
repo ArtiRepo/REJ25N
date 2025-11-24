@@ -1,0 +1,18 @@
+**Original LTL formula**
+
+`F (o | u)`
+
+**Rebuilding meaning from the bottom of the tree up**
+
+1. **Inner operator**: `(o | u)`  
+   - The formula inside is true in a state if either predicate `o` is true or predicate `u` is true in that same state.  
+
+2. **Top operator**: `F` (Finally) applied to `(o | u)`  
+   - `F φ` holds on a run if there exists at least one future state (including the current state) where the sub‑formula `φ` holds.  
+
+3. **Putting them together**:  
+   - `F (o | u)` holds if there is *some* state in the future where `o` is true *or* `u` is true.  
+
+**Refined natural‑language phrasing**
+
+“At some point in the future—possibly now—either `o` must become true or `u` must become true. Until that future point occurs, the formula does not impose any further constraints on the system. If no such future state ever occurs, the formula is violated.”

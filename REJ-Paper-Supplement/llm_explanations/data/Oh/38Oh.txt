@@ -1,0 +1,55 @@
+**Original LTL Formula**  
+\[
+(a \; U \; b)\; \land\; (c \; U \; d)
+\]
+
+---
+
+### 1. Rebuild meaning from the bottom of the tree up  
+
+**a U b**  
+- “b must eventually become true.”  
+- “Until that moment, a must be true in every state.”  
+- After b first holds, a need not hold any more.
+
+**c U d**  
+- “d must eventually become true.”  
+- “Until that moment, c must be true in every state.”  
+- After d first holds, c need not hold any more.
+
+**(a U b) ∧ (c U d)**  
+- Both until‑constraints must be satisfied **simultaneously**.  
+- The formula is true in a run iff  
+  1. There is a state where b first holds, and a is true in all earlier states.  
+  2. There is a (possibly different) state where d first holds, and c is true in all earlier states.  
+- The two untils are independent; satisfying one does not replace the need to satisfy the other.
+
+---
+
+### 2. Refined natural‑language phrasing  
+
+> **“Both of the following conditions must hold in the system execution:**  
+> 1. There must be a future point where **b** becomes true, and **a** must be true at every point before that. Once **b** holds, **a** is no longer required.  
+> 2. There must be a future point where **d** becomes true, and **c** must be true at every point before that. Once **d** holds, **c** is no longer required.”**
+
+This phrasing makes clear:  
+- **Constraints apply only up to the first occurrence of b (or d)**.  
+- **After b (or d) is satisfied, the constraint on a (or c) disappears**.  
+- **Both sets of constraints must be met in the same execution**, but the moments for b and d can be at different times.  
+
+### Examples  
+
+| Execution | Status of (a U b) ∧ (c U d) | Explanation |
+|-----------|---------------------------|-------------|
+| a a b …   | Satisfied (b reached) | a holds until b (Good). |
+| a a …     | Not satisfied | b never occurs → violation of a U b. |
+| … c c d … | Satisfied | d reached; c held until then. |
+| … c …     | Not satisfied | d never occurs → violation of c U d. |
+| a a … c c d … b … | Satisfied | Both b and d eventually hold, with a and c holding up to their respective first occurrences. |
+| a a … b … (but before d) | Not satisfied | d never occurs → whole formula false. |
+
+**Potential misunderstanding**  
+- Confusing “until” with “always”: a and c only need to hold **up to** b and d, not forever.  
+- Believing that once both b and d hold, the whole formula immediately stays true: the formula remains true thereafter, but it was only imposed while waiting for b and d.
+
+---

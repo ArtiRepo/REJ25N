@@ -1,0 +1,27 @@
+**Original LTL formula**  
+```
+a => r | t
+```
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - `a` : true if the proposition *a* holds in the current state.  
+   - `r` : true if *r* holds in the current state.  
+   - `t` : true if *t* holds in the current state.
+
+2. **Disjunction `r | t`**  
+   - The expression `r | t` is true in the current state **iff** at least one of the propositions `r` or `t` is true.
+
+3. **Implication `a => (r | t)`**  
+   - The implication `p => q` is true if either `p` is false **or** `q` is true.  
+   - Hence `a => (r | t)` is true in a state **iff** either `a` is false in that state, or (if `a` is true) at least one of `r` or `t` is true in that same state.
+
+**Refined natural‑language phrasing**
+
+In every state, the formula imposes a constraint only when `a` is true:  
+
+*“If `a` is true now, then either `r` or `t` (or both) must also be true now.”*  
+
+When `a` is false, the formula is automatically satisfied and no further restriction is applied to `r` or `t` in that state.  
+The truth value is evaluated independently at each state; it never carries a memory of past or future states.

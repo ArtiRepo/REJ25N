@@ -1,0 +1,19 @@
+**Original LTL formula**  
+`G(a ∧ ¬b)`
+
+**Rebuil­ding meaning from the bottom of the tree up**  
+
+1. **Leaf propositions**  
+   - `a` – requires `a` to be true *in the current state*.  
+   - `¬b` – requires `b` to be false *in the current state*.  
+
+2. **Conjunction**  
+   - `a ∧ ¬b` – both conditions must hold in the same state: `a` is true **and** `b` is false.
+
+3. **Global operator** (`G`)  
+   - `G(φ)` means “φ must hold in **every** state of the execution, forever.”  
+   - Therefore `G(a ∧ ¬b)` insists that from the very first state onward, in **every** successive state, `a` stays true and `b` stays false.
+
+**Refined natural‑language phrasing**  
+
+"From now on and at every future step, the variable `a` must always be true, and the variable `b` must always remain false. If at any state `a` becomes false or `b` becomes true, the formula is violated and the constraint stops holding."

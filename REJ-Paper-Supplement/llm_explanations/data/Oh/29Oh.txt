@@ -1,0 +1,19 @@
+- **Original LTL formula**  
+  \[
+  F\,x \;|\; F\,y
+  \]
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. **Leaves**: `x` and `y` are atomic propositions; they can be true or false in any state.  
+  2. **Next level**: `F x` means “there exists at least one future state (including the current one) where `x` is true.”  Similarly, `F y` means “there exists a future state where `y` is true.”  
+  3. **Root**: The disjunction `F x | F y` is true at a given point of the execution if *at least one* of the sub‑formulas is satisfied at that point. That is, if either “eventually `x`” or “eventually `y`” holds.
+
+- **Refined natural‑language phrasing**  
+  “Either eventually `x` must become true **or** eventually `y` must become true.”  
+
+  *How the formula behaves*:  
+  * At the moment it is checked, there is **no immediate constraint** on the current state; the system is free to assign `x` or `y` as it wishes.  
+  * The formula requires that **in the future** at least one of the propositions becomes true. If neither ever becomes true, the formula is violated.  
+  * Once one of them becomes true (say `x` at step 3), the formula is immediately satisfied and remains true regardless of subsequent values of `x` and `y`; no further constraints are imposed.  
+  * If `y` becomes true at a later step, the same applies.  
+  * Therefore, a run that never presents `x` nor `y` is the only counterexample; all other runs satisfy the formula.

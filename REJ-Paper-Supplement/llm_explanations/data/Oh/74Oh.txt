@@ -1,0 +1,9 @@
+**Original LTL formula**  
+\(G(a\ \text{or}\ b)\)
+
+**Rebuild meaning from the bottom of the tree up**  
+- “\(a\ \text{or}\ b\)” : in a single state, at least one of the propositions \(a\) or \(b\) must be true.  
+- “\(G\ \dots\)” : the enclosed property must hold in *every* state of the execution, i.e., for all time steps from the moment the formula is checked to the end of the run.
+
+**Refined natural‑language phrasing**  
+“The formula requires that in every state of the execution, at least one of \(a\) or \(b\) holds. There cannot be a single state where both \(a\) and \(b\) are false; the existence of such a state makes the formula false, and the constraint never becomes satisfied again afterwards.”

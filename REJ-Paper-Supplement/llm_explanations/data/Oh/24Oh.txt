@@ -1,0 +1,10 @@
+- **Original LTL formula**  
+  \(t \Rightarrow (x \,\&\, y)\)
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. \(x\) and \(y\) are atomic propositions.  
+  2. \(x \,\&\, y\) means “\(x\) is true **and** \(y\) is true in the same state.”  
+  3. \(t \Rightarrow (x \,\&\, y)\) means “if \(t\) is true in a state, then the conjunction \(x \,\&\, y\) must also be true in that same state.”
+
+- **Refined natural‑language phrasing**  
+  *Whenever the proposition \(t\) holds, both propositions \(x\) and \(y\) must hold in that very state. If \(t\) is false, no requirement is imposed on \(x\) or \(y\). The formula is checked at each state; it is satisfied immediately if the condition above holds locally, and it places no ongoing constraints beyond that state.*

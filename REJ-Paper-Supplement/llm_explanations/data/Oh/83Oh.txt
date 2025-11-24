@@ -1,0 +1,14 @@
+- **Original LTL formula**  
+  ```
+  X ! G b
+  ```
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. **`G b`** – “from this state onward, `b` is true in every state.”  
+  2. **`! G b`** – “it is **not** the case that `b` holds forever.”  That is, *there exists* at least one state (possibly the current one, or somewhere later) where `b` is false.  
+  3. **`X ! G b`** – “in the very next state, the property `! G b` must hold.”  
+     * At the next state we must see that **some future state (starting from that next state) will have `b` false**.  
+     * The current state places no requirement on `b`; the constraint only activates in the next state and persists until a state with `¬b` is encountered.
+
+- **Refined natural‑language phrasing**  
+  “From now on, we must ensure that in the very next state the system will eventually reach a state where `b` is false.  The current state may have any value of `b`; the requirement applies starting with the next state and is satisfied once (and for all subsequent) a state with `¬b` occurs.”

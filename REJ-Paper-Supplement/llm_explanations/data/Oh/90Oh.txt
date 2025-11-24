@@ -1,0 +1,39 @@
+**Original LTL formula**  
+\( (b \lor c) \;\Rightarrow\; a \)
+
+---
+
+### Bottom‑up reconstruction
+
+1. **Leaves** – literals:  
+   - \(b\) : “\(b\) is true in the current state.”  
+   - \(c\) : “\(c\) is true in the current state.”  
+   - \(a\) : “\(a\) is true in the current state.”
+
+2. **Disjunction** – \(b \lor c\):  
+   “Either \(b\) is true, or \(c\) is true (or both) in the current state.”
+
+3. **Implication** – \((b \lor c) \Rightarrow a\):  
+   “If the disjunction is true now, then \(a\) must also be true now; if the disjunction is false, the clause is automatically satisfied regardless of \(a\).”
+
+---
+
+### Clear natural‑language phrasing
+
+*In every state of an execution:*
+
+- **If* \(b\) or \(c\) is true, then \(a\) must also be true.*  
+- **If neither \(b\) nor \(c\) is true, there is no requirement on \(a\); it may be either true or false.**
+
+The formula is evaluated at the moment the state is observed. It is violated only at the first state where \(b \lor c\) holds while \(a\) does not. Once violated, the entire execution fails the property; no further constraints are imposed. If \(b \lor c\) never holds or always coincides with \(a\) being true, the property holds throughout the execution.
+
+---
+
+**Illustrative sequences**
+
+- *Satisfying*: \(a\) true when \(b\) or \(c\) true; e.g., \([a=b,\,a,\,\neg b\ \&\ \neg c]\).  
+- *Violating*: \([\,b,\ \neg a\,]\) – at the first state, antecedent true, consequent false.
+
+**Common misunderstandings**  
+- Believing the property forces \(a\) to be true even when \(b\) and \(c\) are false.  
+- Thinking the implication creates a future requirement; it applies only to the current state where the antecedent holds.

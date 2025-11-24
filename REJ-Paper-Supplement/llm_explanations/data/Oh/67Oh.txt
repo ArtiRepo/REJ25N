@@ -1,0 +1,20 @@
+**Original LTL formula**  
+\(XXFa\)
+
+---
+
+### Rebuilding the meaning (bottom‑up)
+
+1. **\(a\)** – No constraint now; \(a\) may be true or false in the present state.  
+2. **\(F a\)** – “From the point where we evaluate it, at least one future state must have \(a\) true.” The formula does **not** constrain any current or intermediate states; it simply requires that somewhere ahead a holds.  
+3. **\(X(F a)\)** – “Look at the *next* state; from that next state onward, eventually \(a\) must become true.” So after one step, we impose the “eventually \(a\)” obligation.  
+4. **\(X(X(F a))\)** – “Look two steps ahead; from that state onward, eventually \(a\) must become true.” Thus, the only constraint that is active is that, starting at the state two steps after the current one, \(a\) eventually appears somewhere.
+
+---
+
+### Refined natural‑language phrasing
+
+- *“After two transitions, there must be a future state in which \(a\) becomes true.”*  
+- *“From the state reached two steps ahead, \(a\) will eventually hold (at least once).”*
+
+The formula imposes no constraints on the current or first‑step states; it only obliges that from the second‑step state onward, \(a\) eventually occurs. If \(a\) never appears after that point, the formula is violated; if it appears at least once in that future, the formula is satisfied.

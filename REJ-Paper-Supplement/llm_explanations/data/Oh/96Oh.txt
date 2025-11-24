@@ -1,0 +1,24 @@
+**Original LTL formula**  
+`G(XXa => !a)`
+
+---
+
+### Bottom‑up reasoning
+
+1. **`a`** – a proposition that may be true or false in a given state.  
+2. **`!a`** – "a is false in the current state."  
+3. **`XXa`** – "a will be true **exactly two steps in the future** from the current state."  
+4. **`XXa => !a`** – an implication:  
+   *if in two steps a will be true, then a must be false now*.  
+   The implication is only a constraint on the *current* state; it does not mention the future states other than the antecedent.  
+5. **`G(XXa => !a)`** – the whole implication must hold in *every* state along the execution.
+
+---
+
+### Refined natural‑language phrasing
+
+> **"At every point in the system, if the proposition **a** is going to be true two steps ahead, then it must be false at the current point.**  
+>  
+> In other words, no state may have the property **a** true while also having **a** become true two steps later.  
+>  
+> The formula imposes a constraint only on the present state whenever the future condition is met; otherwise it is vacuously satisfied and no restriction is imposed.**

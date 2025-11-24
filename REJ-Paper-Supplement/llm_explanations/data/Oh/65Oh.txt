@@ -1,0 +1,33 @@
+**Original LTL formula**  
+\[
+X\,a \; U \;X\,b
+\]
+
+**Rebuild meaning from the bottom of the tree up**
+
+1. **Bottom operators**  
+   * \(X\,a\): “\(a\) must be true in the very next state.”  
+   * \(X\,b\): “\(b\) must be true in the very next state.”
+
+2. **Until**  
+   * \(p\,U\,q\) obliges that  
+     * \(q\) eventually becomes true (at some future state), and  
+     * before that moment, \(p\) is true in every preceding state.  
+   * Once \(q\) occurs, the requirement on \(p\) stops.
+
+   Applying to our case:  
+   * We need a future state where \(X\,b\) is true (i.e., a state after which \(b\) holds).  
+   * Until that future state, every examined state must satisfy \(X\,a\) (i.e., its next state satisfies \(a\)).
+
+**Refined natural‑language phrasing**
+
+> “There must be some future step after the current one where, in the next state, \(b\) holds. Until that step, the next state of every earlier step must satisfy \(a\).”
+
+**Key points for evaluation**
+
+* At the present state we only check whether such a future step exists.  
+* The constraint on \(a\) applies to the **next state of each step** up to (but not including) the step that precedes the moment when \(b\) first holds in the following state.  
+* After that point, no requirement on \(a\) remains.  
+* The formula is satisfied if such a future step exists; it is violated if no future step makes \(b\) true in its immediate next state.  
+
+This captures exactly when the formula constrains the system and when the constraints cease.

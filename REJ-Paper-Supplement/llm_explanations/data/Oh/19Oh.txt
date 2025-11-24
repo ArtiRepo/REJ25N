@@ -1,0 +1,11 @@
+**Original LTL formula**  
+`F (!y & w)`
+
+**Rebuild meaning from the bottom of the tree up**  
+1. `!y & w` – a conjunction that is true only in states where **y is false** *and* **w is true**.  
+2. `F φ` – “eventually φ”: there must exist **at least one future state** (i.e., not necessarily the next state) in which φ holds.
+
+Combining, the formula requires that at some point in the future there is a state with `!y & w`. No requirement is imposed on the present or on any intermediate states; after that state any behavior is allowed.
+
+**Refined natural‑language phrasing**  
+“There will eventually be a state in which **y is false and w is true**.”

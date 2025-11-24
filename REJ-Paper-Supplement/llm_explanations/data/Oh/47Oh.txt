@@ -1,0 +1,14 @@
+- **Original LTL formula**  
+  `a U (c & d)`
+
+- **Bottom‑up reconstruction**  
+  1. The tree’s root is the until operator `U`.  
+  2. Its right child is the conjunction `(c & d)`, meaning “both `c` and `d` hold in the same state.”  
+  3. Its left child is the atomic proposition `a`.  
+  4. By the semantics of `U`:  
+     * There must exist some future state in which `(c & d)` is true.  
+     * In every state that comes before that state, `a` must be true.  
+     * When the state where `(c & d)` becomes true is reached, the obligation on `a` ceases.
+
+- **Refined natural‑language phrasing**  
+  “Eventually a state will occur where both `c` and `d` are true. Until that specific moment, the proposition `a` must hold in every state. Once `c` and `d` are both true, the requirement on `a` is lifted. If no state ever satisfies both `c` and `d`, the formula is violated. If the current state already satisfies `(c & d)`, the formula is immediately satisfied without imposing any constraint on `a` at that point.”

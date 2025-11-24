@@ -1,0 +1,35 @@
+**Original LTL formula**  
+```
+a U b
+```
+
+**Bottom‑up reconstruction**  
+*Atomic level* – In each state the truth values of the propositions `a` and `b` are observed.  
+*U level* – The until operator demands two things:  
+1. There **must exist** a future state in which `b` is true.  
+2. **In every state up to (but not including) that state** the proposition `a` must be true.  
+
+Thus `a U b` is true in a run iff a is continuously true until the first occurrence of `b`; once `b` occurs the requirement on `a` ceases.
+
+**Refined natural language phrasing**  
+“`b` must eventually become true, and while waiting for that to happen `a` has to stay true in every state.  
+If `b` appears immediately, the formula is satisfied right away and imposes no further constraints on `a`.  
+If `a` becomes false at any point before the first `b`, or if `b` never occurs, the formula is violated.”
+
+**Illustration**
+
+| State | a | b | a U b (current truth) | Constraint on a |
+|-------|---|---|----------------------|-----------------|
+| 0     | T | F | ? (look ahead)       | a must be true  |
+| 1     | T | F | ?                    | a must be true  |
+| 2     | T | T |  **true**            | no more needed  |
+| 3     | X | X | same as state 2      | ...             |
+
+*Violation sample*:  
+State 0: a = T, b = F → ok;  
+State 1: a = F, b = F → `a` fails before a `b`; formula false.
+
+*Early satisfaction*:  
+State 0: a = T, b = T → `b` holds immediately; formula true, and `a` is no longer constrained.  
+
+This captures when the formula imposes constraints (`a` must stay true) and when those constraints stop (after the first `b`).

@@ -1,0 +1,53 @@
+**LTL formula**  
+```
+b U (a | d)
+```
+
+---
+
+### Rebuilding meaning (bottom of the tree → top)
+
+1. **Operands**  
+   * **b** – a proposition that can be true or false in a state.  
+   * **a | d** – “a or d” (logical disjunction). The right‑hand side of the `U` operator.
+
+2. **Until**  
+   * `b U (a | d)` reads as “`a | d` must eventually become true, and until that moment, `b` must hold in every state.”  
+   * If a state already satisfies `a | d` at the moment the formula is checked, the whole formula is satisfied immediately; no requirement that `b` hold in that state.
+
+3. **Constraint propagation**  
+   * Until the first state where `a | d` is true, every state must satisfy `b`.  
+   * Once `a | d` becomes true, the obligation on `b` stops; subsequent states are unconstrained by this formula.
+
+---
+
+### Refined natural‑language phrasing
+
+> **“Either `a` or `d` must eventually become true, and until that point, `b` must be true in every state.**  
+> If `a` or `d` is already true in the current state, the condition is satisfied immediately and `b` is no longer required thereafter."
+
+---
+
+### Illustrative sequences
+
+| Sequence (states) | Does it satisfy `b U (a | d)`? | Why? |
+|-------------------|------------------------------|------|
+| (b, b, a, …)      | Yes                          | `a` eventually occurs; `b` holds before `a`. |
+| (a, …)            | Yes                          | `a` is true immediately, so `b` is not required. |
+| (b, d, …)         | Yes                          | `d` occurs immediately; `b` holds before it. |
+| (b, ¬b, a, …)     | No                           | `b` fails before `a | d` becomes true. |
+| (¬b, a, …)        | Yes                          | `a` holds immediately; the fact that `b` is false earlier is irrelevant. |
+| (b, b, ¬b, d, …)  | No                           | `b` becomes false before `d`; violation. |
+
+---
+
+### Common misunderstandings
+
+* Thinking that `b` must hold forever (`G(b)`).  
+  * **Correct:** `b` is required only **until** `a | d` first holds; after that, the formula no longer imposes any condition on `b`.
+* Believing that a violation occurs only if `a | d` never happens.  
+  * **Also a violation** if `a | d` never happens *or* if `b` becomes false before the first occurrence of `a | d`.
+
+---
+
+The formula imposes a temporal constraint only up to the point where `a` or `d` becomes true. Afterward, the system is free from this constraint.

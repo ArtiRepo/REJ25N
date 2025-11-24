@@ -1,0 +1,12 @@
+- **Original LTL formula**  
+  `X !b & d`
+
+- **Rebuild meaning from the bottom of the tree up**  
+  1. `b` – a propositional variable, no inherent constraint.  
+  2. `!b` – “b must be false” in whichever state it is evaluated.  
+  3. `X !b` – “!b must hold in the very next state”.  
+  4. `d` – a propositional variable that must be true in the current state; no constraints on future states.  
+  5. `X !b & d` – the conjunction requires that *both* of the above conditions hold simultaneously.
+
+- **Refined natural‑language phrasing**  
+  “In the current state, d must be true; and in the next state, b must be false.”

@@ -1,0 +1,45 @@
+**Original LTL formula**  
+`FGa`
+
+---
+
+### Rebuilding the meaning (bottom‑up)
+
+1. **`a`** – a proposition that must be true in the very current state when the sub‑formula is evaluated; otherwise no restriction.
+2. **`G a`** – “globally a”: every state along the execution must satisfy `a`. The constraint *holds from the moment the formula is evaluated and continues forever*; it never relaxes.
+3. **`F G a`** – “finally globally a”: there must exist some future state at which `G a` becomes true.  
+   - Until that future state is reached, there is *no* requirement that `a` holds.  
+   - Once the first occurrence of `G a` is satisfied, the “finally” part is satisfied forever; the formula stays true regardless of later states.
+
+---
+
+### Refined natural‑language phrasing
+
+> There is **at least one moment in the future** from which **on** there is a **continuous guarantee** that `a` will be true forever.
+
+---
+
+**When the formula imposes a constraint:**
+
+- **Immediately**: at the time `F G a` is evaluated, no constraint is required until `G a` is reached.  
+- **After reaching the first `G a`**: `a` must hold in **every** subsequent state; this requirement does **not** cease.
+
+**When the formula has no constraint:**
+
+- Between the current state and the first state where `G a` becomes true, the system can behave arbitrarily; `a` may be false.
+
+**Satisfaction vs. Violation**
+
+- *Satisfying sequence*:  
+  ```
+  (a= false) (a=false) ... (a=true) (a=true) (a=true) ...
+  ```  
+  The first occurrence of a phase where `a` is true forever may start at the third state; from there on `a` remains true.  
+- *Violating sequence*:  
+  ```
+  (a= true) (a= false) (a= true) (a= false) ...
+  ```  
+  No point in the execution reaches a state after which `a` is forever true; thus `F G a` is false.
+
+**Potential misunderstanding:**  
+Confusing the “finally” part with a persistent requirement. The formula *does not* keep `a` true at all times; it only requires that *at some future point*, a forever‑truth of `a` is achieved, after which the obligation is satisfied and never re‑examined.
