@@ -1,0 +1,68 @@
+**Original LTL Formula**  
+\[
+(c\, U\, a)\ \wedge\ (b\, U\, a)
+\]
+
+---
+
+### 1.  Parsing tree  
+
+```
+          ∧
+         / \
+       U   U
+      / \ / \
+     c  a b  a
+```
+
+* The root is the conjunction `∧`.
+* The left child of the root is the until‑formula `U` with left operand `c` and right operand `a`.
+* The right child of the root is another until‑formula `U` with left operand `b` and right operand `a`.
+* The leaves are the atomic propositions `c`, `b`, and `a`.
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning  
+
+1. **Atomic propositions**  
+   * `c` : property **c** holds at a given state.  
+   * `b` : property **b** holds at a given state.  
+   * `a` : property **a** holds at a given state.
+
+2. **Until operators**  
+   * `c U a` : “c holds **every** moment up to the first moment when a holds, and at that first moment a is true.”  
+   * `b U a` : “b holds **every** moment up to the first moment when a holds, and at that first moment a is true.”
+
+   **Important facts about `p U q`**  
+   * `q` must eventually become true; otherwise `p U q` is falsified.  
+   * While `q` has not yet occurred, `p` must be true at every intermediate state.  
+   * After `q` occurs, no further requirements on `p` arise.
+
+3. **Conjunction**  
+   The top `∧` says *both* of the until‑conditions must be satisfied **simultaneously**.  
+
+   Therefore the whole formula requires that:
+   * there is a future time when `a` becomes true, **and**
+   * **before** that first occurrence of `a`, at every state `c` is true **and** at every state `b` is true.
+
+---
+
+### 3.  Refined natural‑language description  
+
+> **“Property **a** must eventually occur, and until the first time it occurs, both properties **c** and **b** must hold continuously.”**  
+
+Alternatively:  
+> *The system is constrained to stay in states where **c** and **b** are simultaneously true, until some upcoming state where **a** becomes true. Once **a** holds, the formula places no further constraints.*
+
+---
+
+### 4.  When is the formula satisfied / violated?  
+
+| Situation | Satisfaction | Constraint imposed |
+|-----------|--------------|--------------------|
+| There is a first state `t` where `a` holds; in every state `< t` both `c` and `b` hold | ✅ | Requires that before `a` happens, both `c` and `b` are true throughout. |
+| `a` never holds (i.e., never appears in the future) | ❌ | Violates the until conditions, which demand eventual `a`. |
+| `a` holds at some point, but in some preceding state `c` or `b` is false | ❌ | Violates the requirement that `c` and `b` hold until the first `a`. |
+| After the first `a`, later states may or may not satisfy `c` or `b` | ✅ | No constraint after the first `a`. |
+
+Thus the LTL formula precisely enforces a “co‑until” condition: both `c` and `b` must remain true until a future moment marked by `a`. Once `a` occurs, the system’s behavior is unrestricted with respect to `c` or `b`.

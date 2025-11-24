@@ -1,0 +1,57 @@
+**1. Original LTL formula**
+
+```
+F (!y & w)
+```
+
+---
+
+**2. Parsing tree**
+
+```
+         F
+         |
+        &        (conjunction)
+       / \
+   !y     w
+   |
+   y
+```
+
+- The outermost operator is **F** (eventually).  
+- Inside it we have a conjunction **&**.  
+- The left conjunct is a negation **!** applied to the atomic proposition **y**.  
+- The right conjunct is the atomic proposition **w** itself.
+
+---
+
+**3. Bottom‑up reconstruction of meaning**
+
+| Tree level | Sub‑formula | Semantic interpretation |
+|------------|-------------|-------------------------|
+| **Atomic propositions** | `y`, `w` | Observables of the system (“y holds” / “w holds”). |
+| **Negation** | `!y` | “y does not hold” (i.e., y is false). |
+| **Conjunction** | `!y & w` | Both conditions must be true *together* at the same instant:  
+  *w is true* **and** *y is false*. |
+| **Eventually** | `F (!y & w)` | “At some future point along the execution trace, the condition `(!y & w)` becomes true.”  
+  It does **not** constrain the past or immediate present; it simply demands that the system eventually reach a state where w is true and y is false. |
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **“The system must, at some point in the future, observe `w` being true while `y` is false.”**
+
+Or, phrased more informally:
+
+> *“Eventually the system will enter a state where `w` holds and `y` does not.”*
+
+---
+
+**Implications for the system**
+
+- **Constraint type**: This is a **liveness** requirement – a guarantee that a particular situation will happen at some future time, not something that must always hold.
+- **When it is satisfied**: If, during a run, there exists a step *k* such that `w` is true at step *k* and `y` is false at the same step, regardless of what happened before, the formula holds.
+- **When it is violated**: If the execution ends (or continues forever) without ever reaching a state where `w` is true while `y` is false. (If the model is infinite, the formula fails if no such step ever occurs.)
+
+Thus, the formula enforces that the system cannot forever avoid the situation “`w` true and `y` false” – it must eventually experience it.

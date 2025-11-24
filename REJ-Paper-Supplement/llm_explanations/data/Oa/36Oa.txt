@@ -1,0 +1,60 @@
+**Original LTL formula**
+
+\[
+\mathbf{G}\; (\, j \; \Rightarrow\; \neg f \,)
+\]
+
+---
+
+### 1. Parsing tree (syntactic breakdown)
+
+```
+          G
+          |
+         =>
+        / \
+       j   ¬f
+```
+
+* **Root** – `G` (globally / always)  
+* **Immediate sub‑formula** – implication `=>`  
+  * Left child – atomic proposition `j`  
+  * Right child – negation `¬` applied to the atomic proposition `f`
+
+(If we wish, we could further rewrite the implication as  
+`G( ¬j ∨ ¬f )`, but the tree above shows the most transparent structure.)
+
+---
+
+### 2. Bottom‑up semantic reconstruction
+
+1. **Atomic propositions**  
+   * `j` means “the property `j` holds at this instant.”  
+   * `f` means “the property `f` holds at this instant.”  
+   * `¬f` therefore means “`f` does **not** hold at this instant.”
+
+2. **Implication** (`j => ¬f`)  
+   * An implication is true unless the antecedent (`j`) is true **and** the consequent (`¬f`) is false.  
+   * Thus, `j => ¬f` is violated *only* when at the same instant `j` is true **and** `f` is true.
+
+3. **Globally (G)**  
+   * `G φ` means “`φ` holds at every instant along the entire infinite execution.”  
+   * Hence, `G (j => ¬f)` asserts that *for every time step* in *every* run, the implication must hold.
+
+Combining all three:  
+**At every instant of every run, if `j` is true, then `f` must be false.** Equivalently, “`j` and `f` may never be true together at the same time.”
+
+---
+
+### 3. Refined natural‑language phrasing
+
+> **No moment may witness both `j` and `f` simultaneously.**  
+>  
+> In other words, *whenever* the system shows the property `j`, it must not at that same moment exhibit the property `f`.  
+>  
+> If either `j` never occurs or `f` never occurs, the property is trivially satisfied.  
+>  
+> The property is violated as soon as there exists a single time instant where `j` holds **and** `f` holds – a situation the system is forbidden from entering.
+
+**Safety interpretation**  
+This is a classic safety requirement: it continually forbids the unsafe combination `j ∧ f`. Once the system lets `j` and `f` co‑occur, the property is permanently violated. Thus, the formula certifies that *`j` and `f` are mutually exclusive over all time.*

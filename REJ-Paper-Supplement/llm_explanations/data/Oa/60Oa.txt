@@ -1,0 +1,89 @@
+**Original LTL formula**
+
+```
+G ( a → F b )
+```
+
+---
+
+### 1.  Parsing tree (syntax tree)
+
+```
+                G
+                |
+           →      (implication)
+         /   \
+       a       F
+                |
+                b
+```
+
+* `G`   – **Globally** (“always”)  
+* `→`   – implication (“if … then …”)  
+* `a`   – atomic proposition (“a holds at the current state”)  
+* `F`   – **Finally** (“eventually”)  
+* `b`   – atomic proposition (“b holds at the current state”)
+
+---
+
+### 2.  Bottom‑up meaning reconstruction
+
+1. **Atomic propositions**  
+   *`a`*: “property “a” is true in the current state.”  
+   *`b`*: “property “b” is true in the current state.”
+
+2. **Temporal operator `F`** applied to `b`  
+   `F b` means: *“at some point in the future (possibly the current state), `b` will become true.”*  
+   It does **not** require `b` to be true today, just that it will be true sometime later.
+
+3. **Implication `a → F b`**  
+   This is a **point‑wise** statement: *“If `a` holds now, then `F b` must hold now.”*  
+   In other words: *“If `a` is true at this moment, we are promised that `b` will become true at some future moment.”*  
+   The implication is automatically true when `a` is false, so no restriction is imposed in that case.
+
+4. **Temporal operator `G` applied to the implication**  
+   `G ( a → F b )` stretches this point‑wise requirement over *all* future positions of the execution trace:  
+   *“For every state that the system visits, if `a` is true in that state, then `b` must eventually become true at some state that comes after it (including possibly the same state).”*
+
+---
+
+### 3.  Refined natural‑language description
+
+> **"At every point in time, if condition **a** holds, then the system guarantees that condition **b** will occur at some later instant (not necessarily immediately). If **a** never occurs, the formula imposes no constraint."**
+
+---
+
+### 4.  When the formula is satisfied
+
+* **Scenario 1 – `a` never holds**  
+  The implication `a → F b` is vacuously true at every state, therefore the whole formula holds.
+
+* **Scenario 2 – `a` holds at some states**  
+  For each such state, there must be *at least one* future state where `b` holds.  
+  The occurrence of `b` can be:
+  * immediately in the same state,
+  * in a subsequent state,
+  * after any number of intermediate states.
+
+* **Scenario 3 – `a` holds infinitely often**  
+  The system must eventually (after each occurrence of `a`) witness a `b`.  
+  There is no bound on how far in the future `b` may appear; it just has to appear *somewhere* after each `a`.
+
+---
+
+### 5.  When the formula imposes a constraint
+
+* Whenever `a` becomes true, the system **has to** ensure that `b` will become true sometime later.  
+* If `b` fails to appear after an `a` (i.e., the future trace contains no `b` beyond that point), the implication fails, and thus the global formula becomes false.  
+* No constraint is placed when `a` is false, and there is no requirement on `b` if `a` never occurs.
+
+---
+
+#### Quick reminder of other related formulas
+
+| Formula | Meaning |
+|---------|---------|
+| `G a → F b` | “If `a` holds forever, then `b` will eventually hold.” (single global check) |
+| `F a → F b` | “If `a` ever happens, then `b` eventually happens.” (one‑shot implication) |
+
+The formula we translated, `G (a → F b)`, is **stronger** because it must hold **at every occurrence** of `a`, not just once.

@@ -1,0 +1,63 @@
+**Original LTL formula**
+
+```
+XXFXa
+```
+
+---
+
+### 1.  Parsing tree
+
+The syntax is unambiguous because every operator is *unary* (prefix).  
+Reading left‑to‑right, each `X` or `F` applies to the formula that follows it.  
+
+```
+          X
+          |
+          X
+          |
+          F
+          |
+          X
+          |
+          a
+```
+
+So the formula is
+
+```
+X ( X ( F ( X a ) ) )
+```
+
+---
+
+### 2.  Bottom‑up interpretation
+
+| Level | Sub‑formula | LTL meaning | What it requires/limits on the system |
+|-------|-------------|-------------|---------------------------------------|
+| 0 | `a` | “The atomic proposition `a` holds in the current state.” | None yet – just a proposition. |
+| 1 | `X a` | “In the *next* state, `a` holds.” | The system must make `a` true one step after now. |
+| 2 | `F (X a)` | “Eventually, the property `X a` will be true.”  <br> I.e. “There is some future state where, in its next state, `a` holds.” | The system must schedule a point in the future after which `a` will become true a step later. |
+| 3 | `X (F (X a))` | “In the *next* state, eventually `X a` will be true.”  <br> From the very next state, there must be some future point where `a` holds in the following step. | The system must ensure that **one step from now** there is a future point where `a` will become true one step later. |
+| 4 | `X X (F (X a))` | “In the state *two* steps from now, eventually `X a` will be true.”  <br> From that point, there must be a future point where `a` holds one step after. | The system must guarantee that **within two steps** the trajectory becomes such that subsequently `a` will be true one step later. |
+
+---
+
+### 3.  Natural‑language phrasing (from the top of the tree)
+
+> **“Two steps from the present, the system will eventually reach a state after which ‘a’ will hold in the very next state.”**
+
+Alternate phrasing for clarity:
+
+- “By the time we reach the state two steps ahead, from that state it must be possible to find a future moment where `a` becomes true in the following step.”  
+- “Within two transitions, the system guarantees that at some later point `a` will be true immediately after that point.”
+
+---
+
+### 4.  What the formula imposes on the system
+
+- **Timing constraint** – the requirement that something eventually happen *by the time we are at the state two steps in the future*.
+- **Future flexibility** – beyond the two‑step horizon, the exact moment when `a` becomes `a`‑true is not fixed; it just has to occur sometime thereafter.
+- **No immediate obligation on `a`** – `a` is not required right now, right after one step, or even immediately after two steps. It could appear many steps later, as long as it is reachable from state `t+2`.
+
+In short, the formula promises that after a short, fixed waiting period (two steps) the system will get to a situation where it can guarantee that `a` will become true in the next step.

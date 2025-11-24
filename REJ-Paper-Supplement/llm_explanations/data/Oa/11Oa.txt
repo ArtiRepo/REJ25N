@@ -1,0 +1,62 @@
+**Original LTL formula**
+
+> **a U (b ∧ c)**  
+
+This is a *Until* formula: “a” holds **until** the conjunction “b ∧ c” becomes true.
+
+---
+
+### 1.  Parsing tree  
+
+```
+                U
+              /   \
+             a    ∧
+                 /   \
+                b     c
+```
+
+* The root is the binary **Until** operator **U**.  
+* Its left child is the atomic proposition **a**.  
+* Its right child is a binary **and** operator **∧** whose children are the atomic propositions **b** and **c**.
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning  
+
+| Tree node | Meaning (formal, per LTL semantics) | Natural‑language interpretation |
+|-----------|--------------------------------------|---------------------------------|
+| **a** | An atomic proposition; true at a state if the condition “a” holds there. | “a is true” (or “the property a holds”). |
+| **b** | Analogous: “b holds” at a state. | “b holds”. |
+| **c** | “c holds”. | “c holds”. |
+| **b ∧ c** | Conjunction: both b and c must be true at the same state. | “both b and c are true (simultaneously)”. |
+| **a U (b ∧ c)** | “For all states from the current one until a state where b ∧ c first holds, a must be true. The formula is satisfied iff such a state is eventually reached (i.e., the conjunction b ∧ c becomes true at some future point).” | “a must hold at every moment until a point where both b and c become true” (and that point must eventually be reached). |
+
+---
+
+### 3.  Refining the phrasing
+
+**Plain English version**
+
+> “From now on, rule *a* has to be satisfied at every instant, and this continues unchanged until a time arrives when *both b and c* become true together. As soon as *b* and *c* are true at the same time, the requirement about *a* stops applying, and the formula is considered satisfied. If *b* and *c* never become true simultaneously, the formula is never satisfied.”
+
+**Alternative, slightly different wording**
+
+> “A must hold continuously until, at some future step, we reach a state in which both b and c hold simultaneously. The moment b and c become true, the obligation on a ends.”
+
+---
+
+### 4.  When is the formula satisfied / violated?
+
+| Situation | Reasoning | Outcome |
+|-----------|-----------|---------|
+| **b ∧ c** holds immediately (at the current state) | The “Until” condition is vacuously true: the right‑hand side is true at the current instant, so nothing is required of “a” before that point. | **Satisfied** |
+| **b ∧ c** will hold at some future state *k*, and *a* is true in all states 0…k−1 | The sequence of states satisfies the Until condition: “a” holds while waiting. | **Satisfied** |
+| **b ∧ c** will hold at some future state *k*, but *a* fails at a state *j* < *k* | The left side of “U” is broken before the right side occurs. | **Violated** |
+| **b ∧ c** never becomes true | There is no future state that satisfies the right child, so *a* must hold forever, but LTL semantics set the formula to **False** (since the eventuality is never met). | **Violated** |
+
+---
+
+**Key take‑away**
+
+The formula “a U (b ∧ c)” enforces a persistent requirement on *a* that continues until, and stops when, both *b* and *c* become true together. If that joint truth never materialises, the requirement is never satisfied. This is the essence of the *Until* operator in natural‑language form.

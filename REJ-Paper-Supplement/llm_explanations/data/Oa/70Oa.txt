@@ -1,0 +1,53 @@
+### 1.  Original LTL formula  
+\[
+\boxed{\mathbf{G}(a \;\rightarrow\; b)}
+\]
+
+This formula reads: “Globally, `a` implies `b`.”
+
+---
+
+### 2.  Parsing tree (syntactic breakdown)
+
+```
+           G
+           |
+        →   (implication)
+       / \
+      a   b
+```
+
+* **Root** – The GLOBAL operator `G` (read “always” or “for all time steps”).
+* **Child of G** – The implication `→`.
+* **Leaf nodes** – Atomic propositions `a` and `b`.
+
+---
+
+### 3.  Bottom‑up reconstruction of meaning
+
+1. **Leaf level**  
+   *`a`* – “the property `a` holds at the current time step.”  
+   *`b`* – “the property `b` holds at the current time step.”
+
+2. **Implication**  
+   *`a → b`* – “Whenever `a` holds at a time step, `b` also holds at the same time step.”  
+   (If `a` is false, the implication is true regardless of `b`.)
+
+3. **Global operator**  
+   *`G(φ)`* – “The property `φ` is true at **every** time step of the execution.’  
+
+Applying this to `φ = a → b` gives:
+
+> “At every time step, if `a` holds then `b` must also hold.”
+
+---
+
+### 4.  Refined natural‑language phrasing
+
+> **Constraint**: In any execution, `a` can never be true without `b` being true **at the same moment**.  
+> Equivalently: *`a` is only allowed when `b` is also true*.  
+> 
+> The formula imposes no further restrictions on the system—if `a` never occurs, the requirement is trivially satisfied.  
+> But as soon as `a` holds, `b` must hold immediately; otherwise the system violates the specification.
+
+(Notice that this is a **strict temporal constraint**: it does not specify when `b` has to become true relative to a future occurrence of `a`; the requirement is at the same instant.)

@@ -1,0 +1,79 @@
+**Original LTL formula**  
+```
+!X !(w | x)
+```
+
+---
+
+## 1. Parsing tree (bottom‑up view)
+
+| Level | Operator | Operands | Notes |
+|-------|----------|----------|-------|
+| 0 | `w` | – | atomic proposition |
+| 0 | `x` | – | atomic proposition |
+| 1 | `|` | `w`, `x` | “or” |
+| 1 | `!` | `w | x` | “not (w or x)” |
+| 2 | `X` | `! (w | x)` | “next” |
+| 2 | `!` | `X ! (w | x)` | outer “not” |
+
+*(The precedence is: unary operators (`!`, `X`) bind tighter than the binary operator `|`. Thus the formula is parsed as `!( X !(w | x) )`.)*
+
+---
+
+## 2. Rebuilding the meaning (from leaves to root)
+
+1. **Atomic propositions**  
+   - `w` – “the property **w** holds at the current state.”  
+   - `x` – “the property **x** holds at the current state.”
+
+2. **Disjunction** (`w | x`)  
+   - “**w or x** holds at the current state.”  
+   - (At least one of the two propositions is true.)
+
+3. **First negation** (`! (w | x)`)  
+   - “It is **not** the case that w or x holds at the current state.”  
+   - Equivalently, *both* w and x are false in that state.
+
+4. **Next operator** (`X !(w | x)`)  
+   - “In the **next** state (i.e., the state immediately following the current one), it is not the case that w or x holds.”  
+   - In other words, the next state has *both* w and x false.
+
+5. **Outer negation** (`! X !(w | x)`)  
+   - “It is **not** the case that in the next state w and x are both false.”  
+   - Therefore, **in the next state at least one** of w or x must be true.
+
+---
+
+## 3. Refined natural‑language phrasing
+
+> **“On the next step, either property **w** or property **x** must hold.”**
+
+(Or equivalently: **“The next state satisfies `w ∨ x`.”**)
+
+---
+
+### When is the formula satisfied?
+
+- The formula holds on a given trace if, at *every* point in the trace, the proposition `(w ∨ x)` is true in the *immediate* subsequent state.  
+- If at any position the next state has both w and x false, the formula is violated at that position.
+
+### What constraint does it impose on the system?
+
+- The system must ensure that it never transitions to a state where both w and x are false.  
+- Operationally: **whenever you step to a new state, you must set at least one of w or x to true**.  
+- This can be used, for example, to model safety requirements like “every operation must either complete successfully (w) or fail with an error signal (x).”
+
+---
+
+### Quick equivalence check
+
+Using temporal logic identities:
+```
+!X !(p)  ≡  X p
+```
+Applying with `p = (w | x)` gives:
+```
+!X !(w | x)  ≡  X (w | x)
+```
+So the formula is syntactically equivalent to the simpler form “next `(w ∨ x)`”.
+That is, “in the next state w or x holds.”

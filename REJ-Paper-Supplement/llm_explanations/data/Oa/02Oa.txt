@@ -1,0 +1,51 @@
+**1. Original LTL statement**
+
+\[
+X\,b \;\;\Rightarrow\;\; \lnot X\,d
+\]
+
+---
+
+**2. Parsing tree (bottom‑up)**  
+
+```
+                     ⇒
+          ┌───────────────┴───────────────┐
+          X b                  ¬ (X d)
+          │                      │
+          b                      d
+```
+
+*   **Atomic propositions**: `b` and `d`.  
+*   **Temporal operator**: `X` (“next”).  
+*   **Logical operator**: `¬` (“not”) and `⇒` (“implies”).
+
+---
+
+**3. Building the meaning from the leaves up**
+
+| Sub‑formula | Meaning (in natural language) |
+|-------------|-------------------------------|
+| `b` | “the proposition `b` holds at the current instant.” |
+| `d` | “the proposition `d` holds at the current instant.” |
+| `X b` | “`b` holds **in the next state** (one step ahead of the current instant).” |
+| `X d` | “`d` holds **in the next state**.” |
+| `¬ X d` | “It is **not** the case that `d` holds in the next state; in other words, `d` does **not** hold in the next state.” |
+| `X b ⇒ ¬ X d` | “If `b` holds in the next state, then `d` does **not** hold in that same next state.” |
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **At every moment in time: if the next instant satisfies `b`, then the next instant must **not** satisfy `d`.**  
+> In other words, the propositions `b` and `d` cannot both be true in the same *next* state; `b` precludes `d` in the following instant.
+
+---
+
+**5. When is the formula satisfied?**
+
+* At a current state `i`, the formula is true if either  
+  * `b` is **false** in the next state (`i+1`), or  
+  * `b` is **true** in the next state and simultaneously `d` is **false** in the next state.
+
+Thus the constraint only applies at positions where `b` occurs next. If `b` never occurs in a following state, or if `b` occurs only together with `¬d`, the implication is satisfied. The formula says nothing about the current state itself or about future states beyond the immediate next one.

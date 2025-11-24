@@ -1,0 +1,52 @@
+**1. Original LTL formula**  
+\[
+\neg G\;c
+\]
+
+---
+
+**2. Parsing tree (syntactic breakdown)**  
+
+```
+            ¬
+            |
+            G
+            |
+            c
+```
+
+* The root operator is the negation `¬`.  
+* Its single child is the temporal operator `G` (“globally / always”).  
+* `G` applies to the atomic proposition `c`.
+
+---
+
+**3. Bottom‑up reconstruction of meaning**
+
+| Bottom subformula | Meaning (step‑by‑step) | Narrative in words |
+|--------------------|-----------------------|---------------------|
+| `c` | “The proposition `c` is true in the current state.” | **c** is true right now. |
+| `G c` | “For every moment from now on, `c` is true.” | **c** holds *at all times* from here onward. |
+| `¬ G c` | “It is **not** the case that `c` holds at all times.” | **It is not guaranteed that `c` will always be true**; at least once, it must be false. |
+
+Because the outermost operator is a negation, the whole formula is satisfied exactly when `G c` is *not* satisfied.  
+If there exists a state in the future where `c` is false, then the inner `G c` fails, making the negation true.  
+
+Equivalently, using the LTL identity `¬ G p  ≡  F ¬p` (not globally p ≡ eventually not p), the formula can be rewritten as:  
+
+\[
+F\,\neg c
+\]
+
+which reads plainly “**at some future point, `c` will be false**.”
+
+---
+
+**4. Refined natural‑language translation**
+
+- **Original LTL**: `¬ G c`  
+- **Natural‑language phrasing**:  
+  “It is **not** the case that `c` is true at all times.”  
+  In other words, **`c` is guaranteed to become false at least once in the future**.
+
+This formula does **not** impose a restriction that `c` must be false at the very beginning; it only enforces that `c` cannot stay permanently true. The earliest it may become false is in the current state, but it could also persist for a while before finally turning false. If `c` were true forever, the formula would be violated.

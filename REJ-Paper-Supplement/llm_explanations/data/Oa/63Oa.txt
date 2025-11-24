@@ -1,0 +1,69 @@
+**Original LTL formula**  
+
+\[
+\mathbf{G}\,(a \;\rightarrow\; \mathbf{F}\;b)
+\]
+
+*(In the example above “XXXa” has been instantiated with the concrete formula **G (a → F b)**. The same method applies to any other formula.)*
+
+---
+
+### 1. Parsing tree – bottom‑up decomposition
+
+| level  | sub‑formula          | constituent symbols | operator |
+|--------|----------------------|--------------------|----------|
+| 0      | \(b\)                | –                  | –        |
+| 1      | \(\mathbf{F}\;b\)      | \(F\) , \(b\)      | Future   |
+| 2      | \(a \;\rightarrow\; \mathbf{F}\;b\) | \(a\), \(\rightarrow\), \(\mathbf{F}\;b\) | Implication |
+| 3      | \(\mathbf{G}\,(a \;\rightarrow\; \mathbf{F}\;b)\) | \(G\), inner implication | Globally  |
+
+*Visual sketch*  
+
+```
+     G
+     |
+   -> 
+  /   \
+ a   F
+          b
+```
+
+---
+
+### 2. Rebuilding meaning from the bottom up
+
+1. **\(b\)** – the atomic proposition “\(b\)” is true at a particular instant.
+
+2. **\(\mathbf{F}\;b\)** – “eventually \(b\)”.  
+   It says: *there exists some future time (possibly the current instant) at which \(b\) becomes true.*
+
+3. **\(a \;\rightarrow\; \mathbf{F}\;b\)** – “if \(a\) then eventually \(b\)”.  
+   This is an implication:  
+   - Whenever \(a\) is true at the current instant, the suffix of the path from that instant onward must contain a point where \(b\) holds.  
+   - If \(a\) is false, the implication is trivially satisfied regardless of what happens later.
+
+4. **\(\mathbf{G}\,(a \;\rightarrow\; \mathbf{F}\;b)\)** – “always, if \(a\) then eventually \(b\)”.  
+   The globally operator \(\mathbf{G}\) quantifies over *every* instant in the future. Thus the implication must hold at every point in time, not just the present.
+
+---
+
+### 3. Refined natural‑language phrasing
+
+> **“Every time event **a** occurs, event **b** will eventually (at some point in the future) occur; and this rule holds forever.”**
+
+Alternative ways to express the same intuition:
+
+* “From any point in the execution, whenever \(a\) is true, there is a guarantee that \(b\) will be true at some later moment, and this guarantee continues to apply at all future points.”  
+* “\(a\) never gets ‘stuck’ without a future occurrence of \(b\); the system must ensure that next to any occurrence of \(a\), a \(b\) follows at some future time, and this property must hold at all times.”
+
+---
+
+### Key take‑away
+
+- **Atomic propositions** are the ground facts (e.g., “\(b\)” is simply true at a given instant).  
+- **Temporal operators** (\(\mathbf{F}\), \(\mathbf{G}\)) add a *time‑dependent* meaning:  
+  * \(F\) (“eventually”) forces a future occurrence.  
+  * \(G\) (“globally”/“always”) universally repeats the condition at every instant.  
+- **Logical connectors** (\(\rightarrow\), \(\wedge\), \(\vee\)) combine sub‑properties by ordinary propositional logic, but interpreted at specific points along the timeline.
+
+By systematically breaking a formula down to its atomic constituents, interpreting each temporal operator in isolation, and then reassembling the pieces in reverse order, we obtain a clear, human‑readable description of the system’s required behavior.

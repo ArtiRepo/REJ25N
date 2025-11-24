@@ -1,0 +1,46 @@
+**1. Original LTL formula**
+
+\[
+b \; U \; (d \land a)
+\]
+
+**2. Parsing tree (syntax decomposition)**  
+
+```
+          U
+        /   \
+       b     ∧
+             /  \
+            d    a
+```
+
+* The root operator is `U` (Until).  
+* Its left operand is the atomic proposition `b`.  
+* Its right operand is a conjunction `∧` of the atomic propositions `d` and `a`.
+
+**3. Rebuilding the meaning from the bottom up**
+
+* **Bottom‑level subformula:** `d ∧ a`  
+  *This is true iff both `d` and `a` are simultaneously true at the current state.*
+
+* **Immediate higher level:** `b U (d ∧ a)`  
+  *For a given execution trace σ = σ₀σ₁σ₂… the formula `b U (d ∧ a)` holds if and only if there exists a position k ≥ 0 such that:  
+  1. At position k, the subformula `d ∧ a` is true (i.e., both `d` and `a` hold).  
+  2. For every position j with 0 ≤ j < k, the atomic proposition `b` holds.*
+
+  In words: *“`b` must keep holding at every step until we reach a step where both `d` and `a` are true. Once that step is reached, the requirement is satisfied, and nothing further is imposed by the formula."*
+
+**4. Natural‑language phrasing (refined for clarity)**
+
+> **“`b` must stay true all the way up to a point where both `d` and `a` become true simultaneously.**
+> 
+>  * The system is forced to maintain `b` up to and **just before** the first occurrence of the joint truth of `d` and `a`.  
+>  * When the state where `d` and `a` are both true finally appears, the formula is considered satisfied, even if `b` turns false afterward.  
+>  * If there is **no future point** where both `d` and `a` hold together, the formula is never satisfied (the requirement can never be fulfilled).*
+
+---
+
+### Quick recap
+- **Syntax tree:** `b` **U** (`d` **∧** `a`).  
+- **Semantics:** “`b` holds continuously until the first time both `d` and `a` become true.”  
+- **Implication:** The system must not violate `b` before that joint event; after the event, the formula imposes no more constraints.

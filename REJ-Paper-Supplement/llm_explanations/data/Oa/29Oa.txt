@@ -1,0 +1,63 @@
+**Original LTL formula**
+
+```
+F x | F y
+```
+
+(Here `F` is the “eventually” (future‑sometime) operator, and `|` denotes logical OR.)
+
+---
+
+### 1. Parsing tree (breakdown)
+
+```
+            ──OR──
+           /      \
+         ──F──   ──F──
+          |        |
+          x        y
+```
+
+- **Root node**: `|` (OR)
+- **Left subtree**: `F x`
+  - `F` applied to the atomic proposition `x`
+- **Right subtree**: `F y`
+  - `F` applied to the atomic proposition `y`
+
+---
+
+### 2. Bottom‑up reconstruction of meaning  
+
+1. **Atomic propositions**  
+   - `x`: “property `x` holds”  
+   - `y`: “property `y` holds”
+
+2. **Future operators**  
+   - `F x`: “at some point in the future, `x` will become true.”  
+   - `F y`: “at some point in the future, `y` will become true.”
+
+3. **Logical OR** (`|`)  
+   - Combines the two futures: the whole formula is satisfied **if either**  
+     - `F x` is satisfied **or**  
+     - `F y` is satisfied (or both).
+
+So the tree tells us that the formula is true at a given state iff, along the run, there's **some** future time where either `x` holds or `y` holds.
+
+---
+
+### 3. Refined natural‑language phrasing
+
+> **“Eventually, either property `x` will become true, or property `y` will become true (or both sometime in the future).”**
+
+#### When the formula is satisfied  
+
+- If on a given execution you can find a future step at which `x` is true, the formula holds.  
+- If `x` never becomes true but there is a future step where `y` is true, the formula also holds.  
+- If both `x` and `y` become true at some points (possibly the same time or different times), the formula is still satisfied.
+
+#### When it imposes constraints on the system
+
+- The formula **prevents** the system from running forever without ever making `x` true **and** without ever making `y` true.  
+- If the system can continue indefinitely with neither `x` nor `y` ever becoming true, the formula would be violated.
+
+In summary, `F x | F y` expresses a minimal future requirement: **at some point, one of the two propositions must occur**. It does not say *when* or *how often*, only that *at least once* one of them will appear.

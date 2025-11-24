@@ -1,0 +1,49 @@
+**Original LTL formula**
+
+\[
+X(\lnot g \; \lor \; \lnot j)
+\]
+
+**Parsing tree (bottom‑up)**  
+
+```
+              X
+              |
+     ( ──>  (¬g  ∨  ¬j)  )
+               /   \
+            ¬g      ¬j
+             |        |
+            g (atom)  j (atom)
+```
+
+**Rebuilding the meaning from the bottom of the tree up**
+
+1. **Atomic propositions**  
+   - `g` and `j` are Boolean signals of the system (true in a state, false otherwise).
+
+2. **Negations**  
+   - `¬g` means “`g` is **false** in the current state.”  
+   - `¬j` means “`j` is **false** in the current state.”
+
+3. **Disjunction**  
+   - `¬g ∨ ¬j` means “at least one of `¬g` or `¬j` is true,”  
+     equivalently: “not both `g` and `j` are true in the current state.”
+
+4. **Next operator** (`X`)  
+   - `X φ` means “`φ` holds in the *immediate next* time step.”
+   - So `X(¬g ∨ ¬j)` says: “in the next state, the disjunction holds.”
+
+**Refined natural‑language translation**
+
+> **"In the next time step, the system must not have both `g` and `j` true; at least one of them has to be false."**
+
+ or  
+
+> **"The very next state cannot contain a situation where both `g` and `j` are true."**
+
+**When the formula is satisfied / constraints imposed**
+
+- **Satisfied** at a trace position `t` if in the state at time `t+1` either `g` is false, or `j` is false (or both).
+- **Failed** if in that next state both `g` and `j` are true.
+  
+Thus the formula restricts the system so that **any transition leading to a state where `g` ∧ `j` holds is prohibited**. It imposes a *future* constraint: “avoid a state where `g` and `j` co‑occur.”

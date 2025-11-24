@@ -1,0 +1,61 @@
+**1. Original LTL formula**
+
+\[
+\mathbf{b}\ \wedge\ X(\mathbf{a}\ \mathsf{U}\ \mathbf{c})
+\]
+
+---
+
+### 2. Parsing tree (break‑down of subformulas)
+
+```
+                 ∧
+                / \
+               b   X
+                    |
+                (a   U   c)
+```
+
+- **∧** (“and”) is the root.
+- The left child is the atomic proposition **b** (true “now”).
+- The right child is the next‑operator **X** applied to the subformula **(a U c)**.
+  - Inside the X‑subformula we have an *until* **U** whose left operand is **a** and right operand is **c**.
+
+---
+
+### 3. Bottom‑up reconstruction of meaning
+
+| Subformula | Interpretation (when evaluated at a particular point in time) |
+|------------|----------------------------------------------------------------|
+| **a** | “the atomic proposition a holds at this very state.” |
+| **c** | “the atomic proposition c holds at this very state.” |
+| **a U c** | “there will be some future point (possibly today) where **c** becomes true, and **a** must be true in every state *from now* up to—but **not including** that point where **c** first becomes true.”  <br>*(Note: the state where c occurs itself may have a false a.)* |
+| **X(a U c)** | “look one step ahead.  In the *next* state, the property **a U c** must hold.”  <br>That is, once we move to the successor state, the requirement above applies to the future of that successor. |
+| **b ∧ X(a U c)** | “neither ‘b’ nor the subsequent requirement can be violated.”  <br>It says: **b** has to hold *now*, *and* in the next state the system must behave so that from then on **a** keeps holding until **c** eventually happens. |
+
+---
+
+### 4. Refined natural‑language description
+
+> **“It is currently true that property **b** holds.  Moreover, at the very next time instant the system must preserve property **a** in every state until eventually property **c** becomes true (the state where **c** first becomes true may or may not satisfy **a**).**  
+
+> In other words, the system is constrained to:  
+> 1. Be in a state where **b** holds now.  
+> 2. Commit, from the next state onward, to keep **a** true as long as **c** has not yet appeared, and then allow **c** to appear at some future point.  
+
+> Violations occur if either **b** is false right now, or if after one step there is a state where **a** fails before **c** appears, or if **c** never appears at all (so the *until* cannot be satisfied).  
+
+> This formula thus prescribes a *current* condition (b) and an *anticipated* temporal safety property (a must hold until c eventually does)."
+
+---
+
+**Example to illustrate satisfaction/violation**
+
+| Trace (states i = 0,1,2,…) | Ci |= b? | Ci+1 |= a? | “a U c” in Ci+1? | overall formula true? |
+|----------------------------|----------|------------|-------------------|-----------------------|
+| i0: b true, i1: a true, i2: c true | yes | yes | yes (a holds until c at i2) | **True** |
+| i0: b true, i1: a false, i2: c true | yes | no | **False** (a failed before c) | **False** |
+| i0: b false, i1: a true, i2: c true | no | — | — | **False** |
+| i0: b true, i1: a true, i2: a true, i3: (c never) | yes | yes | **False** (c never occurs) | **False** |
+
+The table shows exactly when the conjunction of the two subformulas is satisfied and when it imposes a constraint that fails.

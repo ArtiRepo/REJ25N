@@ -1,0 +1,63 @@
+**Original LTL formula**
+
+```
+X !(t | w)
+```
+
+---
+
+## 1. Parse‑tree decomposition
+
+```
+        X
+        |
+       ¬
+        |
+      ∨
+     / \
+    t   w
+```
+
+* **`t` and `w`** – atomic propositions (properties that may hold at a state).  
+* **`∨`** – logical “or”: `t ∨ w` is true if either `t` or `w` is true (or both).  
+* **`¬`** – logical “not”: `¬(t ∨ w)` flips the truth value of its operand.  
+* **`X`** – the temporal “next” operator: the formula after `X` must hold in the *immediate next* state along a run.
+
+---
+
+## 2. Bottom‑up meaning reconstruction
+
+1. **Atomic level**  
+   *At a given state, `t` is true if property `t` holds; otherwise it is false.*  
+   *Similarly for `w`.*
+
+2. **Disjunction (`t ∨ w`)**  
+   *For the state we are interested in, this is true when **either** `t` is true or `w` is true (or both).*
+
+3. **Negation (`¬(t ∨ w)`)**  
+   *The truth value is flipped. Thus it is true exactly when **neither** `t` nor `w` is true for that state.*
+
+4. **Next (`X ¬(t ∨ w)`)**  
+   *`X` requires the subformula to hold in the next state *after* the current one.  
+   Therefore the entire expression is true at a state `s` if and only if  
+   ‑ in the successor state `s'` (the state you reach after one transition),  
+   ‑ both `t` and `w` are false.*
+
+---
+
+## 3. Natural‑language phrasing (refined)
+
+- **Basic wording**  
+  “In the immediately following state, neither `t` nor `w` holds.”
+
+- **Rephrased for clarity**  
+  *“Right after the current instant, the system must not exhibit property `t` and must not exhibit property `w`.  In the next time step, both `t` and `w` are false.”*
+
+- **Alternative rhetorical emphasis**  
+  “The next moment must bring a state where both `t` and `w` are absent.”  
+
+---
+
+### Summary
+
+The LTL formula `X !(t | w)` enforces a *next‑state* constraint: at the very next point in time, the system must be in a state where **both** properties `t` **and** `w` are false. This condition must hold at every state along a run, because each state requires its successor to satisfy that “neither `t` nor `w`” condition.

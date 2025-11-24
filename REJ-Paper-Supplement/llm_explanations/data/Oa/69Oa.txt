@@ -1,0 +1,83 @@
+**Original LTL formula**
+
+```
+F G a
+```
+
+---
+
+### 1.  Parsing tree (breakdown)
+
+```
+          (F )
+           |
+        (G )
+         |
+      (a)
+```
+
+- **Bottom layer**: `a` — an atomic proposition (i.e. “the property *a* holds at the current state”).
+- **Middle layer**: `G a` — the “always” operator applied to `a`.  
+  Means “from now on, `a` is true at every state”.
+- **Top layer**: `F (G a)` — the “eventually” operator applied to the subformula `G a`.  
+  Means “at some future point in the execution, `G a` becomes true”.
+
+---
+
+### 2.  Building the meaning from the bottom up
+
+1. **`a`**  
+   - Truth value depends on the current state of the system.
+2. **`G a`**  
+   - True in a particular state if *and only if* from that state onward the system **always** satisfies `a`.  
+   - In other words, the suffix of the run starting at that state contains `a` in every single position.
+3. **`F (G a)`**  
+   - True if there exists **at least one** state somewhere in the future (including possibly the very first state) where `G a` is true.  
+   - Thus, there must be a point after which the system stays in a regime where `a` never becomes false again.
+
+---
+
+### 3.  Refined natural‑language description
+
+> “There will come a time after which the property `a` holds forever.”
+
+Or equivalently:
+
+> “The system will eventually reach a state from which `a` remains true at every subsequent step (i.e., `a` becomes permanently true).”
+
+---
+
+### 4.  When the formula is satisfied
+
+- **Example**: Suppose the execution trace is  
+  `¬a, ¬a, a, a, a, a, …`  
+  Here, from the third state onwards `a` is always true.  
+  The `G a` subformula is satisfied at state 3 (and every state thereafter), and thus the `F G a` formula is satisfied.
+
+- **Edge cases**:
+  - If `a` is true from the very beginning and stays true, then `F G a` holds immediately.
+  - If `a` becomes true at some point and thereafter stays true, then `F G a` holds once the system enters that suffix.
+
+### 5.  When the formula is *not* satisfied
+
+- **Persistently false**:  
+  Trace `¬a, ¬a, ¬a, …` – `G a` is never true, so `F G a` fails.
+
+- **Flapping**:  
+  Trace `a, ¬a, a, ¬a, …` – `a` is never permanently true; every occurrence of `a` is interrupted by a later `¬a`.  
+  Therefore there's no point after which `a` holds forever, so the formula is false.
+
+- **Temporary hold**:  
+  Trace `¬a, a, a, ¬a, …` – `a` holds for a while but is eventually falsified.  
+  No suffix satisfies `G a`, so the overall formula is not met.
+
+---
+
+### 6.  Practical interpretation (system constraints)
+
+When you design or analyze a system against `F G a`, you’re demanding that:
+
+- **Eventuality**: The system *must* at some stage enter a phase where a desired property (captured by `a`) never breaks again.
+- **Persistency**: Once `a` becomes permanently true, it must never be turned off again.
+
+Thus, any timing or control logic that could lead to `a` becoming false after it has first become true would violate the specification. The specification enforces a “once‑pushed‑no‑fallback” guarantee for the property `a`.

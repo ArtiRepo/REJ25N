@@ -1,0 +1,59 @@
+**Original LTL formula**
+
+```
+X a ⇒ X c
+```
+
+---
+
+### 1.  Parsing tree (break‑down)
+
+```
+          (⇒)
+         /    \
+     (X)      (X)
+      |        |
+     a        c
+```
+
+* **Root** – Boolean implication (`⇒`)  
+* **Left subtree** – “next‑time a” (`X a`)  
+* **Right subtree** – “next‑time c” (`X c`)  
+
+Both children of the implication are *unary* operators: the next‑time (`X`) operator applied directly to the atomic propositions `a` and `c`.
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning
+
+1. **Bottom level – atomic propositions**
+
+   * `a`: “the proposition **a** holds in the current state.”
+   * `c`: “the proposition **c** holds in the current state.”
+
+2. **Next‑time (`X`) level**
+
+   * `X a`: “in the *next* state (at time t + 1) proposition **a** holds.”
+   * `X c`: “in the *next* state (at time t + 1) proposition **c** holds.”
+
+3. **Implication level**
+
+   * `X a ⇒ X c`: “if, in the next state, **a** is true, then in the next state **c** must also be true.”
+
+   In other words, for every moment *t* along a trace:
+   * If the system’s state at *t + 1* satisfies `a`, then the state at *t + 1* must also satisfy `c`.
+   * If `a` is *not* satisfied at *t + 1*, the implication places no restriction on `c`; the formula is considered satisfied regardless of whether `c` holds there.
+
+---
+
+### 3.  Refined natural‑language description
+
+> **“Whenever the system’s *next* state exhibits `a`, it must also exhibit `c`; otherwise the requirement imposes no constraint.”**
+
+More explicitly:
+
+* At any point in time, look one step ahead.  
+* If that next step contains `a`, then `c` must also be present in that same next step.  
+* If that next step does **not** contain `a`, the formula is automatically satisfied regardless of the presence or absence of `c`.
+
+This LTL formula therefore enforces a *co‑occurrence* requirement for `a` and `c` at the same *future* instant, but only in the cases where `a` actually appears. It does not speak about the current state or about future occurrences beyond the immediate next step.

@@ -1,0 +1,72 @@
+**1. Original LTL formula**
+
+\[
+F \; (\, f \;\Rightarrow\; j\,)
+\]
+
+*(The outer `F` is the “eventually” operator, `⇒` is the logical implication, and `f` and `j` are atomic propositions.)*  
+
+--------------------------------------------------------------------
+
+### 2. Parsing tree (bottom‑up breakdown)
+
+```
+                     F
+                     |
+           --------------------
+           |                  |
+         → (IMPL)           (nothing)
+           |
+   --------------------
+   |                |
+  f                j
+```
+
+* The innermost leaves are the atomic propositions `f` and `j`.  
+* The node labelled `→` (implication) combines them into the subformula  
+  `f ⇒ j`.  
+* The outermost `F` wraps that subformula into the eventuality operator,  
+  giving the full formula `F(f ⇒ j)`.
+
+--------------------------------------------------------------------
+
+### 3. Bottom‑up meaning reconstruction
+
+1. **Atomic propositions**  
+   *`f`* : “the proposition f is true in the current state.”  
+   *`j`* : “the proposition j is true in the current state.”
+
+2. **Implication node (`f ⇒ j`)**  
+   The implication is true in a state **iff** either  
+   * `f` is false in that state, **or**  
+   * `j` is true in that state.  
+   In other words: *“if f holds, then j also holds”* (but this does **not** by itself demand that j be true when f is true; it is vacuously true when `f` is false).
+
+3. **Eventuality node (`F(f ⇒ j)`)**  
+   `F` (“eventually”) requires that **at least one state in the future** satisfy the inner formula.  
+   Hence `F(f ⇒ j)` is true **iff** there exists some time step *t* in the future such that at *t* either  
+   * `f` is false, **or**  
+   * `j` is true.
+
+--------------------------------------------------------------------
+
+### 4. Refined natural‑language phrasing
+
+- **Raw, literal translation**  
+  “Eventually the implication that *f* implies *j* holds.”  
+
+- **More intuitive rewrite**  
+  “There will be a future moment where either *f* is not true, or *j* is true.”  
+
+- **Explanation of constraints**  
+  - The formula places a *negative* constraint: it **forbids** the system from staying forever in a situation where *f* is true **and** *j* is false.  
+  - If at any point the system irrevocably reaches a mode where *f* is permanently true and *j* permanently false, the formula would be violated (because then `f ⇒ j` would be false at every future state).  
+  - In all other runs—those in which at some time *f* becomes false or *j* becomes true—the formula is satisfied.
+
+- **Coherent, everyday phrasing**  
+  “Eventually, the system will reach a point where the condition ‘if f, then j’ no longer fails; that is, the system will either no longer satisfy f or will start satisfying j.”
+
+--------------------------------------------------------------------
+
+**Bottom line:**  
+`F(f ⇒ j)` ensures that the system does **not** become trapped in a forever‑false implication (i.e., a forever **f** and forever **¬j** situation). Once the system gets to a state where either **f** has become false or **j** becomes true, the formula is satisfied and stays true for all following steps.

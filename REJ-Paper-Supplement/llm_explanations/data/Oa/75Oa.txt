@@ -1,0 +1,43 @@
+**1. Original LTL formula**  
+```
+F(a ∧ b)
+```
+
+**2. Parsing tree (breakdown)**  
+
+```
+          F
+          |
+        ∧
+        / \
+       a   b
+```
+- **Leaves**: the atomic propositions `a` and `b`  
+- **Next level up**: the conjunction `a ∧ b`  
+- **Root**: the future operator `F`, meaning “eventually”
+
+**3. Rebuilding the meaning from the bottom up**
+
+*Bottom level – atomic propositions*  
+- `a` is true at the current instant iff the event/condition *a* holds right now.  
+- `b` is true at the current instant iff the event/condition *b* holds right now.
+
+*Second level – conjunction*  
+- `a ∧ b` is true at the current instant iff **both** `a` and `b` are true **at the same instant**.
+
+*Top level – eventuality*  
+- `F(a ∧ b)` is true in a run if **there exists some future time step (possibly the current one)** where the sub‑formula `a ∧ b` holds. In other words, “there will come a time stamp at which *a* and *b* are simultaneously satisfied.”
+
+**4. Refined natural‑language interpretation**
+
+> **“The system will eventually reach a state in which both *a* and *b* hold at the same time.”**
+
+**When is the property satisfied?**  
+- The formula holds if, at any point along the execution trace, both `a` and `b` become true together.  
+- It is immediately satisfied if the current state already has `a` and `b` true.
+
+**What constraint does it impose?**  
+- If the system can get stuck in a region where `a` and `b` never coincide, the property is violated.  
+- To satisfy the formula, the design must guarantee that it is *possible* (and eventually) to reach a state where both conditions are true together—otherwise the spec will be falsified.  
+
+Thus, `F(a ∧ b)` expresses an **eventual simultaneous satisfaction** of `a` and `b` over time.

@@ -1,0 +1,73 @@
+**Original LTL formula**
+
+\[
+(c \land b)\; U\; a
+\]
+
+---
+
+### 1. Parsing tree
+
+```
+          U
+         / \
+      ∧       a
+     / \
+    c   b
+```
+
+- **Root**: the binary **Until** operator (`U`).
+- **Left child of the root**: a **conjunction** (`∧`) of two atomic propositions `c` and `b`.
+- **Right child of the root**: the atomic proposition `a`.
+
+---
+
+### 2. Bottom‑up meaning
+
+1. **Atomic propositions**  
+   - `c` = “property **c** holds during this step.”  
+   - `b` = “property **b** holds during this step.”  
+   - `a` = “property **a** holds during this step.”
+
+2. **Conjunction (`∧`)**  
+   - `c ∧ b` = “both `c` **and** `b` hold at the current step.”  
+   - *In everyday language*: “`c` **and** `b` are true simultaneously.”
+
+3. **Until (`U`)**  
+   - The sub‑formula `σ = (c ∧ b) U a` is satisfied at a state *i* if:
+     1. There is some future index *j* ≥ *i* where `a` holds.
+     2. For every index *k* with *i* ≤ *k* < *j*, the conjunction `c ∧ b` holds.
+   - Once `a` is reached, the requirement about `c ∧ b` ends; after that point the formula places no further condition.
+
+---
+
+### 3. Natural‑language phrasing (refined)
+
+> **“`c` and `b` must keep holding continuously until the moment when `a` becomes true, and `a` must eventually occur.**  
+> Once `a` occurs, the requirement on `c` and `b` is released and they may change thereafter.”
+
+#### When is the formula satisfied?
+
+- If in the execution trace we eventually see a state where `a` is true, **and** every earlier state before that state (including the current one) satisfies both `c` and `b`.  
+- Example trace:  
+  ```
+  step 0: c=true, b=true, a=false
+  step 1: c=true, b=true, a=false
+  step 2: c=true, b=true, a=true   ← a holds; all previous steps had c∧b
+  ```
+  The formula is true at step 0, step 1, and step 2.
+
+#### When does it impose constraints?
+
+- The system is required to keep both `c` and `b` true **at every step until** `a` becomes true.
+- If at any step before the first occurrence of `a`, either `c` or `b` becomes false, the formula is violated from that point onward.  
+- After `a` finally holds, the formula no longer enforces any conditions on `c` or `b`.
+
+---
+
+**Summary**
+
+`(c ∧ b) U a` expresses a strong “waiting‑until” requirement:  
+- *Events `c` and `b` must hold all the way up to the eventual occurrence of `a`.*  
+- *`a` itself has to happen eventually; otherwise the property fails.*  
+- *Once `a` occurs, the stretch of `c` and `b` is no longer enforced.*

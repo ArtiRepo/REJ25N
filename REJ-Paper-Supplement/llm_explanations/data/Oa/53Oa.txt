@@ -1,0 +1,56 @@
+**Original LTL formula**
+
+\[
+F a \; \rightarrow \; G b
+\]
+
+---
+
+### 1. Parsing‑tree breakdown
+
+```
+          → (implication)
+         / \ 
+      F a   G b
+```
+
+* **F a** – “finally a” (eventually a becomes true)
+* **G b** – “globally b” (b is true at every state of the run)
+
+---
+
+### 2. Bottom‑up meaning reconstruction  
+
+* **Leaf “a”**: the proposition a.
+* **Leaf “b”**: the proposition b.
+* **Subformula “F a”**: “at some future point along the execution, a holds”.
+  - It is **false** if a never becomes true (the path contains no state where a is true).
+* **Subformula “G b”**: “b holds in every state of the execution”.
+  - It is **false** if there is at least one state where b is false.
+* **Implication “F a → G b”**:  
+  - True if either “F a” is false (a never happens) **or** “G b” is true (b holds everywhere).  
+  - False only when “F a” is true **and** “G b” is false.
+
+---
+
+### 3. Natural‑language phrasing (stepwise refinement)
+
+1. **Base level**  
+   - “\(F a\) means that the proposition **a eventually becomes true** somewhere along the execution.”  
+   - “\(G b\) means that the proposition **b is true at every point** of the execution.”
+
+2. **Combine with implication**  
+   - “If along the execution *eventually* a holds, *then* b must hold at all times.”
+
+3. **Add pragmatic context**  
+   - “In other words, the system is allowed to run with *a* never occurring (the implication is automatically satisfied).  
+     But whenever an execution does reach a state where **a** becomes true, the run must simultaneously satisfy that **b** is true in every state, including all states before, during, and after the occurrence of **a**.”
+
+---
+
+**Refined final translation**
+
+> **“If the system ever reaches a state where proposition a holds, then proposition b must be true at every state of the execution.”**  
+> This constraint is waived only when *a* never occurs in the run.
+
+The formula therefore enforces a **global requirement on b** triggered by the eventual appearance of a: once a is ever satisfied, b must hold universally throughout the rest of the (infinite) execution. If a never occurs, the implication imposes no restriction.

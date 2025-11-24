@@ -1,0 +1,64 @@
+**Original LTL formula**
+
+```
+b U (a | d)
+```
+
+---
+
+### 1.  Parse‑tree (syntactic breakdown)
+
+```
+          U
+        /   \
+       b     OR
+            /  \
+           a    d
+```
+
+- **`U`** (until) is the outermost operator.  
+- Its left operand is the atomic proposition **`b`**.  
+- Its right operand is the disjunction **`a | d`** (logical “or”).
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning  
+
+1. **Leaf nodes**  
+   - `a` – the property “a holds in the current state”.  
+   - `d` – the property “d holds in the current state”.  
+   - `OR` – “either a holds or d holds (or both)”.  
+   - `b` – the property “b holds in the current state”.
+
+2. **Internal node `OR`**  
+   - Interpreted as “`a` or `d` holds”. Thus the right side of the until requires that **at least one** of the two propositions is true in the state where the right side becomes satisfied.
+
+3. **Until `U`**  
+   - **Satisfaction condition**: At any time *t* (the “current” time), the formula *b U (a|d)* is true iff  
+     * there exists a future time *k* (k ≥ t) such that **(a ∨ d)** is true at *k*, and  
+     * for every step *j* with t ≤ j < k, **b** is true at *j*.  
+   - Importantly, if the current state already satisfies `a | d`, the obligation on `b` vanishes immediately: the formula is satisfied at time *t* without needing any future steps.
+   - Once the right side (`a | d`) becomes true at the earliest such *k*, nothing more is required thereafter; the satisfaction is permanent.
+
+---
+
+### 3.  Refined natural‑language description
+
+> **“The proposition `b` must hold continuously until a moment when either `a` or `d` becomes true.  
+> If `a` or `d` is already true right now, the requirement on `b` is waived immediately.  
+> If neither `a` nor `d` ever comes true, the specification is never satisfied (unless `b` stops holding, in which case the formula also fails).”**
+
+---
+
+### 4.  What the formula controls over time
+
+| Time step | What the formula forces/allows |
+|-----------|--------------------------------|
+| **t**: current state | If `a` or `d` is true – formula satisfied. Otherwise `b` must be true. |
+| **t+1, t+2, …** | Until the first occurrence of `a` or `d`, each state must satisfy `b`. |
+| **At the first `k` where `a ∨ d` holds** | The formula becomes true; subsequent states need not satisfy `b` or `a|d` – any behaviour is allowed. |
+| **If `a ∨ d` never occurs** | The formula never becomes true (unless `b` also fails at some point, in which case it fails earlier). |
+
+---
+
+In short, **`b U (a|d)`** expresses a “wait‑for‑because‑something‑happens” pattern: keep `b` true until (`a` or `d`) finally happens. Once that happens, the condition is considered met and no further obligations are imposed.

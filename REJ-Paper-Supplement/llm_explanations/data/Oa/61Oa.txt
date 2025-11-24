@@ -1,0 +1,80 @@
+**Original LTL formula**
+
+```
+a U G!a
+```
+
+---
+
+## 1.  Parsing tree (sub‑formula breakdown)
+
+```
+                            U
+                          /   \
+                         a     G!a
+                              / \
+                             G   !a
+                                |
+                                a
+```
+
+* `a` – atomic proposition  
+* `!a` – logical negation of `a`  
+* `G!a` – “always `!a`” (i.e., `!a` holds in every future state from the moment it becomes true)  
+* `a U G!a` – the “until” operator: the left side (`a`) must hold up to (but not necessarily during) the first moment that the right side (`G!a`) becomes true.
+
+---
+
+## 2.  Building the meaning bottom‑up
+
+1. **`!a`**  
+   *Meaning*: “`a` is false.”
+
+2. **`G!a`**  
+   *Meaning*: “from a certain time onward, `a` is permanently false.”  
+   - (`a` never becomes true again from that point.)
+
+3. **`a U G!a`**  
+   *Basic LTL semantics*:
+   - `G!a` must eventually hold at some future state *t*.
+   - While we are **before** state *t*, every state must satisfy `a`.
+   - At state *t*, `G!a` becomes true, which means `!a` is true there and thereafter.
+
+   *Put simply*:  
+   “`a` holds continuously until a point after which `a` never holds again.”
+
+---
+
+## 3.  Refining the natural‑language description
+
+**Concrete wording**
+
+> *The system starts with `a` being true, and it remains true through all steps until a first moment — after which `a` stays false forever (including that moment).*
+
+In other words:
+
+* At every state before a certain time the proposition `a` must be true.  
+* At the first state where the system switches to a permanently “`a`‑is‑false” mode (encoded by `G!a`), `a` becomes false and never becomes true again.
+
+---
+
+## 4.  When is the formula satisfied?  
+
+*There must exist a finite index *t* such that:*
+1. **For all indices *k* < *t***, `a` holds at step *k*.  
+2. **At index *t***, `a` is false (`!a` holds).  
+3. **From index *t* onward**, `a` never holds again (the `G!a` part is satisfied for every subsequent step).
+
+If no such time *t* exists (e.g., `a` stays true forever), the formula is **not** satisfied.
+
+---
+
+## 5.  Constraints imposed on the system
+
+1. **Continuity of `a` before a change** – the system cannot let `a` become false before the obligatory transition point.
+2. **Eventual permanent silence of `a`** – the system must, at some finite future time, switch `a` to a forever‑false mode and keep it there.
+
+Thus the LTL formula is a safety‑liveness combination:
+
+* *Safety*: `a` cannot be violated until the moment where `a` permanently stops.
+* *Liveness*: The switch to permanent “`a`‑is‑false” must eventually happen.

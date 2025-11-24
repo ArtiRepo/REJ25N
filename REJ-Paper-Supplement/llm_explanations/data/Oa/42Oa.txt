@@ -1,0 +1,92 @@
+**Step 1 – Write down the original LTL formula**
+
+> \[
+> (y \;\&\; \neg d) \;\;|\;\; (y \Rightarrow d)
+> \]
+
+---
+
+**Step 2 – Break the subformula into a parsing tree**
+
+```
+            OR (|)
+          /        \
+       AND (∧)      IMPLIES (⇒)
+      /     \        /     \
+     y      NOT (¬)      y      d
+               \
+                d
+```
+
+* Root: disjunction `|`
+* Left child: conjunction `∧`, whose operands are `y` and `¬d`.
+* Right child: implication `⇒`, whose antecedent is `y` and consequent is `d`.
+
+---
+
+**Step 3 – Rebuild meaning from the bottom of the tree up**
+
+1. **Bottom‑level atoms**  
+   * `y` – “the proposition y holds”.
+   * `d` – “the proposition d holds”.
+
+2. **Unary operator**  
+   * `¬d` – “not d”, i.e. “the proposition d does **not** hold”.
+
+3. **Conjunction**  
+   * `y ∧ ¬d` – “both y holds **and** d does **not** hold”.
+
+4. **Implication**  
+   * `y ⇒ d` – “if y holds then d must hold”.  
+   (Remember that `p ⇒ q` is logically equivalent to `¬p ∨ q`; we’ll use this equivalence shortly.)
+
+5. **Disjunction**  
+   * `(y ∧ ¬d) ∨ (y ⇒ d)` – “Either y holds and d does not, **or** whenever y holds d also holds”.
+
+---
+
+**Step 4 – Simplify the logical form**
+
+Using the equivalence `y ⇒ d ≡ ¬y ∨ d`:
+
+\[
+(y ∧ ¬d) ∨ (¬y ∨ d)
+\]
+
+Now order the disjuncts and apply the distributive laws:
+
+\[
+(¬y ∨ d) ∨ (y ∧ ¬d)
+\ \equiv\ 
+(¬y ∨ d ∨ y) ∧ (¬y ∨ d ∨ ¬d)   \quad\text{(distribution of ∨ over ∧)}
+\]
+
+* `¬y ∨ d ∨ y` simplifies to `True` (since `y ∨ ¬y` is a tautology).  
+* `¬y ∨ d ∨ ¬d` simplifies to `True` as well (`d ∨ ¬d` is a tautology).
+
+Thus the whole formula reduces to `True`.
+
+So **the formula is a tautology – it is satisfied in every possible situation, regardless of the truth values of `y` or `d`.**
+
+---
+
+**Step 5 – Refine the natural‑language phrasing**  
+
+* **Raw translation**  
+  “Either *both* y holds and d does not, **or** whenever y holds then d must also hold.”
+
+* **Clarified, concise translation**  
+  "The statement is always true; it imposes no real restriction on the system. It says that either y is true while d is false, or if y becomes true, then d must also become true – but because the two parts together cover every possibility, the formula is satisfied in every situation."
+
+* **Explicit explanation of when it’s satisfied vs. constrained**  
+  * The formula is **ever‑satisfied** – the system never needs to enforce anything based on this formula.  
+  * If someone tries to interpret the disjunction literally, they might think we have a choice between “y and not d” or “y implies d”. In practice, this choice is irrelevant; the implication itself already guarantees that any scenario where y is true will force d to be true, while the presence of `y ∧ ¬d` covers the case where y is true but d is false. Because these two possibilities together cover all valuations of `y` and `d`, the formula cannot be falsified.
+
+---
+
+### Bottom‑line:  
+The LTL formula  
+\[
+(y \;\&\; \neg d) \;\;|\;\; (y \Rightarrow d)
+\]
+is a tautology. Its natural‑language description is “Either y is true and d is false, or if y is true then d is true,” but since the two alternatives together exhaust every possible truth assignment, the formula imposes no real constraints on the system—it is always satisfied.

@@ -1,0 +1,35 @@
+**LTL Formula**  
+\[
+\textbf{a}
+\]
+
+---
+
+### 1. Parsing tree  
+
+```
+            a            (atomic proposition)
+```
+
+- The entire formula is a single leaf node: the proposition **a**.  
+- No logical or temporal operators surround it.
+
+---
+
+### 2. Bottom‑up reconstruction of meaning  
+
+1. **Atomic level** – An atomic proposition `a` is true in a state if the system’s current valuation assigns `true` to `a`.  
+2. **No operators** – Because there are no logical (`¬, ∧, ∨, →`) or temporal (`◯, U, F, G, X`) operators, the truth of the formula depends only on the current state and nothing else.  
+
+Thus the satisfaction relation is simply:  
+\(M, s_i, i \models a \iff a\ \text{holds in state}\ s_i\).
+
+---
+
+### 3. Refined natural‑language phrasing  
+
+- **“The property `a` holds right now.”**  
+- **“At this moment the system is in a state where `a` is true.”**  
+- **“`a` must currently be true; there is no requirement about the future or past.”**
+
+The formula places no constraints beyond the present: it is fulfilled whenever the current state satisfies `a`, and it fails if `a` is false in that state. No additional events or time intervals are referenced.

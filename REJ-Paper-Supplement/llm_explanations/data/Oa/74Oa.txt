@@ -1,0 +1,68 @@
+**Original LTL formula**
+
+```
+G ( a ∨ b )
+```
+
+---
+
+### 1. Parsing tree (syntactic breakdown)
+
+```
+        G
+        |
+     ( a ∨ b )
+     /       \
+    a         b
+```
+
+- **Root** – the temporal operator `G` (“globally”): the property must hold at **every** moment of the execution.
+- **Middle node** – the Boolean OR operator `∨`.
+- **Leaves** – atomic propositions `a` and `b`.
+
+---
+
+### 2. Rebuilding the meaning from the bottom up
+
+1. **Atomic propositions**  
+   - `a` denotes a condition/property that can be true or false at any given state.  
+   - `b` is another such condition.
+
+2. **Disjunction `a ∨ b`**  
+   - “Either `a` is true, or `b` is true, or both are true.”  
+   - At a single time instant, the sub‑formula `a ∨ b` is satisfied iff **at least one** of `a` or `b` holds.
+
+3. **Global operator `G` applied to the disjunction**  
+   - The `G` operator requires its operand to be satisfied **in every state** along an infinite run.  
+   - Therefore, `G(a ∨ b)` says: *for all time steps, the condition `a ∨ b` must hold*.
+
+Putting it together, the whole formula means:
+
+> **At every moment in time, either the proposition `a` holds, or the proposition `b` holds (or both hold).**
+
+---
+
+### 3. Refined natural‑language phrasing
+
+- **Possible phrasing 1:** “Always, at all times, **at least one** of `a` or `b` is true.”  
+  - Emphasizes the “always” aspect and the requirement that the *union* of `a` and `b` is always satisfied.
+
+- **Possible phrasing 2:** “Never at any time can both `a` and `b` be false.”  
+  - Highlights the negative: the only forbidden state is “neither `a` nor `b`”.
+
+- **Possible phrasing 3:** “The system never reaches a state where `a` is false and `b` is false.”  
+  - Makes explicit the forbidden combination.
+
+---
+
+### 4. Satisfiability / constraint implications
+
+- **When satisfied:**  
+  - Every state in the execution trace has `a = true` **or** `b = true`.  
+  - The trace could alternate between `a`‐true and `b`‐true, or could stay on `a`, or stay on `b`, as long as the disjunction never fails.
+
+- **When the formula imposes constraints:**  
+  - The system cannot dwell in or transition to a state where both `a` and `b` are simultaneously false.  
+  - Any such state would cause the formula to be violated, making the trace unacceptable with respect to this specification.
+
+In short, `G(a ∨ b)` enforces a *continuous* guarantee that **at least one** of the two propositions `a` or `b` holds at every instant in time.

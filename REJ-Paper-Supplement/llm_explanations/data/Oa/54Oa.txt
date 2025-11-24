@@ -1,0 +1,56 @@
+**1.  Original LTL formula**
+
+\[
+\boxed{(a \; U \; b)\;\; \wedge\;\; \mathbf{G}\,a}
+\]
+
+*U* = “until”,  *G* = “globally” (true at every point in time).
+
+---
+
+**2.  Parsing tree (breakdown)**  
+
+```
+            ∧
+           / \
+          U   G
+         / \   \
+        a   b   a
+```
+
+- Root: conjunction `∧`  
+- Left child: `U` (until) with operands `a` and `b`  
+- Right child: `G` (globally) with operand `a`  
+
+---
+
+**3.  Bottom‑up reconstruction of meaning**
+
+| Sub‑formula | What it requires | With the rest of the formula |
+|-------------|------------------|------------------------------|
+| `G a` | `a` must hold **at every moment** of the execution | Imposes a perpetual condition, no matter what else occurs |
+| `a U b` | `b` has to occur **at least once in the future**, and **until the first occurrence of `b`, `a` must hold at every instant** | The “until” part guarantees a point where `b` is true, but also requires `a` before that point. After `b` has happened, the “until” no longer constrains `a`. |
+
+Now combine the two pieces:
+
+- `G a` already forces `a` to hold at **every** instant, before *any* `b` and also after the first `b`.  
+- `a U b` just says that a `b` **must happen sometime**; because `G a` is already true at those earlier times, the "until" condition is automatically satisfied as long as `b` occurs.  
+- Consequently the conjunction enforces **two** constraints simultaneously:
+
+  1. `a` is true forever (`G a`).  
+  2. `b` will eventually become true (`F b` – “finally”/“eventually”), because `a U b` implies that `b` must happen at some point.
+
+---
+
+**4.  Refined natural‑language phrasing**
+
+> **“The system must keep the property **a** true all the time, and at some point in the future it must also make the property **b** true.”**
+
+This phrasing makes clear that:
+
+- **Satisfaction**: The run satisfies the formula if `a` never becomes false, and there is at least one moment where `b` holds.  
+- **Constraint**: Any correct run is forced to:
+  - never stop satisfying `a` for any instant, and
+  - eventually achieve `b` (but `b` can appear at any time; once it does, the `until` condition is fulfilled, albeit `a` continues to hold because of `G a`).
+
+In temporal‑logic jargon the formula is equivalent to the pair \( \mathbf{G}\,a \land \mathbf{F}\,b \) (“always a” AND “eventually b”).

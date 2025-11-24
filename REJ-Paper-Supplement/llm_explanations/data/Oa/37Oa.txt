@@ -1,0 +1,83 @@
+**1.  Original LTL formula**
+
+```
+G (!i) | F (f U i)
+```
+
+(Here `|` denotes logical OR, `!` is NOT, `G` is “Globally/always”, `F` is “Eventually/Finally”,  
+`U` is the Until connective.)
+
+--------------------------------------------------------------------
+
+**2.  Parsing tree (break‑down)**  
+
+```
+          (OR) ──────────────────────────────────────
+          /                                      \
+      (G   !i)                                 (F  (f U i))
+     /   \
+(!i)      ⊿
+ |           |
+ !            ⊿
+ |             |
+ i           (U)
+            /   \
+          f       i
+```
+
+* Leaves:* the atomic propositions `i` and `f`.
+
+* Unary nodes:*  `!` (NOT), `G` (Globally), `F` (Finally).
+
+* Binary node:* `U` (Until).
+
+--------------------------------------------------------------------
+
+**3.  Meaning reconstructed bottom‑up**
+
+1. **`i`** – “the proposition *i* is true in the current state”.
+
+2. **`f`** – “the proposition *f* is true in the current state”.
+
+3. **`!i`** – “*i* is false in the current state”.
+
+4. **`G(!i)`** – “from the very beginning of the run, *i* is never true”.  
+   In every state the proposition *i* evaluates to false.
+
+5. **`(f U i)`** – “there will eventually be a state where *i* becomes true, and  
+   until that state *f* must hold in every preceding state”.  
+   That is, starting now we have a contiguous stretch of *f*’s ending with an *i*.
+
+6. **`F (f U i)`** – “at some point in the future there will be a segment
+   that satisfies `(f U i)`”.  
+   Equivalently: “at some time we will see a contiguous run of *f*’s ending with an *i*”.
+
+7. **`G (!i) | F (f U i)`** – “Either  
+   (a) *i* never occurs, or  
+   (b) eventually we will witness a period where *f* holds continuously until *i* becomes true”.
+
+So the overall formula is satisfied as soon as one of its two disjuncts holds; if *i* never occurs the formula is trivially true, otherwise *i* must be preceded by a continuous streak of *f*.
+
+--------------------------------------------------------------------
+
+**4.  Refined natural‑language phrasing**
+
+> **The requirement is:**  
+>  Either **the proposition `i` never becomes true at any point** during the execution, **or**  
+>  **there is some future moment where `f` holds in every intermediate state up to that moment, and at that moment `i` becomes true**.  
+> 
+>  In other words, **`i` is either completely forbidden, or whenever it does occur it must be preceded by an uninterrupted prefix of `f`’s**.  
+> 
+>  No constraint is imposed after the occurrence of `i`; the formula does not care what happens following `i`.
+
+--------------------------------------------------------------------
+
+**5.  Illustrative examples**
+
+| Execution (states labelled with truth values) | Does the formula hold? | Why? |
+|----------------------------------------------|------------------------|------|
+| `i = F, f = T, T, T, …` (i never true) | Yes | The left disjunct `G(!i)` is satisfied. |
+| `i = F, f = F, T, T, i = T` (f holds until i) | Yes | The right disjunct `F(f U i)` is satisfied. |
+| `i = F, f = T, F, T, i = T` (gap in f before i) | No | Neither `G(!i)` (i eventually true) nor `F(f U i)` (no contiguous f before i) holds. |
+
+Thus, the LTL formula imposes the constraint that *i* may appear only after a clean streak of *f*’s; otherwise, *i* may simply never appear.

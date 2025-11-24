@@ -1,0 +1,57 @@
+**Original LTL formula**
+
+```
+G (!f | !i)
+```
+
+---
+
+### 1. Parsing tree (bottom‑up breakdown)
+
+```
+           G
+           |
+          OR
+         /   \
+       !f     !i
+       |      |
+       f      i
+```
+
+- **Top level**: `G` (Globally / “always”)
+- **Next level**: `|` (Logical OR)
+- **Operands of the OR**: two negations, `!f` and `!i`
+- **Leaves**: atomic propositions `f` and `i`
+
+---
+
+### 2. Rebuilding the meaning from the bottom
+
+1. **`!f`**  
+   *Interpretation*: At the current instant, the proposition `f` is **false**.
+
+2. **`!i`**  
+   *Interpretation*: At the current instant, the proposition `i` is **false**.
+
+3. **`!f | !i`**  
+   *Interpretation*: At the current instant, **at least one** of the two conditions holds – either `f` is false, or `i` is false, or both are false.  
+   *Equivalently*: “It is not the case that both `f` and `i` are true at the same time.”
+
+4. **`G (!f | !i)`**  
+   *Interpretation*: The above property (`!f | !i`) must be true **at every point in time**.  
+   *In plain terms*: **At every instant, at least one of `f` or `i` must be false** – you can never find a moment where both are true together.
+
+---
+
+### 3. Refined natural‑language phrasing
+
+- **“It is always the case that either `f` is false or `i` is false.”**  
+  This emphasizes the universal (global) aspect: the rule applies all the time.
+
+- **“`f` and `i` are never simultaneously true.”**  
+  This is the contrapositive, often more intuitive for specifying constraints that forbid a particular combination.
+
+- **“Whenever the system runs, you will never observe both `f` and `i` being true at the same time; at least one of them must be false at every instant.”**  
+  Adds a bit of context about the operating timeline.
+
+All three sentences capture the same semantic content of the formula; choose whichever best fits the audience or system documentation style.

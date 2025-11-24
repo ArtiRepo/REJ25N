@@ -1,0 +1,54 @@
+**1. Original LTL formula**
+
+```
+XXFa
+```
+
+---
+
+**2. Parsing tree (step‑by‑step)
+
+```
+            X
+            |
+            X
+            |
+            F
+            |
+            a
+```
+
+*   **a** – atomic proposition  
+*   **F** – “eventually” (true at the current instant or at some future instant)  
+*   **X** – “next” (move one step forward along the system’s execution)  
+*   The outer **X** applies to the whole inner subformula *XFa*.
+
+---
+
+**3. Bottom‑up rebuild of meaning**
+
+| Level | Sub‑formula | Interpretation |
+|-------|-------------|----------------|
+| 0 | **a** | “The proposition **a** holds in the current state.” |
+| 1 | **F a** | “At some time point from now onward (including now), **a** will be true.” |
+| 2 | **X (F a)** | “In the *next* state, the property *there exists a future state in which **a** holds* will be true.” |
+| 3 | **X X (F a)** | “In *two* steps from the current state, *there exists a future state in which **a** holds* will be true.” |
+
+Thus the whole formula says: **At the state that is exactly two transitions ahead, it must eventually become true that the proposition `a` holds at some point in the future (not necessarily immediately at that state).**
+
+---
+
+**4. Natural‑language phrasing and explanation**
+
+> **“From the current moment, after two transitions, there will be a future point where the proposition `a` is true.”**
+
+- **When it is satisfied**:  
+  Starting from the present state, locate the state reached after two transitions.  
+  From that state onward, there must exist at least one future state in which `a` holds.  
+  *The exact timing of `a` after the two-step horizon can be any number of steps; even `a` can hold in that very state.*
+
+- **What constraints it imposes**:  
+  - **No restriction on the first two steps** – `a` may or may not hold during the first two transitions.  
+  - **Mandatory eventuality after step 2** – once we are two steps ahead, the system is forced to eventually reach a state where `a` is true.  
+
+In other words, the formula guarantees that *from step 2 onward, `a` will occur eventually*, but it places no requirement on `a` before that point.

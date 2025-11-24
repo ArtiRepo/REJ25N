@@ -1,0 +1,47 @@
+**Original LTL formula**  
+`F a`
+
+---
+
+### 1. Parsing tree (syntax tree)
+
+```
+         ┌───F───┐
+         │      │
+         │      a
+         │
+```
+
+- **Node 1**: `a` – an atomic proposition (bottom of the tree).  
+- **Node 2**: `F` – the *future* (eventually) temporal operator applied to the proposition at Node 1.  
+- **Root**: the whole formula `F a`.
+
+---
+
+### 2. Rebuilding meaning bottom‑up
+
+1. **Atomic proposition `a`**  
+   - *What it is*: a Boolean condition that can be either true or false at any moment in the system’s execution.  
+   - *When it holds*: at those timestamps where the property `a` is satisfied.
+
+2. **Future operator `F`**  
+   - *Definition*: In Linear Temporal Logic, `F φ` (“eventually φ”) is true at a current time step if **there exists at least one future step** – possibly the current one – at which `φ` holds.  
+   - *Implication*: The system is not required to satisfy `φ` immediately; once `φ` becomes true, `F φ` is satisfied from that point onward (for all later steps).
+
+3. **Putting them together – `F a`**  
+   - *When does `F a` hold?*  
+     - If at the current time (or any step thereafter) the proposition `a` becomes true, then `F a` is satisfied at the current time.  
+     - If `a` never becomes true in the infinite future, then `F a` is never satisfied (i.e., the formula is violated).
+
+   - *Constraint imposed:* The formula does **not** forbid `a` from being false initially; it merely requires that somewhere down the timeline, `a` must eventually become true. If the system runs indefinitely without `a` ever being true, the specification is violated.
+
+---
+
+### 3. Refined natural‑language description
+
+> **“Eventually, at some point in the future, the proposition `a` will hold.”**
+
+- **Satisfied**: The system can have `a` false for any finite number of steps; as soon as `a` becomes true in the current or a later state, the formula is satisfied from that point on.  
+- **Constraint**: It forbids executions where `a` is forever false. In such executions, `F a` is not satisfied, indicating a violation of the specification.  
+
+Thus, `F a` captures the mild liveness requirement that `a` should not remain perpetually false.

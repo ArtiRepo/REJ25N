@@ -1,0 +1,62 @@
+**Original LTL formula**  
+\[
+(a\;U\;b)\;\wedge\;(c\;U\;d)
+\]
+
+---
+
+### 1. Parsing tree
+
+```
+          AND
+         /   \
+      UNTIL  UNTIL
+      / \    /  \
+     a   b  c    d
+```
+
+* The left child of the root is the subformula **a U b**.  
+* The right child is **c U d**.  
+* Each **U** node has two children: the “until” proposition (a or c) and the terminating proposition (b or d).
+
+---
+
+### 2. Bottom‑up reconstruction of meaning
+
+#### 2.1   The **a U b** subformula  
+- **When is it true?**  
+  There must be a (possibly immediate) future state where **b** holds.  
+  All states from the present (time 0) up to, but not including, that first **b**‑state must satisfy **a**.  
+- **What happens after the first b?**  
+  The requirement on **a** disappears; after **b** holds we are free to let **a** become false.
+
+#### 2.2   The **c U d** subformula  
+- Analogous to above:  
+  *There must be a future state where **d** holds.*  
+  *Every state up to that point (not including it) must satisfy **c**.*  
+  *After the first d the restriction on **c** is lifted.*
+
+#### 2.3   The conjunction  
+Both subformulas must be true **simultaneously**.  
+Thus:
+
+1. There is a future time \(t_b\) where **b** holds and for all times \(0 \leq t < t_b\), **a** holds.  
+2. There is a future time \(t_d\) where **d** holds and for all times \(0 \leq t < t_d\), **c** holds.  
+
+The two “until” intervals can overlap, may be disjoint, and can end in any order; the formula imposes no coordination between them beyond the individual “until” requirements.
+
+---
+
+### 3. Refined natural‑language phrase
+
+> **“Proposition a must stay true until a proposition b first becomes true, and at the same time proposition c must stay true until a proposition d first becomes true.  
+> After each of those terminating propositions has appeared, a no longer has to hold; the same holds for c.”**
+
+A system satisfies the formula when:
+
+* **Both** b **and** d eventually occur.  
+* **Until** b occurs, the system must never violate a.  
+* **Until** d occurs, the system must never violate c.  
+* After b or d occurs, the formula does not place any further requirement on a or c (they may become false).
+
+If either b or d never happens, the formula is violated, because the corresponding “until” condition never finishes. The two until constraints are independent, so the timing of b compared to d is irrelevant.

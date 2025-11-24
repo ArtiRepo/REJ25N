@@ -1,0 +1,64 @@
+**Original LTL Formula**
+
+```
+G ( a  ∧  ¬b )
+```
+
+---
+
+### 1. Parse‑Tree Breakdown
+
+| Node | Operator | Children |
+|------|----------|----------|
+| **1** | *Globally* (`G`) | **2** |
+| **2** | *Conjunction* (`∧`) | **3** , **4** |
+| **3** | Literal | `a` |
+| **4** | *Negation* (`¬`) | **5** |
+| **5** | Literal | `b` |
+
+Visually the tree looks like:
+
+```
+          G
+          |
+         ∧
+        / \
+       a   ¬
+            |
+            b
+```
+
+---
+
+### 2. Bottom‑Up Meaning Construction
+
+1. **Leaf `b`** – the proposition “`b` holds”.  
+2. **Negation `¬b`** – “`b` does *not* hold” (`b` is false).  
+3. **Conjunction `a ∧ ¬b`** – “both `a` holds *and* `b` does not hold” at the same moment.  
+4. **Global `G` of that conjunction** – “… *at every point in time* (i.e., in all future and past system states) the conjunction is true”.
+
+---
+
+### 3. Natural‑Language Translation
+
+**Initial phrasing:**  
+"Globally, a and not b hold."
+
+**Refined phrasing for clarity:**
+
+> **The system must *always* satisfy `a` and *never* satisfy `b`.**  
+>
+> In every state that the system ever reaches, the proposition `a` is true, and the proposition `b` is false.
+
+---
+
+### 4. When is the Formula Satisfied / Constraining?
+
+| Situation | Is `G(a ∧ ¬b)` satisfied? | What does the formula **require**? |
+|-----------|--------------------------|-----------------------------------|
+| Every state: `a` true, `b` false | **Yes** | Nothing else needed. |
+| At any state: `a` false | **No** | The system must fix `a` so that it finally becomes true everywhere. |
+| At any state: `b` true | **No** | The system must eliminate all occurrences of `b`. |
+| Both `a` false and `b` true at the same state | **No** | Same as above – both violations. |
+
+So, the formula imposes a **hard constraint**: throughout the entire execution, `b` must never be true, and `a` must always be true. If either of these conditions falters even once, the specification is violated.

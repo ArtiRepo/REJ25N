@@ -1,0 +1,51 @@
+**LTL Formula**
+
+```
+X (t ∨ w)
+```
+
+### 1.  Parsing Tree (breakdown)
+
+```
+          X
+          |
+       ( t ∨ w )
+      /        \
+     t          w
+```
+
+* **Root** – `X` (the “next” temporal operator)
+* **Leaf** – `t` (atomic proposition)
+* **Leaf** – `w` (atomic proposition)
+* **Intermediate** – the disjunction `(t ∨ w)`
+
+### 2.  Meaning rebuilt bottom‑up
+
+1. **Atomic propositions**  
+   *`t`* and *`w`* are simple Boolean values that can be either **true** or **false** at each time instant.
+
+2. **Disjunction** `t ∨ w`  
+   The formula `(t ∨ w)` is **true** at a particular time instant if **at least one** of the two propositions is true there.  
+   *If both are false, the disjunction is false.*  
+
+3. **Next operator** `X`  
+   `X φ` holds at time `k` **iff** the subformula `φ` holds at the *next* time instant `k+1`.  
+   In other words, `X (t ∨ w)` asserts that whatever the current time is, the *immediate next* state must satisfy `(t ∨ w)`.
+
+4. **Combination** `X (t ∨ w)`  
+   At time `k` the formula is satisfied exactly when **either `t` or `w` (or both)** is true at time `k+1`.  
+   If *neither* proposition is true at the next step, the formula evaluates to false (and the requirement is violated).
+
+### 3.  Refined natural‑language phrasing
+
+- “**In the immediate next step, either `t` must be true or `w` must be true.**”  
+- “**It is required that at the next time instant, one (or both) of the propositions `t` or `w` holds.**”
+
+### 4.  When is the formula satisfied / imposed?
+
+| Current time `k` | Condition at `k+1` | Formula satisfied? |
+|------------------|---------------------|--------------------|
+| Any state        | `t` true **or** `w` true | **Yes** |
+| Any state        | Both `t` and `w` false  | **No** |
+
+Thus, `X (t ∨ w)` is a **local, one‑step constraint**: the system must evolve from the current state into a next state where at least one of `t` or `w` holds. If the system ever finds itself in a state where this cannot happen in the next instant, the LTL property will be violated.

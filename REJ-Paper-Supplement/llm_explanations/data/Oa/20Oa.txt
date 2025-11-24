@@ -1,0 +1,62 @@
+**LTL formula**
+
+\[
+\mathbf{G}\,t \;\; \lor \;\; \mathbf{F}\,w
+\]
+
+---
+
+### 1. Parsing tree (syntactic breakdown)
+
+```
+          ( ∨ )
+         /     \
+     ( G )     ( F )
+      |        |
+     ( t )    ( w )
+```
+
+* The root is the binary disjunction “∨”.
+* The left child of the root is the temporal “globally” operator applied to the atomic proposition **t**.
+* The right child of the root is the temporal “eventually” operator applied to the atomic proposition **w**.
+* Bottom–level leaves are the atomic propositions **t** and **w**.
+
+---
+
+### 2. Bottom‑up synthesis of meaning
+
+| Node | Semantic interpretation (in words) | Notes |
+|------|------------------------------------|-------|
+| **t** | “t holds in the current state.” | atomic proposition |
+| **w** | “w holds in the current state.” | atomic proposition |
+| **G t** | “t holds **everywhere** (at all future positions, including the present).” | universal quantification over time |
+| **F w** | “w holds **at least once** in the future” (there exists some index ≥ 0 where w is true). | existential quantification over time |
+| **G t ∨ F w** | “Either **G t** is true **or** **F w** is true.” | disjunction over the two temporal conditions |
+
+---
+
+#### Satisfaction in an infinite trace
+
+- **If** the trace satisfies **G t** *(t is true at every time point)*, then the whole formula is true, regardless of what happens with **w**.
+- **If** **G t** is violated at any moment, the formula is true *only if* **F w** holds somewhere in the trace (there exists a future point where w is true). If w never occurs, the entire formula fails.
+- The formula places **no restriction** on w when t is universally true; conversely, it forces at least one occurrence of w if t ever fails.
+
+---
+
+### 3. Refined natural‑language translation
+
+> **“Either the property `t` must hold at every point in the execution, or—if that is not the case—there must be some point in the future where the property `w` holds.”**
+
+This wording captures:
+
+* the **global (always)** requirement on `t`, and  
+* the **eventual (exists‑once)** requirement on `w` that becomes necessary only when `t` drops out of force.
+
+---
+
+#### Quick sanity check
+- If a system behaves forever with `t` true, the formula is satisfied immediately (the left branch triggers).
+- If a system at first fails `t` but later makes `w` true, the formula is satisfied (the right branch triggers).
+- If a system ever fails `t` and never makes `w` true, the formula is violated.
+
+Thus the formula expresses a “weak” choice: **t** is a strong, continuous property; **w** is a weaker, eventual fallback.

@@ -1,0 +1,62 @@
+**Original LTL formula**
+
+```
+X a ∧ ¬G b
+```
+
+---
+
+### 1.  Parsing tree (syntactic breakdown)
+
+```
+            ∧
+           / \
+          X   ¬
+         /     \
+        a       G
+                |
+                b
+```
+
+- **Tree root**: conjunction `∧`  
+  - **Left child**: `X a`  
+    - Operator `X` (“next”) applied to atomic proposition `a`.  
+  - **Right child**: `¬ G b`  
+    - Negation `¬` applied to `G b`.  
+    - Inside the negation, `G` (“globally”) with atomic proposition `b`.
+
+---
+
+### 2.  Building the meaning from bottom‑up
+
+1. **Base level**  
+   - `a` : “the proposition a is true in the current state.”  
+   - `b` : “the proposition b is true in the current state.”
+
+2. **Unary operators**  
+   - `X a` : “in the *next* state (time step +1), a is true.”  
+   - `G b`  : “b is true *in every* state from now on.”  
+
+3. **Negation**  
+   - `¬G b` : “it is **not** the case that b holds in all future states.”  
+   - Equivalently, `¬G b` ↔ `F ¬b` (“at some future state, b will be false”).
+
+4. **Conjunction**  
+   - `X a ∧ ¬G b` : “both conditions hold simultaneously:  
+     (i) a is true in the next state, and  
+     (ii) at some future point the proposition b becomes false.”
+
+---
+
+### 3.  Refined natural‑language description
+
+> **In the next instant the system must satisfy the property a.  
+> Additionally, it is required that b does **not** hold forever; sooner or later the system must reach a state where b is false.**
+
+Key points for understanding the timing constraints:
+
+- The **“next”** operator pins the truth of a to *exactly* the very next time step.  
+- The **negated “globally”** operator forces *eventual* falsity of b (the system cannot keep b true at all times).  
+- There is no requirement that b be false in the next step; it can still hold there as long as it fails at least once later.  
+
+This concise natural‑language explanation captures both the instantaneous and the long‑term aspects encoded in the original LTL formula.

@@ -1,0 +1,52 @@
+**LTL formula**  
+\[
+\mathbf{a}\; \mathbf{U}\; \mathbf{b}
+\]
+
+---
+
+### 1. Parsing tree
+
+```
+        U
+       / \
+      a   b
+```
+
+- **Root**: `U` (the *until* operator)  
+- **Left child**: `a` (an atomic proposition)  
+- **Right child**: `b` (an atomic proposition)
+
+---
+
+### 2. Bottom‑up semantic reconstruction
+
+1. **Atomic propositions**  
+   - `a` : “the property **a** holds in the current state.”  
+   - `b` : “the property **b** holds in the current state.”
+
+2. **Until (`U`)**  
+   The subformula `a U b` is true at a given position *i* **iff**  
+   * there exists a future position *k* ≥ *i* where `b` holds, and  
+   * for **every** position *j* such that *i* ≤ *j* < *k*, `a` holds.
+
+   In words: **“`a` must hold at every step up until (but not necessarily including) the first step where `b` holds, and `b` must eventually occur.”**
+
+---
+
+### 3. Natural‑language phrasing (refined)
+
+> *“`a` continues to be true until `b` becomes true, and `b` is guaranteed to happen at some point in the future.”*
+
+**When is the formula satisfied?**  
+- If `b` is true in the very next state (or the current state), the formula is satisfied immediately because the “until” condition is vacuously fulfilled.
+- If `b` occurs after *n* steps, then `a` must be true in all *n – 1* intermediate steps.
+
+**What constraints does it impose?**  
+- It forces the system to keep `a` true up to the first occurrence of `b`.  
+- It also imposes a liveness requirement: `b` cannot be forever absent; an eventual `b` is required.  
+- If `b` never occurs, the formula becomes false regardless of `a`.
+
+--- 
+
+In short, `a U b` says *“keep a true until b finally appears; b will appear at some future point.”*

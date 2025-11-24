@@ -1,0 +1,70 @@
+**1. Original LTL formula**
+
+```
+F d | G !n
+```
+
+(Here “|” is the logical **or**.)
+
+---
+
+**2. Parsing tree (bottom‑up breakdown)**  
+
+```
+           (|)                     – OR
+          /   \
+        (F)   (G)
+        /       \
+       d         (!)
+                 |
+                 n
+```
+
+* **Atomic propositions**: `d` and `n`  
+* `!n` : the negation (“not n”)  
+* `G !n` : the *globally* operator applied to `!n`  
+* `F d` : the *finally* (or *eventually*) operator applied to `d`  
+* The top‑level operator `|` is a Boolean **or**.
+
+---
+
+**3. Rebuilding meaning from the bottom of the tree up**
+
+| Sub‑formula | “Bottom‑up” meaning (in plain terms) | Insight to keep in mind |
+|-------------|-------------------------------------|------------------------|
+| `n` | A simple proposition that can be “true” or “false” in any given state. | The truth of `n` is observed at each instant. |
+| `!n` | “Not n”: `n` is **false** in the current state. | It forbids any occurrence of `n`. |
+| `G !n` | “Globally not n”: from the current time onward, **every** state satisfies `!n`; i.e., the system **never** encounters a state where `n` is true. | This is a safety‑like requirement: *n must never occur at any time in the future*. |
+| `d` | A proposition that might become true in some future state. | This is just the “event” we are waiting for. |
+| `F d` | “Eventually d”: at **some** point in the future, `d` becomes true. | Classic liveness: *you promise that a `d` will eventually happen*. |
+| `F d | G !n` | “Either eventually d, or globally not n”: the trace must satisfy **at least one** of the two conditions above. | The formula is true if one condition holds; it fails only if **both** fail (i.e., `n` does occur somewhere *and* `d` never occurs). |
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **“The system is required to guarantee that at least one of the following holds: **  
+> **(a)** the proposition `d` will eventually become true, or **  
+> **(b)** the proposition `n` never becomes true in the entire future.**  
+>  
+> In other words, the specification is satisfied if either  
+> – **`d` occurs at some point** (then the “eventually d” part is satisfied),  
+> – or, **`n` is permanently false** (the “globally not n” part is satisfied).  
+> If the trace contains a moment where `n` is true **and** contains no occurrence of `d` whatsoever, then the overall formula is violated.**
+
+---
+
+### When the formula is satisfied
+
+| Scenario | Reason for satisfaction |
+|----------|------------------------|
+| `d` occurs at step 5, `n` may occur anywhere | `F d` is true → whole formula true |
+| `n` stays false forever, `d` never occurs | `G !n` is true (no `n` at all) → whole formula true |
+| Both `d` occurs and `n` never occurs | Both subformulas true → overall true |
+
+### When the formula imposes constraints
+
+The formula restricts the system **only** in a situation where it is **both** impossible:  
+- `n` occurs sometime **and** `d` never occurs.  
+In such a trace the formula is false, meaning the system would violate the specification.  
+Thus, the system designer must avoid traces where `n` is eventually true without ever producing a `d`. Otherwise a trace that avoids `n` completely or guarantees a future `d` is acceptable.

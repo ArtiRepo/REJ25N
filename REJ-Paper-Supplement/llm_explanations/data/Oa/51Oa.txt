@@ -1,0 +1,65 @@
+**Original LTL formula**
+
+```
+a -> XXXa
+```
+
+---
+
+## 1.  Parse tree (breakdown)
+
+```
+                      (→)
+                     /   \
+                    a    (X)
+                          |
+                          (X)
+                          |
+                          (X)
+                          |
+                          a
+```
+
+* **Top node**: implication (`→`)  
+* **Left child**: atomic proposition `a`  
+* **Right child**: a chain of three successive `X` (Next) operators applied to `a`.
+
+---
+
+## 2.  Rebuilding meaning bottom‑up
+
+1. **Atomic part** – `a`  
+   *“the proposition `a` holds (is true) at the current state.”*
+
+2. **First `X`** – `X a`  
+   *“in the *next* state, `a` will hold.”*
+
+3. **Second `X`** – `X (X a)`  
+   *“in two steps from now, `a` will hold.”*
+
+4. **Third `X`** – `X (X (X a)) ≡ XXXa`  
+   *“exactly three steps from now (i.e., after three successive ‘next’ transitions), `a` will hold.”*
+
+5. **Implication** – `a → XXXa`  
+   *“If `a` is true in the current state, then the truth of `a` is guaranteed to re‑appear precisely three steps later.”*
+
+---
+
+## 3.  Natural‑language phrasing (refined)
+
+> **“Whenever the proposition `a` is true at some instant, it must also be true exactly three time steps later.”**
+
+### What the formula *requires*
+
+* **Across all time points** `t` (the formula is evaluated globally on an infinite trace):  
+  - If `a` holds at time `t`, then it must hold at time `t+3`.
+  - There is *no* requirement that `a` holds at `t+1` or `t+2`; those intermediate states can be arbitrary.
+  - If `a` is false at time `t`, the implication is automatically satisfied (vacuously true).
+
+### When the formula is *violated*
+
+* The only way a run can violate `a → XXXa` is by encountering a time `t` where:
+  1. `a` is true at time `t`, **and**
+  2. `a` is false at time `t+3` (or the trace ends before `t+3`).
+
+Thus the property enforces a *three‑step delayed persistence* of `a`. It is a safety‑like constraint, but unlike a pure safety property it allows `a` to be false in the intermediate steps.

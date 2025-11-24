@@ -1,0 +1,62 @@
+**Original LTL formula**
+
+```
+¬F( a ∧ X a ∧ X X a )
+```
+
+---
+
+### 1.  Parsing tree (breakdown)
+
+```
+          ¬
+          │
+          F
+          │
+    a  ∧  X a  ∧  X X a
+          │         │
+          a         X a
+                    │
+                    a
+```
+
+*   `¬` – logical NOT  
+*   `F` – *“sometime in the future”* (aka eventually)  
+*   `∧` – conjunction  
+*   `X` – *“in the next state”*  
+*   `a` – atomic proposition
+
+---
+
+### 2.  Build the meaning from the bottom up
+
+| Subformula | What it means |
+|------------|---------------|
+| `a` | The proposition **a** holds *now* (in the current state). |
+| `X a` | In the *next* state, **a** holds. |
+| `X X a` | In the state *after the next* (two steps ahead), **a** holds. |
+| `a ∧ X a ∧ X X a` | **a** holds *now* **and** it also holds for the next two time steps – a block of **three consecutive** moments where **a** is true. |
+| `F( a ∧ X a ∧ X X a )` | *“Eventually* there will be a moment where that three‑consecutive‑a block starts.* In other words, at some future point in the execution there is a triple of successive states, each of which satisfies **a**. |
+| `¬F( a ∧ X a ∧ X X a )` | It is **not** the case that such a triple ever appears. Therefore, *at no point in the future can we see a stretch of three consecutive moments in which **a** is true.*
+
+---
+
+### 3.  Refined natural‑language translation
+
+> **“The proposition **a** never stays true for three consecutive time steps.”**
+
+Equivalently, one may say:
+
+* “There never becomes an index *i* such that **a** is true at *i*, *i+1*, and *i+2* simultaneously.”
+* “From the present onward, **a** may be true, but it can never persist for three steps in a row.”
+* “At every position, at least one of the next three states fails to satisfy **a**.”
+
+Mathematically, `¬F φ` is equivalent to `G ¬φ`, so the formula can also be expressed as:
+
+```
+G ¬( a ∧ X a ∧ X X a )
+```
+
+which reads: **“Globally (at every step) it is not the case that a holds for three consecutive steps.”**
+
+This is the essence of the original formula. It places a long‑term constraint on the system: the particular pattern of three consecutive `a`’s can never be produced.

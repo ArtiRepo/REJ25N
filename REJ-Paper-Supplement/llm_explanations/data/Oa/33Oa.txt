@@ -1,0 +1,64 @@
+**Original LTL formula**
+
+\[
+(b \; U\; c) \;\wedge\; (d \; U\; \neg b)
+\]
+
+---
+
+### 1.  Parsing tree (syntactic breakdown)
+
+```
+                ∧
+               / \
+              /   \
+             /     \
+            /       \
+          (U)        (U)
+           |          |
+        ───────   ───────
+       |      |   |      |
+       b      c   d      ¬b
+```
+
+*Root*: conjunction `∧`.  
+*Left child*: the until sub‑formula `(b U c)`.  
+*Right child*: the until sub‑formula `(d U ¬b)`.
+
+The sub‑formulas are atomic untils that combine an **l‑hand** (the thing that must hold *until*) with an **r‑hand** (the thing that eventually holds).
+
+---
+
+### 2.  Rebuilding meaning bottom‑up
+
+#### (b U c)  
+- **Semantics of `U`**:  
+  - There exists a future position \(k\) such that **c** is true at \(k\).  
+  - For every position \(i < k\), **b** is true.  
+  - In other words, **c** eventually occurs, and *right up to that moment* (but not including it) the system must keep **b** true.
+
+#### (d U ¬b)  
+- **Semantics of `U` with `¬b`**:  
+  - There exists a future position \(k'\) such that **¬b** holds at \(k'\) (i.e., **b** becomes false).  
+  - For every position \(i < k'\), **d** is true.  
+  - Thus, *somewhere* the system will lose **b**, and before that point it must have continuously maintained **d**.
+
+#### Conjunction `∧`  
+Both of the above requirements have to hold *together* on the same computation.  
+So an execution satisfies the whole formula iff:
+
+1. **c** happens at least once, and before that moment **b** stays true for all steps; **and**
+2. **b** eventually becomes false at some moment, and before that moment **d** stays true for all steps.
+
+The two occurrences (of **c** and of the “b becomes false”) can be at the same time or at different times; the formula does not order them relative to one another.
+
+---
+
+### 3.  Refined natural‑language translation
+
+> “Along any execution of the system:  
+>  – there must come a moment where property **c** becomes true, and from the very start of the execution up to (but not including) that moment the system must keep property **b** true.  
+>  – there must also come a moment where property **b** becomes false, and until that moment the system must maintain property **d** continuously.  
+>  Both of these patterns must occur; their relative ordering is irrelevant unless the system’s behaviour forces it.”
+
+In plain terms, the system is required to **keep `b` true until `c` happens** and **keep `d` true until `b` turns false**—simultaneously, it must satisfy both of these “until” constraints in its infinite future.

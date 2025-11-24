@@ -1,0 +1,68 @@
+**Original LTL formula**
+
+```
+G !a
+```
+
+---
+
+### 1.  Parsing tree (bottom‑up)
+
+```
+        G
+        |
+       !a
+        |
+        a
+```
+
+* **`a`** – an atomic proposition (whatever “\(a\)” stands for in your system).  
+* **`!a`** – the negation of that proposition: “\(a\) does *not* hold in this state”.  
+* **`G !a`** – the global (always) operator applied to `!a`: “in every state along the run, `!a` holds”.
+
+---
+
+### 2.  Meaning rebuilt from the bottom
+
+1. **`a`**  
+   *Interpreted as:* “the property \(a\) is true in the current instant”.
+
+2. **`!a`**  
+   *Interpreted as:* “the property \(a\) is false in the current instant”.  
+   (It says “\(a\) does not happen right now”.)
+
+3. **`G !a`**  
+   *Interpreted as:* “for every position of the execution (including the present and all future moments), the statement `!a` holds”.  
+   Equivalently: “\(a\) is *never* true at any point along the trace”.
+
+Thus **bottom‑up translation**:  
+- *`a` → “\(a\) holds”*  
+- *`!a` → “\(a\) does not hold”*  
+- *`G !a` → “at every moment, \(a\) does not hold”*.
+
+---
+
+### 3.  Refined natural‑language phrasing
+
+> **“The system must never exhibit property \(a\) at any time.”**  
+>  
+> In other words, from the very first instant onward, the atomic proposition `a` must be false forever.  
+>  
+> **What this imposes:**  
+> * If the event/truth represented by `a` ever becomes true—even once in the future—then `G !a` is violated and the specification is not satisfied.  
+> * The property is a *safety constraint*: the system is required to avoid `a` entirely for the entire duration of its execution (including the present state).
+
+---
+
+### 4.  When the formula is satisfied / violated
+
+* **Satisfied** – when on every state of the trace the proposition `a` is false.  
+  (The trace looks like: `(!a, !a, !a, …)`.)
+
+* **Violated** – when there exists any state in the trace where `a` is true.  
+  (Even a single `a` at any future point breaks the guarantee.)
+
+---
+
+**Summary:**  
+`G !a` is a “never a” requirement – the system must keep the property `a` forever false. It is a straightforward safety constraint that imposes a global prohibition on the occurrence of `a` throughout the entire execution.

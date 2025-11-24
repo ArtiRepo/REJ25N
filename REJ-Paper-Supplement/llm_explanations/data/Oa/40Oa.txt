@@ -1,0 +1,77 @@
+**Original LTL formula**
+
+```
+F ( o | u )
+```
+
+---
+
+### 1. Build a parsing (syntax) tree  
+
+The formula is parsed according to the LTL grammar.  
+* **Root** – the temporal operator `F` (future / “eventually”).
+* **Child of root** – the Boolean sub‑formula `( o | u )`.
+  * **Left operand** – the atomic proposition `o`.
+  * **Right operand** – the atomic proposition `u`.
+  * **Operator between them** – `|` (logical disjunction, i.e. “or”).
+
+```
+          F
+          |
+       (o | u)
+        /   \
+       o     u
+```
+
+---
+
+### 2. Bottom‑up reconstruction of meaning  
+
+1. **Atomic propositions `o` and `u`**  
+   * Each of these is a *state property*: at a particular instant of the system’s execution, the property can be either true or false.  
+   * `o` means “the system is in a state where property o holds.”  
+   * `u` means “the system is in a state where property u holds.”
+
+2. **Disjunction `(o | u)`**  
+   * This is true in a given state if **either** `o` is true **or** `u` is true (or both).  
+   * It represents the situation “the system exhibits property o *or* property u (possibly both).”
+
+3. **Temporal operator `F`**  
+   * `F φ` (“eventually φ”) is true along a trace if there is **some point in the future (including the present)** at which `φ` holds.  
+   * Otherwise, if `φ` never holds on the trace, `F φ` is false.
+
+4. **Combining the layers**  
+   * `F (o | u)` therefore says:  
+     *“There is some future time (possibly now) where the system’s state satisfies the disjunction `o ∨ u`.  
+     In other words, at some point, **either** property o will hold **or** property u will hold (the two may both hold at that same time).”*
+
+---
+
+### 3. Natural‑language refinement
+
+**High‑level description**
+
+> **Eventually, the system will exhibit either property o or property u.**
+
+**Explicit interpretation**
+
+* *Satisfaction*: The formula is satisfied on a run if **there exists at least one time step** (including the starting state) where **`o` is true or `u` is true**.  
+* *Constraint*: The formula imposes no requirement about how long the system must wait; it merely forbids the possibility that **neither** `o` nor `u` ever become true on any infinite execution. The system is free to return to states where both properties are false until eventually one of them becomes true.
+
+**Edge cases to be aware of**
+
+| Situation | Does `F (o | u)` hold? | Explanation |
+|-----------|-----------------------|-------------|
+| `o` true at time 0 | Yes | `F` is satisfied immediately. |
+| `u` true at time 5, `o` never true | Yes | The disjunction becomes true at time 5. |
+| `o` and `u` never become true | No | The disjunction never becomes true, so `F` never holds. |
+| Both `o` and `u` become true at the same time | Yes | The disjunction is true (inclusive “or”). |
+
+If the operator `|` were interpreted as exclusive or (XOR) instead of inclusive or—a notation that is sometimes used informally—it would read “eventually, exactly one of `o` or `u` holds at some time.” The standard LTL semantics, however, treat `|` as the *inclusive* logical OR.
+
+---
+
+**Final natural‑language translation**
+
+> The property `F (o | u)` asserts that *at some moment in the future (possibly immediately), the system will be in a state where either property o is true or property u is true (or both)*.  
+> It is satisfied as soon as `o` or `u` occurs and is only violated if both propositions stay false forever.

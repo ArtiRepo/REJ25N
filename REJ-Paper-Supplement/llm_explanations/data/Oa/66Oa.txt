@@ -1,0 +1,64 @@
+**Original LTL formula**
+
+\[
+F\,a \;\wedge\; F\,b
+\]
+
+---
+
+### 1.  Parsing tree (bottom‑up)
+
+```
+                                   ┌───────────────┐
+                                   │   Conjunction │
+                           ┌───────┤   (∧)         ├───────┐
+                           │       └───────────────┘       │
+                           │                                │
+                ┌───────────┐                      ┌───────────────┐
+                │   F a     │                      │   F b         │
+                │   (Event.)│                      │   (Event.)    │
+                └───────────┘                      └───────────────┘
+                         │                                  │
+                       a (atomic proposition)        b (atomic proposition)
+```
+
+* **Leaf nodes** – `a` and `b` are atomic propositions; they are simply “the condition `a` holds” or “the condition `b` holds” in a given state.
+* **Next level** – `F a` means “eventually `a` will be true”, i.e. there must be some future time point (≥0 steps ahead) where `a` holds.  
+  Similarly, `F b` means “eventually `b` will be true”.
+* **Root node** – the conjunction `F a ∧ F b` requires that **both** sub‑formulas be true simultaneously, i.e. the system should eventually see `a` and eventually see `b`.
+
+---
+
+### 2.  Bottom‑up meaning reconstruction
+
+1. **Atomic propositions**  
+   * `a` : “The property `a` holds in the current state.”  
+   * `b` : “The property `b` holds in the current state.”
+
+2. **Temporal operators**  
+   * `F a` : “At some point in the future (possibly the current state), `a` will be true.”  
+   * `F b` : “At some point in the future (possibly the current state), `b` will be true.”
+
+3. **Conjunction**  
+   * `F a ∧ F b` : “Both `a` will eventually hold **and** `b` will eventually hold.”  
+   * The two eventualities do **not** need to happen at the same time; they can occur in any order, possibly overlapping, and perhaps even in the same state.
+
+---
+
+### 3.  Refined natural‑language phrasing
+
+> **“The system will at some point in the future exhibit property `a`, and it will at some (possibly different) future point exhibit property `b`.  
+> In particular, both `a` and `b` must occur at least once along the run, but there is no constraint on when they happen relative to each other or whether they hold simultaneously.”**
+
+---
+
+### 4.  Constraints on the system
+
+* The system **cannot** remain forever in a state where neither `a` nor `b` ever holds; at least one future state must satisfy each of them.
+* The order of appearance is irrelevant, so the system could:
+  * first satisfy `a`, then `b`;
+  * first satisfy `b`, then `a`;
+  * satisfy both at the same state (both `a` and `b` true simultaneously);
+  * or alternate arbitrarily, as long as each shows up at least once eventually.
+
+Thus, `F a ∧ F b` is a simple **dual‑eventuality** requirement: ensure *both* a and b will happen at some point along the execution.

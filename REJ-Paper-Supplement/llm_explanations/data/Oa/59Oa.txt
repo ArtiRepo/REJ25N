@@ -1,0 +1,67 @@
+**LTL Formula**  
+```
+G((a ∧ X a) → XX ¬a)
+```
+
+---
+
+## 1. Parsing tree (syntax breakdown)
+
+```
+               G
+               │
+     ( (a ∧ X a)  →  XX ¬a )
+           │       │   │
+          ∧        X   X
+          │        │   │
+          a        a   ¬a
+```
+
+**Explanation of the nodes**
+
+| Node | Meaning |
+|------|---------|
+| `a` | The atomic proposition **a** holds at the current instant. |
+| `X a` | **a** holds at the *next* instant. |
+| `∧` | Conjunction: both left and right sub‑formulas must hold. |
+| `¬a` | Logical negation: **a** is *false* at the current instant. |
+| `X` (before `¬a`) | ‘Next’ operator applied to `¬a`; tells us that `¬a` must hold one step later. |
+| `XX ¬a` | Twice applying `X`: `¬a` must hold *two* steps after the instant at which the implication is evaluated. |
+| `→` | Logical implication. |
+| `G` | Global (always) operator – the whole implication must hold at every instant of the run. |
+
+---
+
+## 2. Bottom‑up reconstruction of meaning
+
+1. **Atomic level**  
+   - `a` : “the proposition a is true now.”  
+   - `¬a` : “the proposition a is false now.”
+
+2. **Next‑operator level**  
+   - `X a` : “a is true in the next state.”  
+   - `X ¬a` : “a is false in the next state.”  
+   - `XX ¬a` : “a is false two steps from now” (next of “next of ¬a”).
+
+3. **Conjunction**  
+   - `a ∧ X a` : “a is true now **and** a is true in the very next instant.”  
+   - So we are witnessing a *run of at least two consecutive a’s*.
+
+4. **Implication**  
+   - `(a ∧ X a) → XX ¬a` says  
+     “If we are in a scenario where a is true now and in the next step, then *two* steps later a must be false.”  
+   - Violations: if a holds for two consecutive steps but remains true two steps afterward, the implication fails at that instant.
+
+5. **Global**  
+   - `G(...)` enforces that the above condition must hold **at every instant** of the system’s execution.  
+   - Thus, *whenever* we see two consecutive a’s, it is mandatory that a cannot still hold two steps ahead.
+
+---
+
+## 3. Refined natural‑language description
+
+> **For every point in time, if proposition *a* is true at that point **and** also true at the following step, then in exactly two steps from now the proposition *a* must be false.**
+
+In other words, **you cannot keep the property a true for more than one consecutive step without an immediate break: as soon as you have a run of a’s of length two, the run must terminate by the second step later.**  
+
+This constraint is enforced globally, so the pattern *a, a, …* is only allowed if the third instant after any such double‑a is a non‑a state. Any run that has `a` true at times `t` and `t+1` but also `a` true at `t+2` would violate the formula at time `t`.

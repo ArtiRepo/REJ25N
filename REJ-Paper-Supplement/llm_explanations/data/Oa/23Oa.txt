@@ -1,0 +1,53 @@
+**Original LTL Formula**  
+
+\[
+t \;\Rightarrow\; w
+\]
+
+---
+
+### 1. Parsing tree (breakdown)
+
+```
+          (→)
+         /   \
+        t     w
+```
+
+- The root node is the implication operator “→”.
+- The left sub‑branch is the atomic proposition **t**.
+- The right sub‑branch is the atomic proposition **w**.
+
+---
+
+### 2. Reconstruct the meaning from the bottom up
+
+1. **Atomic propositions**  
+   - **t**: some Boolean property that can hold (true) or not (false) at any given instant.  
+   - **w**: another Boolean property, likewise evaluated at each instant.
+
+2. **Implication**  
+   LTL evaluates formulas at every *time step* (state).  
+   The semantics of the implication “A → B” at a particular time step *k* is:  
+   \[
+   A_k \;\Rightarrow\; B_k \;\;\text{is true iff either}\;\; A_k \text{ is false or } B_k \text{ is true.}
+   \]
+
+3. **Combining**  
+   For every time step *k* in the infinite run of the system:
+   - If **t** is true at *k*, then **w** must also be true at *k*.  
+   - If **t** is false at *k*, the implication imposes no requirement on **w** at that time.
+
+Hence the formula restricts the system only in the situations where **t** becomes true; it forbids any state where **t** holds but **w** does **not**.
+
+---
+
+### 3. Refined natural‑language phrasing
+
+> **"Whenever `t` holds, `w` must also hold at the same instant."**
+
+Or equivalently:
+
+> **"The system cannot be in a state where `t` is true while `w` is false."**
+
+This single clause is the entire specification: all other combinations of truth values (`t` false, `w` true; or both false) are allowed. The implication imposes a *concurrency‑style* constraint that applies instantaneously at every point in time.

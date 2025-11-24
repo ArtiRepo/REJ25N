@@ -1,0 +1,60 @@
+**Original LTL formula**
+
+```
+!X t
+```
+
+---
+
+### 1. Parsing tree
+
+```
+          !
+          |
+          X
+          |
+          t
+```
+
+* **`!`** – the logical NOT (negation) operator  
+* **`X`** – the “next” temporal operator  
+* **`t`** – an atomic proposition (a Boolean variable that can be true or false at each step)
+
+---
+
+### 2. Bottom‑up semantics
+
+1. **`t`**  
+   - At any given step, `t` is simply an assertion about whether the proposition `t` holds (is true) in that step.
+
+2. **`X t`**  
+   - “In the *next* step, `t` is true.”  
+   - Formally, `X t` holds in the current state iff `t` is true in the immediately following state.
+
+3. **`!X t`**  
+   - Negate the above: “It is *not* the case that `t` will be true in the next step.”  
+   - Equivalently: “In the next state, `t` must be false.”
+
+---
+
+### 3. Refined natural‑language interpretation
+
+- **Primary meaning**  
+  - *At the current point in the execution, the proposition `t` must not hold one step later.*  
+  - If the system happens to have `t` true immediately after the current snapshot, the formula `!X t` is violated.
+
+- **Behaviour over a run**  
+  - This constraint applies only to the single immediate successor of the current state.  
+  - Beyond that successor, no further requirement is imposed by `!X t`; subsequent states may satisfy `t` or not—`!X t` does not speak about them.
+
+- **When the formula is satisfied versus violated**  
+  - **Satisfied**: In the state after the current one, `t` evaluates to **false**.  
+  - **Violated**: In that immediate successor state, `t` evaluates to **true**.
+
+---
+
+### 4. Summary in plain English
+
+> **“The next state must not have the proposition `t` true.”**
+
+This formulation places a one‑step restriction: at every moment where the formula is evaluated, we require that the very next step does **not** satisfy `t`. Any execution that has `t` true in the immediate next state will not satisfy the formula; any execution where `t` is false in that next state does satisfy it (and the formula says nothing else about the future).

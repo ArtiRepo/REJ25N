@@ -1,0 +1,58 @@
+**1. Original LTL formula**
+
+\[
+G (n \;\Rightarrow\; s)
+\]
+
+---
+
+**2. Parsing tree (syntactic breakdown)**  
+
+```
+            G
+            |
+          =>
+         / \
+        n   s
+```
+
+* **Root**: `G` (Globally / “always”)
+* **Child of G**: the implication symbol `=>`
+* **Left operand of the implication**: atomic proposition `n`
+* **Right operand of the implication**: atomic proposition `s`
+
+---
+
+**3. Bottom‑up reconstruction of meaning**
+
+1. **Atomic propositions**  
+   * `n` and `s` are uninterpreted Boolean variables that can be true or false in each state/time‑instant of a run.
+
+2. **Implication**  
+   `n => s` means *“if `n` is true, then `s` must also be true”*.  
+   It is **true** in a state whenever either   
+   * `n` is false, or  
+   * both `n` and `s` are true.  
+   It is **false** only when `n` is true and `s` is false.
+
+3. **Global (G) operator**  
+   `G φ` reads “φ holds **at every** time instant along the run”.  
+   Therefore `G (n => s)` asserts that the implication is never violated in any state of the trace.
+
+---
+
+**4. Refined natural‑language description**
+
+> **“It is always the case that whenever `n` is true, `s` is also true.”**  
+> Equivalently: **“`n` can never be true while `s` is false—at every step of the system, `n` implies `s`.”**
+
+**Key points for understanding when the formula is satisfied or not**
+
+| Situation | Will the formula be satisfied? | Why |
+|-----------|-------------------------------|-----|
+| `n` is false and `s` is arbitrary | Yes | The implication `n ⇒ s` is true when the antecedent (`n`) is false. |
+| `n` is true and `s` is true | Yes | The implication is satisfied because both sides are true. |
+| `n` is true and `s` is false | **No** | The implication fails at that instant, so the global condition is violated. |
+| `s` is true but `n` is false | Yes | `n ⇒ s` is still true; the formula imposes no restriction when `n` doesn’t hold. |
+
+Thus the LTL formula `G (n => s)` imposes a **temporal constraint**: *any time `n` occurs, `s` must occur at the same moment, and this requirement must hold forever along every execution path.*

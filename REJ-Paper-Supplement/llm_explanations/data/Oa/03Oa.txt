@@ -1,0 +1,43 @@
+**Original LTL formula**  
+```
+a ∧ X b
+```
+
+---
+
+### 1.  Parsing tree  
+
+```
+            ∧
+           / \
+          a   X
+               |
+               b
+```
+
+* The root operator is **∧** (logical conjunction).  
+* Its left child is the atomic proposition **a** (a leaf).  
+* Its right child is the temporal operator **X** (next‑time), whose own child is the atomic proposition **b**.
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning  
+
+1. **Leaf “b”** – “the proposition *b* is true in the state that follows the current one.”  
+2. **Operator “X”** applied to b – *X b* means “in the **next** state, b holds.”  
+3. **Conjunction** – *a ∧ X b* therefore reads:  
+   *“a holds in the current state **and** b holds in the next state.”*
+
+---
+
+### 3.  Refined natural‑language phrasing
+
+> **At the current instant, the proposition `a` must be true, and at the immediately following instant, the proposition `b` must be true.**  
+>  
+> In other words, the system’s current configuration must satisfy `a`, while its next configuration must satisfy `b`.  
+>  
+> **When is it satisfied?**  
+> Whenever the system is in a state where `a` holds and transitions to a state where `b` holds.  
+>  
+> **What does it constrain?**  
+> The system must ensure that any transition from a state that satisfies `a` goes to a state that satisfies `b`. If either `a` is false now or `b` is false in the next state, the formula is violated.

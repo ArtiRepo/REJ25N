@@ -1,0 +1,81 @@
+**Original LTL formula**
+
+```
+(d U c) | (a U !c)
+```
+
+--------------------------------------------------------------------
+
+### 1.  Parse‑tree (syntactic breakdown)
+
+```
+                     OR  (|)
+                   /       \
+           Until (U)          Until (U)
+          /      \          /       \
+        d        c        a         !c
+```
+
+* `OR` is the largest operator (binary connective \(|\)).
+* Each child of the OR is an **Until** sub‑formula.
+* The sub‑ultras contain only atomic propositions (`d`, `c`, `a`) or a negated one (`!c`).
+
+--------------------------------------------------------------------
+
+### 2.  Bottom‑up semantic reconstruction
+
+#### 2.1  Atomic propositions  
+- `d` – proposition *d* is true in the current state.  
+- `c` – proposition *c* is true in the current state.  
+- `a` – proposition *a* is true in the current state.  
+- `!c` – proposition *c* is **false** in the current state.
+
+#### 2.2  Until operator  
+For any two formulas ϕ  and  ψ  the meaning of ϕ U ψ  is:
+
+> “there exists a future time step *t* such that ψ holds at *t*,  
+>  and for **every** time step *s* that precedes *t* (including the current step), ϕ holds.”
+
+Applying that to the two sub‑formulas:
+
+| Sub‑formula | Interpretation |
+|-------------|----------------|
+| `d U c` | “Soon, **c** will become true, and until that moment **d** must be true at every step.” |
+| `a U !c` | “Soon, **c** will become false (i.e., !c is true), and until that moment **a** must be true at every step.” |
+
+#### 2.3  OR operator  
+`φ | ψ` is true **iff** at least one of `φ` or `ψ` is true.  
+Therefore the whole formula is true if **either** of the two until‑conditions holds.
+
+--------------------------------------------------------------------
+
+### 3.  Refined natural‑language description
+
+> **Specification**:  
+> “From the current state it is required that **either**  
+>  1. the proposition *c* will eventually become true, while *d* remains true on every step that precedes that moment, **or**  
+>  2. the proposition *c* will eventually become false, while *a* remains true on every step that precedes that moment.  
+>  The specification is satisfied as soon as one of these two patterns is observed; the other pattern is irrelevant.”
+
+--------------------------------------------------------------------
+
+#### Why this is the meaning
+
+* The `Until` clauses demand a **continuous stretch** of one proposition (`d` or `a`) that is maintained **up to** the first occurrence of a particular event (`c` becoming true or `c` becoming false).
+* The `OR` clause means the system has two **alternative** ways to satisfy the requirement.  
+  *If the first alternative is fulfilled, the entire formula is satisfied immediately, even if the second never happens.*  
+  *If the second is fulfilled, the formula is satisfied even if the first never happens.*
+
+--------------------------------------------------------------------
+
+### 4.  When are the constraints imposed / when is the formula satisfied?
+
+| Situation | Satisfaction | Constraint imposed |
+|-----------|--------------|--------------------|
+| **At start**: `c` already true and `d` true | **Satisfied** by `d U c` (since the “until” can be satisfied with the current step if `ψ` holds immediately). | No other constraint beyond the current values. |
+| **c` becomes true after a run of d`s** | **Satisfied** (by the first until). | The system must *not* let `d` become false before `c` turns true. |
+| **c` becomes false after a run of a`s** | **Satisfied** (by the second until). | The system must *not* let `a` become false before `c` turns false. |
+| **c` stays true forever, no d** | **Not satisfied** unless `a U !c` holds (i.e., `!c` never occurs). | The formula imposes that either `d` stays true until `c` satifies, or `a` stays true until `c` becomes false. |
+| **c` stays false forever, no a** | **Not satisfied** unless `d U c` holds. | Likewise, either `d` must be true until eventual `c`, or `a` must be true until eventual `!c`. |
+
+Thus the LTL formula enforces a predictable pattern: **the system must keep either `d` or `a` continuously true until an appropriate state of `c` (true or false) is reached.** If neither pattern is ever completed, the specification never holds.

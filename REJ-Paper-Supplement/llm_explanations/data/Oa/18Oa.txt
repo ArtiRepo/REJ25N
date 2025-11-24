@@ -1,0 +1,73 @@
+**1. Original LTL Formula**  
+\[
+\neg F\;(a \land b)
+\]
+
+---
+
+### 2. Parsing tree (bottom‑up decomposition)
+
+| Level | Operator / Proposition | Children |
+|-------|------------------------|----------|
+| 0 | **Atomic** | `a` |
+| 0 | **Atomic** | `b` |
+| 1 | **Conjunction** `∧` | `a`, `b` |
+| 2 | **Finally** `F` | `(a ∧ b)` |
+| 3 | **Negation** `¬` | `F (a ∧ b)` |
+
+- **Top‑level:** `¬` (negation) operates over the subformula `F(a ∧ b)`.  
+- **Middle‑level:** `F` (the “finally” operator) expresses that eventually something will be true along a timeline.  
+- **Bottom‑level:** `a ∧ b` simply means “`a` *and* `b` are true at the same instant”.
+
+---
+
+### 3. Rebuilding meaning from the bottom of the tree up
+
+1. **`a ∧ b`**  
+   - Reads as “both propositions `a` and `b` hold simultaneously at this point in time.”
+
+2. **`F (a ∧ b)`**  
+   - “At some point in the future (possibly now), it will become true that `a` and `b` hold together.”  
+   - In other words, “`a` and `b` will eventually be true at the same step along the run.”
+
+3. **`¬F (a ∧ b)`**  
+   - “It is *not* the case that eventually `a` and `b` happen together.”  
+   - This negation flips the *eventually* condition into a universal one: **no point on any run can ever satisfy `a ∧ b`.**
+
+4. Equivalence (useful for a sharper phrasing)  
+   \[
+   \neg F \varphi \;\equiv\; G \neg \varphi
+   \]
+   so  
+   \[
+   \neg F (a ∧ b) \;\equiv\; G \neg (a ∧ b)
+   \]
+   which reads as “always it is not the case that `a` and `b` are true together”.
+
+---
+
+### 4. Refined natural‑language phrasing
+
+> **The system never reaches a state in which both `a` and `b` are true simultaneously.**  
+> 
+> Equivalently, **for every point in time, `a` and `b` are not both true** (they may be true individually, but never together).
+
+---
+
+### 5. When is the formula satisfied vs. imposed?
+
+| Scenario | How the formula behaves |
+|----------|--------------------------|
+| **`a` never true** | `F(a ∧ b)` is false → `¬F(a ∧ b)` true. |
+| **`b` never true** | Same as above. |
+| **`a` true at some steps, but `b` never true at the same time** | `a ∧ b` never holds → `F(a ∧ b)` false → `¬F(a ∧ b)` true. |
+| **There exists a run that reaches a state where both `a` and `b` are true** | `F(a ∧ b)` becomes true (on that run) → `¬F(a ∧ b)` is false → the formula is violated. |
+| **System can go to a state where both are true and then recover** | The formula is still violated because the *existence* of that state is enough to make `F(a ∧ b)` true. |
+
+**Constraint imposed on the system**  
+The formula forbids the system from ever entering a state with `a ∧ b = true`. If the system transitions to such a state even once, it fails to meet the specification. It places a safety requirement: “avoid simultaneous truth of `a` and `b` at all times.”
+
+---
+
+**Bottom line**:  
+`¬F (a ∧ b)` guarantees that `a` and `b` will **never** co‑occur in any future state of the system, no matter what path the execution takes. It is a universal safety condition expressed as the negation of a future obligation.

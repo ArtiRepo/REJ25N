@@ -1,0 +1,69 @@
+**1. Original LTL formula**
+
+```
+X (y ⇒ (x ∧ w))
+```
+
+(The formula is written in the usual LTL syntax: `X` = “next”, `⇒` = implication, `∧` = conjunction, `x`, `y`, `w` are propositional variables.)
+
+---
+
+**2. Parsing tree (sub‑formula breakdown)**  
+
+```
+           X
+           |
+      (   ⇒   )
+      /   |   \
+     y   ∧    (leaf)
+         / \
+        x   w
+```
+
+*   **Root**: the temporal operator `X`.
+*   **First sub‑formula**: the implication `y ⇒ (x ∧ w)`.
+*   **Second sub‑formula** (right branch of the implication):
+    *   The conjunction `x ∧ w`.
+    *   The two atomic propositions `x` and `w`.
+*   **Left branch of the implication**: the atomic proposition `y`.
+
+---
+
+**3. Rebuilding meaning from the bottom up**
+
+| Level | Symbol | Meaning | How it is combined with the level above |
+|-------|--------|---------|----------------------------------------|
+| **Bottom** | `x`, `y`, `w` | “proposition *p* holds in the current state” | N/A |
+| **Next** | `x ∧ w` | “both x **and** w hold in the current state” | combined with `y` via implication |
+| **Next** | `y ⇒ (x ∧ w)` | “If *y* is true, then *x* and *w* must both be true; otherwise the statement is automatically true.” | wrapped by the `X` operator |
+| **Root** | `X ( … )` | “In the **next** state, the property inside the parentheses must hold.” | final formula |
+
+So, reading from the leaves upward:
+
+1. In the next state, `x` and `w` must both be true.
+2. If `y` is true in the next state, that requirement for `x` and `w` must hold; otherwise we impose no restriction.
+3. We evaluate this whole implication **in the next state**, meaning the current state must ensure that the next state satisfies the implication.
+
+---
+
+**4. Natural‑language translation (refined)**  
+
+> “In every instant, we require that at the *next* instant, whenever `y` is true, both `x` and `w` are also true.  
+> Equivalently: *In the next state, we rule out any situation where `y` holds but either `x` or `w` do not.*”
+
+**Why it is true / why it imposes a constraint**
+
+* **When the formula is satisfied**  
+  * In the next state, if `y` is false, the implication is vacuously true → the formula holds regardless of `x` or `w`.  
+  * If `y` is true in the next state, both `x` and `w` must also be true there.
+
+* **When the formula imposes a constraint**  
+  * The presence of the `X` operator ties the property to the **following** state, so the current state must "prepare" that the next state satisfies the implication.  
+  * Therefore, the system is constrained to avoid a next state where `y` is true but either `x` or `w` is false.  
+  * The formula does **not** constrain the current state itself unless that current state also happens to be the “next” state for some earlier state—i.e., the property is checked at every moment of the run, always referring to the following instant.
+
+---
+
+**Bottom line:**  
+
+> “Everywhere along its execution, the system must not allow a situation where `y` becomes true in the next step while either `x` or `w` is false.”

@@ -1,0 +1,42 @@
+**1. Original LTL formula**  
+```
+F !b
+```
+
+---
+
+**2. Parsing tree**  
+
+```
+            F (!b)
+              |
+            !b
+              |
+              b
+```
+
+- **Root**: `F (!b)` – “finally” applied to the sub‑formula `!b`.  
+- **Middle node**: `!b` – logical negation of `b`.  
+- **Leaf**: `b` – an atomic proposition (a Boolean variable or property that can be true or false in a state).
+
+---
+
+**3. Building the meaning bottom‑up**
+
+| Node | Interpretation | Explanation |
+|------|----------------|-------------|
+| `b` | *b is true* | In the current state of the system, the proposition `b` holds. |
+| `!b` | *b is false* | The negation means that `b` does **not** hold in the current state. |
+| `F !b` | *At some future point (possibly now) `b` is false* | The temporal operator `F` (“finally” / “eventually”) says that there must exist an index along the infinite execution trace where the sub‑formula `!b` holds. That is, `b` will become false at least once. |
+
+---
+
+**4. Refined natural‑language translation**
+
+> **“The system will eventually reach a state where `b` is not true.”**  
+>   In other words, there must be some moment in the future—possibly the very first moment—at which the property `b` ceases to hold.  
+> - If `b` is already false at the start, the requirement is satisfied immediately.  
+> - If `b` stays true forever, the requirement is violated because no such future state exists.  
+> - The formula places no bound on *when* this happens; it only guarantees that it will happen at least once somewhere along the execution.  
+
+So, `F !b` is a **liveness constraint**: it rules out endless persistence of `b`; the system must at some point let go of `b`.

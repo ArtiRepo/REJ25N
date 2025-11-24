@@ -1,0 +1,63 @@
+**1. Original LTL formula**
+
+```
+b | !X a
+```
+
+(Here `|` is logical OR, `!` is logical NOT, and `X` is the *next* operator.)
+
+---
+
+**2. Parsing tree (syntactic breakdown)**  
+
+```
+          OR
+         /  \
+        b   NOT
+             |
+             X
+             |
+             a
+```
+
+* **Leaf nodes**: `b`, `a`
+* **Unary operators**: `X` (next) applied to `a`
+* **Unary operator**: `¬` (not) applied to `X a`
+* **Binary operator**: `∨` (or) joining `b` and `¬X a`
+
+---
+
+**3. Bottom‑up reconstruction of meaning**
+
+1. **`a`** – predicate `a` is true at the current state.
+2. **`X a`** – “in the *next* state, predicate `a` is true.”  
+   So at the current state we look one step ahead and check if `a` holds there.
+3. **`¬X a`** – “it is **not** the case that `a` holds in the next state.”  
+   Equivalent to “`a` does **not** hold in the next state.”
+4. **`b`** – predicate `b` is true at the current state.
+5. **`b ∨ ¬X a`** – “`b` is true **now** **or** `a` is not true in the next state.”  
+
+   The operator `∨` is evaluated at the **current** time point:  
+   *If either of the two components holds at the current moment, the whole formula is satisfied.*
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **"At this instant, either property `b` holds, or property `a` will not hold immediately in the next instant."**
+
+Or, phrased slightly differently:
+
+> **"Either we have `b` now, or we guarantee that `a` will not be true in the next step."**
+
+---
+
+### When is the formula satisfied?
+
+| Current state | Next state | Evaluation |
+|---------------|------------|------------|
+| `b` true | any | **Satisfied** (left side of the OR is true) |
+| `b` false | `a` false | **Satisfied** (right side `¬X a` is true) |
+| `b` false | `a` true | **Not satisfied** (neither `b` nor `¬X a` holds) |
+
+So the formula imposes a constraint that rules out the combination “`b` is false **and** `a` is true in the next state.” All other combinations of truth values constitute satisfaction.

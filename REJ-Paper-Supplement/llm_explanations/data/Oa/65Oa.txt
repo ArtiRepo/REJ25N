@@ -1,0 +1,62 @@
+**Original LTL Formula**
+
+\[
+\mathbf{X}\,a\; \mathbf{U}\; \mathbf{X}\,b
+\]
+
+---
+
+### 1.  Parsing tree (breakdown)
+
+```
+            U
+          /   \
+      X a      X b
+      |        |
+      a        b
+```
+
+* **U** – “until” (the main connective).
+* **X a** – “next‑state a”: *a* must hold **in the state that follows** the current one.
+* **X b** – “next‑state b”: *b* must hold **in the state that follows** the current one.
+
+---
+
+### 2.  Rebuilding meaning from the bottom up  
+
+1. **Bottom nodes** – they are atomic propositions:
+   * *a* says “the property *a* holds”.
+   * *b* says “the property *b* holds”.
+
+2. **Unary “next” (X)** – at any state **t**,  
+   * `X a` is true at *t* iff *a* is true at **t+1**.  
+   * `X b` is true at *t* iff *b* is true at **t+1**.
+
+3. **Until (U)** – \((\phi \, U \, \psi)\) is true at *t* iff  
+   *there is some future time *t′* (possibly *t* itself) such that  
+     – \(\psi\) is true at *t′*, and  
+     – for every moment *t″* with *t* ≤ *t″* < *t′*, \(\phi\) is true at *t″*.*
+
+   Applying this to our sub‑formulae:
+   * There is a future moment *t′* where **`X b`** holds – i.e. *b* is true in the state immediately after *t′*.
+   * Until that moment (not including *t′* itself), **`X a`** must hold at every intervening state – i.e. *a* is true in the state immediately after every earlier state.
+
+---
+
+### 3.  Natural‑language phrasing (refined)
+
+> **“Soon enough, there will be a step after which the property *b* becomes true in the next state, and before that step, at every earlier step the property *a* is true in the next state.”**
+
+In clearer terms:
+
+* There must exist a future point *t′* such that **at time *t′ + 1* the property *b* holds.**  
+* For every time *t″* strictly before *t′* (i.e. *t* ≤ *t″* < *t′*), **at time *t″ + 1* the property *a* holds.**  
+
+So the system is required to maintain *a* “forever” in the *next* state up to the point where *b* will be true one step later. The formula does *not* constrain what happens at the present state itself; it only looks one step ahead in each position.  
+
+When the formula is satisfied at a state *t*, there is a future index *k ≥ 0* such that:
+
+* *b* holds at time *t + k + 1*, and  
+* for all *i* with 0 ≤ *i* < *k*, *a* holds at time *t + i + 1*.
+
+If no such *k* exists, the formula fails, meaning either *b* never becomes true in a next‑state sense, or an intermediate step occurs where *a* fails in the next‑state sense.

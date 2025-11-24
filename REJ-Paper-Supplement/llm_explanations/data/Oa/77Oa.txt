@@ -1,0 +1,77 @@
+**Step 1 – The original LTL formula**  
+
+\[
+\boxed{a \; \mathsf{U}\; \lnot a}
+\]
+
+The “U” is the **until** operator.  
+
+---
+
+## Step 2 – Build a parsing tree
+
+```
+          U
+         / \
+        a   ¬a
+             |
+             a
+```
+
+* Root: **U** (until)  
+* Left child: **a** – a propositional variable that can be true or false at a given instant.  
+* Right child: **¬a** – a negation applied to **a**.
+
+The sub‑formula beneath the right child is again **a**, which we immediately negate to get **¬a**.
+
+---
+
+## Step 3 – Rebuild meaning from the bottom up  
+
+1. **¬a**  
+   *Literal meaning:* “\(a\) is *not* true” → “\(a\) is false.”  
+
+2. **a**  
+   *Literal meaning:* “\(a\) is true.”  
+
+3. **a  U  ¬a**  
+   *Until*(\(\varphi,\,\psi\)) is true at a particular moment \(i\) in a trace iff  
+   - there exists a future position \(j \ge i\) where \(\psi\) holds,
+   - and \(\varphi\) holds at every position from \(i\) up to but *not including* \(j\).
+
+   Substituting  
+   - \(\varphi = a\),
+   - \(\psi = \lnot a\),
+
+   gives the following informal description:
+
+   *“\(a\) continues to be true at every instant, until at some later instant (possibly the very next one) it becomes false.”*  
+   The instant where \(\lnot a\) first holds is the “switch‑point”; before that point, \(a\) must not be false, and after that point no requirement on \(a\) remains.
+
+---
+
+## Step 4 – Refine the natural‑language phrasing  
+
+1. **Short, direct translation**  
+   > “\(a\) holds continuously until it becomes false, and it must eventually become false.”
+
+2. **Expanded explanation**  
+   * “If \(a\) is true now, the system must keep \(a\) true forever **until** at some future time the property \(a\) stops being true (i.e., becomes false).  
+   * “If, at the very instant you are considering, \(a\) is already false, then the formula is satisfied immediately; you do not have to keep any other condition on \(a\) before that instant.”  
+   * “Conversely, if \(a\) never becomes false (the system perpetually keeps \(a\) true), the formula is violated, because the until‑operator requires the right‑hand proposition \(\lnot a\) to hold at least once.”
+
+3. **Final refined natural‑language summary**  
+
+> *“The system guarantees that, while \(a\) remains true, it will not let \(a\) turn false. Finally, at some point the system must turn \(a\) off; after that point, no further obligation on \(a\) exists.”*
+
+---
+
+### When is the formula satisfied?
+
+| Current state | Satisfaction note |
+|---------------|--------------------|
+| \(a\) true, <br> eventually \(a\) becomes false | **Satisfied** – the until requirement is fulfilled. |
+| \(a\) false (i.e., \(\lnot a\) holds now) | **Satisfied** – the condition \(\lnot a\) holds immediately; the left part is vacuously satisfied. |
+| \(a\) true forever (never false) | **Not satisfied** – the right side never holds, violating the until requirement. |
+
+The formula imposes a *temporal guard* on \(a\): you can begin by holding \(a\) true, but you must ultimately switch it off. After you switch it off, you’re free to let \(a\) do whatever you want.

@@ -1,0 +1,65 @@
+### 1. Original LTL formula  
+**`a U (c & d)`**
+
+---
+
+### 2. Parsing tree (syntactic breakdown)
+
+```
+          U
+        /   \
+       a     &
+      / \   / \
+     c   d  (implied)
+```
+
+- **`U`** : The “until” temporal operator.  
+- Left child: **`a`** – a state proposition that must hold repeatedly.  
+- Right child: **`c & d`** – a conjunction; both `c` and `d` must be true at the same moment.
+
+---
+
+### 3. Rebuilding meaning from the bottom up
+
+1. **Bottom layer – `c` and `d`**  
+   The formula `c & d` is true **exactly** at those moments where both propositions `c` and `d` hold simultaneously.
+
+2. **Middle layer – `a U (c & d)`**  
+   The until operator says:  
+   *“`a` must hold at every instant **up until** the first instant where `c & d` becomes true.  
+   At that instant `c & d` itself is true (and the formula is satisfied), and from then on no further requirement on `a` exists.”*
+
+3. **Overall temporal behaviour**  
+   - **Existential part**: There must exist somewhere in the future a time step `t` where `c & d` is true.  
+   - **Universal part (before `t`)**: From the current time `0` up to and including time `t` *exclusive*, the proposition `a` must hold.  
+   - **Edge case**: If `c & d` is already true at the current moment (`t = 0`), the formula is satisfied immediately; `a` is *not required* to hold at that moment.
+
+---
+
+### 4. Refined natural‑language translation
+
+> **“`a` holds continuously until a state is reached in which both `c` and `d` are true; the moment when `c` and `d` are simultaneously true satisfies the whole formula, and after that the truth of `a` is irrelevant.”**
+
+---
+
+#### Why the formula imposes constraints:
+
+- **During the “waiting period”** (before `c & d` occurs), the system **must** keep `a` valid.  
+- **If `c & d` never occurs**, the formula is never satisfied: the system fails to meet the specification.  
+- **If `c & d` occurs immediately**, the formula is instantaneously satisfied, and still `a` need not hold afterwards.
+
+---
+
+#### Example illustration
+
+Suppose:
+- `a` = “the safety monitor is active”  
+- `c` = “an obstacle is detected”  
+- `d` = “the vehicle’s speed is below 5 mph”
+
+Then **`a U (c & d)`** says:
+
+> *“Keep the safety monitor running until the system simultaneously detects an obstacle and is moving at a very low speed.  
+>  At that exact instant the condition is satisfied, and the safety monitor may be turned off afterward.”*
+
+This captures the expected "until" behaviour in both the formal LTL world and everyday understanding.

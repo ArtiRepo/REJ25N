@@ -1,0 +1,69 @@
+**Original LTL formula**
+
+```
+X !b & d
+```
+
+(We assume the usual precedence rules: `&` (and) binds weaker than `X`.  
+So the formula is interpreted as `(X !b) & d`.)
+
+---
+
+### 1.  Build a parsing tree
+
+```
+          &                                 (conjunction)
+        /   \
+      X      d                          (atomic proposition)
+      |
+      !
+      |
+      b
+```
+
+* **Root** – conjunction `&`
+* **Left child** – next‑operator `X` applied to the subformula `!b`
+* **Right child** – atomic proposition `d`
+* **Inside the `X`** – negation `!` applied to `b`
+
+---
+
+### 2.  Translate from the leaves up
+
+1. **Leftmost leaf → b**  
+   “the proposition *b* holds (is true) in the current state.”
+
+2. **Negation → !b**  
+   “*b* does *not* hold (is false) in the current state.”
+
+3. **Next operator → X !b**  
+   “in the *next* state, *b* is false.”
+
+4. **Right leaf → d**  
+   “the proposition *d* holds (is true) in the current state.”
+
+5. **Conjunction → X !b & d**  
+   “both... and ...” – both of the above conditions must be true **at the same time**.
+
+---
+
+### 3.  Refine the natural‑language phrasing
+
+> **At the current time step, the proposition `d` must be true, and at the very next time step the proposition `b` must be false.**
+
+---
+
+### 4.  What it means for satisfaction and for system constraints
+
+* **Satisfaction:**  
+  Let `s → s′` be the transition from the current state `s` to the next state `s′`.  
+  The formula is satisfied in `s` iff  
+  - `d` is true in `s`, **and**  
+  - `b` is false in `s′`.
+
+* **Constraints imposed:**  
+  The system must guarantee two things:
+  1. Whenever the system is in a state where `d` must hold, it must do so now.
+  2. Immediately after such a state, the system must transition to a state in which `b` is false.  
+
+  If either of these conditions fails, the formula evaluates to false and the system would violate the temporal specification.

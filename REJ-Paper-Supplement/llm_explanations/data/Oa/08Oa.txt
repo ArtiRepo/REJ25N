@@ -1,0 +1,63 @@
+**Original LTL formula**
+
+```
+b U !d
+```
+
+---
+
+## 1.  Parsing tree – how the formula is built
+
+```
+            U
+          /   \
+       b        !
+                 |
+                 d
+```
+
+* **`b`** – atomic proposition (“the system satisfies property b”).
+* **`d`** – atomic proposition (“the system satisfies property d”).
+* **`!`** – unary operator “not”; `!d` is true exactly when **d** is false.
+* **`U`** – binary temporal operator “until”; `b U !d` uses **b** as the
+  left sub‑formula and `!d` as the right sub‑formula.
+
+---
+
+## 2.  Semantic reconstruction – bottom‑up
+
+1. **Leaf level**  
+   * `b` : “property b holds in the current state.”  
+   * `d` : “property d holds in the current state.”  
+
+2. **Unary operator**  
+   * `!d` : “property d does **not** hold in the current state”  
+     (i.e., “the system is **not** in a state where d is true”).
+
+3. **Binary `until`** `b U !d`  
+   * Standard semantics of LTL’s `Until` (until‑operator):  
+     * There exists some future time instant \(k \ge 0\) such that  
+       `!d` holds at time \(k\).  
+     * For every time instant \(j\) with \(0 \le j < k\), `b` holds at time \(j\).  
+     * Nothing is required about states after \(k\); the property is satisfied as soon as the right‑hand side becomes true.
+
+   * In words: **“b must be true on every step up to, but not including,
+     the first step where d becomes false; once d is false the requirement
+     stops.”**
+
+---
+
+## 3.  Refined natural‑language description
+
+- **Informal translation**  
+  > “From now on, **b** has to hold continuously until **d** becomes false. There must be a moment in the future at which **d** is false, and until that moment all steps satisfy **b**. If **d** never becomes false, the property is not satisfied.”
+
+- **Key points to highlight**  
+  1. **Immediate satisfaction** – If the system starts in a state where **d** is already false, `b U !d` is satisfied immediately (no `b` required at all).  
+  2. **Pre‑condition for `b`** – While `!d` hasn’t occurred yet, the system is *forced* to keep `b` true at every step.  
+  3. **No post‑constraint** – After the first `!d` event, the formula places no further requirements on the system.
+
+- **Example phrasing**  
+  *“Maintain property b at every step until property d ceases to hold; once d stops holding the requirement is fulfilled.”*
+
+This completes the translation of `b U !d` from its formal LTL syntax to a clear natural‑language understanding, explaining both when the formula is satisfied and what constraints it imposes over time.

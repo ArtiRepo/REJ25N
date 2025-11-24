@@ -1,0 +1,68 @@
+**LTL formula**
+
+```
+X (!i) | X (j)
+```
+
+---------------------------------------------------------------------
+
+### 1.  Parsing tree (syntax tree)
+
+```
+                    (OR)
+                   /     \
+            (X)            (X)
+           /               \
+      (NOT)                j
+        |
+        i
+```
+
+* **Root** – disjunction “|”  
+* **Left subtree** – `X (!i)`  
+    * `X` (next) node with child `NOT`
+    * `NOT` node with child `i`  
+* **Right subtree** – `X (j)`  
+    * `X` (next) node with child `j`
+
+---------------------------------------------------------------------
+
+### 2.  Bottom‑up meaning reconstruction
+
+1. **`i`** – “the atomic proposition *i* holds (is true).”  
+2. **`NOT i` (`!i`)** – “*i* does **not** hold (is false).”  
+3. **`X (!i)`** – “In the **next** state, *i* is false.”  
+4. **`X (j)`** – “In the **next** state, *j* is true.”  
+5. **`X (!i) | X (j)`** – “Either, in the next state, *i* is false **or** in the next state, *j* is true (or both).”
+
+---------------------------------------------------------------------
+
+### 3.  Refined natural‑language phrasing
+
+> **At every point in time, the system must guarantee that on the following step one of two things holds:**
+> 
+> - **Either the property *i* is false.**  
+> - **Or the property *j* is true.**  
+> 
+> (It is also permitted for both to be true or both to be false; what matters is that at least one of them satisfies the required truth value in the next state.)
+
+#### What the formula *satisfies*  
+For a particular system execution trace, the formula is satisfied at a given position **t** if **follows**:
+- In the state at time **t+1**, either `i` evaluates to *false* or `j` evaluates to *true* (or both).  
+- If this holds for **every** position in the trace, the entire trace satisfies the formula.
+
+#### What the formula *constrains*  
+The formula places an immediate, point‑wise restriction on the transitions:
+- It prohibits the system from ever moving into a next state where **i is true AND j is false**.  
+- Anything else is allowed; the current state is unconstrained by this formula.
+
+---------------------------------------------------------------------
+
+### 4.  Quick “why – on the next set” check
+
+1. Examine the parse tree – there’s a final `|` with two children, each starting with `X`.  
+2. Translate bottom‑up: `X (!i)` → “next state: i is false”; `X (j)` → “next state: j is true”.  
+3. Combine under `|`: “next state: i is false **or** j is true”.  
+4. Clarify: this applies at **every** step in the trace, so it is a *safety* constraint on the following step, not a long‑term pattern.  
+
+That is the full reasoning chain from raw LTL syntax to an intuitive, human‑readable description.

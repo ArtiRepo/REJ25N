@@ -1,0 +1,68 @@
+**Original LTL formula**  
+\[
+a\, U\, c
+\]
+
+---
+
+### 1.  Parsing tree
+
+```
+      U
+     / \
+    a   c
+```
+
+- **U** – the *until* operator  
+- **a** – atomic proposition  
+- **c** – atomic proposition
+
+---
+
+### 2.  Step‑by‑step reconstruction (bottom up)
+
+1. **Atomic propositions**  
+   - `a` means “the property **a** holds at the current state.”  
+   - `c` means “the property **c** holds at the current state.”
+
+2. **Until (`U`)**  
+   The subformula `a U c` is satisfied by a run if and only if:
+   - **There exists a future state** (possibly the very next one) where `c` is true.
+   - **Until that future state**, every intermediate state satisfies `a`.
+
+   Formally:  
+   \[
+   \exists k \ge 0 : 
+   \big( (c \text{ holds at step } k) \land
+   \forall j < k : a \text{ holds at step } j \big)
+   \]
+
+   - If `c` is already true at the current state (`k = 0`), the second part (the “for all j < k” clause) is vacuously true: no intermediate states need to satisfy `a`.  
+   - If `c` never becomes true, the formula is **unsatisfied** regardless of `a`.
+
+---
+
+### 3.  Natural‑language interpretation (refined)
+
+> **“Property **a** must hold continuously until property **c** becomes true.**  
+> When **c** becomes true, the constraint on **a** stops; after that point, the values of **a** are irrelevant to the formula. If **c** never becomes true, the formula is violated.”
+
+---
+
+### 4.  Quick example to illustrate satisfaction
+
+| Time step | a | c | Is `a U c` satisfied? |
+|-----------|---|---|-----------------------|
+| 0         | T | F | No, `c` hasn't occurred yet |
+| 1         | T | F | No |
+| 2         | T | T | **Yes** – `a` held at 0,1; `c` true at 2 |
+
+If at step 0 `c` had been true, then `a U c` would already be satisfied (the “until” part would have a zero‑length interval of `a`).
+
+---
+
+### 5.  Summary
+
+- **When satisfied:** there is a *future time* where `c` becomes true, and from now until that time, every state must satisfy `a`.  
+- **When it imposes a constraint:** as long as `c` has not yet become true, the system must keep `a` true; failure to do so breaks the formula.  
+- **When no constraint:** once `c` occurs, the formula’s obligation is fulfilled and no further requirements on `a` are enforced.

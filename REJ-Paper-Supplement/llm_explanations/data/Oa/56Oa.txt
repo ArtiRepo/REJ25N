@@ -1,0 +1,71 @@
+**1. Original LTL formula**
+
+\[
+\lnot a~U~(a \land X~G~\lnot a)
+\]
+
+(Here “!a” is the same as “¬a” – “not a”.)
+
+---
+
+**2. Parsing tree – breaking the sub‑formulas**
+
+```
+                          U
+              ┌───────────┴─────────────────────┐
+            ¬a (left operand)           (a ∧ X G ¬a) (right operand)
+                                      │          │
+                                      a          X G ¬a
+                                                  │
+                                                  G ¬a
+                                                  │
+                                                  ¬a
+```
+
+* **Root** – `φ U ψ` with  
+  * φ = `¬a`  
+  * ψ = `a ∧ X G ¬a`
+
+* **ψ** – conjunction  
+  * left: `a` (a holds now)  
+  * right: `X G ¬a` (holds *next* state and forever after)
+
+* **X G ¬a** – “next” followed by “globally”  
+  * `G ¬a` = “from this state on, `¬a` holds”.  
+  * `X` says “look at the *next* state”.
+
+---
+
+**3. Rebuilding the meaning from the bottom up**
+
+1. **`¬a`**  
+   “a is false”.
+
+2. **`G ¬a`**  
+   “From this moment on, a is always false”.
+
+3. **`X G ¬a`**  
+   “From the *next* state onward, a is always false”.
+
+4. **`a ∧ X G ¬a`**  
+   At the current state:  
+   * `a` is true, **and**  
+   * starting with the next state and forever after, `a` will be false.
+
+5. **`¬a U (a ∧ X G ¬a)`**  
+   The until‑operator says:
+   * There must exist a future position where `a ∧ X G ¬a` holds.
+   * Until that position is reached, `¬a` must hold at every state.
+
+In other words:  
+*Until the first time `a` becomes true, `a` must stay false. When `a` finally turns true, it does so **exactly once**—the moment it turns true is the last moment when `a` can be true, because from the next state on `a` is forever false.*
+
+---
+
+**4. Refined natural‑language description**
+
+> **“The system starts with `a` false.  
+>  It remains `a`‑false until the very first moment `a` becomes true.  
+>  That moment is the unique occurrence of `a`: at it `a` holds, immediately afterward the system guarantees that `a` will never become true again (from the next time step onward it stays false for good).”**
+
+This captures both the *constraint* (before the first `a` must be false) and the *event* (an eventual single occurrence of `a` after which `a` can never recur).

@@ -1,0 +1,53 @@
+**1. Original LTL formula**
+
+```
+(d ∨ ¬b)  U  ¬a
+```
+
+---
+
+**2. Parsing tree (breakdown)**  
+
+```
+              U
+            /   \
+          ∨      ¬
+        /   \    |
+       d     ¬b   a
+```
+
+* **Root**: `U` (Until)  
+* **Left child**: `∨` (Disjunction) with operands `d` and `¬b`  
+* **Right child**: `¬` (Negation) of `a`
+
+---
+
+**3. Bottom‑up reconstruction of meaning**
+
+| Subformula | Interpretation | Explanation |
+|------------|----------------|-------------|
+| `a` | “the atomic proposition *a* holds” | Basic truth of `a` at the current state. |
+| `¬a` | “*a* does **not** hold” | Negation: at the current state the value of `a` is false. |
+| `b` | “*b* holds” | Basic truth of `b`. |
+| `¬b` | “*b* does **not** hold” | Negation: `b` is false. |
+| `d ∨ ¬b` | “either *d* holds, **or** *b* does **not** hold” | Disjunction: at least one of the two sub‑conditions is satisfied in the current state. |
+| `(d ∨ ¬b) U ¬a` | “Eventually *¬a* will become true, and until that point the formula `d ∨ ¬b` must hold in every state” | Definition of the **Until** operator: <br>• `¬a` (the right part) must occur at some future state (possibly the very next state or later). <br>• For every state preceding that `¬a` state, the left part (`d ∨ ¬b`) must be true. <br>• If `¬a` is already true in the current state, the whole formula holds vacuously – no requirement on the left part. <br>• If `¬a` never becomes true, the requirement is that `d ∨ ¬b` holds forever. |
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **“While the proposition `a` stays true, the system must keep either `d` true or `b` false in every state. This condition can be lifted only when `a` becomes false; once `¬a` holds, the requirement on `d` and `b` ends.”**
+
+Alternative paraphrasing for clarity:
+
+* “Either `d` holds or `b` does not hold at every moment, **as long as `a` is true**. The obligation is satisfied once `a` stops being true.”
+* “The condition `d ∨ ¬b` is enforced continuously until the first moment when `a` becomes false; after that moment, the formula imposes no further constraint.”
+
+**Key points for understanding satisfaction**
+
+1. **Immediate satisfaction** – If `¬a` is true in the very first state, the entire formula is satisfied and no further state needs to satisfy `d ∨ ¬b`.
+2. **Long‑running requirement** – If `a` remains true forever, the system must keep `d ∨ ¬b` true at every state forever.
+3. **Finite waiting** – If `a` becomes false at some finite future step `k`, the system must guarantee `d ∨ ¬b` at every state `0 … k‑1`, and the formula is satisfied at step `k` where `¬a` holds.
+
+That is the complete translation of `(d ∨ ¬b) U ¬a` into plain English, along with the reasoning behind each component.

@@ -1,0 +1,50 @@
+**1. Original LTL formula**  
+\[
+G(a \;\rightarrow\; X\,\lnot b)
+\]
+
+---
+
+**2. Parsing tree (bottom‑up breakdown)**  
+
+```
+              G
+              │
+        a  →   X
+        │     │
+        a    ¬b
+```
+
+* Outer operator: **G** (Globally / Always)  
+* Inside G: an implication **→**  
+* Left side of the implication: atomic proposition **a**  
+* Right side of the implication: **X** (Next) applied to **¬b**  
+  * **¬b**: negation of atomic proposition **b**
+
+---
+
+**3. Reconstructing the meaning from the bottom up**
+
+* **¬b**  
+  - “b does **not** hold."  
+* **X¬b**  
+  - “In the next state (the very next time instant) b does not hold."  
+* **a → X¬b**  
+  - “If a holds at the current state, then immediately in the next state b must not hold."  
+  - “Whenever we observe a, we must see a state where b is absent in the following step."  
+* **G(a → X¬b)**  
+  - “For **every** state that the system can be in, the above conditional must hold."  
+  - “It is **always** true that an occurrence of a is succeeded by a state with ¬b."
+
+---
+
+**4. Refined natural‑language phrasing**
+
+> **“It must always be the case that whenever a occurs, a state with b does **not** follow in the immediately next step.”**
+
+Equivalently, one could say:
+
+- “The system is required to never have `b` immediately after an `a` at any point in its execution."
+- “Every time `a` appears, the immediate next moment must be free of `b`; this rule holds for all moments of the system’s run."
+
+In practice, a violation would be witnessing a time instant *t* where `a` is true and the next instant *t+1* has `b` true. The formula forbids such a pattern throughout the entire execution.

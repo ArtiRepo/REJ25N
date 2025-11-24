@@ -1,0 +1,92 @@
+**1.  Original LTL formula**
+
+\[
+F \; (\, o \; U \; u \,)
+\]
+
+“\(F\)” is the *Finally* (or “Eventually”) operator,  
+\(U\) is the *Until* operator, and \(o,\;u\) are atomic propositions (“\(o\) holds” and “\(u\) holds”).
+
+---
+
+**2.  Parse tree (decomposition of the formula)**  
+
+```
+             F
+             |
+           (U)
+          /   \
+         o     u
+```
+
+* **Leaf nodes:**  
+  * `o` – the propositional variable \(o\)  
+  * `u` – the propositional variable \(u\)
+
+* **Intermediate node:**  
+  * `U` – the until operator applied to the two leaf variables  
+
+* **Root node:**  
+  * `F` – finally applied to the `U` sub‑formula  
+
+---
+
+**3.  Bottom‑up reconstruction of meaning**
+
+1. **Atomic propositions**  
+   * `o` : “property \(o\) is true (holds) at the current state.”  
+   * `u` : “property \(u\) is true (holds) at the current state.”
+
+2. **Until sub‑formula** \((o \; U \; u)\)  
+   * The semantics of “\(φ\,U\,ψ\)” are:  
+     * There exists a future time point \(k\) such that \(ψ\) holds at \(k\).  
+     * For every time point \(i\) with the current time ≤ \(i < k\), \(φ\) holds.  
+   * Plugging in \(φ = o\) and \(ψ = u\) gives:  
+     * “There will come a future instant when \(u\) becomes true, and from **now** until that instant, \(o\) must remain true at every step.”
+
+3. **Finally sub‑formula** \(F (o\,U\,u)\)  
+   * “\(F\,\varphi\)” means the sub‑formula \(\varphi\) must become true at **some** time in the future (not necessarily immediately).  
+   * Hence:  
+     * “Eventually, the situation described by \((o\,U\,u)\) will hold.”  
+   * In words:  
+     * “There will, in the future, be a point in time at which from that point onward \(o\) holds continuously until \(u\) finally becomes true.”  
+
+---
+
+**4.  Refined natural‑language description**
+
+> **“The system will eventually reach a point of time after which the property \(o\) remains true continuously until the property \(u\) eventually becomes true.”**
+
+---
+
+### When is it satisfied vs. when does it impose constraints?
+
+| Situation | Satisfaction | Imposed Constraint |
+|-----------|--------------|--------------------|
+| At some future time *t*, *u* occurs after an uninterrupted run of *o* from *t* onward | ✔︎ | The system **must** eventually exhibit a streak of *o* before seeing *u*. |
+| *o* is never true (or is broken before the first *u*) | ✖︎ | The specification cannot be met; the required streak of *o* never materializes. |
+| *u* never occurs | ✖︎ | Because \((o U u)\) is false forever, the outer \(F\) cannot be satisfied. |
+| *o* holds, but *u* never follows | ✖︎ | The specification fails for the same reason (no eventual *u* after the streak). |
+
+- **Constraint on the future behaviour**:  
+  * The system cannot have an *o*‑free stretch that occurs immediately before the first *u*; all states between the point where \((o U u)\) becomes true and the occurrence of *u* must satisfy *o*.  
+  * Prior to the point when \((o U u)\) is first true, the specification places *no requirement* – the formula simply waits until the `"run of o until u"` pattern appears somewhere later.
+
+- **“Eventually” part**:  
+  * The outer \(F\) means the pattern can appear later; it is not required to appear at the very first instant, just sometime in the future.
+
+---
+
+### Quick intuition with a timeline
+
+```
+time ──>  0  1  2  3  4  5  6 … 
+props               o   o   u
+```
+
+At time 3 the sub‑formula \((o U u)\) becomes true:  
+* From time 3 onward until time 5, *o* holds at every step (times 3 and 4).  
+* At time 5, *u* holds, satisfying the “until” deadline.
+
+The whole formula \(F (o U u)\) is satisfied because **at least once** such a stretch (3‒5) exists.  
+If no such stretch existed (e.g., *u* never follows a continuous run of *o*), the formula would be violated.

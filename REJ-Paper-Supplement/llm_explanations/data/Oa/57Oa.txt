@@ -1,0 +1,76 @@
+**LTL formula**
+
+\[
+F\,a \;\wedge\; G\,(a \;\rightarrow\; X\,G\,\neg a)
+\]
+
+---
+
+### 1.  Parsing tree (syntactic breakdown)
+
+```
+                     AND
+                ______|______
+               |           |
+           F a            G
+                       |
+                   (a -> X G ¬a)
+                    /      |      \
+                   a      ->      X
+                            |       G
+                            |      |
+                           a   (¬a)
+```
+
+* **Atomic propositions**  
+  - `a`  
+  - `¬a` (negation of `a`)
+
+* **Temporal operators**  
+  - `F a` – “finally a” (eventually a becomes true)  
+  - `X G ¬a` – “in the next state, from then on a is always false”  
+  - `G (a → X G ¬a)` – “globally (always), if a holds now, then the next state must satisfy `G ¬a`”
+
+---
+
+### 2.  Bottom‑up reconstruction of meaning
+
+1. **`¬a`** – a state where the proposition `a` is false.  
+
+2. **`G ¬a`** – “always not a”, i.e., “from the current point forward, a never becomes true.”  
+
+3. **`X G ¬a`** – “next, always not a”.  
+   *Interpretation*: At the very next time step, starting from there on, `a` will never hold again.
+
+4. **`a → X G ¬a`** – “if `a` holds now, then (in the next step) `a` will never hold again.”  
+   *Interpretation*: Whenever `a` is true, it must be the last occurrence of `a`.
+
+5. **`G(a → X G ¬a)`** – “always, if `a` holds now, then it will never hold again afterwards.”  
+   This enforces that *no* occurrence of `a` can be followed by another occurrence.  
+   It allows `a` to hold once (or never), but forbids multiple time‑points where `a` is true.
+
+6. **`F a`** – “eventually `a` holds at least once.”  
+   This provides the lower bound: there must be at least one occurrence of `a`.
+
+7. **`F a ∧ G(a → X G ¬a)`** – Combine the two constraints:  
+   * There is at least one point in the future where `a` is true.  
+   * Once `a` becomes true, it can never become true again.
+
+---
+
+### 3.  Refined natural‑language phrasing
+
+**“The proposition `a` becomes true at least once, and after that first time it can never become true again.”**
+
+Equivalently:  
+*“There is exactly one state in the execution trace where `a` holds.”*
+
+---
+
+#### Quick sanity check
+
+- If `a` never occurs, `F a` fails → whole formula fails.  
+- If `a` occurs once and never again → both conjuncts satisfied.  
+- If `a` occurs twice → the second occurrence violates `G(a → X G ¬a)` → whole formula fails.  
+
+So the formula precisely encodes *single‑occurrence* of `a`.

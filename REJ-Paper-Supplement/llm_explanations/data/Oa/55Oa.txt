@@ -1,0 +1,101 @@
+**Original LTL formula**
+
+```
+G ( a → ( X ¬a  ∧  XX a ) )
+```
+
+---
+
+### 1.  Parsing tree (breakdown)
+
+```
+              G
+              |
+         ( a → ( X ¬a ∧ XX a ) )
+               /          \
+             a          ∧
+                      /   \
+                   X ¬a   XX a
+                   |      |
+                  ¬a     X a
+                          |
+                         a
+```
+
+* `G` – the globally (always) operator  
+* `→` – implication  
+* `∧` – conjunction  
+* `X` – “next” (one step ahead)  
+* `XX` – “next next” (two steps ahead)  
+* `¬a` – negation of proposition `a`  
+* The leaf `a` is the atomic proposition that may hold in a state.
+
+---
+
+### 2.  Re‑building the meaning (bottom‑up)
+
+1. **Leaf agents**  
+   * `a` – “the proposition `a` holds in the current state.”  
+
+   * `¬a` – “the proposition `a` does **not** hold in the current state.”  
+
+2. **Next‑step operators**  
+
+   * `X ¬a` – “in the *immediately next* state the proposition `a` does **not** hold.”  
+
+   * `XX a` – “in *two* steps from now the proposition `a` **does** hold.”  
+     (Conceptually `XX a` is `X (X a)`.)
+
+3. **Conjunction**  
+
+   * `X ¬a  ∧  XX a` – “in the next state `a` is false **and** in the following state `a` is true.”  
+
+4. **Implication**  
+
+   * `a → ( X ¬a ∧ XX a )` – “whenever `a` is true in the current state, then, **at the next two time steps**, the pattern  
+     *next state: `a` is false*  
+     *next‑next state: `a` is true*  
+     must occur.”
+
+5. **Global operator**  
+
+   * `G ( … )` – “the implication described above must hold **at every point in time** along the infinite execution.”
+
+---
+
+### 3.  Natural‑language translation (refined)
+
+> **“At all times, if the proposition `a` becomes true, then the very next time step `a` must be false, and two steps later `a` must become true again.”**  
+
+Essentially, whenever `a` holds, it must be followed by a single step where `a` is false and immediately after that a step where `a` is true. This pattern is enforced forever.
+
+---
+
+### 4.  When the formula is satisfied / constraints imposed
+
+* **Satisfaction**  
+  1.  The formula is *vacuously true* at any time where `a` is false (the implication’s premise fails).  
+  2.  If at some time `t` the proposition `a` is true, then:
+      * `a(t+1)` must be false,
+      * `a(t+2)` must be true.  
+      These two conditions are required at *every* occurrence of `a`.  
+  3.  Because of `G`, the requirement applies to *every* state in the execution.
+
+* **Constraints**  
+  * Consecutive occurrences of `a` (i.e., `a` followed immediately by `a` in the next state) are forbidden.  
+  * Between two successive occurrences of `a`, there must be exactly one false step (`¬a`).  
+  * The system is forced to exhibit the recurring pattern `a, ¬a, a, ¬a, a, …` if `a` ever becomes true.  
+  * If the system never uses `a` (i.e., `a` is always false), the formula holds trivially.
+
+---
+
+**Example traces**
+
+| Trace (states)          | Satisfies the formula? | Reason                                      |
+|--------------------------|------------------------|---------------------------------------------|
+| `a, ¬a, a, ¬a, a, …`    | Yes                    | Pattern matches the required pattern.       |
+| `¬a, ¬a, …`              | Yes                    | No occurrence of `a`; implication holds vacuously. |
+| `a, a, …`                | No                     | `a` is true at `t` but `a(t+1)` should be false. |
+| `a, ¬a, ¬a, …`           | No                     | `a` at `t` requires `a(t+2)` to be true, but it isn’t. |
+
+Thus `G(a → (X¬a ∧ XXa))` enforces an **alternating** structure for the proposition `a` whenever it appears.

@@ -1,0 +1,45 @@
+**Original LTL formula**  
+```
+X a & b
+```
+
+---
+
+### 1. Parsing tree (breakdown)
+
+| Node | Symbol | Children |
+|------|--------|----------|
+| **1** | `&` (conjunction) | **2** `X a` , **3** `b` |
+| **2** | `X` (next) | **4** `a` |
+| **3** | predicate | `b` |
+| **4** | predicate | `a` |
+
+*Notes:*  
+- `X` is a unary operator, so it applies only to `a`.  
+- The conjunction `&` has lower precedence than `X`; therefore the formula is parsed as `(X a) & b`, **not** `X (a & b)`.
+
+---
+
+### 2. Rebuilding meaning (bottom‑up)
+
+1. **Leaf predicates**  
+   - `a` : “the proposition **a** is true in the considered state.”  
+   - `b` : “the proposition **b** is true in the considered state.”
+
+2. **Unary `X` operator** (`X a`)  
+   - “in the **next state** (i.e., one transition ahead), the proposition **a** is true.”  
+   - In timeline terms: *current → next → future.*
+
+3. **Conjunction** (`(X a) & b`)  
+   - Both sub‑expressions must hold simultaneously.  
+   - “At the current time step, `b` holds, **and** if you look one step ahead, `a` will hold.”  
+
+---
+
+### 3. Natural‑language phrasing (refined)
+
+> **The system must satisfy two simultaneous conditions:**  
+> • **Right now** it must be the case that **`b`** holds.  
+> • **In the very next state** (immediately after the current one) the proposition **`a`** must hold.  
+
+If either `b` is false at the present instant or `a` is false in the next instant, the formula is violated. Thus, the formula imposes a *current* constraint on `b` and a *future* constraint on `a`.

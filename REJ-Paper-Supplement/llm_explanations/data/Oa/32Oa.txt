@@ -1,0 +1,58 @@
+**Original LTL formula**
+
+```
+(b | !a) & X (d U c)
+```
+
+---
+
+### 1.  Parsing tree (bottom‑up breakdown)
+
+```
+            &                                 <-- Root: conjunction
+          /   \
+  (b | !a)     X (d U c)                        <-- Two children
+
+        |                                X
+      /   \                              \
+    b      !a                          (d U c)
+
+                      U
+                     / \
+                    d   c
+```
+
+- **Left subtree** – `(b | !a)`  
+  *Or* between the proposition `b` and the negation of `a`.
+
+- **Right subtree** – `X (d U c)`  
+  *Next* operator applied to the subformula `(d U c)`.
+
+- **Inner subformula** – `(d U c)`  
+  *Until* between `d` (the “before” part) and `c` (the “until” part).
+
+---
+
+### 2.  Reconstructing meaning from the bottom
+
+| Sub‑formula | Natural‑language interpretation |
+|--------------|---------------------------------|
+| **d** | the atomic proposition “d is true”. |
+| **c** | the atomic proposition “c is true”. |
+| **(d U c)** | “**d holds at every point until a point where **c** becomes true**.”<br>Formally, there exists some future position in which `c` is true, and for all earlier positions `< the first c`, `d` is true. |
+| **X (d U c)** | “**In the next state, the property (d U c) must hold**.”<br>Thus starting one step from the present, `d` must continue to hold until `c` eventually becomes true. |
+| **!a** | “**a is false**.” |
+| **(b | !a)** | “Either **b is true** or **a is false** (or both).” |
+| **(b | !a) & X (d U c)** | “Both of the following must be true simultaneously: 1) at the current time either `b` holds or `a` does not hold, and 2) at the next time instant the system must enter a period where `d` holds continuously until (at some later point) `c` becomes true.” |
+
+---
+
+### 3.  Refined natural‑language phrasing
+
+> **"At this moment, the system must satisfy either that `b` holds or that `a` does not hold.  Additionally, immediately in the next time step, it must be that `d` continues to hold until, at some future point, `c` becomes true."**
+
+**Notes on the semantics**
+
+- If `c` is true already in the next state, the “until” is trivially satisfied: no requirement that `d` hold at that state.
+- If `c` does not become true for ever, the formula is **not** satisfied; the “until” part demands eventual occurrence of `c`.
+- The conjunction (`&`) requires *both* conditions to hold at the respective times, so violating either one will make the entire formula false.

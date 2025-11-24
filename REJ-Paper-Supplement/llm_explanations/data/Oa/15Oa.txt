@@ -1,0 +1,58 @@
+**Original LTL formula**  
+```
+G a
+```
+
+## 1. Breaking the formula into a parsing tree  
+
+The grammar of Linear‑Temporal Logic (LTL) allows us to decompose the formula into its logical operators and atomic propositions.  
+For `G a` we have only one operator and one atomic proposition:
+
+```
+       G
+        |
+        a
+```
+
+* `G` – the *globally* (or *always*) temporal operator.  
+* `a` – an atomic proposition (a Boolean variable that may be true or false in a state).
+
+Thus the tree consists of a single edge from the `G` node up to the atomic `a`.
+
+## 2. Rebuilding meaning from the bottom up  
+
+**Bottom (atomic proposition `a`):**  
+- In any state, `a` is *true* iff the property described by `a` holds in that state.  
+- The truth of `a` is evaluated point‑wise: at every instant of a run we check whether `a` is true.
+
+**Next level (`G a`):**  
+- `G` (“globally/always”) quantifies over all future time steps.  
+- `G a` is true at a particular state *iff* the sub‑formula `a` is true *at every state* from that point onward (including the present state).  
+- In temporal‑logic semantics:  
+  ```
+  (σ, i) ⊨ G a   ⇔   ∀j ≥ i, (σ, j) ⊨ a
+  ```
+  where `σ` is a trace (an infinite sequence of states) and `i` is the current time index.
+
+So, starting from the bottom, we conclude: **“`a` must hold at all times”**.
+
+## 3. Refining the natural‑language phrasing  
+
+### Basic translation  
+> **“Always `a`.”**  
+> The property `a` must be true at every point in time along any execution of the system.
+
+### More verbose form  
+> **“From this point onward, the system must satisfy proposition `a` at every instant; if at any time `a` becomes false, the specification is violated.”**
+
+### Common interpretations  
+* **Safety property** – `G a` forbids any state where `a` is false; it guarantees that the system never leaves the set of states where `a` holds.  
+* **No eventuality** – unlike `F a` (“eventually `a`”), `G a` does **not** merely require that `a` become true at some future point; it requires that `a` be true **continuously**.
+
+### Example in context  
+Suppose `a` means “the safety latch is closed”.  
+Then `G a` mandates that the latch must remain closed throughout the entire operation of the system: every moment of the execution must see the latch closed.
+
+---
+
+In summary, the LTL formula `G a` specifies a **global** (always) requirement: the atomic proposition `a` must hold at every instant along any possible execution of the system. When such a condition is violated at any time, the LTL formula evaluates to false for that execution.
