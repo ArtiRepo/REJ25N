@@ -1,0 +1,13 @@
+Original LTL formula:
+X (t & y)
+
+Rebuild meaning from the bottom of the tree up:
+1. The subformula `(t & y)` means that proposition `t` must be true AND proposition `y` must be true in the state where this subformula is evaluated.
+2. The `X` operator, applied to `(t & y)`, means that the condition `(t & y)` must hold in the very next state following the current state.
+
+Refine the natural language phrasing for clarity:
+At the current moment, this formula imposes a constraint on the *very next state* of the system. Specifically, it requires that in the immediate next state, both `t` and `y` must be true.
+
+The formula is satisfied at the current state if, and only if, in the subsequent state, `t` is true and `y` is true. If, in the next state, `t` is false or `y` is false (or both), then the formula is violated at the current state.
+
+Once the system transitions to the next state, the constraint imposed by this specific formula instance is either met or violated, and it imposes no further requirements on any states beyond that immediate next state. For example, if `t` and `y` are true in the next state, the formula is satisfied, and `t` and `y` are then unconstrained in all subsequent states by this formula. Conversely, if `t` or `y` is false in the next state, the formula is violated, and again, `t` and `y` are unconstrained in all subsequent states by this formula.

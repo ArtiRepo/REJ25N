@@ -1,0 +1,23 @@
+- **Original LTL formula:**
+  `Fa and G(a -> XG!a)`
+
+- **Rebuild meaning from the bottom of the tree up:**
+
+  1.  `!a`: `a` must be false in the current state. This imposes an immediate constraint on `a`.
+  2.  `G!a`: `a` must be false in every state from the current state onwards. This imposes an ongoing constraint that `a` must never be true in the future. If `a` becomes true at any point from now on, this subformula is violated.
+  3.  `XG!a`: In the very next state, `a` must be false in every state from that next state onwards. This means `a` must never be true from the next state onwards. If `a` becomes true in the next state or any state thereafter, this subformula is violated.
+  4.  `a -> XG!a`: If `a` is true in the current state, then `a` must never be true again from the very next state onwards. If `a` is false in the current state, this condition is vacuously satisfied for the current state and imposes no further constraints. If `a` is true, it imposes a strong future constraint: `a` must remain false for all subsequent states.
+  5.  `G(a -> XG!a)`: In every state of the execution, if `a` is true in that state, then `a` must never be true again from the very next state onwards. This imposes an ongoing constraint throughout the entire execution, meaning `a` can be true at most once. If `a` is never true, this part is satisfied. If `a` is true at state `s_i` and then true again at `s_j` where `j > i`, this part is violated at `s_i`.
+  6.  `Fa`: There must exist at least one future state where `a` is true. This imposes a future constraint. Until `a` becomes true, this part is not fully satisfied. Once `a` becomes true, this part is satisfied and no longer imposes further constraints on `a`'s future occurrences. If `a` is never true throughout the entire execution, this part is violated.
+  7.  `Fa and G(a -> XG!a)`: This combines the two conditions. `Fa` ensures `a` happens at least once. `G(a -> XG!a)` ensures `a` happens at most once.
+
+- **Refine the natural language phrasing for clarity:**
+
+  The formula states that `a` must become true in exactly one state throughout the entire execution.
+
+  *   **Constraints and Satisfaction:**
+      *   The formula imposes an ongoing constraint that `a` must eventually become true (`Fa`). Until `a` is true, this part of the formula is not satisfied.
+      *   It also imposes an ongoing constraint that if `a` ever becomes true, it must remain false for all subsequent states (`G(a -> XG!a)`). If `a` is false, this part imposes no immediate constraint. If `a` becomes true, this part immediately imposes a strong future constraint that `a` must never be true again.
+      *   The formula is satisfied if and only if there is precisely one state in the execution where `a` is true.
+      *   The formula is violated if `a` is never true (violating `Fa`), or if `a` is true in multiple states (violating `G(a -> XG!a)` at the first state where `a` is true, if `a` becomes true again later).
+      *   Once `a` becomes true, the `Fa` part is satisfied, but the `G(a -> XG!a)` part continues to impose the constraint that `a` must not become true again.

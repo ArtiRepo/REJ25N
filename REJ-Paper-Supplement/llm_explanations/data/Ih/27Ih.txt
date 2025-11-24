@@ -1,0 +1,27 @@
+**Original LTL formula:**
+X (t | w)
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`t`**: Represents a proposition that must be true in the current state of evaluation.
+2.  **`w`**: Represents a proposition that must be true in the current state of evaluation.
+3.  **`t | w`**: This is a logical disjunction. It means "t is true OR w is true". This condition is satisfied in a given state if `t` is true, or if `w` is true, or if both `t` and `w` are true in that state. It is violated only if both `t` and `w` are false in that state.
+4.  **`X (t | w)`**: The `X` (Next) operator applies to the condition `(t | w)`. This means that the condition `(t | w)` must be true in the very next state of the execution.
+
+**Refine the natural language phrasing for clarity:**
+
+This formula imposes a constraint on the system *from the current state*. It requires that in the *very next state* of the execution, the condition `(t | w)` must hold. This means that in the immediate subsequent state, either `t` must be true, or `w` must be true, or both must be true.
+
+The formula is evaluated at the current moment. Its truth value depends entirely on the properties of the single, immediate successor state.
+
+*   **When the formula is satisfied:** The formula `X (t | w)` is satisfied if, when checked at the current state, the next state in the execution path has `t` true, or `w` true, or both `t` and `w` true. Once this next state is reached and the condition `(t | w)` is found to be true, the constraint imposed by this specific `X` operator is considered fulfilled. No further constraints are imposed by this formula on states beyond the immediate next one.
+    *   *Example satisfying sequence:* Current state `s0` is followed by `s1` where `t` is true (regardless of `w`), or `s1` where `w` is true (regardless of `t`). For instance, `s0` -> `s1` (t=true, w=false) -> `s2` (any state).
+
+*   **When the formula imposes constraints:** The formula imposes a constraint *only* on the *very next state*. It dictates that the disjunction `(t | w)` must be true in that specific future state. It does not constrain the current state, nor any states beyond the immediate next one.
+
+*   **When the constraints no longer apply:** Once the system transitions to the next state, the constraint imposed by `X (t | w)` has either been met or violated. It does not carry forward; the formula does not require `(t | w)` to hold in any subsequent states after the immediate next one.
+
+*   **When the formula is violated:** The formula `X (t | w)` is violated if, when checked at the current state, the next state in the execution path has *both* `t` false *and* `w` false.
+    *   *Example violating sequence:* Current state `s0` is followed by `s1` where `t` is false AND `w` is false. For instance, `s0` -> `s1` (t=false, w=false) -> `s2` (any state).
+
+*   **Potential misunderstandings:** A common misunderstanding is to assume that `X (t | w)` implies `(t | w)` must hold for an extended period, or eventually, or until some other condition. This is incorrect. The `X` operator is strictly about the *immediate next state* and imposes no requirements on any other point in time.

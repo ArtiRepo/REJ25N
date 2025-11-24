@@ -1,0 +1,15 @@
+Original LTL formula:
+G a
+
+Rebuild meaning from the bottom of the tree up:
+*   `a`: "a must be true in the current state and is otherwise unconstrained."
+*   `G(a)`: Applying the `G` operator to `a` means that the condition `a` must hold in every state of the execution.
+
+Refine the natural language phrasing for clarity:
+The formula `G a` means that `a` must be true in every state of the execution, starting from the current state and continuing indefinitely into the future.
+
+When `G a` is evaluated at any given state, it imposes an immediate constraint that `a` must be true in that specific state. Furthermore, it imposes an ongoing constraint that `a` must also be true in all subsequent states. This constraint never ceases; `a` is required to be true at every single moment in time.
+
+The formula is satisfied if, at every point in the execution, `a` is observed to be true. For example, a sequence like `a, a, a, a, ...` (where `a` is always true) satisfies the formula.
+
+The formula is violated if there exists at least one state in the execution where `a` is false. For example, a sequence like `a, a, !a, a, ...` (where `!a` means `a` is false) violates the formula at the third state, because `a` is not true there. Even if `a` was true for many states, a single instance of `a` being false is sufficient to violate the entire formula. The constraint that `a` must be true applies universally and continuously.

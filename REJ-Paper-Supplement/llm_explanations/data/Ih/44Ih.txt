@@ -1,0 +1,21 @@
+**Original LTL formula:**
+`X(!g | !j)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`!g`**: This proposition means "g must be false in the current state." It imposes a constraint that the variable `g` must not be true.
+2.  **`!j`**: This proposition means "j must be false in the current state." It imposes a constraint that the variable `j` must not be true.
+3.  **`!g | !j`**: This disjunction means "Either g must be false, or j must be false (or both) in the current state." This imposes a constraint that at least one of `g` or `j` must be false. It is satisfied if `g` is false, or `j` is false, or both are false. It is violated only if both `g` is true AND `j` is true.
+4.  **`X(!g | !j)`**: This applies the `Next` operator to the disjunction. It means "In the very next state, it must be true that either g is false or j is false."
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `X(!g | !j)` means that in the very next state of the execution, it must be true that either `g` is false or `j` is false (or both).
+
+This formula imposes a constraint *only* on the state immediately following the current one. When this formula is evaluated in the current state, its truth value is determined entirely by the properties of the *next state*.
+
+The formula is satisfied if, in the very next state, `g` is false (regardless of `j`), or `j` is false (regardless of `g`), or both `g` and `j` are false. For example, a sequence `s0 -> s1` satisfies the formula if in `s1`, `g` is false (e.g., `s1` has `!g` and `j`), or `j` is false (e.g., `s1` has `g` and `!j`), or both are false (e.g., `s1` has `!g` and `!j`).
+
+The formula is violated if, in the very next state, both `g` is true AND `j` is true. For example, a sequence `s0 -> s1` violates the formula if in `s1`, both `g` is true and `j` is true.
+
+Once the properties of the next state are determined, the constraint imposed by this formula (from the perspective of the current state) is fully resolved; it does not impose any further constraints on subsequent states in the execution.

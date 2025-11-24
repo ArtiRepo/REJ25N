@@ -1,0 +1,21 @@
+**Original LTL formula**
+`X a => X c`
+
+**Rebuild meaning from the bottom of the tree up**
+1.  `X a` means "a must be true in the very next state."
+2.  `X c` means "c must be true in the very next state."
+3.  The implication `P => Q` means "If P is true, then Q must also be true." If P is false, the implication is vacuously true, and Q is not constrained.
+4.  Therefore, `X a => X c` means: "If 'a' is true in the very next state, then 'c' must also be true in the very next state."
+
+**Refine the natural language phrasing for clarity.**
+This formula imposes a conditional constraint on the immediate future. It states that if 'a' is true in the very next state, then 'c' must also be true in that same next state.
+
+*   **Constraint Application:** This formula imposes a constraint *only* on the immediate successor state. It does not constrain the current state or any states beyond the very next one.
+*   **Evaluation and Constraints:**
+    *   When evaluated from the current state, the system looks ahead to the very next state.
+    *   If 'a' is true in the next state, then 'c' *must* also be true in that next state for the formula to be satisfied. In this specific scenario, 'c' is constrained to be true.
+    *   If 'a' is false in the next state, then the condition for the implication is not met. In this case, 'c' is *not constrained* by this formula in the next state, and the formula is considered satisfied vacuously.
+*   **Satisfaction and Violation:**
+    *   The formula is satisfied if, in the very next state, either 'a' is false, or both 'a' and 'c' are true.
+    *   The formula is violated if, in the very next state, 'a' is true but 'c' is false.
+*   **Temporal Scope:** The constraint applies only to the transition from the current state to the very next state. Once the next state is reached, the truth value of this specific instance of the formula is determined, and its constraints no longer apply to subsequent states. New instances of the formula will be evaluated from each subsequent state.

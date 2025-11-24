@@ -1,0 +1,13 @@
+**Original LTL formula:**
+G (n => s)
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `n => s`: This propositional implication means that in any given state, if `n` is true, then `s` must also be true in that same state. If `n` is false, this implication is true regardless of `s`.
+2.  `G (n => s)`: The `G` (Globally) operator means that the condition `(n => s)` must hold true in *every* state of the execution, from the initial state onwards.
+
+**Refine the natural language phrasing for clarity:**
+This formula states that in every state of the execution, if `n` is true, then `s` must also be true in that same state.
+
+The formula imposes a continuous constraint: at any point in time, if `n` is observed to be true, `s` must simultaneously be true. If `n` is false in a given state, the formula imposes no constraint on `s` in that specific state, and the condition `n => s` is considered satisfied for that state.
+
+The formula is satisfied if, for every state in the execution, whenever `n` is true, `s` is also true. It is violated if there exists at least one state where `n` is true but `s` is false. The constraints imposed by this formula apply throughout the entire execution and never cease.

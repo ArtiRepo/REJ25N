@@ -1,0 +1,15 @@
+**Original LTL formula**
+a
+
+**Rebuild meaning from the bottom of the tree up**
+The formula `a` is a propositional atom. It directly refers to the truth value of the proposition `a` in the current state.
+
+**Refine the natural language phrasing for clarity.**
+This formula means that `a` must be true in the current state.
+
+*   **Constraint:** The formula imposes a constraint *only* on the current state. It requires `a` to be true at the specific moment the formula is evaluated.
+*   **Evaluation:** When checked, the formula is satisfied if `a` is true in the current state. Its truth value is determined solely by the current state and does not evolve or impose ongoing constraints over time.
+*   **Satisfaction and Violation:**
+    *   **Satisfying sequence:** A system execution satisfies this formula if `a` is true in the initial state. For example, a sequence starting with `(a, ...)` where `a` is true in the first state.
+    *   **Violating sequence:** A system execution violates this formula if `a` is false in the initial state. For example, a sequence starting with `(!a, ...)` where `a` is false in the first state.
+*   **Temporal Scope:** This formula has no temporal scope beyond the current state. It does not impose any constraints on past or future states. Once `a` is evaluated in the current state, the constraint is either met or violated, and no further temporal obligations arise from this specific formula. The constraint applies only to the current state and then ceases.

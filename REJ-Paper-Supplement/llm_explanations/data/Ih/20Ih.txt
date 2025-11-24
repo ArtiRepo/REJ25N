@@ -1,0 +1,17 @@
+Original LTL formula: `G t | F w`
+
+Rebuild meaning from the bottom of the tree up:
+*   `G t`: This part means "t must be true in every state of the execution." It imposes a continuous constraint on the variable `t`. If `t` is ever false, this part of the formula is violated.
+*   `F w`: This part means "There must exist at least one future state where w is true." It imposes an eventual constraint on the variable `w`. Once `w` becomes true, this part of the formula is satisfied and remains satisfied for all subsequent states. If `w` never becomes true, this part is violated.
+*   `G t | F w`: This is a disjunction (OR) of the two previous conditions. It means that *either* `G t` must be true *or* `F w` must be true.
+
+Refine the natural language phrasing for clarity:
+This formula states that at least one of two conditions must be met throughout the execution: either `t` is always true, or `w` eventually becomes true.
+
+At any given state, the formula imposes a constraint that *either* `t` must hold in all subsequent states *or* `w` must become true at some point in the future (including the current state).
+
+*   **Satisfaction:** The formula is satisfied if `t` is true in every state of the execution from the current moment onwards. Alternatively, the formula is satisfied if `w` becomes true at any point in the future. Once `w` becomes true, the `F w` condition is met, and the entire formula is satisfied for the remainder of the execution, regardless of `t`'s subsequent values. If `t` is always true, the `G t` condition is met, and the formula is satisfied, with `w` being unconstrained.
+
+*   **Constraints over time:** If `t` is found to be false at any state, then the `G t` condition is no longer satisfiable. From that moment onwards, the system is constrained to ensure that `w` *must* become true at some future state for the formula to hold. If `t` remains true, the system still has the option for `w` to eventually become true, or for `t` to continue holding indefinitely.
+
+*   **Violation:** The formula is violated only if `t` is false in at least one state *and* `w` never becomes true throughout the entire execution.

@@ -1,0 +1,14 @@
+**Original LTL formula**
+G (j => !f)
+
+**Rebuild meaning from the bottom of the tree up**
+1.  **`!f`**: This means "f must be false in the current state."
+2.  **`j => !f`**: This is an implication. It means "If j is true in the current state, then f must be false in the current state." This condition is satisfied if j is false (regardless of f's value) or if f is false (regardless of j's value). It is only violated if both j and f are true simultaneously in the current state.
+3.  **`G (j => !f)`**: The `G` (Globally) operator means that the condition `(j => !f)` must hold in *every* state of the execution, from the current state onwards.
+
+**Refine the natural language phrasing for clarity.**
+In every state of the execution, if `j` is true, then `f` must be false. This means that `j` and `f` can never be simultaneously true at any point in time.
+
+The formula imposes a continuous constraint: in any given state, if `j` is true, `f` is constrained to be false in that same state. If `j` is false, the formula imposes no constraint on `f` in that specific state.
+
+The formula is satisfied if, throughout the entire execution, there is no state where both `j` and `f` are true. It is violated if there exists at least one state where `j` is true and `f` is also true. The constraint applies globally and continuously; it never ceases to apply.

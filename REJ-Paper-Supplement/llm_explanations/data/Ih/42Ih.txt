@@ -1,0 +1,19 @@
+**Original LTL formula**
+`(y & !d) | (y => d)`
+
+**Rebuild meaning from the bottom of the tree up**
+*   `y`: The proposition `y` is true in the current state.
+*   `!d`: The proposition `d` is false in the current state.
+*   `y & !d`: Both `y` is true AND `d` is false in the current state.
+*   `y => d`: This is equivalent to `!y | d`. So, `y` is false OR `d` is true in the current state.
+*   `(y & !d) | (y => d)`: This formula states that "(`y` is true AND `d` is false in the current state) OR (`y` is false OR `d` is true in the current state)."
+
+**Refine the natural language phrasing for clarity.**
+This formula is a tautology, meaning it is always true, regardless of the truth values of `y` and `d` in any given state.
+
+*   **Constraints:** The formula imposes no constraints on the system. It is always satisfied by any combination of `y` and `d`.
+*   **Evaluation and Satisfaction:** At any moment, when the formula is checked, it evaluates to true based on the current state's values for `y` and `d`. For instance, if `y` is true and `d` is false, the first part `(y & !d)` is true, satisfying the formula. If `y` is false and `d` is true, the second part `(y => d)` (which is `!y | d`) is true, satisfying the formula. In all possible combinations of `y` and `d`, at least one of the disjuncts will be true, making the entire formula true.
+*   **Ongoing Constraints:** Since this is a purely propositional formula, its truth value is determined solely by the current state. It does not impose any constraints that apply over time or evolve based on future states. Because it is a tautology, it will always be true in every state of any execution.
+*   **Satisfying Sequences:** Any possible sequence of states will satisfy this formula, as it holds true in every individual state.
+*   **Violating Sequences:** No sequence of states can violate this formula, as it is always true.
+*   **Potential Misunderstandings:** A common misunderstanding might be to search for specific conditions under which this formula holds or fails. However, it is crucial to recognize that this formula is a logical tautology and therefore always holds, imposing no actual restriction on the system's behavior.

@@ -1,0 +1,33 @@
+**Original LTL formula:**
+`(!a)U(a and XG!a)`
+
+**Rebuild meaning from the bottom of the tree up:**
+*   `!a`: "a must be false in the current state."
+*   `G!a`: "a must be false in every state of the execution from the current state onwards."
+*   `XG!a`: "In the very next state, a must be false in every state of the execution from that next state onwards." This means `a` must be false from the next state *forever*.
+*   `a and XG!a`: "a must be true in the current state, AND from the very next state onwards, a must be false in every subsequent state." This describes a specific moment where `a` is true, and then `a` is false forever.
+*   `(!a)U(a and XG!a)`: This formula requires two phases.
+    *   **Phase 1:** `!a` must be true. This means `a` must be false. This constraint applies from the current state and continues in every subsequent state *until* the condition `(a and XG!a)` becomes true.
+    *   **Phase 2:** Eventually, there must be a state where `(a and XG!a)` becomes true. At this specific state:
+        *   `a` must be true.
+        *   From the *very next state* after this specific state, `a` must remain false indefinitely.
+    *   Once this specific state occurs, the `Until` condition is satisfied. The requirement for `!a` to hold is lifted, but the conditions within `(a and XG!a)` become the new ongoing constraints for the remainder of the execution.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula imposes an initial and ongoing constraint that `a` must be false. This constraint applies from the current state and continues in every subsequent state *until* a specific future state is reached.
+
+At this specific future state, two conditions must be met simultaneously:
+1.  `a` must be true in that exact state.
+2.  From the *very next state* immediately following this specific state, `a` must remain false in *all* subsequent states of the execution, indefinitely.
+
+Once this specific state occurs, the formula is satisfied. The initial constraint that `a` must be false is lifted. However, the system is then permanently constrained such that `a` must remain false for all states following that specific moment.
+
+**Satisfying sequences:**
+*   `F, F, T, F, F, F, ...`: `a` is false, then false, then true, then false forever.
+*   `F, T, F, F, F, ...`: `a` is false, then true, then false forever.
+
+**Violating sequences:**
+*   `T, F, F, F, ...`: `a` is true at the initial state, violating the `!a` condition.
+*   `F, F, F, F, ...`: `a` is always false, so the `(a and XG!a)` condition is never met.
+*   `F, F, T, T, F, F, ...`: `a` is false, then false. At the third state, `a` is true, but `XG!a` is false (because `a` is true in the next state). Thus, `(a and XG!a)` is not met, and the `!a` condition is violated at the third state.

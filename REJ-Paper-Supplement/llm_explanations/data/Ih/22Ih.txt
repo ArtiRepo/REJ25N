@@ -1,0 +1,27 @@
+Original LTL formula: `!X !(w | x)`
+
+Rebuild meaning from the bottom of the tree up:
+
+1.  **`(w | x)`:** This subformula is true in a given state if `w` is true, or `x` is true, or both are true in that state. It is false only if both `w` and `x` are false. This imposes a constraint on the current state's values of `w` and `x`.
+2.  **`!(w | x)`:** This subformula is true in a given state if `(w | x)` is false in that state. This means that both `w` and `x` must be false in the current state. It imposes a constraint that `w` and `x` must both be false in the state where this subformula is evaluated.
+    *   *Satisfying sequence (current state):* `w=F, x=F`.
+    *   *Violating sequence (current state):* `w=T, x=F` (because `w|x` would be true).
+3.  **`X !(w | x)`:** This subformula states that `!(w | x)` must be true in the very next state. Therefore, in the very next state, both `w` and `x` must be false. This formula imposes a constraint *only* on the immediate successor state, not on the current state.
+    *   *Satisfaction:* The formula is satisfied at the current state if, in the *next* state, `w` is false AND `x` is false.
+    *   *Violation:* The formula is violated at the current state if, in the *next* state, `w` is true OR `x` is true (or both).
+    *   *Misunderstanding:* This constraint applies strictly to the next state. The current state's values of `w` and `x` are irrelevant for the truth of `X !(w | x)`.
+4.  **`!X !(w | x)`:** This is the negation of `X !(w | x)`. It means that it is *not* the case that `!(w | x)` is true in the very next state. Consequently, it means that `!(w | x)` must be false in the very next state. For `!(w | x)` to be false, `(w | x)` must be true. Therefore, this formula requires that in the very next state, `w` must be true OR `x` must be true (or both).
+    *   *Constraint:* This formula imposes a constraint *only* on the immediate successor state. It does not constrain the current state. The constraint applies only to the state immediately following the one where the formula is evaluated. Once that next state is reached and its properties are determined, the constraint from the perspective of the *current* state is either met or violated.
+    *   *Satisfaction:* The formula is satisfied at the current state if, in the *next* state, `w` is true OR `x` is true (or both).
+    *   *Violation:* The formula is violated at the current state if, in the *next* state, both `w` and `x` are false.
+    *   *Misunderstanding:* The double negation `!X !` can be confusing. It's crucial to understand that `!X !(P)` is equivalent to `X P`. So, the formula effectively means `X (w | x)`.
+
+Refine the natural language phrasing for clarity:
+
+The formula `!X !(w | x)` means that in the very next state, it must be true that `w` is true or `x` is true (or both).
+
+This formula imposes a constraint *only* on the state immediately following the current state. It does not constrain the current state itself.
+
+*   **Satisfaction:** The formula is satisfied at the current moment if, when observing the *next* state, we find that either `w` is true or `x` is true (or both). Once this next state is evaluated, the constraint from the current state's perspective is fulfilled.
+*   **Violation:** The formula is violated at the current moment if, when observing the *next* state, we find that both `w` and `x` are false.
+*   **Key Point:** The constraint is entirely forward-looking and applies only to the single, immediate successor state. The values of `w` and `x` in any state beyond the next one, or in the current state, are irrelevant to the truth of this specific formula.

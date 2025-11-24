@@ -1,0 +1,15 @@
+-   **Original LTL formula:** `X (!i) | X (j)`
+
+-   **Rebuild meaning from the bottom of the tree up:**
+    *   `!i`: The proposition `i` is false.
+    *   `X (!i)`: `i` must be false in the very next state.
+    *   `j`: The proposition `j` is true.
+    *   `X (j)`: `j` must be true in the very next state.
+    *   `X (!i) | X (j)`: Either `i` must be false in the very next state, or `j` must be true in the very next state (or both).
+
+-   **Refine the natural language phrasing for clarity:**
+    This formula imposes a constraint *only* on the very next state of the system. When evaluated in the current state, it requires that in the immediate successor state, *either* `i` must be false *or* `j` must be true. Both conditions can also be true simultaneously in the next state.
+
+    The formula is satisfied if, in the very next state, `i` is false, or `j` is true, or both. Once the next state is reached and its properties are evaluated, the constraint from the current state's perspective is resolved. This formula does not impose any constraints on states beyond the immediate next one.
+
+    The formula is violated if, in the very next state, `i` is true *and* `j` is false. In this case, neither of the required conditions for the next state would be met.

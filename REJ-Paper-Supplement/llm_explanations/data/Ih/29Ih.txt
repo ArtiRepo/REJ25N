@@ -1,0 +1,20 @@
+**Original LTL formula:** `F x | F y`
+
+**Rebuild meaning from the bottom of the tree up:**
+*   `F x` means: "There must exist at least one future state where `x` is true."
+*   `F y` means: "There must exist at least one future state where `y` is true."
+*   The `|` (OR) operator combines these: "There must exist at least one future state where `x` is true, OR there must exist at least one future state where `y` is true."
+
+**Refine the natural language phrasing for clarity:**
+This formula asserts that **eventually, either `x` will become true, or `y` will become true.**
+
+The formula imposes a constraint on the entire future execution from the current state onwards. It does not impose any immediate constraint on the current state regarding `x` or `y`.
+
+**When the formula is satisfied:**
+The formula is satisfied if, at some point in the future (including the current state), `x` becomes true, OR if `y` becomes true. Once either `x` or `y` has been observed to be true in any future state, the overall formula is satisfied for the entire execution, and no further constraints are imposed by this specific formula. For example, if `x` becomes true at state `s_5`, the formula is satisfied from `s_0`. Similarly, if `y` becomes true at `s_10`, the formula is satisfied.
+
+**When the formula is violated:**
+The formula is violated if `x` is false in all states of the execution AND `y` is false in all states of the execution. This means that if neither `x` nor `y` ever becomes true throughout the entire execution, the formula is violated.
+
+**Constraints over time:**
+The constraint imposed by `F x | F y` applies continuously from the initial state. It requires that at least one of the two eventualities (`F x` or `F y`) must occur. Once either `x` or `y` becomes true, the condition for that specific future eventuality is met, and the overall formula is satisfied. The constraint then effectively ceases to "demand" anything further, as its condition has been fulfilled. If neither `x` nor `y` ever becomes true, the constraint remains active and unfulfilled, leading to a violation at the end of the execution.

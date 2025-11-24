@@ -1,0 +1,13 @@
+**Original LTL formula:**
+`Fa and Fb`
+
+**Rebuild meaning from the bottom of the tree up and refine the natural language phrasing for clarity:**
+
+This formula states that, from the current state, there must eventually be a state where `a` is true, AND there must eventually be a state where `b` is true.
+
+**Constraints and Evaluation:**
+The formula imposes an ongoing constraint from the moment it is checked. It requires the system to eventually satisfy two independent conditions: `a` must become true at some point in the future, and `b` must become true at some point in the future.
+
+*   **Satisfaction:** The formula is satisfied if, at some point in the future, `a` becomes true, and at some (potentially different) point in the future, `b` becomes true. Once both `a` and `b` have occurred in the future, the formula's constraint is fully met, and it remains true for the remainder of the execution. The order in which `a` and `b` occur does not matter, nor do they need to occur in the same state.
+*   **Violation:** The formula is violated if the system reaches a state where it is no longer possible for `a` to become true (i.e., `a` never occurs), OR if it is no longer possible for `b` to become true (i.e., `b` never occurs), OR if neither `a` nor `b` ever occur.
+*   **When constraints apply/cease:** The constraint for `Fa` applies until `a` becomes true. The constraint for `Fb` applies until `b` becomes true. The overall formula `Fa and Fb` is satisfied and its constraints cease to apply once both `a` and `b` have occurred in the future. Until both have occurred, the formula continues to impose the requirement that the remaining unfulfilled event must still happen.

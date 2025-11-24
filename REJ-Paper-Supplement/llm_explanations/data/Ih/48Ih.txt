@@ -1,0 +1,21 @@
+**Original LTL formula:** `b & X (a U c)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+*   **`a U c`**: This subformula means that `c` must eventually become true at some point in the future (including the current state if evaluated directly). Until that specific state where `c` becomes true, `a` must remain true in every preceding state. Once `c` becomes true, the constraint on `a` ceases, and the `a U c` condition is satisfied. If `a` becomes false before `c` becomes true, or if `c` never becomes true, then `a U c` is violated.
+
+*   **`X (a U c)`**: This means that the condition `(a U c)` must be true in the very next state. From the perspective of the current state, this imposes a constraint on the immediate future. It requires that when we move to the next state, the property `(a U c)` must hold from that next state onwards. This implies that starting from the next state, `c` must eventually become true, and until that moment, `a` must remain true in every state.
+
+*   **`b & X (a U c)`**: This formula requires two conditions to be met simultaneously in the current state.
+    1.  `b` must be true in the current state. This is an immediate and local constraint.
+    2.  `X (a U c)` must be true in the current state. This means that the condition `(a U c)` must hold starting from the very next state.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `b & X (a U c)` means that **in the current state, `b` must be true.** This is an immediate constraint that is checked and satisfied or violated at the current moment.
+
+Additionally, **in the very next state, a specific future condition must hold:** `c` must eventually become true, and until that specific moment, `a` must remain true in every state. This constraint begins to apply from the next state onwards.
+
+*   **When satisfied:** The formula is satisfied if `b` is true in the current state, AND if, starting from the next state, `c` eventually becomes true, with `a` being continuously true in all states leading up to and including the state where `c` becomes true. Once `c` becomes true in that future sequence (starting from the next state), the constraint for `a` to hold ceases, and the `(a U c)` part is satisfied.
+*   **When violated:** The formula is violated if `b` is false in the current state. It is also violated if `b` is true, but the condition `X (a U c)` is false. `X (a U c)` would be false if, starting from the next state, `a` becomes false before `c` becomes true, or if `c` never becomes true at all.
+*   **Constraints over time:** The constraint on `b` is immediate and applies only to the current state. The constraint imposed by `X (a U c)` begins in the next state and continues until `c` becomes true, at which point the `a U c` subformula is satisfied, and its constraints on `a` cease.

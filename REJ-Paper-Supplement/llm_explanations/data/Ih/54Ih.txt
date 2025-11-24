@@ -1,0 +1,23 @@
+Original LTL formula: `(a U b) and G(a)`
+
+Rebuild meaning from the bottom of the tree up:
+
+1.  **`a`**: `a` must be true in the current state.
+2.  **`b`**: `b` must be true in the current state.
+3.  **`G(a)`**: This means `a` must be true in the current state and in every subsequent state of the execution. This imposes an ongoing constraint that `a` can never be false.
+4.  **`(a U b)`**: This means `b` must eventually become true. Until that specific moment, `a` must remain true in every state. Once `b` becomes true, the `U` condition is satisfied, and `a` no longer needs to hold *for this subformula*.
+5.  **`(a U b) and G(a)`**: This formula requires both `(a U b)` and `G(a)` to be true. Since `G(a)` demands that `a` is *always* true, the "until `b` becomes true, `a` must remain true" part of `(a U b)` is automatically satisfied. Therefore, the combined formula effectively means that `a` must always be true, and `b` must eventually become true.
+
+Refine the natural language phrasing for clarity:
+
+This formula imposes two simultaneous and ongoing constraints on the system's behavior over time.
+
+First, `a` must be true in the current state and in every subsequent state of the execution. This constraint applies continuously; if `a` is ever false at any point, the formula is violated.
+
+Second, `b` must eventually become true at some point in the current or future execution. This constraint is satisfied as soon as `b` becomes true, and it does not impose any further requirements on `b` after that point.
+
+Combining these, the formula is satisfied if and only if `a` is continuously true throughout the entire execution, and `b` eventually becomes true at some state.
+
+*   **Satisfaction:** The formula is satisfied if `a` is true in the current state and remains true in all future states, AND there is at least one state (current or future) where `b` is true.
+*   **Violation:** The formula is violated if `a` is false in any state of the execution, OR if `b` never becomes true in any state.
+*   **Constraints over time:** The constraint for `a` is perpetual; `a` must always be true. The constraint for `b` is a liveness property; `b` must eventually occur. Once `b` occurs, that specific part of the constraint is met, but the `G(a)` constraint continues indefinitely.

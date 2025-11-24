@@ -1,0 +1,28 @@
+**Original LTL formula:**
+G(a -> XXXa)
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`a`**: This refers to the proposition `a` being true in the current state.
+2.  **`Xa`**: This means `a` must be true in the very next state.
+3.  **`XXa`**: This means `a` must be true in the state that is two steps into the future from the current state.
+4.  **`XXXa`**: This means `a` must be true in the state that is three steps into the future from the current state.
+5.  **`a -> XXXa`**: This is an implication. It means: "If `a` is true in the current state, then `a` must be true three states from now."
+    *   If `a` is false in the current state, this implication is true, and no constraint is imposed on `a`'s value three states later.
+    *   If `a` is true in the current state, then a constraint is imposed: `a` *must* be true three states from now.
+6.  **`G(a -> XXXa)`**: This means the implication `a -> XXXa` must hold true in *every* state of the execution.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `G(a -> XXXa)` means that **in every state of the execution, if `a` is true in that state, then `a` must also be true exactly three states later.**
+
+*   **Constraint Application:** This formula imposes a constraint *only* when `a` is true in the current state. If `a` is false in the current state, the condition for that specific state is satisfied, and no constraint is placed on future states from this point.
+*   **Temporal Scope:** When `a` is true in a given state, it creates a forward-looking constraint: `a` must be true three states into the future. This specific instance of the constraint is satisfied or violated by the truth value of `a` at the state three steps ahead.
+*   **Ongoing Nature:** The `G` (Globally) operator ensures that this condition is continuously checked. At each new state, the system re-evaluates whether `a` is true. If it is, a new, independent constraint is established for three states into the future from that new current state.
+*   **Satisfying Sequences:**
+    *   A sequence where `a` is always false satisfies the formula, as the premise of the implication (`a` is true) is never met.
+    *   A sequence where `a` is always true satisfies the formula, as `a` will always be true three states later.
+    *   A sequence like `a, F, F, a, F, F, a, ...` (where `a` is true at `s0`, `s3`, `s6`, etc., and false otherwise) would satisfy the formula. For example, at `s0`, `a` is true, so `a` must be true at `s3` (which it is). At `s1` and `s2`, `a` is false, so no constraint is imposed.
+*   **Violating Sequences:**
+    *   The formula is violated if there exists *any* state where `a` is true, but then `a` is false exactly three states later. For example, if `a` is true at `s0`, but false at `s3`, the formula is violated. Similarly, if `a` is true at `s5`, but false at `s8`, the formula is violated.
+*   **Potential Misunderstanding:** It's crucial to understand that the constraint is conditional. `a` does not *always* need to be true. It only needs to be true three steps later *if* it was true in the current state. The constraint originating from a specific state `s` is fully resolved at state `s+3`; however, the `G` operator means the *rule itself* applies perpetually to every state.

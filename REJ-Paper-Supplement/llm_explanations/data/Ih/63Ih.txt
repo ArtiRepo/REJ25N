@@ -1,0 +1,14 @@
+-   **Original LTL formula:** `XXXa`
+
+-   **Rebuild meaning from the bottom of the tree up:**
+    *   `a`: The proposition `a` must be true in the current state.
+    *   `X(a)`: The proposition `a` must be true in the very next state.
+    *   `X(X(a))`: The condition `X(a)` must be true in the very next state. This means that `a` must be true in the state two steps from the current state.
+    *   `X(X(X(a)))`: The condition `X(X(a))` must be true in the very next state. This means that `a` must be true in the state three steps from the current state.
+
+-   **Refine the natural language phrasing for clarity:**
+    This formula imposes a constraint that `a` must be true in the state that occurs exactly three steps after the current state.
+
+    When `XXXa` is evaluated at the current state, its truth value is determined by looking three states into the future. If `a` is true in that third future state, the formula is satisfied. If `a` is false in that third future state, the formula is violated.
+
+    The constraint applies only to that specific state three steps ahead. It does not impose any requirements on `a` in the current state, the next state, the state two steps ahead, or any states beyond the third future state. Once the system progresses past the current state, the truth value of `XXXa` as evaluated at the original starting point is fixed based on whether `a` was true in the designated third future state.

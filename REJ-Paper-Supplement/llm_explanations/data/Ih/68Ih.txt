@@ -1,0 +1,25 @@
+- Original LTL formula
+  `a U b`
+
+- Rebuild meaning from the bottom of the tree up
+  The formula `a U b` means that proposition `b` must eventually become true at some point in the future. Furthermore, until that specific moment when `b` becomes true (and including the state where `b` first becomes true), proposition `a` must be continuously true in every state. Once `b` becomes true, the constraint on `a` is lifted for all subsequent states.
+
+- Refine the natural language phrasing for clarity.
+  This formula imposes two constraints:
+  1.  **Eventual Truth of `b`**: There must exist at least one future state where `b` is true. If `b` never becomes true, the formula is violated.
+  2.  **Continuous Truth of `a`**: In every state *before* the first state where `b` is true, and *including* that first state where `b` is true, `a` must be true. If `a` is false in any state before or at the moment `b` first becomes true, the formula is violated.
+
+  The formula is satisfied at the current moment if `b` is true in the current state (in which case `a` is vacuously true "until" `b`), or if `b` will become true at some future state, and `a` holds continuously in all states from the current state up to and including that first state where `b` is true.
+
+  The constraint on `a` is active and checked in every state until `b` is observed to be true. Once `b` becomes true, the formula is satisfied, and `a` is no longer constrained in any subsequent states. If `b` never becomes true, the constraint on `a` effectively applies forever, as `a` must hold continuously in anticipation of `b`'s eventual (but never occurring) truth.
+
+  **Satisfying sequences:**
+  *   `b, ...` (b is true immediately, a is not constrained)
+  *   `a, b, ...` (a holds, then b holds)
+  *   `a, a, b, ...` (a holds, then b holds)
+  *   `a, a, a, ...` (if b eventually becomes true later)
+
+  **Violating sequences:**
+  *   `a, !a, b, ...` (a fails before b becomes true)
+  *   `!a, b, ...` (a fails in the first state before b becomes true)
+  *   `a, a, a, ...` (b never becomes true)

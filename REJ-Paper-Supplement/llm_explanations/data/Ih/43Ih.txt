@@ -1,0 +1,16 @@
+**Original LTL formula:**
+`X (f & i)`
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  **`f & i`**: This subformula means that both atomic propositions `f` and `i` must be true simultaneously in the state where this conjunction is evaluated. It imposes a constraint on the values of `f` and `i` in that specific state.
+2.  **`X (f & i)`**: The `X` (Next) operator applies to the conjunction `(f & i)`. This means that the condition `(f & i)` must hold in the *very next state* from the current state.
+
+**Refine the natural language phrasing for clarity:**
+
+This formula states that in the very next state of the system's execution, both `f` and `i` must be true.
+
+*   **Constraint Application:** The formula imposes a constraint *now* that applies *only* to the immediate successor state. It requires that when the system transitions to the next state, both `f` and `i` must be true in that state. It places no constraints on the current state or any states beyond the immediate next one.
+*   **Evaluation:** When `X (f & i)` is evaluated in the current state, its truth value is determined solely by the properties of the very next state. If `f` and `i` are both true in the next state, the formula is satisfied. If either `f` or `i` (or both) are false in the next state, the formula is violated.
+*   **Satisfying Sequences:** A sequence satisfies this formula if, from the current state, the very next state has both `f` and `i` true. For example, `s0 -> s1(f=T, i=T) -> s2...` (where `s0` is the current state).
+*   **Violating Sequences:** A sequence violates this formula if, from the current state, the very next state has `f` false, or `i` false, or both false. For example, `s0 -> s1(f=F, i=T) -> s2...` or `s0 -> s1(f=T, i=F) -> s2...`.
+*   **Cessation of Constraints:** Once the system transitions to the next state, the specific constraint imposed by *this instance* of `X (f & i)` has been either met or violated. It does not impose any further constraints on subsequent states. The truth values of `f` and `i` in states after the next one are irrelevant to the satisfaction of this particular formula.

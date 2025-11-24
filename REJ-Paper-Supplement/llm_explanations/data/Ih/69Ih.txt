@@ -1,0 +1,32 @@
+Original LTL formula: `FGa`
+
+Rebuild meaning from the bottom of the tree up:
+1.  `a`: "a must be true in the current state and is otherwise unconstrained."
+2.  `Ga`: "a must be true in every state of the execution." This means that from the current state onwards, `a` must always hold.
+3.  `F(Ga)`: "There must exist at least one future state where `Ga` is true." This means there must be some point in the execution where the condition "a must be true in every state of the execution" becomes true.
+
+Refine the natural language phrasing for clarity:
+The formula `FGa` means: "Eventually, `a` must become true and remain true indefinitely from that point onwards."
+
+**Explanation:**
+
+*   **When the formula imposes constraints:**
+    *   Initially, `FGa` does not impose an immediate constraint on `a` in the current state. `a` can be true or false.
+    *   The constraint is that the system must eventually reach a state where `a` becomes permanently true. Until that state is reached, the formula is "waiting" for `a` to stabilize to true.
+    *   Once a state `s_k` is reached where `a` is true, and `a` remains true in all subsequent states (`s_{k+1}, s_{k+2}, ...`), the formula `FGa` is satisfied. From that moment on, this specific formula no longer imposes further constraints, as its condition has been met.
+
+*   **How the formula is evaluated:**
+    *   At any given state, the system checks if `Ga` is true *from that state onwards*. If `Ga` is true (meaning `a` is true in the current state and all future states), then `FGa` is satisfied immediately.
+    *   If `Ga` is not true in the current state, the system looks to the next state, and the next, and so on, to see if `Ga` ever becomes true. If it does, `FGa` is satisfied. If the end of the execution is reached without `Ga` ever becoming true, then `FGa` is violated.
+
+*   **Satisfying sequences:**
+    *   `a, a, a, a, ...`: `Ga` is true from the very first state, so `FGa` is satisfied immediately.
+    *   `!a, !a, a, a, a, ...`: `Ga` becomes true at the third state, satisfying `FGa`.
+    *   `!a, a, a, a, ...`: `Ga` becomes true at the second state, satisfying `FGa`.
+
+*   **Violating sequences:**
+    *   `!a, !a, !a, !a, ...`: `a` never becomes true, so `Ga` is never true.
+    *   `a, !a, a, !a, ...`: `a` never remains true indefinitely; it always eventually becomes false again.
+    *   `!a, a, !a, a, ...`: Similar to the above, `a` never stabilizes to true.
+
+*   **Potential misunderstandings:** A common misunderstanding is that `a` must be true *now* or *always*. This is incorrect. `FGa` allows `a` to be false for an arbitrary period, but it mandates that `a` must eventually become true and then *never become false again*. The constraint applies until `a` permanently holds, and then it ceases.

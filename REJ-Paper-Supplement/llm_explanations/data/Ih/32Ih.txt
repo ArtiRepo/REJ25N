@@ -1,0 +1,27 @@
+**Original LTL formula:**
+`(b | !a) & X (d U c)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`!a`**: This means that proposition `a` must be false in the current state.
+2.  **`b | !a`**: This means that in the current state, either proposition `b` must be true, or proposition `a` must be false (or both). This part of the formula imposes an immediate constraint on the current state.
+3.  **`d U c`**: This is an "Until" operator. For this subformula to be true, two conditions must be met:
+    *   Proposition `c` must eventually become true at some point in the future.
+    *   Until that specific state where `c` becomes true, proposition `d` must be true in every state leading up to it. Once `c` becomes true, the requirement for `d` to hold ceases. This subformula describes a sequence of events over time.
+4.  **`X (d U c)`**: The `X` (Next) operator means that the condition `(d U c)` must hold starting from the *very next state*. This means that from the next state onwards, `c` must eventually become true, and until `c` becomes true, `d` must be true in every state. This part of the formula imposes a constraint on the future, starting one step from the current state.
+5.  **`(b | !a) & X (d U c)`**: This is a conjunction (`&`), meaning both parts must be true simultaneously for the entire formula to be satisfied.
+    *   The first part `(b | !a)` imposes an immediate constraint on the current state.
+    *   The second part `X (d U c)` imposes a constraint on the future, starting from the next state.
+
+**Refine the natural language phrasing for clarity:**
+
+This formula imposes two distinct conditions that must both be met for it to be satisfied.
+
+First, **in the current state**, it must be true that either `b` is true or `a` is false. This is an immediate constraint that is checked at the moment the formula is evaluated. If this condition is not met in the current state, the entire formula is false.
+
+Second, **looking ahead from the current state**, a specific sequence of events must begin in the very next state and continue into the future. Specifically, starting from the next state:
+*   `c` must eventually become true at some point in the future.
+*   Until that specific moment when `c` becomes true, `d` must remain true in every state.
+*   Once `c` becomes true, the constraint for `d` to hold is satisfied and no longer applies.
+
+Therefore, for the formula to be satisfied, the current state must meet the `(b | !a)` condition, AND the subsequent execution path (starting from the next state) must ensure that `c` eventually occurs, with `d` holding continuously until `c` does. If `c` never becomes true, or if `d` becomes false before `c` becomes true (starting from the next state), then the second part of the formula is violated, making the entire formula false.

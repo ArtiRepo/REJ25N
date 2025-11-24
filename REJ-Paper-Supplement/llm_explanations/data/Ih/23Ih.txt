@@ -1,0 +1,15 @@
+Original LTL formula:
+`t => w`
+
+Rebuild meaning from the bottom of the tree up:
+This formula is a propositional implication. It states that if `t` is true in the current state, then `w` must also be true in the current state. If `t` is false in the current state, the implication is vacuously true, and `w` can be either true or false without violating the formula.
+
+Refine the natural language phrasing for clarity:
+This formula imposes an immediate constraint on the current state. It means that **in the current state, if `t` is true, then `w` must also be true.**
+
+*   **When the formula is satisfied:** The formula is satisfied in any given state if `t` is false in that state, or if both `t` and `w` are true in that state.
+*   **When the formula is violated:** The formula is violated in any given state if `t` is true in that state, but `w` is false in that state.
+*   **Constraints over time:** This formula imposes a constraint only on the current state. It does not impose any constraints on future states. Its truth value is re-evaluated independently in each state of the execution.
+*   **Satisfying sequences:** A sequence satisfies this formula if, in every state of the execution, the condition "if `t` is true, then `w` is true" holds. For example, a state where `t` is false and `w` is false, or a state where `t` is true and `w` is true, or a state where `t` is false and `w` is true.
+*   **Violating sequences:** A sequence violates this formula if there is at least one state in the execution where `t` is true and `w` is false.
+*   **Potential misunderstandings:** The constraint is purely local to the current state. It does not imply any temporal relationship; for instance, it does not mean that if `t` is true now, `w` must become true in the future, nor does it mean `t` or `w` must maintain their truth values in subsequent states. The constraint applies only at the exact moment it is checked.

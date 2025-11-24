@@ -1,0 +1,21 @@
+- Original LTL formula
+  `a U G!a`
+
+- Rebuild meaning from the bottom of the tree up
+  1.  `!a`: This means "a must be false."
+  2.  `G!a`: This means "a must be false in every state of the execution, from the current state onwards." This is the condition that must eventually be met for the Until operator.
+  3.  `a U G!a`: This means "There must eventually be a state where 'a must be false in every state of the execution' becomes true. Until that specific state is reached, 'a' must remain true in every preceding state."
+
+- Refine the natural language phrasing for clarity.
+  The formula `a U G!a` describes a system behavior that transitions from a phase where `a` is continuously true to a phase where `a` is continuously false forever.
+
+  **Constraint Imposition and Evolution:**
+  *   **Initial Constraint:** At the current state, the formula requires either that `G!a` is already true (meaning `a` is false now and forever), or that `a` is true. If `G!a` is not true, the system is constrained to ensure `a` is true.
+  *   **Ongoing Constraint:** This constraint for `a` to be true continues in every subsequent state, as long as the condition `G!a` has not yet become true.
+  *   **Transition and New Constraint:** There must eventually exist a future state, say state `k`, where `G!a` becomes true. At this specific state `k`, `a` must be false, and it must remain false in all subsequent states (`k`, `k+1`, `k+2`, ...). Once `G!a` becomes true at state `k`, the "until" condition is met, and the constraint for `a` to be true in preceding states ceases. From state `k` onwards, the system is permanently constrained such that `a` must be false in every state.
+
+  **Satisfaction and Violation:**
+  *   **Satisfying Sequences:** The formula is satisfied if `a` is true in all states from the beginning up to state `k-1`, and at state `k`, `a` becomes false and remains false for all subsequent states. It is also satisfied if `a` is false from the very first state and remains false forever (i.e., `G!a` is true from the start).
+  *   **Violating Sequences:** The formula is violated if `a` becomes false at any state `j` before `G!a` is established at state `j` (meaning `a` becomes false at `j` but then becomes true again later). It is also violated if `a` remains true indefinitely, and `G!a` never becomes true.
+
+  **Potential Misunderstanding:** The `a` in `a U G!a` must hold *strictly before* the state where `G!a` becomes true. At the exact state `k` where `G!a` becomes true, `a` must be false (because `G!a` implies `!a` at `k`). This means there is a clear transition where `a` switches from true to false and then stays false.

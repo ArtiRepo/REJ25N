@@ -1,0 +1,17 @@
+**Original LTL formula**
+`a U (b & c)`
+
+**Rebuild meaning from the bottom of the tree up**
+*   `b & c`: This sub-formula is true in a given state if and only if both `b` and `c` are true in that exact state.
+*   `a U (b & c)`: This formula means that the condition `(b & c)` must eventually become true. Until that specific state where `(b & c)` is true, `a` must be true in every preceding state, starting from the current state. Once `(b & c)` becomes true, the constraint on `a` is lifted.
+
+**Refine the natural language phrasing for clarity.**
+This formula imposes a constraint that `a` must be true in the current state and continue to be true in every subsequent state *until* a state is reached where both `b` and `c` are simultaneously true.
+
+*   **Satisfaction:** The formula is satisfied if there is a future state where `b` and `c` are both true, and `a` has been continuously true in all states from the current state up to (but not including) that state.
+*   **Constraints:**
+    *   When the formula is checked, `a` must be true in the current state.
+    *   This constraint on `a` persists in every subsequent state as long as `b & c` has not yet occurred.
+    *   There is an overarching constraint that `b & c` *must* eventually occur at some point in the future.
+*   **Cessation of Constraints:** The moment `b` and `c` are both true in a state, the formula is satisfied, and the requirement for `a` to be true in any subsequent states is lifted. After this point, `a` can be true or false without violating this specific formula.
+*   **Violation:** The formula is violated if `a` becomes false at any point *before* `b & c` becomes true, or if `b & c` never becomes true at all throughout the execution.

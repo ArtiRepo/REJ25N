@@ -1,0 +1,30 @@
+Original LTL formula:
+`a -> XXXa`
+
+Rebuild meaning from the bottom of the tree up:
+1.  **`a`**: This refers to the proposition `a` being true in the current state. It is a condition that, if met, triggers a constraint.
+2.  **`Xa`**: This means that `a` must be true in the very next state.
+3.  **`XXa`**: This means that `Xa` must be true in the very next state. Therefore, `a` must be true in the state *after* the very next state (i.e., two states from the current state).
+4.  **`XXXa`**: This means that `XXa` must be true in the very next state. Therefore, `a` must be true in the state *after* the state *after* the very next state (i.e., three states from the current state). This is a future constraint.
+5.  **`a -> XXXa`**: This is an implication. It means "If `a` is true in the current state, then `XXXa` must be true."
+
+Refine the natural language phrasing for clarity:
+This formula states that if `a` is true in the current state, then `a` must also be true exactly three states later.
+
+*   **When the formula imposes constraints:**
+    *   If `a` is false in the current state, the formula is immediately satisfied, and it imposes no constraints on any future states.
+    *   If `a` is true in the current state, the formula imposes a specific constraint: `a` *must* be true in the state that is three steps into the future from the current moment.
+
+*   **How the formula is evaluated and evolves:**
+    *   At the moment of evaluation, if `a` is false, the formula holds, and no further checks are needed for this specific instance.
+    *   If `a` is true, the system must ensure that `a` will be true in the state three steps ahead. The states immediately following (the next state and the state after that) are unconstrained by this specific instance of the formula regarding `a`.
+    *   The constraint applies only to that specific future state. Once that third future state is reached, the condition is either met (if `a` is true there) or violated (if `a` is false there). The constraint from this particular evaluation then ceases to apply.
+
+*   **Satisfying sequences:**
+    *   A sequence where `a` is false in the current state (e.g., `!a, ..., ...`).
+    *   A sequence where `a` is true in the current state, and `a` is also true three states later (e.g., `a, X, Y, a, ...`).
+
+*   **Violating sequences:**
+    *   A sequence where `a` is true in the current state, but `a` is false exactly three states later (e.g., `a, X, Y, !a, ...`).
+
+*   **Potential misunderstandings:** This formula does not require `a` to be true in the next state or the state after that. It only cares about the state three steps ahead, *if* `a` was true initially.

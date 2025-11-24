@@ -1,0 +1,22 @@
+**Original LTL formula**
+a U c
+
+**Rebuild meaning from the bottom of the tree up**
+The formula `a U c` means that `c` must eventually become true. Until that specific state where `c` becomes true, `a` must be true in every preceding state. Once `c` is true, the condition on `a` no longer applies.
+
+**Refine the natural language phrasing for clarity.**
+This formula states that `c` must eventually become true at some point in the future. Until that exact moment `c` becomes true, `a` must be continuously true in every state.
+
+*   **When the formula imposes constraints:**
+    *   From the current state onwards, the system is constrained to ensure that `c` will eventually be true.
+    *   In every state *before* `c` becomes true, `a` is constrained to be true.
+*   **When the constraints no longer apply:**
+    *   Once `c` becomes true in a state, the formula is satisfied, and no further constraints are imposed on `a` or `c` by this specific formula.
+*   **Satisfying sequences:**
+    *   If `c` is true in the current state, the formula is immediately satisfied. (e.g., `c` is true)
+    *   If `a` is true in the current state, and `c` is true in the next state, the formula is satisfied. (e.g., `a`, `c`)
+    *   If `a` is true in the current state, `a` is true in the next state, and `c` is true in the state after that, the formula is satisfied. (e.g., `a`, `a`, `c`)
+*   **Violating sequences:**
+    *   If `a` is false in any state *before* `c` becomes true, the formula is violated. (e.g., `!a`, `c`)
+    *   If `c` never becomes true at any point in the future, the formula is violated, regardless of whether `a` was continuously true or not. (e.g., `a`, `a`, `a`, ...)
+*   **Potential misunderstandings:** It's crucial that `a` holds *continuously* until `c` is true. If `a` becomes false even for one state before `c` appears, the formula is violated. Also, `c` is *guaranteed* to happen; it's not optional.

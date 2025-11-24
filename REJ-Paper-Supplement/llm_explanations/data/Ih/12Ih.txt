@@ -1,0 +1,21 @@
+Original LTL formula:
+`b U (a | d)`
+
+Rebuild meaning from the bottom of the tree up:
+1.  `a | d`: This sub-formula means "either `a` is true, or `d` is true (or both)." This condition is satisfied if at least one of `a` or `d` holds in a given state.
+2.  `b U (a | d)`: This formula states that the condition `(a | d)` must eventually become true. Until that specific state where `(a | d)` is true, `b` must be true in every preceding state, starting from the current state.
+
+Refine the natural language phrasing for clarity:
+This formula asserts that the condition `(a | d)` (meaning `a` is true or `d` is true) must eventually become true at some point in the execution.
+
+*   **Constraint Application:** From the current state, `b` must be true in every state *until* the state where `(a | d)` becomes true.
+*   **Immediate Satisfaction:** If `(a | d)` is already true in the current state, the formula is immediately satisfied, and no further constraints are imposed on `b` or future states.
+*   **Ongoing Constraint:** If `(a | d)` is not true in the current state, then `b` *must* be true in the current state and in all subsequent states, continuing this requirement until `(a | d)` finally holds.
+*   **Cessation of Constraint:** The moment `(a | d)` becomes true, the constraint on `b` ceases. `b` is no longer required to be true in that state or any subsequent states for the formula to hold.
+*   **Violation Conditions:** The formula is violated if:
+    1.  `b` is false in any state *before* `(a | d)` becomes true.
+    2.  `(a | d)` never becomes true throughout the entire execution, regardless of `b`'s truth value.
+*   **Satisfying Sequences:**
+    *   `b, b, (a | d), ...` (e.g., `b` is true, then `b` is true, then `a` is true, then anything)
+    *   `(a | d), ...` (e.g., `d` is true immediately, then anything)
+*   **Potential Misunderstanding:** It's crucial to understand that `b`'s truth is only required *until* `(a | d)` is met. Once `(a | d)` is true, `b` can be anything. Also, the eventual truth of `(a | d)` is an absolute requirement; if it never happens, the formula fails, even if `b` was always true.

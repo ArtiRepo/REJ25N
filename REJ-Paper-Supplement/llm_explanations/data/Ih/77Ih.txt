@@ -1,0 +1,33 @@
+**Original LTL formula:** `a U !a`
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `a`: This proposition requires `a` to be true in the current state.
+2.  `!a`: This proposition requires `a` to be false in the current state.
+3.  `a U !a`: This formula states that `a` must eventually become false (`!a` must become true). Until that specific moment, `a` must remain true in every state.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `a U !a` means that `a` must eventually become false, and until that specific moment, `a` must remain true.
+
+*   **Constraint Imposition:**
+    *   If `a` is false in the current state, the formula is immediately satisfied, and no further constraints are imposed.
+    *   If `a` is true in the current state, the formula imposes two ongoing constraints:
+        1.  `a` must remain true in the current state and all subsequent states *until* `a` becomes false.
+        2.  There must exist at least one future state where `a` is false.
+
+*   **Evaluation and Evolution:**
+    *   **Immediate Satisfaction:** If `a` is false in the current state, the `Until` condition is met (`!a` is true), and the formula is satisfied.
+    *   **Ongoing Constraints:** If `a` is true in the current state, the formula requires `a` to continue being true in subsequent states, *and* it requires that `a` will eventually become false.
+    *   **Cessation of Constraints:** Once a state is reached where `a` is false, the `Until` condition is fulfilled. The formula `a U !a` becomes true for the entire execution path from the initial state, and no further constraints are imposed by this formula.
+
+*   **Satisfying Sequences:**
+    *   `F, ...` (where `F` means `a` is false): `a` is false in the current state.
+    *   `T, F, ...`: `a` is true, then `a` becomes false.
+    *   `T, T, F, ...`: `a` is true, remains true, then becomes false.
+
+*   **Violating Sequences:**
+    *   `T, T, T, ...` (where `a` is always true): `a` never becomes false, violating the "eventually `!a`" requirement.
+
+*   **Potential Misunderstandings:**
+    *   The constraint that `a` must remain true *only* applies until `a` becomes false. Once `a` becomes false, the formula is satisfied, and `a` can be true or false in subsequent states without violating the formula.
+    *   The formula does not require `a` to be true for any specific duration before becoming false; it can be false immediately.

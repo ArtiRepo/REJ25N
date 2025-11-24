@@ -1,0 +1,16 @@
+**Original LTL formula:**
+G(a or b)
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `(a or b)`: This propositional statement means that in the current state, either `a` is true, or `b` is true, or both are true. This imposes an immediate constraint on the current state.
+2.  `G(X)` where `X` is `(a or b)`: The `G` (Globally) operator means that the condition `(a or b)` must be true in *every* state of the execution, starting from the current state and continuing indefinitely.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `G(a or b)` means that **in every state of the execution, at least one of `a` or `b` must be true.**
+
+*   **Constraint:** This formula imposes a continuous and persistent constraint on the system. When evaluated at any given state, it requires that the condition `(a or b)` is true in that specific state, and it further requires that this condition will remain true in all subsequent states of the execution.
+*   **Satisfaction:** The formula is satisfied if, for every state in the entire execution trace (from the current state onwards), the disjunction `(a or b)` holds true. This means that in each and every state, `a` is true, or `b` is true, or both are true. For example, a sequence like `(a=T, b=F), (a=F, b=T), (a=T, b=T), ...` would satisfy this.
+*   **Violation:** The formula is violated if there exists even a single state in the execution where *neither* `a` nor `b` is true (i.e., both `a` is false AND `b` is false). The moment such a state is encountered, the formula is definitively false for the entire trace starting from the initial state. For example, a sequence like `(a=T, b=F), (a=F, b=F), ...` would violate this in the second state.
+*   **Ongoing Constraints:** The constraint that `(a or b)` must be true applies perpetually; it never ceases to be a requirement for any future state. There is no point in time where this constraint is lifted or no longer applies.
+*   **Potential Misunderstanding:** A common misunderstanding might be to think that `a` and `b` can alternate freely, or that the condition only needs to hold for a certain period. The key is that the condition `(a or b)` must hold *without exception* in *every single state* throughout the system's operation.

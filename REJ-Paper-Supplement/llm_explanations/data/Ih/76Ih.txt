@@ -1,0 +1,18 @@
+**Original LTL formula:**
+G(a -> X!b)
+
+**Rebuild meaning from the bottom of the tree up:**
+*   `!b`: "b must be false."
+*   `X!b`: "b must be false in the very next state."
+*   `a -> X!b`: This is an implication. "If 'a' is true in the current state, then 'b' must be false in the very next state." If 'a' is false in the current state, this part of the formula is satisfied for the current state, and no constraint is imposed on 'b' in the next state.
+*   `G(a -> X!b)`: "The condition 'if a is true, then b must be false in the very next state' must hold true in every state of the execution."
+
+**Refine the natural language phrasing for clarity:**
+
+This formula imposes a continuous constraint that must hold true in every state of the execution.
+
+*   **When it imposes constraints:** In any given state, if 'a' is true, then the formula imposes a constraint that 'b' *must be false* in the very next state.
+*   **When it does not impose constraints:** If 'a' is false in the current state, the implication is vacuously true for that state, and this formula imposes no constraint on 'b' in the next state.
+*   **Satisfaction:** The formula is satisfied if, for every state in the execution, whenever 'a' is true in that state, 'b' is false in the subsequent state.
+*   **Violation:** The formula is violated if there exists at least one state where 'a' is true, and in the very next state, 'b' is also true.
+*   **Constraints over time:** The constraint on 'b' is conditional on 'a' and applies *only to the immediate next state*. Once that next state is reached, the specific constraint originating from the previous state's 'a' value ceases to apply. The formula then re-evaluates based on the new current state's 'a' value, potentially imposing a new, distinct constraint on the *next* state from that point. It does not imply that 'b' must remain false indefinitely, nor does it constrain 'b' in the current state.

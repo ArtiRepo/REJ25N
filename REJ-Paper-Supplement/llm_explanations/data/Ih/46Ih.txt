@@ -1,0 +1,39 @@
+-   **Original LTL formula:**
+    `F d | G !n`
+
+-   **Rebuild meaning from the bottom of the tree up:**
+
+    *   `d`: "d must be true in the current state and is otherwise unconstrained."
+    *   `!n`: "n must be false in the current state and is otherwise unconstrained."
+
+    *   `F d`: "There must exist at least one future state where d is true."
+        *   This formula imposes a constraint from the current state onwards, requiring `d` to eventually become true.
+        *   It is satisfied if `d` is true in the current state or becomes true at any point in the future. Once `d` becomes true, the constraint imposed by `F d` is met and no longer applies.
+        *   It is violated if `d` is false in all states of the execution.
+
+    *   `G !n`: "n must be false in every state of the execution."
+        *   This formula imposes a continuous constraint from the current state onwards, requiring `n` to always be false.
+        *   It is satisfied if `n` is false in the current state and remains false in all subsequent states. The constraint applies indefinitely.
+        *   It is violated if `n` is true in any state of the execution. Once `n` becomes true, the constraint imposed by `G !n` is violated for the entire execution.
+
+    *   `F d | G !n`: This formula states that *either* `F d` must be true *or* `G !n` must be true (or both).
+        *   The formula imposes an immediate constraint: from the current state, the system must ensure that at least one of the two disjuncts is satisfied.
+        *   **Satisfaction:**
+            *   The formula is satisfied if `d` becomes true at any point in the execution. Once `d` becomes true, the `F d` part is satisfied, and the overall formula holds for the remainder of the execution, regardless of `n`'s future values.
+            *   Alternatively, the formula is satisfied if `n` is false in the current state and remains false in all subsequent states. In this case, the `G !n` part is satisfied, and the overall formula holds, regardless of `d`'s future values.
+        *   **Violation:**
+            *   The formula is violated *only if* `d` is false in *all* states of the execution *AND* `n` is true in *at least one* state of the execution.
+            *   If `d` never becomes true, the `F d` part is violated. If, in addition, `n` becomes true at any point, the `G !n` part is also violated, leading to the violation of the entire formula.
+
+-   **Refine the natural language phrasing for clarity:**
+
+    "The system must ensure that one of two conditions holds: either `d` eventually becomes true, or `n` is always false.
+
+    This formula imposes an immediate constraint: from the current state, the system must commit to satisfying at least one of these conditions.
+
+    **Satisfaction:**
+    *   If `d` becomes true at any point in the execution (including the current state), the first condition is met, and the entire formula is satisfied from that point onwards. The constraint related to `d` is fulfilled and no longer applies.
+    *   Alternatively, if `n` is false in the current state and remains false in every subsequent state, the second condition is met, and the entire formula is satisfied. This imposes a continuous constraint that `n` must never become true.
+
+    **Violation:**
+    *   The formula is violated if and only if `d` is *never* true throughout the entire execution *AND* `n` becomes true at *any* point in the execution. In this scenario, both disjuncts fail, and the overall formula is violated."

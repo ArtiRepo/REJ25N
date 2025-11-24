@@ -1,0 +1,23 @@
+**Original LTL formula**
+`G (!f | !i)`
+
+**Rebuild meaning from the bottom of the tree up**
+
+1.  **`!f`**: This means that proposition `f` must be false in the current state.
+2.  **`!i`**: This means that proposition `i` must be false in the current state.
+3.  **`!f | !i`**: This is a disjunction. It means that in the current state, either `f` must be false, or `i` must be false, or both must be false. This imposes a constraint on the current state: it is not allowed for both `f` and `i` to be true simultaneously.
+4.  **`G (!f | !i)`**: The `G` (Globally) operator means that the condition `(!f | !i)` must hold true in *every* state of the execution, starting from the current state and continuing indefinitely.
+
+**Refine the natural language phrasing for clarity.**
+
+The formula `G (!f | !i)` states that **it must never be the case that both `f` and `i` are true simultaneously throughout the entire execution.**
+
+This formula imposes a **continuous constraint** on the system from the very beginning of the execution and for all subsequent states. At *every* state, the system must ensure that the condition `(!f | !i)` holds. This means that in any given state, it is forbidden for both `f` and `i` to be true at the same time; at least one of them must be false.
+
+When the formula is checked at any specific state, it requires that in *that* state, `f` is false, or `i` is false (or both are false). If this condition holds, the formula continues to be evaluated in the next state, maintaining the same constraint. If, at any point in the execution, both `f` and `i` become true in the same state, the formula is immediately violated, and the constraint ceases to apply as the system has already failed to meet the specification.
+
+**Satisfying sequences:** An execution satisfies this formula if, in every single state, `f` and `i` are not both true. For example, `(f=F, i=F), (f=T, i=F), (f=F, i=T), (f=F, i=F), ...` would satisfy the formula because in each state, at least one of `f` or `i` is false.
+
+**Violating sequences:** An execution violates this formula if there exists at least one state where both `f` and `i` are true. For example, `(f=F, i=F), (f=T, i=T), ...` would violate the formula at the second state, because in that state, both `f` and `i` are true, making `(!f | !i)` false.
+
+**Potential misunderstanding:** A common misunderstanding is to think this constraint applies only sometimes or eventually. However, the `G` operator means the constraint is *always* active and must hold in *every* state without exception. It is equivalent to stating that it is never the case that `f` and `i` are simultaneously true (`!(F (f & i))`).

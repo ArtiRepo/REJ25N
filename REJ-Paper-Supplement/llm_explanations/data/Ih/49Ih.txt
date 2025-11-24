@@ -1,0 +1,20 @@
+- Original LTL formula: `X !(t | w)`
+
+- Rebuild meaning from the bottom of the tree up:
+    *   `(t | w)` means "t is true OR w is true (or both) in the current state."
+    *   `!(t | w)` means "it is NOT the case that (t is true OR w is true) in the current state." This is equivalent to "t is false AND w is false in the current state."
+    *   `X !(t | w)` means "in the very next state, it must be true that (t is false AND w is false)."
+
+- Refine the natural language phrasing for clarity:
+    This formula imposes a constraint that applies *only* to the very next state in the execution.
+    
+    **When the formula is satisfied:**
+    The formula `X !(t | w)` is satisfied if, when evaluated in the current state, it is observed that in the *immediately following* state, both `t` is false AND `w` is false. For example, if the current state is S0, and in the next state S1, `t` is false and `w` is false, then the formula is satisfied at S0.
+
+    **When the formula imposes constraints:**
+    The formula imposes a constraint *only* on the properties of the single state that immediately follows the current state. It requires that in that specific next state, neither `t` nor `w` can be true. Once that next state is reached and its properties are evaluated, the constraint imposed by *this specific instance* of the formula is either met or violated. It does not impose any ongoing constraints on states beyond the immediate next one.
+
+    **When the formula is violated:**
+    The formula is violated if, when evaluated in the current state, it is observed that in the *immediately following* state, either `t` is true, or `w` is true, or both `t` and `w` are true. For example, if the current state is S0, and in the next state S1, `t` is true (regardless of `w`), or `w` is true (regardless of `t`), then the formula is violated at S0.
+
+    **Key takeaway:** The constraint is a one-time check on the very next state. What happens in any state *after* that next state is irrelevant to the satisfaction or violation of this particular formula instance.

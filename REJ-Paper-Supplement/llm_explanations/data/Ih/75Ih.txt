@@ -1,0 +1,19 @@
+**Original LTL formula:**
+F(a and b)
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `a`: The proposition `a` is true in the current state.
+2.  `b`: The proposition `b` is true in the current state.
+3.  `a and b`: This compound proposition is true if and only if both `a` and `b` are true in the current state.
+4.  `F(a and b)`: This means that there must exist at least one future state (including the current state) where the compound proposition `(a and b)` is true.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `F(a and b)` means that **eventually, both `a` and `b` must be true simultaneously.**
+
+*   **Constraint:** This formula imposes a constraint that, at some point in the execution (including the current state), a state must be reached where both `a` and `b` are true. Until such a state is encountered, the constraint remains active, requiring the system to eventually satisfy this condition.
+*   **Satisfaction:** The formula is satisfied the moment a state is reached where `a` is true and `b` is true. Once this specific condition is met, the formula is considered satisfied for the entire execution path, and no further constraints are imposed by *this specific formula* regarding `a` and `b`.
+*   **Evaluation:** When checked at any given state, the formula looks ahead to the entire future path. It does not require `a` and `b` to be true in the current state. If `a` and `b` are true in the current state, the formula is immediately satisfied. Otherwise, it continues to look for such a state in any subsequent future state.
+*   **Violating sequences:** The formula is violated if, throughout the entire execution, there is never a state where `a` and `b` are simultaneously true. For example, if `a` is always false, or `b` is always false, or if `a` and `b` are true at different times but never together in the same state.
+*   **Satisfying sequences:** The formula is satisfied by any sequence where, at some point, `a` and `b` are both true. For instance, a sequence where `a` is false and `b` is true, then `a` is true and `b` is false, then `a` is true and `b` is true. The formula is satisfied at the third state.
+*   **Misunderstanding:** It's important to note that `a` and `b` do not need to be true *now*, nor do they need to be true *always*. They just need to be true *at some single point in time*. Once that point is reached, the "eventual" requirement is fulfilled, and the constraint ceases to apply.

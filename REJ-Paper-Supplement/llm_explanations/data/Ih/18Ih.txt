@@ -1,0 +1,14 @@
+-   **Original LTL formula:**
+    `!F (a & b)`
+
+-   **Rebuild meaning from the bottom of the tree up:**
+    *   The subformula `(a & b)` means that `a` must be true AND `b` must be true in the current state. This imposes a constraint on the current state.
+    *   `F (a & b)` means that there must exist at least one future state (including the current state) where `a` and `b` are both true. This imposes a constraint that `a` and `b` must eventually become true together.
+    *   `!F (a & b)` is the negation of `F (a & b)`. According to the guidelines, `!(F(p))` means "p must be false in all states of the execution." Therefore, `!F (a & b)` means that `(a & b)` must be false in all states of the execution. This implies that `a` and `b` must *never* be simultaneously true at any point in the execution.
+
+-   **Refine the natural language phrasing for clarity:**
+    This formula states that `a` and `b` must *never* be simultaneously true at any point in the execution.
+
+    When the formula is checked, it imposes an immediate constraint that `a` and `b` must not both be true in the current state. This constraint then applies continuously to all subsequent states. For the formula to be satisfied, `a` and `b` must remain mutually exclusive (i.e., not both true) in every single state, from the current moment indefinitely into the future.
+
+    If, at any point in the execution, `a` becomes true and `b` also becomes true in the same state, the formula is violated from that state onwards, and the constraint is broken. Conversely, the formula remains satisfied as long as `a` and `b` are never simultaneously true, regardless of their individual truth values (e.g., `a` is true and `b` is false, or `a` is false and `b` is true, or both are false). The constraint never ceases to apply; it is a global property that must hold throughout the entire execution.

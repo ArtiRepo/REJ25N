@@ -1,0 +1,14 @@
+Original LTL formula:
+`F (f => j)`
+
+Rebuild meaning from the bottom of the tree up:
+1.  The innermost part is the propositional implication `(f => j)`. This means "if `f` is true, then `j` must also be true." This condition is satisfied if `f` is false, or if both `f` and `j` are true. It is violated if `f` is true and `j` is false.
+2.  The outer operator `F` (Eventually) applies to `(f => j)`. This means "There must exist at least one future state (including the current state) where the condition `(f => j)` is true."
+
+Refine the natural language phrasing for clarity:
+This formula imposes a constraint that at some point in the execution, the system must reach a state where the condition "if `f` is true, then `j` must also be true" holds.
+
+*   **Constraint Imposition:** Initially, the formula imposes an ongoing constraint that the system must eventually satisfy the condition `(f => j)`. As long as `(f => j)` has not yet been true in any state, the constraint persists, requiring that it *will* become true at some future point.
+*   **Satisfaction:** The formula is satisfied at the moment a state is reached where `f` is false, or where both `f` and `j` are true. Once this specific state is encountered, the entire `F (f => j)` formula is considered satisfied for the entire execution from that point onwards.
+*   **Cessation of Constraints:** Once the condition `(f => j)` becomes true in a state, the constraint imposed by the `F` operator is fulfilled. From that moment, the formula imposes no further requirements on `f` or `j`; `(f => j)` can be true or false in subsequent states without violating this specific formula.
+*   **Violation:** The formula is violated if, in *every single state* of the execution, the condition `(f => j)` is false. This means that in every state, `f` is true and `j` is false, and the system never reaches a state where `f` is false or `j` is true when `f` is true.

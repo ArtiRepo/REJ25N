@@ -1,0 +1,32 @@
+**Original LTL formula**
+`XXFa`
+
+**Rebuild meaning from the bottom of the tree up**
+
+1.  **`a`**: This proposition must be true in the current state and is otherwise unconstrained.
+2.  **`Fa`**: "There must exist at least one future state where `a` is true."
+    *   This formula imposes a constraint from the current state onwards, requiring `a` to eventually become true.
+    *   It is satisfied if `a` is true in the current state or any subsequent state. Once `a` becomes true, the constraint is met.
+    *   It is violated if `a` is false in the current state and remains false in all subsequent states.
+3.  **`XFa`**: "In the very next state, there must exist at least one future state where `a` is true."
+    *   This formula imposes a constraint that applies *from the next state onwards*.
+    *   At the current state, it does not constrain `a` or any other variable in the current state. Its truth value depends entirely on the state that follows.
+    *   It is satisfied if, when the system transitions to the next state, the condition `Fa` holds from that new state (i.e., `a` is true in that next state or any state thereafter).
+    *   It is violated if, when the system transitions to the next state, `a` is false in that state and remains false in all subsequent states.
+4.  **`XXFa`**: "In the state after the very next state, there must exist at least one future state where `a` is true."
+    *   This formula imposes a constraint that applies *from the state two steps into the future*.
+    *   At the current state, it does not constrain `a` or any other variable in the current state, nor in the very next state. It is a promise about what must happen further in the future.
+    *   The constraint becomes active only after two state transitions.
+
+**Refine the natural language phrasing for clarity.**
+
+The formula `XXFa` means that **two states from the current moment, `a` must eventually become true.**
+
+*   **Constraints:** This formula imposes no constraints on the current state or the very next state. It is a future-looking promise. The constraint only applies *from the state that is two steps ahead* in the execution.
+*   **Evaluation and Evolution:**
+    *   At the current state, the formula is evaluated by checking if `XFa` will be true in the next state.
+    *   When the system transitions to the next state, the formula effectively becomes `XFa` (relative to this new current state). It now constrains the state *after* this new current state.
+    *   When the system transitions to the state after the next state (i.e., two steps from the original starting point), the formula effectively becomes `Fa` (relative to this new current state). From this point onwards, `a` must eventually become true.
+*   **Satisfaction:** The formula is satisfied if, after two state transitions from the current moment, `a` is true in that resulting state, or in any state thereafter.
+*   **Violation:** The formula is violated if, after two state transitions from the current moment, `a` is false in that resulting state and remains false in all subsequent states.
+*   **Potential Misunderstanding:** It is crucial to understand that `XXFa` does *not* require `a` to be true in the current state or the next state. It only cares about the eventual truth of `a` starting from the state two steps into the future.

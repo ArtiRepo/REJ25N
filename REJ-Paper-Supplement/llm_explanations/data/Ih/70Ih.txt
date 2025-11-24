@@ -1,0 +1,20 @@
+**Original LTL formula**
+`G(a->b)`
+
+**Rebuild meaning from the bottom of the tree up**
+
+1.  **`a` and `b`**: `a` and `b` are propositions that can be true or false in any given state.
+2.  **`a -> b`**: This subformula means "if `a` is true in the current state, then `b` must also be true in the current state."
+    *   It imposes a constraint on `b` only when `a` is true; in that specific state, `b` must be true.
+    *   If `a` is false in the current state, this subformula is satisfied regardless of `b`'s truth value, and no constraint is imposed on `b` for that state.
+    *   This subformula is violated if `a` is true and `b` is false in the current state.
+3.  **`G(a -> b)`**: This means that the condition "if `a` is true, then `b` must also be true" must hold in *every single state* of the execution, starting from the current state and continuing indefinitely.
+
+**Refine the natural language phrasing for clarity.**
+
+The formula `G(a->b)` means that **in every state of the system's execution, if proposition `a` is true, then proposition `b` must also be true in that same state.**
+
+*   **Constraint imposition:** This formula imposes a continuous constraint on the system. At any given state, if `a` is true, then `b` is constrained to also be true in that state. If `a` is false in a state, no constraint is imposed on `b` for that specific state, and `b` can be either true or false.
+*   **Satisfaction:** The formula is satisfied if, for every state in the execution, the condition "if `a` is true, then `b` is true" holds. This includes executions where `a` is always false (vacuously satisfying the implication in every state), or where `a` is true only when `b` is also true.
+*   **Violation:** The formula is violated if there exists at least one state in the execution where `a` is true, but `b` is false. The moment such a state occurs, the entire formula is considered false for that execution, and the system has failed to meet the specification.
+*   **Temporal scope:** The `G` (Globally) operator ensures that this constraint applies perpetually, from the current state onwards, for the entire duration of the execution. The constraint never ceases to apply.

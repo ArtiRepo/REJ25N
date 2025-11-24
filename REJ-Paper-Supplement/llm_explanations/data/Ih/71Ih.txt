@@ -1,0 +1,15 @@
+**Original LTL formula:**
+G(a and !b)
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `a`: 'a' must be true in the current state.
+2.  `!b`: 'b' must be false in the current state.
+3.  `a and !b`: In the current state, 'a' must be true AND 'b' must be false. This is an immediate condition.
+4.  `G(a and !b)`: The condition "a is true AND b is false" must hold in *every* state of the execution.
+
+**Refine the natural language phrasing for clarity:**
+This formula imposes a continuous constraint on the system. In every state of the execution, 'a' must be true and 'b' must be false.
+
+When the formula is checked, it evaluates the truth of 'a and !b' in the current state. This condition must hold true immediately. Due to the `G` (Globally) operator, this is not a one-time check but an ongoing requirement that applies to the current state and all subsequent states indefinitely.
+
+The constraints imposed by this formula never cease. If, at any point in the execution, 'a' becomes false or 'b' becomes true (or both), the formula is immediately violated for the entire execution. For example, a sequence where `(a=T, b=F)` holds in every state satisfies the formula. Conversely, a sequence where `(a=T, b=F)` holds initially but then `(a=F, b=F)` or `(a=T, b=T)` occurs in a later state violates the formula at that specific state, rendering the entire execution invalid. There is no point in time where this constraint is lifted.

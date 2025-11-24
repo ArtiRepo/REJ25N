@@ -1,0 +1,16 @@
+**Original LTL formula:**
+`F (!y & w)`
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `!y`: The proposition `y` must be false.
+2.  `w`: The proposition `w` must be true.
+3.  `!y & w`: Both `y` must be false AND `w` must be true simultaneously in the current state.
+4.  `F (!y & w)`: There must exist at least one future state (including the current state) where the combined condition `(!y & w)` is true.
+
+**Refine the natural language phrasing for clarity:**
+This formula states that the condition "y is false and w is true" must eventually occur at some point in the system's execution.
+
+*   **Constraints:** This formula imposes an ongoing constraint from the very beginning of the system's execution. It demands that a specific state eventually be reached.
+*   **Satisfaction:** The formula is satisfied if, at any point in the execution (including the current state), `y` is false and `w` is true simultaneously. Once this condition is met, the formula is considered satisfied for the remainder of the execution, and no further constraints are imposed by this specific formula.
+*   **Violation:** The formula is violated if, throughout the entire execution, there is never a state where `y` is false and `w` is true simultaneously. This means that in every state, either `y` is true or `w` is false (or both).
+*   **Evolution of Truth Value and Constraint Application:** At any given moment, if `!y & w` is true, the formula is immediately satisfied. If `!y & w` is false, the formula is not yet satisfied, but it is not yet violated either; the constraint persists, demanding that `!y & w` becomes true at some future point. The constraint ceases to impose an *active* requirement once a state is encountered where `y` is false and `w` is true. If such a state is never encountered, the constraint effectively applies for the entire duration of the system's operation, continuously demanding that the condition eventually holds.

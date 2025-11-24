@@ -1,0 +1,25 @@
+**Original LTL formula:**
+`d & X (c U a)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`c U a`**: This subformula means that `a` must eventually become true. Until `a` becomes true, `c` must remain true in every state. Once `a` becomes true, the constraint on `c` is lifted.
+    *   *Constraint:* `c` must hold continuously until `a` holds. `a` must eventually hold.
+    *   *Satisfaction:* A sequence satisfies `c U a` if there is a future state `k` where `a` is true, and for all states `j` between the current state and `k` (exclusive of `k`), `c` is true.
+    *   *Violation:* If `a` never becomes true, or if `c` becomes false at any point before `a` becomes true.
+
+2.  **`X (c U a)`**: This means that the condition `(c U a)` must be satisfied starting from the very next state.
+    *   *Constraint:* The system must transition to a state where the `(c U a)` condition holds. This means that in the next state, `a` must eventually become true, and until that moment, `c` must remain true in every state *starting from that next state*.
+    *   *Satisfaction:* The formula is satisfied if, in the state immediately following the current one, `a` eventually becomes true, and `c` holds continuously until `a` holds (starting from that next state).
+    *   *Violation:* If, in the very next state, `a` never becomes true, or `c` becomes false before `a` becomes true.
+
+3.  **`d & X (c U a)`**: This formula requires two conditions to be met simultaneously in the current state.
+    *   *Constraint:* First, `d` must be true in the current state. Second, the condition `X (c U a)` must also be true. This means `d` is an immediate constraint, and `X (c U a)` imposes a constraint on the future, starting from the next state.
+    *   *Satisfaction:* The formula is satisfied if `d` is true in the current state, AND in the very next state, `a` eventually becomes true, and `c` holds continuously until `a` holds (starting from that next state).
+    *   *Violation:* The formula is violated if `d` is false in the current state, OR if the condition `X (c U a)` is false (i.e., in the next state, `a` never becomes true, or `c` becomes false before `a` becomes true).
+
+**Refine the natural language phrasing for clarity:**
+
+In the current state, `d` must be true. Additionally, looking from the very next state onwards, `a` must eventually become true, and until `a` becomes true, `c` must remain true in every state.
+
+The constraint on `d` applies only to the current state. The constraint on `c` and `a` begins in the next state: `c` must hold continuously from the next state until `a` becomes true. Once `a` becomes true (at or after the next state), the requirement for `c` to hold is lifted. If `d` is false in the current state, or if the future condition starting from the next state is not met (i.e., `a` never becomes true, or `c` fails before `a` holds), the formula is violated.

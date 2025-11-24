@@ -1,0 +1,29 @@
+Original LTL formula:
+`G (!i) | F (f U i)`
+
+Rebuild meaning from the bottom of the tree up:
+
+1.  **`!i`**: This means `i` must be false in the current state. It imposes an immediate constraint on the variable `i`.
+2.  **`G (!i)`**: This means `i` must be false in every state of the execution. This imposes an ongoing constraint that `i` must never become true. If `i` becomes true at any point, this part of the formula is violated. If `i` remains false throughout the entire execution, this part is satisfied.
+3.  **`f U i`**: This means `i` must eventually become true, and until that specific moment, `f` must remain true in every state. This imposes a constraint that `f` must hold continuously from the current state until `i` becomes true. Once `i` becomes true, the constraint on `f` ceases, and the `Until` condition is satisfied. If `i` never becomes true, or if `f` becomes false before `i` becomes true, this part is violated.
+4.  **`F (f U i)`**: This means there must exist at least one future state (or the current state) where the condition `f U i` is true. This imposes a constraint that at some point in the execution, a phase must begin where `f` holds continuously until `i` becomes true. If `f U i` is true in the current state, the formula is immediately satisfied. Otherwise, it imposes a constraint that such a state must eventually be reached. If no such state is ever reached, this part is violated.
+5.  **`G (!i) | F (f U i)`**: This is a disjunction, meaning the system must satisfy at least one of the two conditions.
+
+Refine the natural language phrasing for clarity:
+
+The formula `G (!i) | F (f U i)` means that the system must satisfy one of two conditions throughout its execution:
+
+1.  **Condition 1: `G (!i)`**
+    *   `i` must be false in every state of the execution.
+    *   This imposes an ongoing constraint that `i` must never become true. If `i` remains false indefinitely, this condition is satisfied. If `i` becomes true at any point, this condition is violated.
+
+2.  **Condition 2: `F (f U i)`**
+    *   There must exist at least one future state (or the current state) from which `i` eventually becomes true, and until that specific moment, `f` must remain true in every state.
+    *   This imposes a constraint that at some point in the execution, a phase must begin where `f` holds continuously until `i` becomes true. Once `i` becomes true within such a phase, the constraint on `f` ceases for that specific instance of `f U i`, and the `F` condition is satisfied from its starting point. If such a phase never begins, or if `f` becomes false before `i` becomes true within any potential phase, this condition is violated.
+
+**Overall Interpretation and Constraint Dynamics:**
+The formula is satisfied if either `i` is never true throughout the entire execution, OR if `i` does eventually become true, there must be some point in the execution from which `f` holds continuously until `i` becomes true.
+
+*   If `i` is always false, the first condition (`G (!i)`) is satisfied, and the entire formula holds. The constraints of the second condition (`F (f U i)`) are not relevant.
+*   If `i` eventually becomes true (thus violating `G (!i)`), then the second condition (`F (f U i)`) *must* hold for the entire formula to be satisfied. In this scenario, the system is constrained to eventually reach a state where `f` holds continuously until `i` becomes true. Once `i` becomes true within such a phase, the `Until` part is satisfied, and the `F` part is also satisfied from its starting point.
+*   The formula is violated only if `i` eventually becomes true (meaning `G (!i)` is false) AND there is no point in the execution from which `f` holds continuously until `i` becomes true (meaning `F (f U i)` is false). This implies that `i` becomes true, but always without `f` consistently holding immediately before it from any relevant starting point.

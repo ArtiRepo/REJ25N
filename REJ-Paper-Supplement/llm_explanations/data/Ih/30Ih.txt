@@ -1,0 +1,22 @@
+**Original LTL formula**
+`X a & !G b`
+
+**Rebuild meaning from the bottom of the tree up**
+
+1.  **`X a`**: This part of the formula requires that `a` must be true in the very next state. This imposes a constraint *only* on the state immediately following the current one. If `a` is true in that next state, this part is satisfied. If `a` is false in the next state, this part is violated. Once the next state is evaluated, this specific constraint from `X a` is resolved.
+
+2.  **`!G b`**: This part of the formula requires that `b` must *not* be true in *every* state of the execution. In other words, there must be at least one state (either the current state or any future state) where `b` is false. This imposes an ongoing constraint on the *entire future path*. If `b` is false in the current state, this part is immediately satisfied. If `b` is true in the current state, the constraint persists, requiring `b` to eventually become false. This part is violated if `b` remains true in all states from the current state onwards. Once a state where `b` is false is encountered, this condition is satisfied and no longer imposes further constraints.
+
+3.  **`X a & !G b`**: For the entire formula to be satisfied, *both* `X a` and `!G b` must be true. This means:
+    *   `a` must be true in the very next state, AND
+    *   There must be at least one state (current or future) where `b` is false.
+
+**Refine the natural language phrasing for clarity.**
+
+The formula `X a & !G b` means that two independent conditions must hold simultaneously from the current state:
+
+1.  **Immediate Constraint:** The proposition `a` must be true in the very next state. This constraint applies *only* to the state immediately following the current one. If `a` is true in that next state, this part of the formula is satisfied. If `a` is false, this part is violated. Once the next state is reached, this specific constraint is resolved and no longer applies to subsequent states.
+
+2.  **Ongoing Constraint:** There must exist at least one state, at any point in the current or future execution, where the proposition `b` is false. This imposes an ongoing constraint on the *entire future path*, meaning `b` cannot be continuously true forever. If `b` is false in the current state, this condition is immediately satisfied. If `b` is true in the current state, the system is constrained to eventually reach a state where `b` is false. This condition is violated if `b` remains true in *every* state from the current state onwards. Once a state where `b` is false is encountered, this condition is satisfied and no longer imposes further constraints.
+
+The entire formula `X a & !G b` is satisfied only if *both* these conditions are met. It is violated if *either* `a` is false in the next state *or* `b` is true in every state from the current state onwards.

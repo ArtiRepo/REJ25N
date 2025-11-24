@@ -1,0 +1,23 @@
+Original LTL formula:
+`(c U a) & (b U a)`
+
+Rebuild meaning from the bottom of the tree up:
+
+1.  **`(c U a)`**: This part of the formula states that `a` must eventually become true. Until that specific moment, `c` must remain true in every state. Once `a` becomes true, `c` is no longer constrained by this part of the formula.
+    *   *Constraint:* From the current state, `c` must be true, and this constraint continues in subsequent states until `a` is observed. The ultimate constraint is that `a` must eventually occur.
+    *   *Satisfaction:* The formula is satisfied at the point `a` becomes true, provided `c` has been continuously true in all preceding states from the evaluation point.
+    *   *Violation:* If `a` never becomes true, or if `c` becomes false at any point before `a` becomes true, this part of the formula is violated.
+
+2.  **`(b U a)`**: Similarly, this part states that `a` must eventually become true. Until that specific moment, `b` must remain true in every state. Once `a` becomes true, `b` is no longer constrained by this part of the formula.
+    *   *Constraint:* From the current state, `b` must be true, and this constraint continues in subsequent states until `a` is observed. The ultimate constraint is that `a` must eventually occur.
+    *   *Satisfaction:* The formula is satisfied at the point `a` becomes true, provided `b` has been continuously true in all preceding states from the evaluation point.
+    *   *Violation:* If `a` never becomes true, or if `b` becomes false at any point before `a` becomes true, this part of the formula is violated.
+
+3.  **`(c U a) & (b U a)`**: The `&` (AND) operator means that *both* conditions must hold simultaneously. This implies that there must be a single future state where `a` becomes true that satisfies both `Until` conditions.
+    *   *Constraint:* From the current state, the system is constrained to ensure that `a` will eventually become true. Until that specific state where `a` becomes true, *both* `c` and `b` must be true in every state.
+    *   *Satisfaction:* The formula is satisfied when `a` becomes true, provided that in all states leading up to and including the state where `a` becomes true, both `c` and `b` have been continuously true. Once `a` is true, the constraints on `c` and `b` from this formula cease.
+    *   *Violation:* The formula is violated if `a` never becomes true. It is also violated if, at any point before `a` becomes true, either `c` is false or `b` is false (or both).
+
+Refine the natural language phrasing for clarity:
+
+"There must exist at least one future state where `a` is true. Until that specific state is reached, both `c` and `b` must be true in every state. This formula imposes an ongoing constraint from the current state: `c` and `b` must hold true in the current state and all subsequent states until `a` becomes true. Once `a` becomes true, the formula is satisfied, and `c` and `b` are no longer constrained by this formula. If `a` never becomes true, or if either `c` or `b` (or both) become false at any point before `a` becomes true, the formula is violated."

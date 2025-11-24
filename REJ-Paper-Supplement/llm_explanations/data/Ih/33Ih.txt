@@ -1,0 +1,20 @@
+**Original LTL formula:**
+`(b U c) & (d U !b)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`(b U c)`:** This subformula means that `c` must eventually become true. Until that specific moment, `b` must remain true in every state. Once `c` becomes true, `b` is no longer constrained by this part of the formula.
+
+2.  **`(d U !b)`:** This subformula means that `!b` (i.e., `b` is false) must eventually become true. Until that specific moment, `d` must remain true in every state. Once `!b` becomes true, `d` is no longer constrained by this part of the formula.
+
+3.  **`(b U c) & (d U !b)`:** The entire formula requires that *both* of the above conditions must hold simultaneously from the current state.
+
+**Refine the natural language phrasing for clarity:**
+
+From the current state, the system must satisfy two concurrent conditions:
+
+1.  **First Condition (`b U c`):** There must exist at least one future state where `c` is true. Until that specific state is reached, `b` must be continuously true in every state. This condition imposes a constraint on `b` to remain true and on `c` to eventually become true. Once `c` becomes true, this part of the formula is satisfied, and `b` is no longer constrained by it. If `b` becomes false before `c` becomes true, or if `c` never becomes true, this condition is violated.
+
+2.  **Second Condition (`d U !b`):** There must exist at least one future state where `b` is false. Until that specific state is reached, `d` must be continuously true in every state. This condition imposes a constraint on `d` to remain true and on `b` to eventually become false. Once `b` becomes false, this part of the formula is satisfied, and `d` is no longer constrained by it. If `d` becomes false before `b` becomes false, or if `b` never becomes false, this condition is violated.
+
+The overall formula is satisfied only if both of these conditions are met. The constraints on `b` (from the first condition) and `d` (from the second condition) apply from the current state until their respective "until" conditions (`c` for the first, `!b` for the second) are met. These two "until" moments can occur at different times. If either of the two conditions is violated at any point, the entire formula is violated.

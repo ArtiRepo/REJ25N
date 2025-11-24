@@ -1,0 +1,19 @@
+**Original LTL formula**
+F !b
+
+**Rebuild meaning from the bottom of the tree up**
+1.  `!b`: This means that the proposition `b` must be false.
+2.  `F(!b)`: Applying the `F` (Finally) operator to `!b` means that there must exist at least one future state (including the current state) where `!b` is true.
+    Combining these, `F !b` means "There must exist at least one future state where `b` is false."
+
+**Refine the natural language phrasing for clarity.**
+The formula `F !b` means that `b` must eventually become false at some point in the execution.
+
+*   **Constraint Imposition:**
+    *   At the moment the formula is checked, it imposes a constraint that `b` *must* be false in at least one state along the current execution path, starting from the current state.
+    *   If `b` is already false in the current state, the formula is immediately satisfied, and no further constraints are imposed by this specific formula.
+    *   If `b` is true in the current state, the constraint persists: the system must eventually reach a state where `b` is false.
+*   **Satisfaction and Violation:**
+    *   **Satisfied:** The formula is satisfied if, at any point in the execution (including the current state), `b` is observed to be false. Once `b` becomes false, the formula is satisfied for the entire path leading up to and including that state, and the constraint no longer applies. For example, a sequence like `b=T, b=T, b=F, b=T, ...` satisfies the formula in the third state.
+    *   **Violated:** The formula is violated if `b` remains true in *all* states of the execution. For example, a sequence like `b=T, b=T, b=T, ...` (where `b` is always true) violates the formula.
+*   **Key Understanding:** The constraint is about an *eventual* occurrence. `b` only needs to be false *once* to satisfy the formula; it does not need to be false immediately, nor does it need to remain false thereafter. The constraint ceases to apply the moment `b` is observed to be false.

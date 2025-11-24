@@ -1,0 +1,19 @@
+- Original LTL formula: `!X t`
+
+- Rebuild meaning from the bottom of the tree up:
+  * `X t`: This subformula means that `t` must be true in the very next state.
+  * `! (X t)`: This is the negation of the previous statement. It means that it is *not* the case that `t` must be true in the very next state. Therefore, `t` must be false in the very next state.
+
+- Refine the natural language phrasing for clarity:
+  "The proposition `t` must be false in the very next state."
+
+  **Explanation of Constraints:**
+  This formula imposes a constraint *only* on the immediate successor state to the one where the formula is evaluated.
+
+  *   **When the formula is checked:** `!X t` is evaluated at the current state.
+  *   **Constraint imposed:** It requires that `t` is false in the state that immediately follows the current state.
+  *   **Immediate satisfaction:** The formula is satisfied if, upon transitioning from the current state, `t` is observed to be false in the very next state.
+  *   **Ongoing constraints:** This formula does *not* impose any ongoing constraints over time beyond the very next state. Once the next state is reached and `t`'s truth value is determined, the constraint imposed by this specific instance of `!X t` is resolved.
+  *   **Satisfying sequence:** A sequence like `s0 -> s1(t=F) -> s2(...)` satisfies `!X t` at `s0` because `t` is false in `s1`.
+  *   **Violating sequence:** A sequence like `s0 -> s1(t=T) -> s2(...)` violates `!X t` at `s0` because `t` is true in `s1`.
+  *   **Potential misunderstanding:** It's crucial to understand that `!X t` only looks one step ahead. It does not care about `t`'s value in the current state, nor does it care about `t`'s value in any state two or more steps into the future. The constraint applies and ceases after the very next state is observed.

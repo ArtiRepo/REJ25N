@@ -1,0 +1,16 @@
+**Original LTL formula**
+`(c & b) U a`
+
+**Rebuild meaning from the bottom of the tree up**
+*   `c & b`: This represents a compound condition where both `c` and `b` must be true simultaneously in a given state.
+*   `a`: This is a simple propositional variable, meaning `a` must be true in a given state.
+*   `(c & b) U a`: This is an Until operator. It means that the condition `a` must eventually become true. Until that specific state where `a` first becomes true, the condition `(c & b)` must hold in every state.
+
+**Refine the natural language phrasing for clarity.**
+The formula `(c & b) U a` means that `a` must eventually become true at some point in the current or a future state. Until the very first state where `a` is true, the condition `(c & b)` must hold in every state. This implies that `c` must be true AND `b` must be true in all states from the current state up to and including the state where `a` first becomes true.
+
+**Constraints and Satisfaction:**
+*   **Immediate Constraint:** In the current state, if `a` is not true, then `c` and `b` must both be true. If `a` is true, the formula is satisfied *if* `c` and `b` were true in all preceding states (if any) and are true in the current state.
+*   **Ongoing Constraint:** As long as `a` has not yet become true, the system is continuously constrained to ensure that `c` and `b` are both true in every subsequent state.
+*   **Cessation of Constraint:** Once `a` becomes true (and `c & b` held in that state and all preceding states until then), the formula is satisfied. From that point onward, there are no further constraints on `c` or `b` imposed by this formula.
+*   **Violation:** The formula is violated if `a` never becomes true, or if at any point *before* `a` becomes true (or in the state where `a` first becomes true), either `c` is false or `b` is false (or both).

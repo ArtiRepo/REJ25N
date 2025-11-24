@@ -1,0 +1,21 @@
+Original LTL formula:
+`Fa -> Gb`
+
+Rebuild meaning from the bottom of the tree up:
+
+1.  **`Fa`**: This subformula means "There must exist at least one future state (including the current one) where `a` is true." This part of the formula is satisfied if `a` eventually occurs; otherwise, it is false. It imposes a constraint that `a` must eventually happen for this part to be true.
+2.  **`Gb`**: This subformula means "b must be true in every state of the execution." This imposes a global constraint on `b`. If `b` is ever false at any point, `Gb` is false.
+3.  **`Fa -> Gb`**: This is an implication. It means "If `Fa` is true, then `Gb` must be true."
+    *   **Scenario 1: `Fa` is false.** If `a` never becomes true throughout the entire execution, then the premise `Fa` is false. In this case, the implication `Fa -> Gb` is satisfied, and there is no constraint on `b`. `b` can be true or false without violating the formula.
+    *   **Scenario 2: `Fa` is true.** If `a` *does* eventually become true at some point in the execution, then the premise `Fa` is true. For the overall formula to hold, the conclusion `Gb` *must also be true*. This means that if `a` ever becomes true, then `b` must have been true in *every single state* of the entire execution, from the very beginning to the end. If `a` eventually becomes true, but `b` was false at *any* point, then `Gb` is false, and the entire implication `Fa -> Gb` is violated.
+
+Refine the natural language phrasing for clarity:
+
+This formula states that if `a` ever becomes true at any point in the execution (including the current state), then `b` must be true in *every single state* of the entire execution.
+
+*   **Constraints and Satisfaction:**
+    *   **If `a` never becomes true:** The formula is satisfied, and `b` is unconstrained. `b` can be true or false at any time without violating the formula.
+    *   **If `a` eventually becomes true:** This triggers a strong constraint: `b` *must* be true in *all* states of the execution, from the very beginning to the end. If `a` eventually occurs, and `b` was ever false at any point (before, during, or after `a` became true), the formula is violated.
+    *   The constraint on `b` to be always true is conditional; it only applies if `a` eventually occurs.
+
+*   **Violation:** The formula is violated if and only if `a` eventually becomes true, but `b` is false in at least one state of the execution.

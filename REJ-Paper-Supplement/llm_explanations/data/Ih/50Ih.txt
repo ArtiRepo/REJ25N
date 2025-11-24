@@ -1,0 +1,28 @@
+**Original LTL formula:**
+F (o U u)
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`o U u` (o Until u):**
+    *   This subformula states that `u` must eventually become true.
+    *   Crucially, until the exact moment `u` becomes true, `o` must remain true in every state.
+    *   Once `u` becomes true, the `o U u` condition is satisfied, and `o` no longer needs to hold for this specific instance of the 'until' condition.
+    *   **Constraints:** This imposes an immediate constraint on `o` (it must be true in the current state if `u` is not true) and an ongoing constraint on `o` in subsequent states until `u` becomes true. It also imposes a future constraint that `u` must eventually be true.
+    *   **Satisfaction:** `o U u` is satisfied if `u` is true in the current state, or if `o` is true in the current state and `o U u` is true in the next state.
+    *   **Violation:** `o U u` is violated if `u` never becomes true, or if `o` becomes false at any point *before* `u` becomes true.
+
+2.  **`F (o U u)` (Eventually (o Until u)):**
+    *   This formula states that there must exist at least one state in the execution (which could be the current state or any future state) where the condition `(o U u)` becomes true.
+    *   **Constraints:** The `F` operator itself does *not* impose any immediate constraints on `o` or `u` in the current state. It only guarantees a future event. The constraint is that *eventually*, a state `s_k` will be reached. From this state `s_k`, the `U` operator's constraints apply: `o` must be true in `s_k` and all subsequent states *until* `u` becomes true. `u` must eventually become true at or after `s_k`.
+    *   **Satisfaction:** The entire formula `F (o U u)` is satisfied if `(o U u)` is true in the current state, or if `(o U u)` is true in any future state. Once a state `s_k` is reached where `(o U u)` holds, the `F (o U u)` formula is satisfied for the entire execution starting from the initial state, and no further constraints are imposed by this specific formula.
+    *   **Violation:** The formula is violated if `(o U u)` *never* becomes true in any state of the execution. This means that for every possible starting point, either `u` never becomes true, or `o` becomes false *before* `u` becomes true.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `F (o U u)` means that **there must exist at least one state in the execution (which could be the current state or any future state) where the following condition holds: `u` must eventually become true, and until that specific moment, `o` must remain true in every state.**
+
+*   **Constraint Application:** This formula does not impose any immediate constraints on `o` or `u` in the current state. It only guarantees that *at some point in the future*, a specific sequence of events will begin.
+*   **Evolving Truth Value:** The formula `F (o U u)` is true if `(o U u)` is true now, or if `F (o U u)` is true in the next state. It remains false as long as `(o U u)` has not yet occurred and there's still a possibility it might occur later.
+*   **Satisfaction and Cessation of Constraints:** Once a state `s_k` is reached where `(o U u)` becomes true (meaning `u` eventually occurs from `s_k`, and `o` holds until then), the entire `F (o U u)` formula is satisfied for the entire execution. At this point, no further constraints are imposed by this formula.
+*   **Violation:** The formula is violated if, throughout the entire execution, there is never a state where `u` eventually becomes true with `o` holding continuously until that point. This means either `u` never occurs, or `o` always fails before `u` can occur, regardless of the starting point.
+*   **Potential Misunderstanding:** It's important to note that `o` does not need to be true from the very beginning of the execution. It only needs to be true from the specific state where the `(o U u)` condition *starts* to hold, until `u` becomes true.

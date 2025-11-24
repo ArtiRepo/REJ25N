@@ -1,0 +1,20 @@
+**Original LTL formula:** `G(a -> Fb)`
+
+**Rebuild meaning from the bottom of the tree up:**
+
+1.  **`b`**: Represents a proposition that is true or false in the current state.
+2.  **`Fb`**: "There must exist at least one future state (including the current one) where `b` is true." This subformula is satisfied if `b` is true now or becomes true at any point in the future. Once `b` becomes true, this specific `Fb` requirement is met from that point onwards.
+3.  **`a -> Fb`**: This is an implication: "If `a` is true in the current state, then `Fb` must also be true in the current state."
+    *   If `a` is true: The system is constrained to ensure that `b` will eventually become true. This constraint applies from the moment `a` is true and persists until `b` occurs.
+    *   If `a` is false: The implication `a -> Fb` is true, regardless of `Fb`. Therefore, if `a` is false, this part of the formula imposes no constraint on `b` or the future from that specific state.
+4.  **`G(a -> Fb)`**: "The condition `a -> Fb` must be true in every state of the execution." This means the implication is evaluated at every single state.
+
+**Refine the natural language phrasing for clarity:**
+
+This formula states that **globally, whenever `a` is true, `b` must eventually become true.**
+
+*   **Constraint Imposition:** In *every* state of the execution, the system is checked. If `a` is true in the current state, then an immediate constraint is imposed: `b` must become true at some point in this state or any future state. This constraint applies from the moment `a` is observed and remains active until `b` actually occurs.
+*   **No Constraint:** If `a` is false in a given state, the formula imposes no constraint on `b` or the future from that specific state. The implication `a -> Fb` is considered true in such a state, and no further action is required regarding `b` at that moment.
+*   **Satisfaction:** The formula is satisfied if, for every state where `a` is true, `b` eventually becomes true at some point from that state onwards. For example, a sequence like `(a, b), (c), (a, d, b)` (where `a` and `b` are true in the first state, `c` is true in the second, and `a`, `d`, `b` are true in the third) would satisfy this. Another example is `(c), (d)` if `a` never becomes true.
+*   **Violation:** The formula is violated if there exists at least one state where `a` is true, but `b` never becomes true in any future state from that point onwards. For example, a sequence like `(a), (c), (d), ...` (where `b` is always false after `a` becomes true) would violate this.
+*   **Evolving Constraints:** The constraint to eventually see `b` is not a one-time event. It is re-imposed *every time* `a` becomes true. If `a` becomes true, `b` must eventually follow. If `a` becomes true again later, `b` must eventually follow *again* from that later point. The constraint from a previous `a` is satisfied once `b` occurs, but a new `a` creates a new, independent constraint.

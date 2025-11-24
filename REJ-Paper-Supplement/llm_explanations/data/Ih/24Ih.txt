@@ -1,0 +1,16 @@
+**Original LTL formula**
+`t => (x & y)`
+
+**Rebuild meaning from the bottom of the tree up**
+*   `t`: `t` must be true in the current state.
+*   `x`: `x` must be true in the current state.
+*   `y`: `y` must be true in the current state.
+*   `(x & y)`: Both `x` and `y` must be true in the current state.
+*   `t => (x & y)`: If `t` is true in the current state, then `x` and `y` must both be true in the current state.
+
+**Refine the natural language phrasing for clarity.**
+This formula states that if `t` is true in the current state, then `x` and `y` must both also be true in that same current state.
+
+The formula imposes a constraint *only* when `t` is true in the current state. In such a case, it immediately requires `x` and `y` to be true in the current state. If `t` is false in the current state, the formula is satisfied without imposing any constraint on `x` or `y`.
+
+This constraint is entirely local to the current state; it does not carry over to future states. The formula is satisfied if `t` is false, or if `t` is true and both `x` and `y` are true. It is violated if `t` is true, but either `x` or `y` (or both) are false in the current state.

@@ -1,0 +1,15 @@
+**Original LTL formula:** `b U !d`
+
+**Rebuild meaning from the bottom of the tree up:**
+*   `!d`: This means that proposition `d` must be false in the current state.
+*   `b U !d`: This formula states that `!d` must eventually become true. Until the very first state where `!d` is true, `b` must be true in every state. Once `!d` becomes true, the `Until` condition is satisfied, and `b` is no longer constrained by this formula.
+
+**Refine the natural language phrasing for clarity.**
+This formula imposes a constraint that begins in the current state and continues over time. It requires two conditions to be met:
+
+1.  **Eventual Occurrence:** The proposition `d` must eventually become false at some point in the future (or be false in the current state).
+2.  **Holding Until:** Until the very first state where `d` is false, the proposition `b` must be true in every state.
+
+The formula is satisfied at the moment `d` becomes false, provided `b` has been true in all preceding states (including the current state if `d` is false now, or up to and including the state where `d` first becomes false). Once `d` becomes false, the formula is satisfied, and `b` is no longer constrained by this `Until` condition in subsequent states.
+
+The formula is violated if `d` never becomes false, or if `b` becomes false at any point *before* `d` becomes false. A common misunderstanding is that `b` must continue to hold *after* `d` becomes false; this is incorrect, as `b`'s constraint ends the moment `d` is first observed to be false.

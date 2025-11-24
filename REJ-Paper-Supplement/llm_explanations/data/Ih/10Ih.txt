@@ -1,0 +1,17 @@
+**Original LTL formula:**
+`(d | !b) U !a`
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `!a`: "a must be false in the current state."
+2.  `!b`: "b must be false in the current state."
+3.  `d`: "d must be true in the current state."
+4.  `(d | !b)`: This subformula means "d must be true OR b must be false in the current state." Let's refer to this condition as `P`.
+5.  `P U !a`: This is an Until operator. It means that `!a` must eventually become true. Until that specific moment, `P` (i.e., `(d | !b)`) must remain true in every state. Once `!a` becomes true, `P` no longer needs to hold.
+
+**Refine the natural language phrasing for clarity:**
+The formula `(d | !b) U !a` imposes a constraint that `a` must eventually become false. Until `a` becomes false, and including the state where `a` first becomes false, the condition `(d | !b)` must hold in every state. This means that in each of these states, either `d` must be true, or `b` must be false (or both).
+
+*   **Satisfaction:** The formula is satisfied if there is a future state (or the current state) where `a` is false, AND in all states from the current state up to and including that state, `(d | !b)` is true. Once `a` becomes false and `(d | !b)` holds in that state, the formula is satisfied for the entire execution, and no further constraints are imposed by this formula.
+*   **Violation:** The formula is violated if `a` never becomes false, or if `(d | !b)` becomes false in any state *before or at* the point where `a` is supposed to become false.
+*   **Constraints over time:** The formula imposes an ongoing constraint: as long as `a` is true, `(d | !b)` must also be true in the current state. If `a` is true but `(d | !b)` is false, the formula is violated immediately. This ongoing constraint persists until `a` becomes false.
+*   **Cessation of constraints:** The ongoing constraint on `(d | !b)` ceases the moment `a` becomes false, provided `(d | !b)` was true in that state. From that point onward, the formula is satisfied, and `d`, `b`, and `a` can take any values without violating this specific formula.

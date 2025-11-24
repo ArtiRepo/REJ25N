@@ -1,0 +1,15 @@
+- Original LTL formula: `X (y => x & w)`
+
+- Rebuild meaning from the bottom of the tree up:
+    *   The expression `x & w` means that `x` must be true and `w` must be true in the current state. This imposes a constraint that both propositions must hold simultaneously.
+    *   The expression `y => x & w` means that if `y` is true in the current state, then `x` and `w` must both be true in the current state. This imposes a conditional constraint: if `y` is false, there is no constraint on `x` or `w`; if `y` is true, then `x` and `w` are constrained to be true.
+    *   The full formula `X (y => x & w)` means that the condition `(y => x & w)` must be true in the very next state.
+
+- Refine the natural language phrasing for clarity:
+    This formula imposes a constraint *only* on the very next state of the system. It requires that in the next state, the following condition must hold: if `y` is true, then both `x` and `w` must also be true.
+
+    *   **When the formula imposes constraints:** The formula imposes an immediate constraint on the *next* state. It dictates that the implication `(y => x & w)` must evaluate to true in that specific future state.
+    *   **When the formula does not impose constraints:** Once the next state is reached, this specific `X` operator has been evaluated (either satisfied or violated), and it no longer imposes any further constraints on subsequent states beyond that immediate successor.
+    *   **Satisfying sequences:** The formula is satisfied if, in the very next state, either `y` is false, or `y` is true and both `x` and `w` are true.
+    *   **Violating sequences:** The formula is violated if, in the very next state, `y` is true, but `x` is false or `w` is false (or both).
+    *   **Potential misunderstandings:** The constraint applies *only* to the immediate successor state. It does not say anything about the current state, nor about any states beyond the next one.

@@ -1,0 +1,16 @@
+Original LTL formula:
+F (o | u)
+
+Rebuild meaning from the bottom of the tree up:
+1.  **`o | u`**: This subformula means that in the current state, `o` is true OR `u` is true.
+2.  **`F (o | u)`**: This formula means that there must exist at least one state, at the current moment or any point in the future, where the condition `(o | u)` holds true.
+
+Refine the natural language phrasing for clarity:
+The formula `F (o | u)` means that **eventually, either `o` must be true or `u` must be true (or both)**.
+
+This formula imposes an **eventual constraint** on the system. It is evaluated at the current state.
+
+*   **When the formula imposes constraints:** The formula imposes an ongoing constraint from the current state, requiring that `(o | u)` *will eventually* become true. If `(o | u)` is true in the current state, the formula is immediately satisfied. If `(o | u)` is false in the current state, the formula remains 'pending' and continues to impose the constraint that `(o | u)` must become true at some future state.
+*   **When the constraints no longer apply:** Once a state is reached where `o` is true or `u` is true (or both), the formula is satisfied for the entire execution path starting from the initial state. After this specific moment, the constraint imposed by `F (o | u)` is fulfilled, and the future truth values of `o` and `u` are unconstrained by this particular formula.
+*   **Satisfying sequences:** A sequence satisfies this formula if there is at least one state (including the current one) where `o` is true, or `u` is true, or both are true. For example, `(o=F, u=F), (o=F, u=F), (o=T, u=F), ...` or `(o=F, u=F), (o=F, u=T), ...` or `(o=T, u=T), ...` (where the first state is the current state).
+*   **Violating sequences:** A sequence violates this formula if `(o | u)` is *never* true in any state of the execution. This means that in *every* state of the execution, both `o` and `u` are false. For example, `(o=F, u=F), (o=F, u=F), (o=F, u=F), ...` indefinitely. The violation is only definitively known if the execution is infinite and `(o | u)` never occurs, or if the execution terminates and `(o | u)` never occurred.

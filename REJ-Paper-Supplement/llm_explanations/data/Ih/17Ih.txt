@@ -1,0 +1,21 @@
+**Original LTL formula:** `!G c`
+
+**Rebuild meaning from the bottom of the tree up:**
+1.  `c`: This proposition states that `c` must be true in the current state.
+2.  `G c`: This means that `c` must be true in every state of the execution, starting from the current state and continuing indefinitely into the future.
+3.  `! (G c)`: This is the negation of `G c`. Therefore, it means that it is *not* the case that `c` is true in every state.
+
+**Refine the natural language phrasing for clarity:**
+
+The formula `!G c` means that **there must be at least one state in the execution where `c` is false.**
+
+*   **Constraints:** This formula imposes a constraint on the entire sequence of states. It does not require `c` to be false immediately, but it requires that `c` is not *always* true throughout the execution.
+*   **Evaluation and Evolution:**
+    *   When checked at any given state, the formula is looking for a future (or current) state where `c` is false.
+    *   If `c` is false in the current state, the formula is immediately satisfied for the current path.
+    *   If `c` is true in the current state, the formula remains unfulfilled *at that moment* and continues to look for a future state where `c` is false.
+*   **Satisfaction:** The formula is satisfied if, at any point in the execution (including the current state), `c` is found to be false. Once such a state is encountered, the condition of `!G c` is met for the entire path.
+    *   *Example Satisfying Sequence:* `c=T, c=T, c=F, c=T, ...` (satisfied at the third state). `c=F, c=T, c=T, ...` (satisfied at the first state).
+*   **Violation:** The formula is violated if `c` is true in *every single state* of the execution. In this scenario, there is no state where `c` is false, thus failing to satisfy `!G c`.
+    *   *Example Violating Sequence:* `c=T, c=T, c=T, c=T, ...`
+*   **When constraints apply and cease:** The constraint applies to the entire execution path. The search for a state where `c` is false continues as long as `c` remains true. Once a state where `c` is false is encountered, the condition for `!G c` is met, and no further constraints are imposed by *this specific formula* regarding `c`'s truth value for the remainder of the path. However, the overall truth value of `!G c` for the path is determined by whether such a state exists anywhere on the path.
