@@ -1,0 +1,25 @@
+**Original LTL formula:** F a  
+
+**Rebuilding meaning bottom-up:**  
+1. **a**: The proposition `a` must hold (be true) in the current state if evaluated immediately as a standalone formula.  
+2. **F a**: The operator `F` (eventually) requires that `a` holds in *at least one future state* (including the current state). The truth of `a` in any single state satisfies the formula.  
+
+**Refined natural language phrasing:**  
+"Eventually, `a` must be true at least once, now or in the future."  
+
+### Key Explanations:  
+- **When constraints apply:**  
+  - If `a` is immediately true, **no further constraints** are imposed by this formula for the entire execution (the formula is permanently satisfied).  
+  - If `a` is false now, the system **must eventually satisfy `a`** in some future state. Until that occurs, the constraint remains active and binding.  
+- **When constraints cease:** All constraints lift permanently as soon as `a` becomes true in any state.  
+
+**Satisfying executions:**  
+- `[a=true, ...]` (satisfied immediately).  
+- `[a=false, a=false, a=true, ...]` (satisfied at third state).  
+- `[a=false, a=true, a=false, ...]` (satisfied at second state; `a` may change later).  
+
+**Violating executions:**  
+- `[a=false, a=false, a=false, ...]` (all states false; formula never satisfied).  
+
+**Potential misunderstanding:**  
+- The formula **does not require `a` to persist** after its first occurrence—one `true` value suffices. Constraints end upon its satisfaction.

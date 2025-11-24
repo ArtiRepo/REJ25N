@@ -1,0 +1,43 @@
+**Original LTL formula:**  
+`G t | F w`  
+*(Interpreted as `(G t) ∨ (F w)` due to operator precedence)*  
+
+### Step-by-Step Translation:  
+1. **Atomic proposition `t`**:  
+   "`t` holds in the current state. No constraints on future states unless combined with temporal operators."  
+
+2. **`G t` (Globally)**:  
+   "`t` must hold in **every state** of the execution, including the current state. This imposes a perpetual constraint: if `t` fails in any state (past, present, or future), the formula is violated."  
+
+3. **Atomic proposition `w`**:  
+   "`w` holds in the current state. No future constraints unless combined with operators."  
+
+4. **`F w` (Finally)**:  
+   "`w` must hold in **at least one future state** (which could be the current state). The constraint persists until `w` becomes true; once satisfied, no further constraints on `w` apply."  
+
+5. **`G t ∨ F w` (Disjunction)**:  
+   "The formula holds if **either**:  
+   - **Condition 1**: `t` is true in *every* state of the execution (perpetual constraint, fails if `t` is ever false),  
+   - **Condition 2**: `w` is true in *at least one* state (constraint lifted once `w` occurs),  
+   - **Or both** conditions hold simultaneously."  
+
+### Final Natural Language Translation:  
+"Either `t` holds continuously in every state of the execution, or `w` becomes true at least once during the execution (or both)."  
+
+### Key Clarifications:  
+- **Satisfied when**:  
+  - All states have `t` true (even if `w` is always false), **OR**  
+  - `w` occurs at least once (even if `t` is sometimes false), **OR**  
+  - Both conditions hold.  
+- **Violated when**:  
+  - `t` is false in at least one state **AND** `w` is never true.  
+- **Constraints over time**:  
+  - `G t` constrains **every state indefinitely** (ongoing).  
+  - `F w` constrains the system **until `w` occurs** (ceases once `w` is true).  
+- **Evaluation**:  
+  - Checked at the initial state but constrains the entire execution.  
+  - If `F w` holds early (e.g., `w` is true immediately), no further constraints from `F w` apply.  
+  - If `G t` holds, `t` must remain true forever regardless of `w`.  
+
+---  
+**Concisely**: "`t` must always be true, or `w` must eventually occur (or both)."

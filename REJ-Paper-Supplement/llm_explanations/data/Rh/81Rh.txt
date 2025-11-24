@@ -1,0 +1,35 @@
+**Original LTL formula**:  
+`F (d => !h)`  
+
+**Natural Language Translation**:  
+"**At some point (current or future), there must be a state where if `d` is true, then `h` is false.**"  
+
+### Detailed Breakdown:  
+1. **Inner formula (`d => !h`)**  
+   - Meaning: "In a specific state, if `d` is true, then `h` must **not** be true."  
+   - Equivalently: "`d` and `h` cannot **both be true** in the same state."  
+   - This is a state-based constraint with **no temporal requirements**; it only applies to the properties of a single state.  
+
+2. **Outer operator (`F`)**  
+   - Meaning: "There must exist **at least one state** (immediately or later) where the inner formula (`d => !h`) holds."  
+   - This requires that **eventually**, in any state, the condition "if `d` then not `h`" is satisfied.  
+
+### Key Constraints:  
+- **Satisfaction condition**: The formula is satisfied if **any single state** in the execution (current or future) meets either:  
+  - `d` is **false** (regardless of `h`),  
+  - `h` is **false** (regardless of `d`),  
+  - Or **both are false**.  
+- **Violation condition**: The formula is **only violated** if `d` and `h` are **always both true in every state** of the execution. If this occurs, `d => !h` never holds.  
+- **Immediate vs. ongoing constraints**:  
+  - If satisfied **immediately** (current state meets `d => !h`), the formula imposes **no future constraints**.  
+  - If **not immediately satisfied**, the system must **eventually** reach a state where `d` and `h` are not both true.  
+- **Scope of obligations**:  
+  - **Before** the satisfying state: Both `d` and `h` may be true arbitrarily often.  
+  - **After** the satisfying state: `d` and `h` are **unconstrained** (they can be both true, both false, or mixed arbitrarily).  
+
+### Example Scenarios:  
+- ✅ **Satisfied**: A state where `d` is true and `h` is false (at any point).  
+- ✅ **Satisfied**: A state where `d` is false (even if `h` is true).  
+- ❌ **Violated**: All states have `d` true **and** `h` true.  
+
+**Clarification**: The formula **does not require** `d` or `h` to hold persistently. It only demands **one state** where they are not both true.  

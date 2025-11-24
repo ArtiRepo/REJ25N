@@ -1,0 +1,38 @@
+### Translation for LTL Formula: G(a → b)
+
+**Original Formula:**  
+G(a → b)
+
+**Step-by-Step Reasoning:**  
+
+1. **Base Form (a → b):**  
+   - At any given moment, if `a` is true in the current state, then `b` must also be true in that **same state**.  
+   - If `a` is false, there are **no constraints** on `b` in that state (the formula holds regardless of `b`).  
+
+2. **Globally Operator (G):**  
+   - Applies the constraint from (a → b) to **every state** in the execution (current and all future states).  
+   - There is **no point** at which this constraint ceases; it persists indefinitely.  
+
+**Refined Translation:**  
+"Whenever `a` is true in any state, `b` must also be true in that same state. This must hold across every state of the execution."  
+
+**Key Clarifications:**  
+- **Constraint Trigger:** Only when `a` is true → forces `b` to be true in **that exact state**.  
+- **Constraint Avoidance:** If `a` is false in a state → no requirement for `b` (any value of `b` is acceptable).  
+- **Violation Condition:** If **any state** has `a` true and `b` false, the entire formula fails.  
+- **Satisfaction Condition:** All states where `a` is true must have `b` true. States where `a` is false impose no constraints.  
+- **Time Evolution:**  
+  - **Initially:** If `a` is true at the start, `b` must be true immediately.  
+  - **Ongoing:** The constraint persists forever. Even after violations in later states, earlier compliant states do not "fix" the failure.  
+
+**Example Sequences:**  
+- ✓ Satisfied: `(a, b) = (F,F) → (T,T) → (F,T) → ...` (*reason: when a=T, b=T always*).  
+- ✗ Violated: `(T,F) → ...` (*fails immediately*), `(F,F) → (T,F) → ...` (*fails in the second state*).  
+
+**Misunderstanding Prevention:**  
+- Not "`a` implies `b` eventually" → `b` must hold **instantaneously** when `a` is true.  
+- Not "`b` eventually if `a`" → each `a`-true state independently requires `b` in that state.  
+- Constraints never "expire" → apply perpetually to every state.  
+
+---  
+End of translation.

@@ -1,0 +1,31 @@
+**Original LTL formula**:  
+X (!i) | X (j)  
+
+**Step-by-step reasoning**:  
+1. **Base components**:  
+   - `!i`: "i must be **false** in the current state."  
+   - `j`: "j must be **true** in the current state."  
+2. **Next operators (`X`)** applied:  
+   - `X(!i)`: "In the **immediate next state**, i must be **false**."  
+   - `X(j)`: "In the **immediate next state**, j must be **true**."  
+3. **Disjunction (`|`)** combines them:  
+   - The formula requires **at least one** of the two subformulas to hold:  
+     - *Either* `X(!i)` holds (next state has **i false**, **j unconstrained**)  
+     - *Or* `X(j)` holds (next state has **j true**, **i unconstrained**)  
+     - *Or both* (next state has **i false and j true**).  
+
+**Natural Language Translation**:  
+> "**In the immediate next state, either i must be false or j must be true.**"  
+
+**Key Clarifications**:  
+- **Current state**: No constraints on `i` or `j` (formula depends solely on the next state).  
+- **Next state**: Must satisfy **at least one** condition:  
+  - `i` is false (regardless of `j`), **OR**  
+  - `j` is true (regardless of `i`).  
+- **Violation condition**:  
+  The formula is violated **only if** the next state has **`i` true AND `j` false**.  
+- **Future beyond the next state**: No constraints (the formula ceases to apply).  
+
+**Examples**:  
+- Satisfies: `(i=false, j=true)` OR `(i=false, j=false)` OR `(i=true, j=true)` in the next state.  
+- Violates: `(i=true, j=false)` in the next state.

@@ -1,0 +1,40 @@
+**Original LTL formula:**  
+`t => w`
+
+**Rebuilding the meaning (bottom-up):**  
+1. **Atomic propositions (`t`, `w`):**  
+   - `t`: Must be true **at the current state** (no constraints on other states).  
+   - `w`: Must be true **at the current state** (no constraints on other states).  
+
+2. **Implication (`t => w`):**  
+   The formula is equivalent to `¬t ∨ w`.  
+   - Satisfied at the current state if **either**:  
+     - `t` is false, **or**  
+     - `w` is true.  
+   - Violated only if `t` is true and `w` is false at the current state.  
+
+**Natural Language Translation:**  
+*"At the initial state of the execution, if `t` is true then `w` must be true. There are no constraints on `t` or `w` in any future state."*  
+
+### Key Clarifications:  
+- **Constraint scope:**  
+  - **Only applies** to the **first state** (time `t₀`).  
+  - **No constraints** on `t` or `w` from the second state onward (`t₁`, `t₂`, ...).  
+- **Satisfaction vs. violation:**  
+  - **Satisfied** at `t₀` if:  
+    - `t` is false (ignoring `w`), **or**  
+    - `t` and `w` are both true.  
+  - **Violated** only if `t` is true and `w` is false at `t₀`.  
+- **Temporal evolution:**  
+  - The truth value of `t => w` is **fixed at `t₀`** (it does not depend on future states).  
+  - If satisfied at `t₀`, the formula **imposes no further constraints** on the system.  
+
+**Examples:**  
+- **Satisfying sequence:** `(t=true, w=true)`, `(t=false, w=false)`, ...  
+  *`w` is true when `t` is true at `t₀`; subsequent states are unconstrained.*  
+- **Violating sequence:** `(t=true, w=false)`, `(t=true, w=true)`, ...  
+  *Fails at `t₀` because `t` is true but `w` is false.*  
+
+**Common Misunderstandings:**  
+- The formula **does not require** `w` to hold in all future states when `t` is initially true.  
+- The formula **ceases to apply** after the initial state—later values of `t` or `w` cannot retroactively violate it.

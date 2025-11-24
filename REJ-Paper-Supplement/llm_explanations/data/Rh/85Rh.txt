@@ -1,0 +1,26 @@
+**Original LTL Formula:**  
+`a ⇒ r | t`  
+
+**Step-by-Step Reconstruction:**  
+1. **Bottom of the tree (innermost subformulas):**  
+   - `r | t` (disjunction): At the current state, `r` **or** `t` must be true (or both). If both are false, the disjunction is violated.  
+   - `a`: At the current state, `a` must be true for it to impose constraints. If `a` is false, it imposes no direct constraints.  
+
+2. **Implication (`a ⇒ (r | t)`):**  
+   - If `a` is true in the current state, `r | t` must also be true (i.e., at least one of `r` or `t` holds).  
+   - If `a` is false in the current state, no constraints apply to `r` or `t` (the implication is satisfied regardless).  
+
+3. **Absence of temporal operators:**  
+   This formula is **state-based**, not temporal. It constrains **only the current state** (e.g., the initial state in an execution if evaluated globally). It imposes **no obligations** on future states.  
+
+**Natural Language Phrasing:**  
+> "If `a` is true in the current state, then at least one of `r` or `t` must be true in that same state. If `a` is false, no conditions are placed on `r` or `t` at this state. The formula imposes no constraints on future states."  
+
+**Key Clarifications:**  
+- **Satisfaction:**  
+  - ✅ `a` false in the current state (ignores `r`/`t`).  
+  - ✅ `a` true + `r` true or `t` true (or both) in the current state.  
+- **Violation:**  
+  - ❌ `a` true + both `r` and `t` false in the current state.  
+- **Scope:** Constraints apply **exclusively to the current state**. Later states are unaffected.  
+- **Misunderstanding Prevention:** Despite the arrow (`⇒`), **only the current state** is evaluated. Temporal operators (e.g., `G`, `X`) are absent, so future/past states are irrelevant.

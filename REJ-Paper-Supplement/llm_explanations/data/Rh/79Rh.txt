@@ -1,0 +1,32 @@
+**Original LTL Formula:**  
+(a & d) U (c | b)  
+
+**Translation and Explanation:**  
+The formula **(a & d) U (c | b)** requires two conditions:  
+1. **Eventually, either `c` or `b` must become true.**  
+   - This must occur in the current state or in some future state.  
+2. **Until that moment, both `a` and `d` must hold in every state.**  
+   - Both `a` and `d` must be true continuously from the current state up to, but **not including**, the state where `c` or `b` first becomes true.  
+
+**Key Constraints:**  
+- **At the current state (time = 0):**  
+  - If `c` or `b` (`c | b`) is true, the entire formula is immediately satisfied — **no constraints are imposed** on `a` or `d` at any state.  
+  - If `c | b` is false, **`a` and `d` must both be true now**, and this requirement persists until `c | b` later holds.  
+- **Over time:**  
+  - After the current state, `a` and `d` must **remain true** in every subsequent state **until** the instant before `c` or `b` becomes true.  
+  - Once `c | b` becomes true at state *k*, **all constraints on `a` and `d` cease**.  
+    - Neither `a` nor `d` must hold at *k* or thereafter (unless other constraints exist elsewhere).  
+- **Termination:**  
+  - If `c | b` **never** becomes true, the formula is **violated forever** (even if `a` and `d` always hold).  
+  - If `c | b` becomes true at *k*, the formula is **satisfied** at *k* (no future constraints).  
+
+**Examples:**  
+- ✅ **Satisfied at time 0:** `c` is true → formula holds; `a`/`d` irrelevant.  
+- ✅ **Satisfied at time *k=2*:**  
+  - States 0,1: `a=true`, `d=true`, `c=false`, `b=false`.  
+  - State 2: `b=true` (any `a`/`d`).  
+- ❌ **Violated if `c|b` never holds:** `a`/`d` hold indefinitely, but `c|b` false forever.  
+- ❌ **Violated prematurely:** State 0: `c|b=false`, but `a=false` → immediate failure.  
+
+**Clarification:**  
+The constraint for `a & d` applies **only until the state before `c|b` holds**. Once `c|b` becomes true, the obligations for `a` and `d` terminate immediately.

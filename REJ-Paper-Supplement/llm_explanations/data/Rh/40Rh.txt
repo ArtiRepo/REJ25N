@@ -1,0 +1,35 @@
+**Original LTL Formula:**  
+F (o | u)  
+
+**Translation and Reasoning:**  
+1. **Innermost Expression (`o | u`):**  
+   This denotes a logical OR operation:  
+   *"At any state, either `o` is true, or `u` is true, or both."*  
+
+2. **Applying the `F` Operator (`F (o | u)`):**  
+   The `F` (eventually) operator requires that the inner formula `o | u` holds in **at least one future state** (which could be the current state).  
+
+**Final Natural Language Translation:**  
+> "Eventually, either `o` becomes true or `u` becomes true (or both), at least once."  
+
+**Key Explanations:**  
+- **When constrained:**  
+  - If neither `o` nor `u` is true *now*, the system **must eventually** (at some future point) satisfy `o | u` in a state.  
+  - Once a state occurs where `o` or `u` holds (even if only once), the formula is **permanently satisfied**.  
+- **When unconstrained:**  
+  - Before the first occurrence of `o` or `u`, the system must keep progressing (no stalling) but has no constraints on `o`/`u` values in intermediate states.  
+  - After `o` or `u` becomes true **even once**, no further constraints apply (e.g., `o`/`u` may become false later).  
+- **Violation:**  
+  The formula fails **only** if `o` and `u` remain **false in every state forever**.  
+- **Immediate satisfaction:**  
+  If `o` or `u` holds *now*, the formula is immediately satisfied with no future obligations.  
+
+**Clarification vs. Misconceptions:**  
+- This **does not require** `o`/`u` to hold continuously, repeatedly, or at a specific future time.  
+- Constraints **cease permanently** after the **first occurrence** of `o` or `u`.  
+- Example violations:  
+  - `o` and `u` always false.  
+- Example satisfaction:  
+  - `u` true now → satisfied immediately.  
+  - `o` false for 100 steps, then `u` true at step 101 → satisfied.  
+  - `o` true once, then forever false → satisfied.

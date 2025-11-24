@@ -1,0 +1,25 @@
+**Original LTL Formula:**  
+(a U b) & (c U d)  
+
+**Natural Language Translation:**  
+The formula requires that:  
+1. **b must eventually be true.** If b is not true now, then a must hold continuously from the current state until the state immediately before b first becomes true.  
+2. **d must eventually be true.** If d is not true now, then c must hold continuously from the current state until the state immediately before d first becomes true.  
+
+**Key Details:**  
+- **Eventuality:** Both b and d must occur at least once in the future.  
+- **A and C constraints:**  
+  - If b/d are already true now, a/c are unconstrained (no states to enforce before b/d).  
+  - If b/d are initially false, a/c must hold:
+    - **At the current state:** a and/or c must be true immediately when b/d are false.  
+    - **Ongoing:** a (resp. c) must persist **without interruption** until the moment just before the first occurrence of b (resp. d). After b/d occur, a/c are unconstrained.  
+- **Violation occurs if:**  
+  - b or d never occurs.  
+  - b/d occur but a/c fails in any state before their first occurrence (e.g., a false now when b is false, or c false tomorrow if d occurs later).  
+- **Constraints cease** for a the state after b first occurs, and for c the state after d first occurs. Events b and d need not occur simultaneously.  
+
+**Example Scenarios:**  
+- Satisfies: b true now → no a required; then c holds until d becomes true next week.  
+- Violates: a true now but false tomorrow, while b remains false → fails at tomorrow’s state.  
+
+This translation captures the independence and precise timing of the dual "until" conditions.

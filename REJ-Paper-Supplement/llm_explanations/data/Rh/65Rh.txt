@@ -1,0 +1,44 @@
+**Original LTL Formula:**  
+Xa U Xb  
+
+**Rebuilt Meaning:**  
+1. **Innermost Operators**:  
+   - `Xa`: "In the immediate next state (state 1), `a` must be true."  
+   - `Xb`: "In the immediate next state (state 1), `b` must be true."  
+   However, these are used within `Until` (U).  
+
+2. **Until (U) Semantics**:  
+   - `Xa U Xb` requires:  
+     - **Termination**: `Xb` must hold at some future state \(k\) (where \(k \geq 0\), counting from the current state as state 0).  
+     - **Ongoing Constraint**: For every state from the current state up to **but excluding \(k\)**, `Xa` must hold.  
+     Since `Xa`/`Xb` constrain *the next state* of each evaluated state:  
+     - At state \(k\), `Xb` holds → `b` must be true at **state \(k+1\)**.  
+     - For each state \(j\) (from \(0\) to \(k-1\)), `Xa` holds → `a` must be true at **state \(j+1\)** (i.e., every state from state \(1\) to state \(k\)).  
+
+3. **Combined Meaning**:  
+   - There exists \(k \geq 0\) such that:  
+     - **Phase 1 (states 1 to \(k\)):** `a` must hold in every state.  
+     - **Phase 2 (state \(k+1\)):** `b` must hold.  
+   - The formula **terminates** at state \(k\), imposing no constraints beyond state \(k+1\).  
+
+**Refined Natural Language Translation:**  
+> "There exists a positive integer \(k\) (at least 1) such that:  
+>   - \(\boldsymbol{b}\) becomes true at the \(\boldsymbol{k}\)-th next state,  
+>   - and for every integer \(\boldsymbol{i}\) from \(\boldsymbol{1}\) to \(\boldsymbol{k-1}\) (if any), \(\boldsymbol{a}\) is true at the \(\boldsymbol{i}\)-th next state."  
+
+**Key Points:**  
+- **Immediate Satisfaction**:  
+  - If `b` is true at the next state (\(k=1\)), no `a` is required (phase 1 is empty).  
+  - Example satisfying sequence: `b` true at state 1; `a` may be arbitrary.  
+- **Ongoing Constraints**:  
+  - If `b` is delayed to state \(m (>1)\), `a` must be true from state 1 to state \(m-1\).  
+  - **Termination**: Constraints cease after \(b\) becomes true.  
+  - Example: \(k=2\) → `a` true at state 1, `b` true at state 2.  
+- **Violations**:  
+  - **Option 1**: `b` never becomes true.  
+  - **Option 2**: `b` eventually holds, but `a` is false in any state from 1 to \(k-1\) (where \(k\) is the step before \(b\) turns true).  
+
+**Common Misunderstandings:**  
+- `a` is **not required** in the state where `b` becomes true (state \(k+1\)), nor after it.  
+- The current state (state 0) and states beyond \(k+1\) are **unconstrained**.  
+- Constraints on `a` **only apply** until the state before `b` is first observed at step \(k+1\).

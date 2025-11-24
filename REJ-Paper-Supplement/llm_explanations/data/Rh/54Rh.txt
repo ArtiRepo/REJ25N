@@ -1,0 +1,36 @@
+**Original LTL formula**:  
+(a U b) and G(a)  
+
+**Translation with Bottom-Up Reasoning**:  
+1. `a U b`:  
+   - Requires that **b eventually becomes true**, and **a is true in every state** until that moment.  
+   - Constraints relax after `b` becomes true: `a` must hold *only* until `b` becomes true (and may become false afterward).  
+
+2. `G(a)`:  
+   - Requires that **a is true in every state of the execution**, forever.  
+
+3. `(a U b) and G(a)`:  
+   - The `until` (`a U b`) demands that `b` eventually holds, with `a` holding until then.  
+   - `G(a)` **strengthens** the constraint on `a`: It forces `a` to hold *even after* `b` becomes true, overriding the relaxation allowed by `a U b`.  
+   - Thus, `a` must now hold **eternally** (from `G(a)`), and `b` must still **eventually hold** (from `a U b`).  
+
+**Final Natural Language Phrasing**:  
+"**a must be true in every state, and b must eventually become true in some state.**"  
+
+**Key Constraints Explained**:  
+- **After the formula is checked**:  
+  - `a` must be **immediately true** (required by both `G(a)` and the initial constraint of `a U b`).  
+  - If `b` is true *now*, the "until" is immediately satisfied, but `a` must persist forever.  
+  If `b` is false *now*, `a` must hold continuously **until** `b` becomes true.  
+- **Over time**:  
+  - `a` **cannot be false in any state** (violates `G(a)`).  
+  - `b` **must be true at least once** (otherwise `a U b` fails).  
+  - Once `b` becomes true, it does not need to hold again, but `a` must **never** become false.  
+
+**Violations**:  
+- `b` remains false forever → `a U b` fails.  
+- `a` is false at any point (now or in the future) → `G(a)` fails.  
+- `a` is false *before* the first occurrence of `b` → `a U b` fails (even if `b` eventually holds).  
+
+**Satisfaction**:  
+- All states have `a = true`, and at least one state has `b = true` (e.g., `(a,¬b) → (a,b) → (a,¬b) → ...`).

@@ -1,0 +1,33 @@
+### LTL Formula:  
+**g U X m**  
+
+### Translation Reasoning (Bottom-Up Approach):  
+1. **X m**:  
+   - This subformula requires that in the very next state after the current one, **m** must hold.  
+   - *Key implication*: The constraint specifically applies to the **immediate next state** only.  
+
+2. **g U (X m)**:  
+   - The **U** operator binds **g** (left operand) and **X m** (right operand).  
+   - Semantics: There must exist a **future state** (call it **S**) where **X m** holds at **S**.  
+     - At **S**, **X m** is satisfied ⇒ **m** is true in the state **immediately after S**.  
+   - Additionally, for **all states** from the **current state** up to **but excluding S**, **g** must hold.  
+
+### Refined Natural Language Explanation:  
+**"The system must eventually reach a state S (possibly the current state) such that in the very next state after S, m holds. Until S is reached (if S is not the current state), g must be true in every state from the present onward. Once S occurs, g is no longer required."**  
+
+#### Key Details:  
+- **When constraints apply**:  
+  - **g** must hold continuously from the **current state** until the moment **before S** (if S is not current).  
+  - **m** must hold exactly one state **after S**.  
+- **When constraints cease**:  
+  - After the state **S** is reached, **g** is no longer constrained.  
+  - **m**’s constraint applies **only** to the state **immediately after S** (not before or after).  
+- **Boundary case (S is the current state)**:  
+  - **g** is **not required** in any state (since the "until" phase is empty).  
+  - **m** must hold in the **next state** (immediately).  
+- **Violation conditions**:  
+  - **m never occurs in the state after any S** ⇒ formula fails.  
+  - **g is false in any state before S** ⇒ formula fails (if S is not current).  
+
+#### Final Natural Language Phrasing:  
+**"Eventually, m must be true in the next state after some state S. From the present until S (if S is not now), g must be true in every state. At S, g may or may not hold—only the next state must satisfy m."**

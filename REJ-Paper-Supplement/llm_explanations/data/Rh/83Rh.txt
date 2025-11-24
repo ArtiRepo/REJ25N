@@ -1,0 +1,34 @@
+**Original LTL Formula:**  
+`X ! G b`  
+
+**Step-by-Step Reasoning:**  
+1. **Innermost operator (`G b`):**  
+   `G b` means "Globally, `b` holds." It requires that `b` is **true in every state** from the current evaluation point onward.  
+   *Constraints:* `b` must be true indefinitely; violation occurs if `b` is false at any present or future state.  
+
+2. **Negation (`! G b`):**  
+   Negating `G b` gives `!G b` (equivalent to `F !b`). This requires:  
+   - "It is **not** the case that `b` is always true," meaning **at least one state** in the present or future must have `b` false.  
+   *Constraints:* The current state and future states collectively must include at least one state where `b` is false. This constraint applies immediately and remains until such a state is found.  
+
+3. **Next operator (`X ! G b`):**  
+   `X` shifts the evaluation to the **immediately next state**. Thus:  
+   - `X ! G b` imposes **no constraint** on the current state or `b` in the current state.  
+   - **At the next state**, `! G b` must hold. This requires that, **from the next state onward**, `b` must be false at least once.  
+   *Constraints:*  
+   - **Current state:** `b` is **unconstrained** (can be true/false).  
+   - **Next state onward:** `b` must eventually become false in at least one state (either the next state itself or any later state).  
+
+**Final Natural Language Translation:**  
+"At the next state, it must become true that `b` is **not** always true from that point onward; that is, **starting from the next state**, `b` will eventually be false at least once."  
+
+**Key Implications:**  
+- **Satisfied when:** The **next state** begins a sequence where `b` is false at some point (e.g., `b` false at the next state, or true then later false). No restriction on the current state (e.g., `b` true/false now is irrelevant).  
+- **Violated when:** From the next state onward, `b` is **true forever** (e.g., all states after the current have `b` true).  
+- **Constraint lift:** Once `b` becomes false at any state after the current, the requirement is met and imposes **no further constraints** beyond that state.  
+- **No backtracking:** The formula does not constrain states before the next one.  
+
+**Example Sequences:**  
+- Satisfying: `b`=T (current), `b`=F (next) → holds (false at next state).  
+- Satisfying: `b`=T (current), `b`=T (next), `b`=F (later) → holds (false later).  
+- Violating: `b`=T (current), `b`=T (next), `b`=T forever → fails.

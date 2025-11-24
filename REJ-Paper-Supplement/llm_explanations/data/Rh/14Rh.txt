@@ -1,0 +1,49 @@
+### Original LTL Formula:
+```
+(d U c) | (a U !c)
+```
+
+### Step-by-Step Rebuilding and Translation:
+1. **Subformula `(d U c)`**:  
+   "`c` must eventually become true in a future state, and `d` must remain true in every state from now until the moment `c` becomes true. Once `c` becomes true, `d` is no longer constrained."
+
+2. **Subformula `(a U !c)`**:  
+   "`!c` (i.e., `c` is false) must eventually become true in a future state, and `a` must remain true in every state from now until the moment `c` becomes false. Once `c` becomes false, `a` is no longer constrained."
+
+3. **Combining with disjunction (`|`)**:  
+   The overall formula holds if at least one subformula is satisfied. Thus:  
+   "The system satisfies the formula if **either**:  
+     - `(d U c)` holds: `c` eventually becomes true, with `d` true until then,  
+     **or**  
+     - `(a U !c)` holds: `!c` eventually becomes true, with `a` true until then."
+
+### Refined Natural Language Translation:
+**"Either:  
+   - `c` must eventually become true and `d` must hold continuously until then,  
+   or  
+   - `c` must eventually become false and `a` must hold continuously until then.  
+   In both cases, the constraints on `a` or `d` cease after the respective condition (`c` or `!c`) is first satisfied."**
+
+### Key Clarifications:
+1. **When constraints apply**:
+   - **At the current state**:  
+     - If `c` is true **now**, the left disjunct `(d U c)` **is instantly satisfied**. No requirement applies for `d` (even if `d` is false).  
+     - If `c` is false **now**, the right disjunct `(a U !c)` **is instantly satisfied**. No requirement applies for `a` (even if `a` is false).  
+     - In all cases, **the formula is always satisfied at every initial state** because `c` must be either true or false. Thus, **no constraints** are imposed on `a`, `d`, or `c` at any time.  
+   
+2. **Behavior over time**:
+   - **Satisfaction at time `t=0`**:
+     - If `c` is true at `t=0`, the whole formula holds immediately (left disjunct satisfied via `c`).  
+     - If `c` is false at `t=0`, the whole formula holds immediately (right disjunct satisfied via `!c`).  
+     The formula **imposes no future constraints**.  
+   - **After `t=0`**:  
+     Changes in `c`, `a`, or `d` are irrelevant since the formula is already satisfied at the start.  
+
+3. **Violation is impossible**:  
+   When `c` is true, `(d U c)` succeeds; when `c` is false, `(a U !c)` succeeds. Thus, **no execution can violate the formula**.  
+
+### Simplified Summary:
+"The formula always holds:  
+- If `c` is true now, no constraints apply.  
+- If `c` is false now, no constraints apply.  
+The system is unconstrained at all times."

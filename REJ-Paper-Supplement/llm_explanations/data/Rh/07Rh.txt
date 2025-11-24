@@ -1,0 +1,34 @@
+**Original LTL Formula:**  
+a U c  
+
+**Translation and Explanation:**  
+The formula **a U c** translates to:  
+*"c must eventually become true, and until that specific moment, a must remain true in every state. Once c becomes true, a is no longer required to hold."*  
+
+### Key Constraints:  
+1. **c must eventually hold** at some state (which could be the current state or any future state).  
+2. **a must hold continuously** from the **current state** up to (but *not* including) the state where c first becomes true.  
+3. If c is already true in the current state, there are **no constraints** on a (past or present).  
+4. After c becomes true, there are **no future constraints** on a or c.  
+
+### Evaluation Over Time:  
+- **At the current state:**  
+  - If **c is true now**, the formula is **immediately satisfied** with no constraints on a.  
+  - If **c is false now**, **a must be true now**, and c must eventually become true while a holds continuously until then.  
+- **In subsequent states:**  
+  - If c has not yet occurred, **a must hold** in each state.  
+  - The formula is **permanently satisfied** once c becomes true.  
+
+### Violation Conditions:  
+- **c never becomes true**, regardless of a.  
+- **a becomes false before c occurs**, even if c later becomes true.  
+
+### Misconception Clarification:  
+- The formula **does not require a to hold at the exact state where c becomes true**.  
+- After c holds, **both a and c are unconstrained** for all future states.  
+
+**Example Traces:**  
+- `[a, a, c, ...]` → **Satisfied** at state 0. (a holds until c at state 2).  
+- `[c, ...]` → **Satisfied** at state 0. (c holds immediately).  
+- `[a, ¬a, c, ...]` → **Violated** at state 1 (a fails before c).  
+- `[a, a, a, ...]` → **Violated** (c never occurs).

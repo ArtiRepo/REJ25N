@@ -1,0 +1,35 @@
+**Original LTL formula:**  
+¬G c  
+
+**Natural Language Translation:**  
+There must be at least one state (either the current state or a future state) where `c` is false.  
+
+### Reasoning from Bottom of Tree Up:  
+1. **Proposition `c`**:  
+   Constraint: `c` must be true **in the current state**. No constraints on future states.  
+
+2. **Globally `G c`**:  
+   Constraint: `c` must be true in **every state** of the entire execution. Violated if `c` is ever false.  
+
+3. **Negation `¬G c`**:  
+   Constraint: **Negates `G c`**, meaning `c` must be false in **at least one state** (current or future).  
+
+**Satisfaction and Constraints Over Time:**  
+- **Immediate satisfaction**:  
+  If `c` is false **now**, the formula is satisfied immediately. No further constraints are imposed.  
+- **Future satisfaction**:  
+  If `c` is true now, the formula **remains active** and requires `c` to be false in **some future state**. The constraint persists until this occurs.  
+- **Violation**:  
+  If `c` holds **forever**, the formula is violated for the entire execution.  
+
+**Key Clarifications:**  
+- The constraint **ceases** as soon as `c` becomes false at **any state** (current or future).  
+- Before a state where `c` is false is encountered, the system is constrained to eventually make `c` false.  
+- After `c` is false once, no further restrictions on `c` are imposed by this formula.  
+
+**Formula Truth Evolution:**  
+| Time       | `c` false observed? | Formula Truth | Constraint Status                   |  
+|------------|----------------------|---------------|-------------------------------------|  
+| At state `t` | **Yes**             | **Satisfied** | No future constraints.              |  
+| At state `t` | **No** (if `c` true) | **Pending**   | Must eventually become false later. |  
+| End of trace (if all `c` true) | Never            | **Violated**  | —                                   |

@@ -1,0 +1,43 @@
+**Original LTL Formula:**  
+`a U G!a`  
+
+**Step-by-Step Rebuilding from Subformulas:**  
+1. **`G!a`**:  
+   "`!a` (not-a) must hold **in every state of the entire execution**."  
+   This means `a` must be **false forever** from the moment `G!a` becomes true.  
+
+2. **`a U (G!a)`**:  
+   - The `U` (Until) operator imposes **two requirements**:  
+     - **Global Constraint for `G!a`**: The system **must eventually reach a state** where `G!a` is satisfied (i.e., `a` becomes false and **stays false forever** after that state).  
+     - **Prefix Constraint for `a`**: From the **current state** until **immediately before** `G!a` becomes true, `a` must hold **true in every state**.  
+
+**Refined Natural Language Translation:**  
+"Condition `a` must hold continuously from the present until (and excluding) the exact moment when `a` becomes **permanently false forever**. That state of permanent falsity **must occur at some finite time** and remains unchanged thereafter."  
+
+**Key Implications:**  
+1. **At the current state**:  
+   - If `G!a` holds **now** (i.e., `a` is false and remains false forever), the formula is satisfied **immediately** (no constraints on `a` being true).  
+   - If `G!a` does **not** hold now, `a` **must be true** now and in all states until the permanent shift to false.  
+
+2. **Over time**:  
+   - `a` must be true in **every state** leading up to the "switch point" where `a` becomes permanently false.  
+   - **After the switch point**: `a` must be **false forever**, but `a` has **no constraints** before the switch point (it only needs to hold until that point).  
+
+3. **Termination of Constraints**:  
+   - The constraint for `a` to hold **ends** at the state preceding the switch to `G!a`.  
+   - Once `G!a` becomes true, `a` is **no longer constrained** (beyond needing to remain false indefinitely).  
+
+**Violating Scenarios:**  
+- `a` **never becomes permanently false**: E.g., `a=true` forever (no `G!a`) or `a` oscillates (e.g., `a=true`, then `a=false`, then `a=true` again).  
+- `a` **fails in the prefix**: E.g., `a=false` at state 1 (but later `a` becomes true again), violating the requirement for `a` to hold until `G!a`.  
+
+**Satisfying Scenarios:**  
+- **Immediate**: `a=false` at the current state and remains false.  
+- **Delayed**:  
+  `states [0, k-1]`: `a=true` (for any finite `k≥1`).  
+  `state k`: `a=false` (start of permanent falsity).  
+  `all states after k`: `a=false`.  
+
+**Misconception Alert:**  
+- `G!a` requires **infinite falsity** after the switch. A transient false state (e.g., `a=false` but reverts to true) **does not satisfy** the formula.  
+- The constraint for `a` to hold applies **only until the permanent switch**, not beyond.

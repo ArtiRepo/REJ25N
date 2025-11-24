@@ -1,0 +1,29 @@
+**Original LTL formula:**  
+`G(a or b)`  
+
+**Rebuilt Meaning (Bottom-Up):**  
+1. **Atomic propositions**:  
+   - `a` means "`a` is true in the current state".  
+   - `b` means "`b` is true in the current state".  
+2. **Disjunction (`a or b`)**:  
+   - "In the current state, `a` is true **or** `b` is true (or both)."  
+3. **Global operator (`G`)** applied to `(a or b)`:  
+   - "In **every** state of the execution, `a` is true or `b` is true (or both)."  
+
+**Refined Natural Language Phrasing:**  
+"`a` or `b` (or both) must hold **at all times**."  
+
+---  
+### Key Explanations:  
+- **When constraints apply**:  
+  The condition `a ∨ b` is **enforced in every state**, starting from the moment the formula is checked and continuing **indefinitely**. There are *no states* where both `a` and `b` can be false.  
+- **Termination of constraints**:  
+  Constraints **never cease**; the requirement persists for the entire execution.  
+- **Satisfaction vs. Violation**:  
+  - **Satisfied if**: Every state has `a` or `b` true.  
+    Example: States `{a∧b} → {a} → {b} → {a∧b}` satisfies the formula.  
+  - **Violated if**: **Any state** has both `a` and `b` false.  
+    Example: States `{a} → {¬a∧¬b} → {b}` violates at the second state.  
+- **Potential Misunderstandings**:  
+  - This is **not** "`a` and `b` both hold eventually" (that would be `F(a ∧ b)`).  
+  - It does **not** allow gaps: A single state with `¬a ∧ ¬b` violates the entire formula, regardless of prior/future states.

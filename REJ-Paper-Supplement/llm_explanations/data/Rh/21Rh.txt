@@ -1,0 +1,20 @@
+**Original LTL formula:**  
+X (t & y)  
+
+**Rebuilding Meaning (bottom-up):**  
+1. **Innermost expression `t & y`**:  
+   Both propositions `t` and `y` must be true **in the same state**.  
+
+2. **Next operator `X` applied to `(t & y)`**:  
+   The conjunction `t & y` must be true **in the state immediately following the current one**.  
+
+**Refined Natural Language Phrasing:**  
+- **"In the very next state, both `t` and `y` must be true."**  
+- **Constraints**:  
+  - **Current state**: No constraints on `t` or `y` (they can be true/false/undefined).  
+  - **Next state**: Both `t` and `y` must be true.  
+  - **Beyond the next state**: No constraints (the formula stops imposing requirements after the next state).  
+- **Satisfaction**: Holds if the next state has `t` and `y` both true.  
+- **Violation**: Occurs if `t` or `y` is false in the next state (failure at immediate successor).  
+
+**Key Insight**: The formula *exclusively constrains the immediate next state*—nothing earlier or later affects its truth value at the current moment.

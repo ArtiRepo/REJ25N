@@ -1,0 +1,28 @@
+**Original Formula:**  
+F a ∧ F b  
+
+**Step-by-Step Reasoning:**  
+1. **F a**: This means "eventually a" – there must exist at least one future state where `a` is true.  
+   *   Constraint: `a` must be true in some state.  
+   *   Until `a` happens, the requirement remains active. Once `a` occurs, this part is satisfied permanently.  
+
+2. **F b**: This means "eventually b" – there must exist at least one future state where `b` is true.  
+   *   Constraint: `b` must be true in some state.  
+   *   Until `b` happens, the requirement remains active. Once `b` occurs, this part is satisfied permanently.  
+
+3. **Conjunction (F a ∧ F b)**: Both `F a` and `F b` must hold.  
+   *   Constraints persist until **both** `a` and `b` have occurred at least once.  
+   *   The timing of `a` and `b` is independent: they may occur in any order (e.g., `a` first then `b`, `b` first then `a`, or simultaneously).  
+
+**Translated Natural Language:**  
+> "Eventually, `a` must become true, and eventually, `b` must become true, each at least once during the execution. The constraints for `a` and `b` remain active until both events occur. After both have happened, no further constraints from this formula apply, and the formula remains satisfied."  
+
+**Key Clarifications:**  
+- **Unsatisfied until completion**: The formula is violated if **either** `a` or `b` never occurs.  
+- **Satisfaction trigger**: The formula becomes permanently true as soon as **both** `a` and `b` have each occurred (e.g., after the second of the two events).  
+- **No constraints after fulfillment**: Once both `a` and `b` have happened, the formula imposes no future requirements (e.g., `a` and `b` may be false afterward).  
+- **No order dependency**: `a` and `b` are not required to occur simultaneously or in a specific sequence.  
+
+**Example:**  
+- *Satisfying path*: `a` occurs at step 1, `b` occurs at step 3 → Formula is true from step 3 onward.  
+- *Violating path*: `a` occurs infinitely often, but `b` never occurs → Formula is false forever.

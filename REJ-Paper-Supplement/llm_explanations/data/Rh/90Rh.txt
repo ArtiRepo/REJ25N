@@ -1,0 +1,31 @@
+**Original LTL Formula**:  
+`b | c => a` (equivalent to `(b ∨ c) → a`)
+
+**Translation and Explanation**:
+- **Base Components**:  
+  - `b` is true in the current state or false (no constraint on other states).  
+  - `c` is true in the current state or false (no constraint on other states).  
+  - `a` is true in the current state or false (no constraint on other states).  
+- **Disjunction (`b ∨ c`)**:  
+  "At the **current state**, either `b` is true, `c` is true, or both are true."  
+- **Implication (`(b ∨ c) → a`)**:  
+  "If, at the **current state**, `b` or `c` (or both) is true, then `a` must also be true. If neither `b` nor `c` is true, `a` can be true or false (no constraint)."  
+
+**Constraints Over Time**:  
+- **Current state (now)**:  
+  - If `b` or `c` holds → `a` must hold.  
+  - If neither `b` nor `c` holds → `a` is unconstrained.  
+- **Future states**:  
+  The formula **only constrains the current state** where it is evaluated. It imposes **no requirements** on `a`, `b`, or `c` in any future state.  
+
+**Satisfaction vs. Violation**:  
+- **Holds**:  
+  - `b=false`, `c=false`: Always holds (no constraint on `a`).  
+  - `b=true`, `a=true` (any `c`): Holds.  
+  - `c=true`, `a=true` (any `b`): Holds.  
+- **Fails**:  
+  Only if `b` or `c` is true **and** `a` is false in the current state.  
+
+**Key Clarifications**:  
+- **Only the current state matters**: Future values of `a`, `b`, `c` do not affect this formula.  
+- **Common misunderstanding**: This is **not a global constraint**. For global requirements (e.g., always `b| c => a`), use `G((b ∨ c) → a)`.

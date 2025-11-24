@@ -1,0 +1,26 @@
+**Original LTL Formula:** X (t | w)  
+
+**Rebuilding Meaning (Bottom-Up):**  
+1. **Base expression (t | w):** "In the current evaluation state, either `t` is true or `w` is true (or both)."  
+2. **Apply X operator:** The `X` operator shifts the evaluation of (t | w) to the **immediately following state**.  
+
+**Refined Natural Language Translation:**  
+**"Either `t` or `w` (or both) must be true in the very next state."**  
+
+---  
+### **Key Explanations:**  
+- **When does the formula constrain the system?**  
+  - **Only in the second state** (directly after the current state). The current state is **unconstrained**: `t` and `w` can be true or false here without affecting the formula.  
+  - **No constraints apply** after the second state (e.g., if the sequence has 10 states, only state #2 must satisfy `t ∨ w`).  
+
+- **Critically:**  
+  - **Satisfaction:** At the moment the formula is checked, it **only demands** that `t ∨ w` holds in the **next immediate state**. The formula is **immediately satisfied** once this single condition is met.  
+  - **Violation:** Fails **exclusively** if the first subsequent state has `t` and `w` **both false**.  
+  - **Time-bound constraint:** The requirement **ceases** after the next state. Future states (`state #3`, `state #4`, etc.) have no obligations.  
+
+- **Example:**  
+  - ✅ Satisfying sequence: [`{t=0, w=0}` → `{t=1, w=0}` → ...] (constraint met at state #2).  
+  - ❌ Violating sequence: [`{t=0, w=0}` → `{t=0, w=0}` → ...] (state #2 fails).  
+
+---  
+**Note:** The formula imposes a **one-step constraint** and expires immediately after evaluation. Prior or later states are irrelevant.

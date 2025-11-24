@@ -1,0 +1,36 @@
+**Original LTL formula:**  
+F x | F y (equivalent to F(x) ∨ F(y))
+
+**Step-by-Step Rebuild from Bottom Up:**  
+1. **Literal `x` and `y`**:  
+   - `x` constrains the current state: "x must be true right now."  
+   - `y` constrains the current state: "y must be true right now."  
+
+2. **Future Operators (`F`)**  
+   - `F(x)` lifts `x` to a temporal constraint: "**At least one future state** must have x true."  
+     - *Constraint applies*: Until x becomes true.  
+     - *Ceases when*: x becomes true (then the formula is satisfied eternally).  
+   - `F(y)` similarly: "**At least one future state** must have y true."  
+     - *Constraint applies*: Until y becomes true.  
+     - *Ceases when*: y becomes true.  
+
+3. **Disjunction (`∨`)**  
+   - `F(x) ∨ F(y)` combines both: "**At least one** of the two subformulas (F(x) or F(y)) must hold."  
+     - *Constraint applies*: Until **either** x or y becomes true.  
+     - *Ceases when*: x **or** y becomes true (whichever happens first).  
+
+**Natural Language Translation:**  
+"**Eventually, either x becomes true or y becomes true (or both).**"  
+
+**Key Explanations:**  
+- **Satisfaction condition**: The formula is satisfied **as soon as** x **or** y becomes true at any future state (including the current state). No further constraints apply afterward.  
+- **Violation condition**: The formula is violated only if **both** x and y remain **false in all states**, forever.  
+- **Constraints over time**:  
+  - From the moment of evaluation, the system is constrained to eventually satisfy x **or** y.  
+  - The constraint **ends immediately** when x **or** y first becomes true.  
+- **Ambiguity note**: The formula does **not** require both to be true, nor specify which one must be true. It allows x-only, y-only, or both scenarios.  
+
+**Example Sequences:**  
+- Satisfying: `[x=false, y=false, x=true, ...]` → x becomes true.  
+- Satisfying: `[y=true, ...]` → y holds immediately.  
+- Violating: `[x=false, y=false, x=false, ...]` (eternally) → Neither becomes true.

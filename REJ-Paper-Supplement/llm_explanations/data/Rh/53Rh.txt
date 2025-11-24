@@ -1,0 +1,47 @@
+### Original LTL Formula
+`Fa -> Gb`
+
+### Translation to Natural Language
+"**If the event `a` happens at some future point, then `b` must be true in every state throughout the entire execution. Otherwise, if `a` never happens, the formula imposes no constraints on `b`.**"
+
+### Reasoning Breakdown
+1. **Subformula `Fa` (Eventually `a`)**  
+   - Requires at least one future state where `a` is true.  
+   - If `a` occurs **at any time**, this subformula is satisfied.  
+   - If `a` **never occurs**, `Fa` is false.  
+
+2. **Subformula `Gb` (Globally `b`)**  
+   - Requires `b` to be **true in every state** of the execution, from the current state onward.  
+
+3. **Implication `Fa -> Gb`**  
+   - **If `Fa` is true** (i.e., `a` eventually occurs):  
+     `Gb` must be true → `b` must be true in **all states** (past, present, and future).  
+     - *Violating example*: `a` becomes true at time `t=5`, but `b` is false at any time (e.g., `t=2` or `t=10`) → **formula fails**.  
+   - **If `Fa` is false** (i.e., `a` never occurs):  
+     The implication holds *regardless of `b`* → `b` can be true, false, or oscillate freely.  
+     - *Satisfying example*: `a` never occurs → formula holds even if `b` is always false.  
+
+### Key Constraints and Evolution
+- **When constraints apply**:  
+  - The moment `a` occurs **anywhere**, `b` must be true **everywhere** (all states including those *before* `a`).  
+  - If `a` remains absent forever, **no constraints** apply to `b`.  
+- **Termination of constraints**:  
+  - Constraints on `b` **never cease** if `a` occurs (global requirement).  
+- **Initial satisfaction**:  
+  - The formula is evaluated at the current state.  
+  - If `a` is guaranteed to never occur, the formula holds immediately.  
+  - If `a` must occur, the formula requires upfront that `b` is true now and forever.  
+
+### Common Misunderstanding
+- **Not**: "`b` must become globally true *after* `a` occurs."  
+  - **Reality**: If `a` occurs, `b` must be globally true **including states before `a`**. A single false `b` **anywhere** violates the formula when `a` occurs.  
+
+### Satisfying vs. Violating Traces
+| Case                        | Example Trace (`a`, `b` over time) | Satisfies? | Why?                                                                 |
+|----------------------------|-----------------------------------|------------|----------------------------------------------------------------------|
+| `a` never occurs           | `(a=false, b=false)`, `(a=false, b=true)`, `(a=false, b=false)` | Yes        | `Fa` is false → no constraint on `b`.                                |
+| `a` occurs + `b` globally true | `(a=false, b=true)`, `(a=true, b=true)`, `(a=false, b=true)` | Yes        | `Fa` true → `Gb` holds for all states.                               |
+| `a` occurs + `b` ever false | `(a=false, b=true)`, `(a=false, b=false)`, `(a=true, b=true)` | **No**     | `Fa` true, but `b` false at `t=1` (before `a`!) → violates `Gb`. |
+
+### Final Refined Phrasing  
+"`b` must be true in every state of the execution if `a` ever occurs at any future point; otherwise, no constraints apply to `b`."

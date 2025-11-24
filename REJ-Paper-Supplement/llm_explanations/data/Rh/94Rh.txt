@@ -1,0 +1,25 @@
+**Original LTL formula:**  
+a U Gb  
+
+**Natural Language Translation:**  
+The formula requires that:  
+- **b eventually becomes true forever** (i.e., there is a state, possibly now, from which b is true in all subsequent states).  
+- **a is true at every state from the current state until (but not including)** the state where b becomes permanently true.  
+
+**Key Implications:**  
+- **If b is already permanently true now (G(b) holds initially):**  
+  - The condition is immediately satisfied. No constraints are placed on a (it may be true or false at any state).  
+  - b must hold for the entire execution.  
+- **If G(b) is not true yet:**  
+  - a must be true in the current state and all following states **until** the state immediately preceding the one where G(b) starts.  
+  - At the state where G(b) begins:  
+    - a is **not required** (constraint on a ceases).  
+    - b must hold **for that state and all future states** (constraint on b becomes permanent).  
+- **Violation occurs if:**  
+  - b never becomes true forever (i.e., b is false infinitely often), OR  
+  - a is false at any state between the present and the state just before G(b) begins.  
+
+**Clarifications:**  
+- **"Until" constraint on a is transient:** It applies strictly from the current state until the state *before* G(b) starts. After G(b) begins, a is unconstrained.  
+- **G(b) is an irreversible commitment:** Once b becomes permanently true at some state, that constraint extends infinitely into the future.  
+- **No distraction:** This is *not* the same as F(b) (eventually b) or G(a → b); b must become *globally true starting at a specific state*.

@@ -1,0 +1,27 @@
+**Original LTL formula:**  
+`FGa`  
+
+**Rebuild meaning from the bottom up:**  
+1. **`a`**: Proposition `a` is evaluated in the current state.  
+2. **`Ga`**: "Globally `a`". Requires `a` to be true in the current state **and every future state thereafter indefinitely**.  
+   - If `Ga` holds at a state `s_k`, then `a` must be true in *all* states from `s_k` onward.  
+3. **`F(Ga)`**: "Finally `Ga`". Requires that **at some finite future state** `s_i`, `Ga` becomes true.  
+   - At `s_i`, `a` is true, and `a` must continuously hold for *all* states after `s_i` (including `s_i`).  
+   - Before `s_i`, `a` can be true or false with **no restrictions** (though reaching `s_i` must eventually happen).  
+
+**Refined natural language phrasing:**  
+*"Eventually, `a` becomes true and remains true forever."*  
+
+---
+
+### Key Explanation:  
+- **Satisfied when:**  
+  There exists some finite point in the execution after which `a` is **always true** (e.g., `a` holds at all states from that point onward). Before this point, `a` may vary freely.  
+- **Violated when:**  
+  `a` **never stabilizes** to being permanently true. This occurs if `a` is false infinitely often (e.g., `a` alternates forever or eventually becomes permanently false).  
+- **Constraints apply:**  
+  - From the initial state, the system must **ensure** that a point will be reached where `a` becomes perpetually true.  
+  - After the stabilization point, **every subsequent state** must satisfy `a`.  
+- **Constraints lift when:**  
+  - Before stabilization, `a` is completely unconstrained.  
+  - After stabilization, the truth of `Ga` at the stabilizing state ensures `FGa` holds for all earlier states.

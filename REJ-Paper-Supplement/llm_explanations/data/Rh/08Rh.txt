@@ -1,0 +1,31 @@
+**Original LTL formula:**  
+\( b \  U \  \neg d \)
+
+**Rebuilding meaning from the bottom up:**  
+1. **Atomic proposition \( d \):**  
+   Constrains \( d \) only in the individual state where it is evaluated. Otherwise, \( d \)'s value is unconstrained.  
+
+2. **Negation \( \neg d \):**  
+   Holds in a state if and only if \( d \) is **false** in that state. When evaluated, it imposes a constraint only on the state where it is checked.  
+
+3. **Until (\( U \)):**  
+   \( b \  U \  \neg d \) is satisfied at the current state if:  
+   - **Eventually**, at some finite future state \( k \), \( \neg d \) holds (i.e., \( d \) is false in state \( k \)).  
+   - **For all states from the current state (inclusive) up to state \( k-1 \) (inclusive)**, \( b \) must be true.  
+   - The constraint on \( b \) **ceases** once \( k \) is reached — \( b \)'s truth value is irrelevant at state \( k \) and beyond.  
+
+**Refined natural language phrasing:**  
+> "Eventually \( d \) becomes false at some future state, and \( b \) is true in every state from now until just before that state."
+
+**Key clarifications:**  
+- **Satisfaction:**  
+  - If \( d \) is **false now**, the formula holds immediately (no constraint on \( b \), as there are no states "before" the current state).  
+  - If \( d \) is true now, \( b \) **must be true now** and continue to be true **until the moment immediately before \( d \) becomes false**.  
+- **Constraints:**  
+  - \( b \) **is constrained** in all states from the present up to (but excluding) the state where \( d \) becomes false.  
+  - \( d \) **must become false at least once**; failure to do so violates the formula regardless of \( b \).  
+  - After state \( k \) (where \( d \) becomes false), neither \( b \) nor \( d \) is constrained by this formula.  
+- **Violation:**  
+  - \( d \) **never becomes false** in the entire execution.  
+  - \( b \) **fails to hold** in at least one state between the current state and the state before \( d \) becomes false.  
+- **Misconception:** The constraint on \( b \) **does not apply** at the exact moment when \( d \) becomes false (i.e., \( b \) can be true or false there).

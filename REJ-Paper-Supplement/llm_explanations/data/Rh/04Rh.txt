@@ -1,0 +1,31 @@
+**Original LTL formula:**  
+`b | !X a`
+
+**Rebuilding meaning from the bottom up:**  
+1. **`a`**: Proposition `a` must hold in a given state.  
+2. **`X a`**: `a` must be true in the **immediate next state** from the current state.  
+3. **`!X a`**: The next state must **not** satisfy `a` (i.e., `a` is **false** in the next state).  
+4. **`b`**: Proposition `b` must be true in the **current state**.  
+5. **`b | !X a`**: Either `b` is true **now** *or* `!X a` is true now (i.e., `a` is false in the next state), **or both**.
+
+**Natural Language Translation:**  
+*"Either `b` is true at the current moment, or in the next immediate state `a` must be false."*  
+
+**Key Explanation:**  
+- **Constraints at the current state:**  
+  - `b` must hold now *unless* the next state guarantees `a` is false.  
+  - If `b` is false now, the formula **requires `a` to be false in the next state**.  
+- **Constraints on the next state:**  
+  - The next state’s value for `a` is **only constrained if `b` is false now**. If `b` is true now, the next state’s `a` is **unconstrained**.  
+- **When the formula is satisfied:**  
+  - Satisfied if `b` is true now (no further constraints).  
+  - Satisfied if `b` is false now but `a` is false in the next state.  
+- **When it is violated:**  
+  - **Only** when `b` is false now **and** `a` is true in the next state.  
+- **Temporal Scope:**  
+  - Applies **only to the current and next states**; constraints do not extend beyond.  
+  - The entire formula’s truth is determined **immediately** (it is a "state formula" involving one future state).  
+
+**Examples:**  
+- **Satisfied sequence states:** `[b=True, ...]` OR `[b=False, a=False (next), ...]`.  
+- **Violation sequence states:** `[b=False, a=True (next), ...]`.

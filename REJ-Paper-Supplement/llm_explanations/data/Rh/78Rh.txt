@@ -1,0 +1,38 @@
+**Original LTL formula:**  
+ ! G ! h
+
+**Step-by-Step Rebuild:**  
+
+1. **Innermost term: `h`**  
+   - `h` is an atomic proposition meaning "`h` is true".
+
+2. **Negation: `!h`**  
+   - Negating `h` yields "`h` is false".
+
+3. **Globally Operator: `G !h`**  
+   - `G !h` means: "`h` is false invariantly (in every subsequent state forever)".
+
+4. **Negation of Global: `! G !h`**  
+   - Negating `G !h` gives: "It is **not** true that `h` is always false".  
+   - This is equivalent to: "`h` must be true in at least one state (now or in the future)".
+
+**Natural Language Translation:**  
+"There must exist at least one future state (including the present) where `h` is true."
+
+**Constraining Behavior:**  
+- **When constraints apply:**  
+  If `h` is currently false, the formula imposes an **ongoing constraint** that `h` must eventually become true at least once. `h` may be false arbitrarily many times before this, but the system is constrained until the first occurrence of `h` being true.  
+
+- **When constraints cease:**  
+  The **moment `h` becomes true anywhere** (current or future state), the entire formula is **permanently satisfied**. After this, `h` has no further constraints from this formula (it may be true or false freely thereafter).  
+
+- **Violation condition:**  
+  If `h` **never becomes true** (all states including the present have `h` false), the formula is violated.  
+
+- **Key clarifications:**  
+  - The formula does **not require `h` to be true continuously** or repeatedly; only **at least one occurrence** is needed.  
+  - Evaluation occurs **immediately** (at the current state): if `h` is true now, the formula holds immediately with no future constraints.  
+  - "Future state" explicitly includes the **present** (state zero) per LTL semantics.  
+
+**Final Phrasing:**  
+"`h` must hold at least once (now or eventually)."

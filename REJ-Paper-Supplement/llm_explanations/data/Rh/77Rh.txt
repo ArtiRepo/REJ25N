@@ -1,0 +1,25 @@
+**Original LTL formula:**  
+a U !a  
+
+**Translation:**  
+"The formula requires that *a* becomes false at some state (including the present), and in every state from the current state until (but not including) the state where *a* becomes false, *a* must be true."  
+
+**Explanation of constraints:**  
+1. **Immediate and future constraints:**  
+   - If *a* is false in the **current state**, the formula is immediately satisfied (no further constraints are imposed).  
+   - If *a* is true in the current state, the formula requires:  
+     - *a* remains true in **every subsequent state** until a future state where *a* turns false.  
+     - *a* **must eventually turn false** (cannot remain true indefinitely).  
+
+2. **Scope of constraints:**  
+   - The requirement for *a* to be true **applies only from the current state** until the state immediately before *a* becomes false.  
+   - Once *a* becomes false for the **first time**, the formula is satisfied, and **no future constraints** are imposed (even if *a* later becomes true again).  
+
+3. **Violations:**  
+   - **Violation occurs** if *a* is initially true and remains true **forever** (since *a* never becomes false).  
+   - **Violation does not occur** if *a* becomes false at any point, including immediately.  
+
+**Key clarifications:**  
+- "Until" requires *a* to hold **only up to (not including)** the state where *!a* becomes true.  
+- After *a* becomes false, **no constraints** are enforced by this formula.  
+- The formula **does not guarantee** *a* will become true again after turning false; it only constrains behavior *until the first* occurrence of *!a*.

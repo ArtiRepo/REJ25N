@@ -1,0 +1,52 @@
+### Translation of LTL Formula: \( G (j \Rightarrow \neg f) \)  
+**Original formula:**  
+\( G (j \Rightarrow \neg f) \)  
+
+**Rebuilding the formula from the bottom up:**  
+1. **Innermost expression: \( \neg f \)**  
+   - "\( f \) must be false in the current state."  
+   - *Constraint*: Applies **only if explicitly checked**. Unconstrained otherwise.  
+
+2. **Implication: \( j \Rightarrow \neg f \)**  
+   - "**If \( j \) is true in the current state, then \( f \) must be false**."  
+   - *Logic*:  
+     - If \( j \) is true → \( f \) **must** be false.  
+     - If \( j \) is false → no constraint on \( f \) (it can be true or false).  
+   - *Constraint*: Applies **only in the current state**.  
+
+3. **Global operator: \( G (j \Rightarrow \neg f) \)**  
+   - "In **every state of the execution**, if \( j \) is true, then \( f \) must be false."  
+   - *Logic*:  
+     - The constraint \( j \Rightarrow \neg f \) must hold **at all times** (always and forever).  
+     - There is **no point** where both \( j \) and \( f \) can be true simultaneously.  
+
+**Refined natural language phrasing:**  
+> "**Globally, whenever \( j \) is true, \( f \) must be false.**  
+> This means \( j \) and \( f \) are **mutually exclusive in every state**: they can never both be true at the same time."  
+
+---
+
+### Key Explanations:  
+- **When constraints apply:**  
+  - **Immediately and always**: The formula requires that **at every single state**, if \( j \) is true, \( f \) must be false.  
+  - A violation **at any state** (e.g., \( j \land f \) true simultaneously) makes the entire formula false.  
+
+- **When constraints cease:**  
+  - Constraints apply **indefinitely** (for all future states).  
+  - Violation is **irreversible**: If \( j \land f \) ever holds, the formula is **permanently violated**, regardless of future behavior.  
+
+- **Satisfaction vs. Violation:**  
+  - **Satisfying example**:  
+    - State sequence: \( \{j=\text{false}, f=\text{true}\} \), \( \{j=\text{false}, f=\text{false}\} \), \( \{j=\text{true}, f=\text{false}\} \), ...  
+    - *Why it works*: In every state where \( j \) is true, \( f \) is false.  
+  - **Violating example**:  
+    - Any sequence where a state has \( j=\text{true} \land f=\text{true} \) (e.g., \( \{j=\text{true}, f=\text{true}\} \) at any point).  
+    - *Why it fails*: The condition \( j \Rightarrow \neg f \) is broken in that state.  
+
+---
+
+**Clarity note**:  
+- The formula does **not** require \( j \) or \( f \) to ever be true/false alone.  
+  For instance, \( j \) can be always false (then \( f \) is unconstrained), or \( f \) can be always false (then \( j \) can be true or false).  
+- Misunderstanding to avoid:  
+  - This is **not** "\( f \) eventually becomes false when \( j \) is true". It forbids \( j \land f \) **in every state**, without delay.

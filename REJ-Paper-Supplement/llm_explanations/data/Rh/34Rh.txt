@@ -1,0 +1,35 @@
+**Original LTL formula:**  
+`G (!f | !i)`  
+
+**Step-by-step Rebuild from Bottom of Tree Up:**  
+1. **Innermost Components:**  
+   - `!f`: "f is false in the current state."  
+   - `!i`: "i is false in the current state."  
+   - `!f | !i`: "In the current state, **at least one** of `f` or `i` is false (i.e., they cannot both be true)."  
+
+2. **Outermost Operator (G):**  
+   - `G (...)` applies globally: The condition `!f | !i` must hold **in every state** of the execution.  
+
+**Natural Language Translation:**  
+**"At every state of the execution, either f is false or i is false (or both)."**  
+
+**Key Implications:**  
+- **Constraint Scope:** The formula **only constrains the simultaneous values** of `f` and `i` **in each individual state**. It does *not* restrict `f` or `i` individually over time (e.g., `f` can be true in a state if `i` is false, and `i` can be true if `f` is false).  
+- **When Constrained:** The requirement applies **immediately from the evaluation state onward** and is **enforced indefinitely** (due to `G`).  
+- **Termination of Constraints:** The constraint **never ceases**; it must hold in *all* states indefinitely.  
+
+**Satisfying vs. Violating Sequences:**  
+- **Satisfying Example:**  
+  - State 0: `f=false`, `i=true` → holds (`i` true, but `f` false)  
+  - State 1: `f=true`, `i=false` → holds (`f` true, but `i` false)  
+  - State 2: `f=false`, `i=false` → holds (both false)  
+  → Formula holds because no state has both `f` and `i` true.  
+- **Violating Example:**  
+  - State 0: `f=false`, `i=true` → holds  
+  - State 1: `f=true`, `i=true` → **violates** (both `f` and `i` true)  
+  → Formula fails the instant both propositions are true in any state.  
+
+**Clarification Against Misunderstandings:**  
+- **Not "eventual" constraints:** The formula prohibits `f` and `i` being true in the **same state**, but does **not require** `f`/`i` to be true/false eventually.  
+- **No per-variable restrictions:** `f` may be true forever if `i` is always false (and vice versa).  
+- **Global persistence:** If the formula holds at the initial state, it must hold **at every subsequent state** without exception.

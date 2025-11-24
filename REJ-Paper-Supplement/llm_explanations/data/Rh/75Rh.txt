@@ -1,0 +1,22 @@
+**Original LTL formula:**  
+F(a and b)
+
+**Rebuild meaning from the bottom of the tree up:**  
+1. **Base subformula `(a and b)`**:  
+   Both propositions `a` and `b` must be true in the **same state**.  
+2. **Applying `F` operator**:  
+   The `F` operator requires that there exists **at least one state in the future** (including the current state) where the subformula `(a and b)` holds.  
+
+**Refined natural language phrasing:**  
+"There must exist at least one future state (from now onward) where both `a` and `b` are true simultaneously."  
+
+### Key Implications:  
+- **Satisfaction Condition**:  
+  The formula is immediately satisfied if `a` and `b` are both true in the *current state*. If not, it requires that **at least one future state** exists where `a` and `b` are both true.  
+- **Constraints over time**:  
+  - **Before satisfaction**: The system is constrained to eventually reach a state where `a` and `b` are both true.  
+  - **After satisfaction**: Once such a state occurs, the constraint is lifted for all future states. No further occurrences are required.  
+- **Violation**:  
+  The formula is violated if, from the current state onward, **no state** ever has `a` and `b` true together.  
+- **Misconception alert**:  
+  The formula **does not require** `a` and `b` to be true separately or continuously. Only **one simultaneous occurrence** is needed. For example, a state where only `a` holds or only `b` holds does not suffice unless both are true together at some point.

@@ -1,0 +1,40 @@
+**Original LTL Formula:**  
+X t => X y  
+
+**Rebuilding Meaning from Bottom Up:**  
+1. **X(t)**: "In the **immediately next state**, `t` must be true."  
+2. **X(y)**: "In the **immediately next state**, `y` must be true."  
+3. **Implication (X t => X y)**:  
+   - Equivalent to: **¬(X t) ∨ X y** ("either `X t` is false, or `X y` is true").  
+   - This means: "**If `t` is true in the next state, then `y` must also be true in that same next state**."  
+
+**Natural Language Translation:**  
+"In the next state: if `t` is true, then `y` must be true."  
+
+---
+
+**Key Explanations:**  
+- **When Constrained**:  
+  - **Only the immediate next state** is constrained. The current state and later states (beyond the next) are **unaffected**.  
+  - Variables `t` and `y` are checked **at the same future moment** (the very next state from the current context).  
+
+- **Satisfaction Condition**:  
+  - **Satisfied** if:  
+    (a) `t` is **false** in the next state (regardless of `y`), **or**  
+    (b) `t` is **true** in the next state and `y` is also **true**.  
+  - **Violated** only if `t` is **true** and `y` is **false** in the next state.  
+
+- **Temporal Behavior**:  
+  - The constraint applies **strictly during the transition to the next state** and **ceases immediately after**.  
+  - No obligations exist before or after this single step. For example:  
+    - If `t`/`y` are irrelevant in other states, the formula may still hold.  
+    - A violation **only occurs** at the exact moment when "next state has `t=True` but `y=False`."  
+
+**Example Sequences**:  
+- Satisfies: `[t=F, y=*]` → Next state: `t` false (no constraint on `y`).  
+- Satisfies: `[t=T, y=T]` → Next state: `t` true implies `y` true.  
+- Violates: `[t=T, y=F]` → Next state: `t` true but `y` false.  
+
+**Clarification Against Misunderstandings**:  
+- The formula **does not require** `t` or `y` to hold in the *current* state.  
+- It **imposes no constraints** beyond the immediate next state.

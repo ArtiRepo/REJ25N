@@ -1,0 +1,48 @@
+### LTL Formula Translation:  
+**Original Formula:**  
+`F d | G !n`  
+(Note: `|` represents logical OR.)
+
+#### Step-by-Step Reasoning:  
+1. **Propositions and Negations:**  
+   - `d`: "d must be true in a specific state."  
+   - `!n`: "n must be false in a specific state."  
+
+2. **Temporal Operators:**  
+   - **`F d`**: "There must exist at least one future state where d is true."  
+     - Satisfied if d becomes true **at least once** from the current state onward.  
+     - Once d is true, the constraint ends, and d/n are unconstrained afterward.  
+   - **`G !n`**: "n must be false in every state from the current state onward."  
+     - Requires n to be **persistently false** for the entire future.  
+     - Constraint applies continuously to every state; violation occurs if n becomes true at any point.  
+
+3. **Combined with OR (`|`):**  
+   The formula is satisfied if **at least one** of the following holds:  
+   - `F d` is true (d becomes true eventually), **or**  
+   - `G !n` is true (n is always false forever).  
+
+#### Natural Language Translation:  
+**"d must eventually hold at least once, or n must be false from now onward."**  
+
+#### Key Constraints and Satisfaction:  
+- **Immediate Satisfaction:**  
+  - The formula holds **immediately** if:  
+    - d is true in the **current state** (`F d` satisfied instantly), or  
+    - n is false in the current state **and remains false forever** (`G !n` satisfied).  
+- **Ongoing Constraints:**  
+  | Scenario          | Constraints Until Satisfaction                          | Constraints After Satisfaction          | Violation Condition                                  |  
+  |---------------------|--------------------------------------------------------|----------------------------------------|-----------------------------------------------------|  
+  | **Waiting for `F d`** | Must see d true **eventually**. Until then, d/n can be arbitrary. | **Lifted** when d becomes true. | d **never** becomes true. |  
+  | **Relying on `G !n`** | n must be **false in every state**, including the current and all future states. | **Persists indefinitely**; n cannot become true. | n becomes true in **any future state**. |  
+- **Edge Cases:**  
+  - If n is true **now**, `G !n` fails, forcing reliance on `F d` (d must become true eventually).  
+  - If d is never true and n becomes true **at any point**, the formula is violated.  
+- **Constraints Cease When:**  
+  - `F d` is met: After d becomes true, no further constraints.  
+  - `G !n` is met: Requires eternal vigilance on n (ceases only if `F d` is later satisfied, but the formula is already satisfied by `G !n`).  
+
+#### Summary:  
+The system may **choose** between two paths:  
+1. Let d become true **once** (freeing n forever).  
+2. Keep n **permanently false** (ignoring d).  
+Failure occurs only if **both conditions are broken**: d never holds **and** n becomes true sometime.

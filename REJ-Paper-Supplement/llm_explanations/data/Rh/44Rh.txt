@@ -1,0 +1,31 @@
+### Translation of LTL Formula: \(X(!g \lor !j)\)
+
+**Step-by-Step Reasoning:**  
+1. **Innermost expressions**:  
+   - \(!g\): "\(g\) is false" at a specific state.  
+   - \(!j\): "\(j\) is false" at a specific state.  
+
+2. **Disjunction (\(!g \lor !j\))**:  
+   - "At least one of \(g\) or \(j\) must be false in a given state."  
+   - *Equivalent to*: "\(g\) and \(j\) cannot both be true simultaneously in that state."  
+
+3. **Next-state operator (\(X\))**:  
+   - \(X(!g \lor !j)\) applies the disjunction **exclusively to the immediate next state** after the current evaluation point.  
+
+**Refined Natural Language Translation:**  
+"**In the very next state, \(g\) and \(j\) cannot both be true.**"  
+
+### Key Clarifications:  
+- **Constraints on the current state**:  
+  None. The formula imposes **no requirements** on \(g\) or \(j\) in the current state (they can be true, false, or both true).  
+- **Constraints on the next state**:  
+  \(g\) and \(j\) **must not both be true** in the immediate next state.  
+- **Beyond the next state**:  
+  No constraints apply. The formula **does not restrict** any states beyond the immediate next one.  
+- **Violation condition**:  
+  The formula is violated **only if** the next state has both \(g\) and \(j\) true.  
+- **Satisfaction timeline**:  
+  The formula is evaluated at time \(t\). It is satisfied **if and only if** at time \(t+1\), at least one of \(g\) or \(j\) is false.  
+
+---  
+**Note**: This formula expresses a **single-step constraint** concerning mutual exclusion in the next immediate state.

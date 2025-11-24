@@ -1,0 +1,28 @@
+**Original LTL formula**:  
+G a  
+
+**Rebuild meaning from the bottom up**:  
+1. **Atomic proposition `a`**:  
+   - "`a` must be true in the *current state*."  
+   - Constraints on other states: None.  
+
+2. **Apply `G` (globally) operator**:  
+   - The `G` operator extends the requirement of `a` to **all states**:  
+     - "`a` must be true in the current state **and** in *every future state* of the execution."  
+
+**Refined natural language phrasing**:  
+- **"`a` must be true in every state of the execution, from now onward."**  
+
+### Key Clarifications:  
+- **Constraints over time**:  
+  - **Applies immediately**: `a` must hold **now** (in the current state).  
+  - **Ongoing constraints**: `a` must **hold forever** in all future states.  
+  - **Constraint ceases**: **Never**. The requirement persists indefinitely.  
+
+- **Satisfaction vs. Violation**:  
+  - **Satisfied only if**: `a` is true in **all states** (e.g., `a, a, a, a, ...`).  
+  - **Violated if**: `a` is false in **any state** (e.g., `a, a, false, ...`).  
+    - The formula is violated **immediately** when a state violates `a`, and remains violated thereafter.  
+
+- **Common misunderstanding**:  
+  - The constraint **never expires** or weakens over time. A single failure violates the entire specification.

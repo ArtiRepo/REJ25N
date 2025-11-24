@@ -1,0 +1,30 @@
+**Original LTL formula**:  
+`F d & ! F t`  
+
+**Step-by-Step Rebuilding**:  
+1. `F t`: "There exists at least one future state where `t` is true."  
+2. `! F t`: Negation of (1) → "`t` is **never** true in any future state (from now on). Equivalently, `t` must be false in every state."  
+3. `F d`: "There exists at least one future state (starting now) where `d` is true."  
+4. **Conjunction (`&`)**: Combines (2) and (3) →  
+   - "`d` must eventually be true **and** `t` must **never** be true (in the entire execution)."  
+
+**Refined Natural Language Phrasing**:  
+> **"Eventually `d` holds, and `t` never holds."**  
+
+**Key Constraints**:  
+- **`t` is forbidden globally**: `t` must **always** be false (in every state starting now). Violated instantly if `t` occurs in any state.  
+- **`d` must hold eventually**: At least one state (current or future) must satisfy `d`. Violated only if `d` remains false forever.  
+- **No interdependence**: `d` and `t` are independent; `d`'s timing has no effect on the perpetual absence of `t`.  
+
+**Violating Scenarios**:  
+- *At any moment*: If `t` becomes true → violates `! F t` (formula fails).  
+- *Infinite execution*: If `d` never becomes true → violates `F d` (formula fails).  
+
+**Satisfying Scenario**:  
+- `d` becomes true at least once (e.g., at time _k_), **and** `t` never occurs in any state (including before, at, or after _k_).  
+
+**Temporal Boundaries**:  
+- Constraints start **immediately**:  
+  - `t` is blocked from the first state onward (active forever).  
+  - `d` must occur within finite time (active until satisfied).  
+- Once `d` holds, its obligation ends; `t`'s prohibition persists eternally.

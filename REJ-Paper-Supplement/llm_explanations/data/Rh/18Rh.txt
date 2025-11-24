@@ -1,0 +1,31 @@
+**Original LTL Formula:**  
+`!F (a & b)`  
+
+**Step-by-Step Translation:**  
+1. **Innermost Expression (`a & b`):**  
+   "Both `a` and `b` are true in the **same state**."  
+
+2. **Temporal Operator `F` (`F (a & b)`):**  
+   "There exists at least one future state where `a` and `b` are **simultaneously true**."  
+
+3. **Negation `!` (`!F (a & b)`):**  
+   "It is **never true** (in any state of the execution) that `a` and `b` are both true simultaneously."  
+
+**Final Natural Language Translation:**  
+"`a` and `b` are **never simultaneously true** in the entire execution."  
+
+**Key Constraints and Satisfaction Conditions:**  
+- **Constraint:** At **every state** of the execution, `a` and `b` must **not both hold** (they are mutually exclusive).  
+- **Satisfied if:** For **all states**, at least one of `a` or `b` is false.  
+- **Violated if:** **Any single state** exists where both `a` and `b` are true.  
+- **Temporal Scope:** The constraint applies **immediately** from the first state and **persists indefinitely** (no point after which it no longer applies).  
+
+**Examples:**  
+- **Satisfying trace:** `a=false, b=false` → `a=true, b=false` → `a=false, b=true` → ...  
+  *(Explanation: `a` and `b` never true together in any state.)*  
+- **Violating trace:** ... → `a=true, b=false` → `a=true, b=true` → ...  
+  *(Explanation: Violated as soon as both `a` and `b` are true in one state.)*  
+
+**Clarifications:**  
+- **No restrictions** on the occurrence of `a` or `b` individually (either or both may be true at different times).  
+- **Misinterpretation Warning:** `!F (a & b)` is **not** equivalent to `G(!a) ∨ G(!b)` (which requires one to be always false). It only forbids simultaneous truth.

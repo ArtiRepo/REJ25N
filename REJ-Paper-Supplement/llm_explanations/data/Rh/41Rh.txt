@@ -1,0 +1,38 @@
+### Translation of LTL Formula: **G (n => s)**  
+
+**Original Formula:**  
+`G (n => s)`  
+
+**Step-by-Step Reasoning:**  
+1. **Innermost expression (`n => s`)**  
+   - This is a logical implication. In any given state:  
+     - If `n` is **true**, then `s` **must be true** (constraint applies).  
+     - If `n` is **false**, `s` can be **true or false** (no constraint).  
+   - **Violation:** `n` true AND `s` false in the same state.  
+
+2. **Outermost operator (`G`)**  
+   - `G` requires the inner formula (`n => s`) to hold **in every state** of the execution, from now until the end.  
+
+**Refined Natural Language Phrasing:**  
+> "At every moment, if `n` is true, then `s` must be true."  
+
+**Key Clarifications:**  
+- **Constraints:**  
+  - When `n` is true in a state: `s` **must** be true in that same state.  
+  - When `n` is false: `s` is **unconstrained** (can be true or false).  
+- **Ongoing Application:**  
+  - The constraint applies **to every state** indefinitely. Violation occurs if **any state** has `n` true and `s` false.  
+- **Misconceptions:**  
+  - `n` and `s` are **not** required to hold forever; only the logical link (`n` implies `s`) is always enforced.  
+  - The formula **does not require `n` to become true**; if `n` is always false, the formula holds regardless of `s`.  
+
+**Satisfaction vs. Violation Examples:**  
+- ✅ **Satisfaction:**  
+  - A state where `n` is false and `s` is true → no issue.  
+  - A state where `n` is true and `s` is true → valid.  
+  - Entire execution: `n` never true → formula holds vacuously.  
+- ❌ **Violation:**  
+  - **Any state** where `n` is true and `s` is false → breaks the formula for the entire execution.  
+
+**Final Translation:**  
+> "At every moment in the execution, if `n` is true, then `s` must be true."

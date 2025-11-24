@@ -1,0 +1,18 @@
+**Original LTL Formula:**  
+t  
+
+**Natural Language Translation:**  
+"t is true in the current state."  
+
+**Explanation of Constraints:**  
+- **Immediate Constraint:** The formula is satisfied **if and only if** `t` holds *at the exact moment* it is evaluated (the current state).  
+- **No Past/Future Constraints:**  
+  - *Before* the current state: `t` may be true or false (unconstrained).  
+  - *After* the current state: `t` may be true or false (unconstrained).  
+
+**Satisfaction vs. Violation:**  
+- ✅ **Satisfied** if: The system is **currently** in a state where `t = true` (e.g., `[t=true]`).  
+- ❌ **Violated** if: The system is **currently** in a state where `t = false` (e.g., `[t=false]`).  
+
+**Key Insight:**  
+This formula **only constrains the present**. It imposes no obligations on the future or past behavior of `t`. Once the current state is evaluated, the formula’s requirements are fulfilled (if `t` holds) or failed (if `t` fails) immediately.

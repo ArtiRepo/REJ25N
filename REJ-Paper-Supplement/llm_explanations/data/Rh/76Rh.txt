@@ -1,0 +1,42 @@
+**Original LTL formula:**  
+`G(a → X¬b)`  
+
+**Natural Language Translation:**  
+"Throughout the entire execution, if `a` is true in any state, then in the very next state `b` must be false."  
+
+---
+
+### Breakdown and Reasoning:  
+1. **Inner formula `X¬b`**:  
+   - "`¬b` must hold in the immediate next state."  
+   - *Interpretation*: If this subformula is required, `b` is forbidden in the next state.  
+
+2. **Implication `a → X¬b`**:  
+   - "If `a` is true in the current state, then `X¬b` must hold (i.e., `b` must be false in the next state)."  
+   - If `a` is false in the current state, the implication is **automatically satisfied** (no constraint on the next state’s `b`).  
+
+3. **Global operator `G(...)`**:  
+   - Apply `a → X¬b` **to every state** in the execution, starting now.  
+   - *Result*: For *every* state `i`:  
+     - If `a` is true at state `i`, then `b` **must be false** at state `i+1`.  
+     - If `a` is false at state `i`, state `i+1` has **no restrictions on `b`** (from this formula).  
+
+---
+
+### Key Constraints:  
+- **Scope**:  
+  - `a` in state `i` directly constrains `b` in state `i+1` (one step ahead).  
+  - No constraints apply to `b` in the **current state** or beyond `i+1` (unless triggered by `a` in future states).  
+- **Satisfaction/Violation**:  
+  - **Holds if**: Whenever `a` holds at any state, `b` is false in the next state.  
+  - **Fails if**: At any state `i` where `a` is true, `b` is **true** in state `i+1` (e.g., `a` at `i` and `b` at `i+1` violates).  
+- **Evolution**:  
+  - At each state, the truth of `a` determines constraints for the **next step only**.  
+  - Once considered (e.g., for state `i`), constraints expire: State `i`’s `a` no longer affects beyond state `i+1`.  
+
+### Common Misunderstandings:  
+- **Not** "`b` is always false after `a`": Constraints last **exactly one step**, and `b` may be true later (if no further `a` triggers apply).  
+- **Not** "`a` must eventually occur": `a` may remain false forever, trivially satisfying the formula.  
+
+### Final Refinement:  
+"Globally, if `a` holds at any moment, `b` is false in the immediately following state."

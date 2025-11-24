@@ -1,0 +1,46 @@
+**Original LTL Formula:**  
+`G(a → Fb)`  
+
+**Step-by-Step Translation:**  
+1. **Innermost Component (`Fb`):**  
+   - `Fb` means: *"Eventually, at some future state (including the current state), `b` becomes true."*  
+
+2. **Implication (`a → Fb`):**  
+   - `a → Fb` means: *"**At the current state**, if `a` is true, then `Fb` must hold (i.e., `b` must be true now or at some future state)."*  
+   - If `a` is false in the current state, the implication holds **regardless of `b`**.  
+
+3. **Global Operator (`G` applied to `a → Fb`):**  
+   - `G(a → Fb)` means: *"**In every state** of the execution, the condition `a → Fb` must hold."*  
+   - Combining all: *"For every state: if `a` is true at that state, then `b` must be true at that same state or at some future state."*  
+
+**Refined Natural Language Phrasing:**  
+> "Whenever `a` is true, `b` must be true at the same moment or at some future time."  
+
+**Key Implications:**  
+- **Constraints:**  
+  - **When `a` becomes true:** The obligation for `b` to hold **is immediately triggered** at that exact state. It must either hold immediately or at any point afterward.  
+  - **After `b` occurs:** The obligation **expires**, but **only for the specific instance of `a`** that triggered it. Subsequent occurrences of `a` trigger new obligations for `b`.  
+  - **When `a` is false:** *No constraint is imposed* on `b`.  
+
+- **Satisfaction vs. Violation:**  
+  - **Satisfied if:** For every state where `a` is true, there is a corresponding `b` at that state or later (e.g., "`a` true at time *t₁* and `b` true at *t₂ ≥ t₁*").  
+    - *Example:* `a` and `b` true at all times (*safe but strict*).  
+    - *Example:* `a` true only once followed by `b` in the next state (*minimal satisfaction*).  
+  - **Violated if:** **Any single occurrence** of `a` is *never* followed (now or later) by `b`.  
+    - *Example:* `a` true at *t₁*, but `b` never occurs afterward.  
+
+**Common Misunderstandings:**  
+- ❌ "If `a` holds, `b` must hold *strictly later*."  
+  - **Correction:** `b` may hold **instantly** (same state as `a`).  
+- ❌ "A single `b` satisfies the whole formula."  
+  - **Correction:** **Every occurrence of `a`** must have `b` occur at or after its state (*shared `b`s are allowed*).  
+- ❌ "`b` must hold infinitely often if `a` does."  
+  - **Correction:** Only *one* future `b` is needed per occurrence of `a` (e.g., if `a` is true once, `b` may occur once and never again).  
+
+**Temporal Behavior:**  
+- **Evaluated at time *t*:** The formula is falsified **immediately** if `a` is true at *t* with no `b` at *t* and all prior obligations unfulfilled.  
+- **Ongoing constraints:** Obligations for `b` persist until satisfied. A late `b` will retroactively fulfill past obligations.  
+- **Safe states:** When `a` is false, the constraint is inactive — no pending obligations exist. A prior `b` does not "cover" future `a`s.  
+
+---  
+*Conciseness note: This avoids repetition while covering triggering, expiration, obligations, and edge cases.*

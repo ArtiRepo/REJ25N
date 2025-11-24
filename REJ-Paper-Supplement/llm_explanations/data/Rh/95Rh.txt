@@ -1,0 +1,34 @@
+### LTL Formula: `!F (i U j)`
+
+#### Step-by-Step Translation from the Bottom Up:
+1. **Innermost Subformula (`i U j`):**  
+   "`j` must eventually become true, and until that specific moment, `i` must remain true in every state. Once `j` becomes true, `i` has no further constraints."
+
+2. **Applying `F` (`F (i U j)`):**  
+   "There must exist a future state (including the current state) at which the condition `(i U j)` holds."
+
+3. **Applying Negation (`!F (i U j)`):**  
+   "It is **not true** that there exists a future state where `(i U j)` holds."  
+   → Equivalently: "At **no future state** (including the current state) does the condition `(i U j)` hold."
+
+#### Final Natural Language Translation:  
+"**`j` must never become true at any point in the execution.** The variable `i` is unconstrained in all states."
+
+#### Key Constraints and Evolution:
+- **Constraint on `j`:**  
+  `j` must be false in **every state** (current and future). If `j` ever becomes true (at any state), the formula is **violated**. This constraint is **permanent** and applies globally.  
+  - *Violation example:* `j` becomes true at any state (e.g., `j` is true now, or in 10 steps).  
+  - *Satisfaction example:* `j` remains false forever, regardless of `i`'s behavior.
+  
+- **Constraint on `i`:**  
+  **No constraints** are imposed on `i`. It can be true, false, or oscillate arbitrarily without affecting the formula.
+
+- **Evaluation at Check-Time:**  
+  - If evaluated at a state where `j` has **never yet been true** and **will never become true**, the formula is satisfied.  
+  - If `j` **has been or will become true**, the formula is false and remains false for all future evaluations.
+
+- **When Constraints Apply:**  
+  The prohibition on `j` is **immediate and perpetual**. Once `j` becomes true (at any time), the formula fails irreversibly.
+
+#### Common Misunderstanding Avoidance:
+  > ⚠️ **Note:** The formula does **not** constrain `i` or require `i` to fail. The *only* requirement is that `j` **never** occurs. Confusion may arise from the `until` operator in the subformula, but the negation and `F` eliminate all dependency on `i`.

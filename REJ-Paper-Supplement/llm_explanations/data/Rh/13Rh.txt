@@ -1,0 +1,24 @@
+**Original LTL formula:**  
+(c U a) & (b U a)  
+
+**Meaning:**  
+"The condition **a** must eventually hold at some state in the future. Until the moment **a** first holds (*including all states from the current state up to, but not including, the state where a becomes true*), **both b and c must hold simultaneously in every state**. If **a** is already true in the current state, the formula is immediately satisfied, imposing **no constraints on b or c** in any state (current or future)."  
+
+### Key Implications:  
+- **Satisfaction when "a" holds immediately:**  
+  If **a** is true now, the formula holds regardless of **b** or **c** (now or later).  
+- **Constraints when "a" holds later:**  
+  If **a** first occurs at state *k* (where *k ≥ 1*):  
+  - **b** and **c** must both be true at *state 0* (current).  
+  - **b** and **c** must both hold at *every state from 1 to k-1*.  
+  - **a** must hold at *state k* (no constraint on **b**/**c** here).  
+- **Violations:**  
+  - **a** never holds (both `(c U a)` and `(b U a)` fail).  
+  - **b** or **c** fails in any state *before the first **a*** (e.g., **a** holds at state 2, but **c** is false at state 1).  
+- **After "a" holds:**  
+  No further constraints on **b** or **c** (they can become false immediately after **a**).  
+
+### Clarifications:  
+- "Until the first **a**" means constraints apply **only** to states *before* **a** occurs.  
+- Both **b** and **c** must hold **continuously and concurrently** until **a** arrives.  
+- The first occurrence of **a** terminates all constraints for both subformulas.

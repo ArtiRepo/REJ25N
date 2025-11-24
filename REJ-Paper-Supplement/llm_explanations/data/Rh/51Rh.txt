@@ -1,0 +1,43 @@
+**Original LTL formula:**  
+`a -> XXXa`  
+
+### Step-by-Step Rebuilding:
+1. **Atomic proposition (`a`):**  
+   Evaluated at the current state.  
+
+2. **Triple Next (`XXXa`):**  
+   - `Xa`: `a` must hold in the immediate next state.  
+   - `XXa`: `a` must hold **two** states after the current state.  
+   - `XXXa`: `a` must hold **three** states after the current state.  
+
+3. **Implication (`a -> XXXa`):**  
+   - If `a` is **true** in the **current state**, then `XXXa` (i.e., `a` must be true **three states later**) must also hold.  
+   - If `a` is **false** in the current state, the entire formula holds **regardless** of future values of `a`.  
+
+### Natural Language Translation:
+**"If `a` is true in the current state, then `a` must be true exactly three states later."**  
+
+---
+
+### Key Details:  
+1. **When constraints apply:**  
+   - **Only** when `a` is true at the current state.  
+   - The constraint *requires* `a` to be true **exactly three steps forward** (e.g., at state `t+3` if current state is `t`).  
+
+2. **When no constraints apply:**  
+   - If `a` is false at the current state, **no constraint** is imposed on any state.  
+   - **States between** the current state and the target state (i.e., `t+1`, `t+2`) are **unconstrained**—`a` may be true or false freely.  
+   - After the target state (`t+3`), no constraints from this formula apply.  
+
+3. **Satisfaction vs. Violation:**  
+   - **Satisfied if:**  
+     - `a` is false at current state, *or*  
+     - `a` is true at current state **and** true at state `t+3`.  
+   - **Violated if:**  
+     - `a` is true at current state, but false at state `t+3`.  
+
+4. **Temporal Scope:**  
+   - Constraints are **local** to the current state and a **specific future state** (three steps ahead).  
+   - The formula **does not care about** :  
+     - Whether `a` holds in states `t+1` or `t+2`,  
+     - Whether `a` holds before or after `t+3`.

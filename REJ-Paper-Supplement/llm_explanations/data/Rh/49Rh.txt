@@ -1,0 +1,40 @@
+### Original LTL Formula:  
+**X !(t | w)**  
+
+### Step-by-Step Translation:  
+1. **Innermost expression `(t | w)`**:  
+   "`t` is true **OR** `w` is true in the current state."  
+
+2. **Negated expression `!(t | w)`**:  
+   "**NEITHER** `t` **NOR** `w` is true in the current state."  
+   *(Equivalent to "both `t` and `w` are false")*.  
+
+3. **Applying `X` (Next) operator to `!(t | w)`**:  
+   "In the **very next state**, **NEITHER** `t` **NOR** `w` must be true."  
+   *(Alternatively: "In the immediate next state, both `t` and `w` must be false")*.  
+
+### Natural Language Translation:  
+> **"In the very next state, both `t` and `w` must be false."**  
+
+### Key Details:  
+- **Constraint scope**:  
+  - **Applies only to the immediate next state** (direct successor of the current state).  
+  - **No constraint** on the current state, past states, or states beyond the next state.  
+
+- **Satisfaction condition (at current state)**:  
+  - **Holds** if the immediate next state has **`t` false and `w` false**.  
+  - **Violated** if the next state has **`t` true, `w` true, or both true**.  
+
+- **Temporal effect**:  
+  - The constraint **ceases immediately** after the next state. Subsequent states may have arbitrary values for `t` or `w`.  
+
+### Examples:  
+- **Satisfying sequence**:  
+  `[current: {t=?, w=?}] → [next: {t=0, w=0}] → [...]`  
+  *(Values in `?` states are irrelevant)*.  
+- **Violating sequence**:  
+  `[current: {t=0, w=0}] → [next: {t=1, w=0}] → [...]`  
+  *(Fails because `t` is true in the next state)*.  
+
+### Common Pitfall:  
+- **Misinterpreting scope**: This formula **does not** require `t` or `w` to be false beyond the immediate next state.

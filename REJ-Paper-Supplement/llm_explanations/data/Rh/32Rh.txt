@@ -1,0 +1,33 @@
+**Original LTL formula:**  
+`(b | !a) & X (d U c)`  
+
+**Translation and Explanation:**  
+The formula must hold at the current state (time `0`). It combines a *present constraint* and a *future constraint*:  
+1. **Current constraint (`b | !a`):**  
+   - Immediately, either:  
+     - `b` is **true**, **or**  
+     - `a` is **false** (or both).  
+   - This applies *only* to the current state. No constraints on `a` or `b` exist beyond this state.  
+
+2. **Future constraint (`X (d U c`)):**  
+   - Starting from the **very next state** (time `1`), `d U c` must hold. This means:  
+     - `c` **must eventually become true** at some future state `k` (where `k ≥ 1`).  
+     - For **every state from time `1` to time `k-1`**, `d` **must be true**.  
+   - **Once `c` becomes true at time `k`:**  
+     - The obligation for `d` to hold ceases (it can be true or false at `k` and beyond).  
+     - `c` must occur at least once—**no later constraint** is imposed after `k`.  
+
+**Key Details:**  
+- **Violation examples:**  
+  - Current state: `b=false` and `a=true` (fails `b | !a`).  
+  - Next state: `c` never occurs (fails `F(c)`).  
+  - Next state: `c` occurs at time `3`, but `d=false` at time `1` or `2` (fails `d U c`).  
+- **Satisfaction examples:**  
+  - Now: `b=true`; Next: `c=true` at time `1` (no need for `d`).  
+  - Now: `a=false`; Next: `d=true` at time `1`, `d=true` at time `2`, `c=true` at time `3`.  
+- **When constraints end:**  
+  - `(b | !a)` ends after the current state.  
+  - `d U c` ends after `c` first occurs.  
+
+**Natural Language Phrasing:**  
+> *"Either `b` is true or `a` is false now. Additionally, starting in the very next moment, `d` must continuously hold until `c` becomes true for the first time—and `c` must eventually happen."*

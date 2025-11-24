@@ -1,0 +1,44 @@
+**Original LTL Formula**:  
+¬s U g  
+
+**Translation Process**:
+
+1.  **Bottom-up analysis**:  
+    - The core operator is **Until (U)**, which has two operands:  
+      - Left operand: **¬s** (negation of `s`).  
+      - Right operand: **g** (proposition `g`).  
+
+2.  **Applying the Until (U) operator**:  
+    - The formula **a U b** means:  
+      > *"`b` must eventually hold at some future state (or now), and until that precise moment, `a` must hold in every state."*  
+    - Here, `a` is **¬s** and `b` is **g**, so:  
+      > *"`g` must eventually hold, and until that specific moment, `¬s` must hold in every state."*  
+
+3.  **Refining natural language for clarity**:  
+    - **Behavior of `¬s` (i.e., `s` must be false)**:  
+      > *"From the current state until the state immediately before `g` becomes true*, `s` must be **false**."*  
+    - **Behavior of `g` (eventual requirement)**:  
+      > *"`g` must become true **at least once**, now or in the future."*  
+    - **Constraint release**:  
+      > *"At the exact state where `g` first holds, and in all states afterward, `s` may be **true or false** without violating the formula."*  
+
+**Final Natural Language Translation**:  
+> *"g must eventually hold at least once, and until the moment before g first holds, s must be false. At the state where g becomes true and in all subsequent states, s may be true or false unconditionally."*  
+
+**Key Clarifications**:  
+- **When constraints apply**:  
+  - `s` must be **false** continuously from *now* until the *state just before* `g` becomes true.  
+  - `g` must be true in at least one state (current or future).  
+- **Constraint termination**:  
+  - The requirement for `s=false` **ceases immediately** when `g` first holds (including that state).  
+  - After `g` holds, `s` is unconstrained forever.  
+- **Edge cases**:  
+  - If `g` holds *now*, the requirement for `s=false` applies to the *empty interval* (thus trivially satisfied, regardless of `s`'s current value).  
+  - If `g` **never holds**, the formula is **violated** (even if `s` remains forever false).  
+  - If `s` is **true** in any state *before* `g` holds, the formula is **violated**.  
+
+**Examples**:  
+- **Satisfied**: (`s=false`, `s=false`, `s=false`, `g=true`, ...) — `g` holds at state 3; `s=false` until state 2.  
+- **Satisfied**: (`g=true`, ...) — `g` holds now; no need to check `s`.  
+- **Violated**: (`s=false`, `s=false`, `s=true`, `g=true`, ...) — `s=true` at state 2 violates until `g` holds at state 3.  
+- **Violated**: (`s=false`, `s=false`, ...) — if `g` never holds.

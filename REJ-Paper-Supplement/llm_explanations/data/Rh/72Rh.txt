@@ -1,0 +1,29 @@
+**Original LTL formula:**  
+`G !a`  
+
+**Step-by-Step Translation:**  
+1. **`a`**: Refers to the truth value of atomic proposition `a` in the **current state**.  
+   - Satisfied if `a` is true in the current state.  
+   - Violated if `a` is false in the current state.  
+
+2. **`!a`**: Negation of `a`.  
+   - Satisfied if `a` is **false** in the current state.  
+   - Violated if `a` is true in the current state.  
+   - *Constraints*: Only applies to the **current state**; no requirements on future states.  
+
+3. **`G(!a)`**: Globally applies `!a` to **every state** in the execution.  
+   - Satisfied if `!a` holds in **every state**, starting from the current state and continuing infinitely.  
+   - Violated if **at any point** (now or in the future) `a` becomes true.  
+   - *Constraints*:  
+     - **Immediately**: `a` must be false in the current state.  
+     - **Ongoing**: `a` must **remain false forever** in all subsequent states.  
+     - *Termination of constraints*: Constraints **never cease**; if `a` ever becomes true (even once), the formula is violated permanently.  
+
+**Final Natural Language Translation:**  
+"`a` **must be false in all states, now and forever.**"  
+
+**Key Clarifications:**  
+- **Satisfaction**: Only if `a` is **never true** in the entire execution.  
+- **Violation**: If `a` is true in **any single state** (e.g., `a` becomes true at time `t=3`, violating `G !a` at all times).  
+- **Constraint Scope**: Immediately requires `a` to be false now and imposes an **eternal, unbreakable constraint** forbidding `a` from ever being true.  
+- **Common Misunderstanding**: Constraints do not weaken or expire; the system must **permanently avoid `a`** after the formula is checked.
