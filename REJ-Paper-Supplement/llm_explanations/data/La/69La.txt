@@ -1,0 +1,32 @@
+## Step 1: Write down original LTL formula
+The original LTL formula is: FGa
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula FGa, we first identify its components:
+- F (Future operator, meaning "eventually")
+- G (Globally operator, meaning "always")
+- a (a proposition, which can be thought of as an atomic statement)
+
+The parsing tree can be represented as:
+```
+  F
+ / 
+G a
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- "a" is a proposition that can be true or false at any given time.
+- "G a" means that "a" is true globally, i.e., always. This implies that at every point in time, "a" must be true.
+- "F (G a)" means that "eventually, 'a' will be true globally" or more naturally, "'a' will be true from some point onward forever".
+
+## 4: Refine the natural language phrasing for clarity
+The formula FGa can be translated to: "It will eventually be the case that 'a' is always true."
+
+This means that the system will reach a point in time after which "a" is continuously true. Before that point, "a" can be true or false, but from that point onward, "a" must be true.
+
+## 5: Clarify satisfaction and constraints
+- The formula is satisfied if there exists a point in time t such that for all times t' ≥ t, "a" is true.
+- It imposes a constraint on the system that it must reach a state where "a" holds and remains true for all future times.
+
+The final answer is: $\boxed{It will eventually be the case that 'a' is always true.}$

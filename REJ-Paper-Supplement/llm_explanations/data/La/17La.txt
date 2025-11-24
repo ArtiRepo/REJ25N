@@ -1,0 +1,29 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: `!G c`
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- `!` denotes negation.
+- `G` denotes "always" or "globally".
+- `c` is a proposition.
+
+So, the parsing tree breaks down as follows:
+- The top-level operator is negation `!`.
+- The subformula being negated is `G c`.
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `c` is a proposition that can be true or false at any given state.
+- `G c` means that `c` must be true at all states, from the current state into the future indefinitely. In other words, it asserts that `c` is always true.
+- Applying the negation `!` to `G c`, we get `!G c`, which means it is not the case that `c` is always true.
+
+## 4: Refine the natural language phrasing for clarity
+- `G c` translates to "c is always true" or "c holds globally".
+- Therefore, `!G c` translates to "it is not the case that c is always true" or more naturally, "c is not always true".
+
+This can be further refined to: "There exists a time at which c is false" or more intuitively, "c will be false at some point".
+
+## 5: Final Translation and Explanation
+The LTL formula `!G c` is satisfied if there exists at least one moment in time (past, present, or future) where the proposition `c` is false. It imposes a constraint on the system that it cannot be the case that `c` holds true at every moment. In other words, the system must have a state where `c` is false for the formula to be satisfied.
+
+The final answer is: $\boxed{c will be false at some point}$

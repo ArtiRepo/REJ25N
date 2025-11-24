@@ -1,0 +1,39 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: X (y => x & w)
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The formula is: X (y => x & w)
+- "X" denotes "next", indicating that the property it modifies holds in the next state.
+- "y => x & w" is a conditional statement where:
+  - "y" is a proposition.
+  - "=>" denotes implication.
+  - "x & w" is a conjunction of propositions "x" and "w".
+
+The parsing tree can be represented as:
+```
+     X
+    / 
+(y => (x & w))
+   /       \
+  y         (x & w)
+             /   \
+            x     w
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- "x & w" means that both "x" and "w" must be true.
+- "y => x & w" means that if "y" is true, then both "x" and "w" must be true. If "y" is false, then "x & w" can be either true or false; the implication is satisfied regardless of "x" and "w" when "y" is false.
+- "X (y => x & w)" means that in the next state, the implication "y => x & w" must hold. So, if in the next state "y" is true, then both "x" and "w" must be true. If "y" is false in the next state, then "x" and "w" can take any value.
+
+## 4: Refine the natural language phrasing for clarity
+The formula X (y => x & w) can be translated into natural language as:
+"In the next state, if y is true, then both x and w must be true. However, if y is false in the next state, there are no restrictions on x and w."
+
+Or, more succinctly:
+"After the current state, if y becomes true, then both x and w must become true. If y remains false, x and w can be anything."
+
+This phrasing captures the essence of the LTL formula, emphasizing the conditional requirement that is imposed on the system in the next state, based on the value of "y" and the conjunction requirement for "x" and "w" when "y" is true.
+
+The final answer is: $\boxed{In the next state, if y is true, then both x and w must be true.}$

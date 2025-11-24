@@ -1,0 +1,27 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: G(a -> XXXa)
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The outermost operator is G (always)
+- The inner formula is a -> XXXa
+  - The antecedent is a
+  - The consequent is XXXa
+    - XXX is a temporal operator meaning "in 3 time steps"
+    - a is the proposition
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- XXXa means "a is true 3 time steps from now"
+- a -> XXXa means "if a is true now, then a is true 3 time steps from now"
+- G(a -> XXXa) means "always, if a is true now, then a is true 3 time steps from now"
+
+## 4: Refine the natural language phrasing for clarity
+The formula G(a -> XXXa) can be translated to: "Whenever a is true, it must be that a will be true 3 time steps later."
+Or equivalently: "It is always the case that if a is true, then a will be true again in 3 steps."
+
+## 5: Explain satisfaction and constraints
+- The formula is satisfied if, at every point in time, either a is false or a is true and 3 time steps later a is true.
+- It imposes a constraint on the system that whenever a becomes true, a must become true again exactly 3 time steps later. If a is false, there is no constraint imposed by this formula on the next states.
+
+The final answer is: $\boxed{Whenever a is true, it must be that a will be true 3 time steps later.}$

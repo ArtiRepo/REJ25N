@@ -1,0 +1,41 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G t | F w
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- G: Always (globally)
+- t: A proposition (condition) that is true at some state
+- |: Or (logical disjunction)
+- F: Eventually (in the future)
+- w: Another proposition (condition) that is true at some state
+
+The parsing tree can be seen as:
+```
+     |
+    / \
+   G t  F w
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- F w means "w will be true at some point in the future."
+- G t means "t is true at all times (globally)."
+
+The | operator combines these with a logical OR, so:
+- G t | F w means "(t is true at all times) or (w will be true at some point in the future)."
+
+## 4: Refine the natural language phrasing for clarity
+Refining the meaning:
+- The formula G t | F w is satisfied if either t is true at every moment in time, or if there exists a moment in the future when w becomes true.
+- It imposes a constraint on the system such that either t must hold continuously, or w must become true at some point.
+
+A clear natural language translation could be: "Either t is always true, or w will become true at some point in the future."
+
+## 5: Conclusion on satisfaction and constraints
+The formula is satisfied under two conditions:
+1. If t is true at all times.
+2. If there exists a future point in time where w is true.
+
+It imposes a constraint that the system must satisfy at least one of these conditions over time.
+
+The final answer is: $\boxed{Either t is always true, or w will become true at some point in the future.}$

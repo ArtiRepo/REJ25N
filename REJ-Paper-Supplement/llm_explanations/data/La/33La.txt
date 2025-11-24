@@ -1,0 +1,34 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: $(b U c) \& (d U !b)$.
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The formula is a conjunction ($\&$) of two subformulas: $(b U c)$ and $(d U !b)$.
+- $(b U c)$ means "$b$ until $c$".
+- $(d U !b)$ means "$d$ until not $b$".
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $(b U c)$ is satisfied if $b$ is true until $c$ becomes true. This means $b$ must be true from the current state onwards until $c$ is true. If $c$ is already true, then $b$ can be false or true, but if $c$ becomes true at some point, $b$ must have been true all the time before $c$ became true.
+- $(d U !b)$ is satisfied if $d$ is true until $b$ becomes false. This implies $d$ must be true from the current state onwards until $b$ becomes false. If $b$ is already false, then $d$ can be false or true.
+
+## 4: Combine the meanings of the subformulas
+The entire formula $(b U c) \& (d U !b)$ is satisfied if both subformulas are satisfied simultaneously. This means:
+- $b$ must be true until $c$ becomes true.
+- $d$ must be true until $b$ becomes false.
+
+## 5: Refine the natural language phrasing for clarity
+To satisfy the formula, two conditions must hold:
+1. $b$ must be true and stay true until $c$ becomes true.
+2. $d$ must be true and stay true until $b$ becomes false.
+
+This implies that as long as $b$ is true, $d$ must also be true. Once $b$ becomes false, $d$ can become false or stay true, but $c$ must still become true after $b$ has become false for the first condition to be satisfied.
+
+## 6: Final Natural Language Translation
+The system must satisfy two conditions over time:
+- It must have $b$ true until $c$ becomes true.
+- It must have $d$ true until $b$ becomes false.
+
+This means $b$ and $d$ must both be true at the start and $d$ remains true as long as $b$ is true. Once $b$ becomes false, $c$ must become true at some point for the whole formula to be satisfied.
+
+The final answer is: $\boxed{The system must have b and d true until b becomes false, and then c must become true at some point.}$

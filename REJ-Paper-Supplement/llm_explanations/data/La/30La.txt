@@ -1,0 +1,37 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: X a & !G b
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To understand the formula, we break it down into its components:
+- X a (Next a)
+- !G b (Not always b)
+
+The parsing tree can be represented as:
+- X a & !G b
+  - & (And)
+    - X a
+    - !G b
+      - ! (Not)
+      - G b (Always b)
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- G b means "always b", or "b is true at all time steps".
+- !G b means "not always b", or "it is not the case that b is true at all time steps". This implies that there exists at least one time step where b is false.
+- X a means "next a", or "a is true at the next time step".
+
+## 4: Combine the meanings
+The formula X a & !G b combines these meanings with an "and", so both conditions must be true:
+- The system must have a at the next time step (X a).
+- There must exist a time step where b is false (!G b).
+
+## 5: Refine the natural language phrasing for clarity
+Combining these conditions into natural language:
+- "The system will have a at the next time step, and there will be a time when b is false."
+
+Or, for better clarity and readability:
+- "At the next time step, a must be true, and at some point in the future, b will be false."
+
+This phrasing captures the essence of both the next condition (X a) and the eventuality condition (!G b), making it clear what the system must satisfy over time.
+
+The final answer is: $\boxed{At the next time step, a must be true, and at some point in the future, b will be false.}$

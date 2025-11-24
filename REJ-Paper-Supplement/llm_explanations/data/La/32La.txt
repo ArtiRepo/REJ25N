@@ -1,0 +1,33 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: `(b | !a) & X (d U c)`.
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To understand the formula, we break it down into its components:
+- The formula is a conjunction (`&`) of two parts: `(b | !a)` and `X (d U c)`.
+- `(b | !a)` is a disjunction (`|`) of `b` and the negation (`!`) of `a`.
+- `X (d U c)` involves the next-time operator (`X`) and the until operator (`U`).
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `!a` means `a` is false.
+- `b | !a` means either `b` is true or `a` is false (or both).
+- `d U c` means `d` is true until `c` becomes true. This implies that `c` will eventually become true, and `d` must be true from now until then (but not necessarily after `c` becomes true).
+- `X (d U c)` means that in the next state, `d U c` holds. This implies that from the next state onwards, `d` must be true until `c` becomes true.
+
+## 4: Combine the meanings
+The entire formula `(b | !a) & X (d U c)` means that:
+- Currently, either `b` is true or `a` is false (or both).
+- And, in the next state, `d` will be true until `c` becomes true.
+
+## 5: Refine the natural language phrasing for clarity
+A natural language translation could be: "Currently, either `b` is true or `a` is false. Moreover, from the next moment on, `d` will continue to be true until `c` becomes true."
+
+## 6: Clarify constraints over time
+This formula imposes two main constraints on the system:
+1. An immediate condition: either `b` must be true or `a` must be false (or both) right now.
+2. A future condition: starting from the next moment, `d` must be true until the moment `c` becomes true. It does not specify what happens after `c` becomes true, only that `c` will eventually become true.
+
+The final answer is: 
+
+## Step 7: Provide the final translation
+The LTL formula `(b | !a) & X (d U c)` translates to: "Currently, either `b` is true or `a` is false. From the next moment onwards, `d` must be true until `c` becomes true."

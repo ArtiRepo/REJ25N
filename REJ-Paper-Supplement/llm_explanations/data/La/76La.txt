@@ -1,0 +1,53 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: G(a -> X!b)
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The outermost operator is G (always)
+- The inner expression is a -> X!b
+- The components of the inner expression are:
+  - a
+  - X!b (which is !Xb, meaning "not Xb" or "not (next b)")
+
+## 3: Further break down X!b
+- X represents "next"
+- ! represents "not"
+- b is a proposition
+
+So, the breakdown is:
+```
+      G
+     / \
+    /   \
+a ->    X!b
+ / \   /  \
+a   -> X   !b
+       \   / 
+        \ / 
+         b
+```
+
+## 4: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- b is a proposition that can be true or false at any given time.
+- !b means "not b", so it's true if b is false and vice versa.
+- X!b means "next (!b)", which is true if !b is true at the next time step. In simpler terms, X!b is true if b is false at the next time step.
+- a -> X!b means "if a then X!b". This implication is true unless a is true and X!b is false. So, it's false only when a is true and b is true at the next time step.
+- G(a -> X!b) means "always (if a then X!b)". For this to be true, the implication a -> X!b must hold at all time steps.
+
+## 5: Determine when the formula is satisfied and constraints it imposes
+The formula G(a -> X!b) is satisfied if, at every time step, the following condition holds:
+- If a is true, then b must be false at the next time step.
+
+It imposes a constraint on the system that whenever a becomes true, b must become false at the very next time step. If a is false, there is no restriction on b imposed by this formula at that time step.
+
+## 6: Refine the natural language phrasing for clarity
+A natural language translation of G(a -> X!b) could be:
+"Always, if a is true, then b will be false at the next time step."
+
+Or, in a more fluid phrasing:
+"Whenever a occurs, b must be false immediately after."
+
+This captures the essence of the constraint that the system must adhere to, in terms of the relationship between the truth values of a and b over time.
+
+The final answer is: $\boxed{Whenever a occurs, b must be false immediately after.}$

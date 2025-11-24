@@ -1,0 +1,36 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: $a U G!a$
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To understand the formula $a U G!a$, let's break it down:
+- $a$ is a proposition that is true if $a$ is occurring or is true at a given state.
+- $G$ stands for "always" or "globally", meaning something is true at all future states.
+- $!$ denotes negation, so $!a$ means $a$ is not true.
+- $U$ stands for "until", indicating that the first condition must be true until the second condition becomes true.
+
+The parsing tree can be seen as:
+- The formula is $a U \phi$, where $\phi = G!a$
+- $\phi$ is $G \psi$, where $\psi = !a$
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $\psi = !a$ means $a$ is false.
+- $G \psi = G!a$ means that from the current state onwards, $a$ must always be false. In other words, $a$ is false from now on and forever.
+- The $U$ operator in $a U G!a$ implies that $a$ must be true until $G!a$ becomes true. For $G!a$ to become true, $a$ must immediately become false and stay false.
+
+## 4: Combine the meanings to understand the whole formula
+The formula $a U G!a$ means that $a$ must be true until it becomes permanently false. In other words, $a$ is true now and continues to be true for some period, but eventually, $a$ becomes and remains false forever.
+
+## 5: Refine the natural language phrasing for clarity
+A natural language translation could be: "$a$ is true until $a$ becomes permanently false." Or more naturally: "$a$ holds until it never holds again."
+
+## 6: Determine satisfaction conditions
+The formula $a U G!a$ is satisfied if:
+- There exists a point in time where $a$ starts being true.
+- From that point until some future point, $a$ continues to be true.
+- At some future point, $a$ becomes false and remains false forever.
+
+## 7: Imposed constraints on the system over time
+This formula imposes the constraint that the system must exhibit $a$ being true for some duration but ensures that eventually, $a$ ceases to be true and does not recur. It does not constrain how long $a$ is true before it becomes permanently false, only that it does become permanently false.
+
+The final answer is: $\boxed{a holds until it never holds again}$

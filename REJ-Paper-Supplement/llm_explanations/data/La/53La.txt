@@ -1,0 +1,37 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: $Fa \rightarrow Gb$
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- $Fa$ means "a is true from now on" or "a is always true".
+- $Gb$ means "b is true from some point on" or "b is eventually true".
+- $\rightarrow$ denotes implication.
+
+The parsing tree can be represented as:
+```
+  ->
+ /   \
+Fa     Gb
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $Fa$ implies that $a$ must be true at all times from the current point onwards.
+- $Gb$ implies that $b$ must be true at some point from the current point onwards.
+
+The implication $Fa \rightarrow Gb$ means that if $Fa$ is true, then $Gb$ must also be true.
+
+## 4: Interpret the implication
+The implication $P \rightarrow Q$ is equivalent to $\neg P \vee Q$. Applying this to our formula:
+- $\neg Fa \vee Gb$
+
+This can be read as: "Either $a$ is not always true from now on, or $b$ is eventually true."
+
+## 5: Refine the natural language phrasing for clarity
+- $\neg Fa$ means that it is not the case that $a$ is always true from now on, which implies that $a$ can be false at some point in the future.
+- So, $\neg Fa \vee Gb$ can be phrased as: "Either $a$ becomes false at some point, or $b$ becomes true at some point."
+
+## 6: Final translation
+The LTL formula $Fa \rightarrow Gb$ can be translated to natural language as: "If $a$ is always true from now on, then $b$ will eventually be true." Or more simply: "If $a$ holds forever, then $b$ will hold eventually."
+
+The final answer is: $\boxed{If a is always true from now on, then b will eventually be true.}$

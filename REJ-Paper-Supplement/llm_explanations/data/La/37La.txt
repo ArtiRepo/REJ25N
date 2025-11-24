@@ -1,0 +1,39 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: G (!i) | F (f U i)
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The formula is a disjunction (OR, denoted by |) of two main parts: G (!i) and F (f U i).
+- G (!i) means "always not i".
+- F (f U i) means "eventually f until i".
+
+## 3: Further break down the subformulas
+- G (!i) can be read as "globally, i is false" or "always, i is not true".
+- F (f U i) can be broken down into:
+  - U (until) operator: f U i means "f until i", implying f is true until i becomes true.
+  - F (eventually) operator: F (f U i) means "eventually, f will be true until i becomes true".
+
+## 4: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- !i means "i is false".
+- G (!i) means that at all times, i must be false. If this holds, i will never be true.
+- f U i means that f will be true continuously until i becomes true. If i never becomes true, f U i is never satisfied unless f remains false.
+- F (f U i) means that there exists a point in time where f starts being true and remains true until i becomes true.
+
+## 5: Combine the meanings
+The entire formula G (!i) | F (f U i) can be read as:
+- "Either globally i is false, or eventually f will be true until i becomes true."
+
+## 6: Refine the natural language phrasing for clarity
+A clearer natural language translation could be:
+- "The system is either always in a state where i is false, or at some point in the future, f will become true and stay true until i becomes true."
+
+## 7: Explain satisfaction conditions
+- The formula is satisfied if:
+  - i is never true (G (!i) is true), or
+  - There is a future point where f starts being true and remains true until i becomes true (F (f U i) is true).
+- It imposes constraints on the system:
+  - If i ever becomes true, the only way for the formula to still hold is if f was true at some point before i and remained true until i became true.
+  - If i remains false forever, the formula is satisfied regardless of the state of f.
+
+The final answer is: $\boxed{The system is either always in a state where i is false, or at some point in the future, f will become true and stay true until i becomes true.}$

@@ -1,0 +1,36 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `X (!i) | X (j)`
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- `X (!i)` and `X (j)` are the two main subformulas.
+- `X` is the "next" operator, indicating that the property it precedes holds in the next state.
+- `!` denotes negation.
+- `|` denotes disjunction (or).
+
+The parsing tree can be represented as:
+```
+     |
+    / \
+ X (!i)   X (j)
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `!i` means that `i` is not true.
+- `X (!i)` means that in the next state, `i` is not true.
+- `X (j)` means that in the next state, `j` is true.
+
+## 4: Analyze the disjunction
+- The formula `X (!i) | X (j)` is satisfied if either `X (!i)` is true or `X (j)` is true (or both) in the next state.
+
+## 5: Combine the meanings
+- For `X (!i) | X (j)` to be true, in the next state, either `i` must be false or `j` must be true (or both).
+
+## 6: Refine the natural language phrasing for clarity
+The natural language translation of `X (!i) | X (j)` can be: "In the next state, either `i` is false or `j` is true (or both)."
+
+## 7: Finalize the translation with satisfaction conditions
+This LTL formula imposes a constraint on the system such that at any given state, for it to satisfy the formula, in the immediate next state, at least one of the following conditions must hold: `i` is not occurring, or `j` is occurring. The formula is satisfied if, moving into the next state, the system either stops `i` from being true or makes `j` true (or does both).
+
+The final answer is: $\boxed{In the next state, either i is false or j is true.}$

@@ -1,0 +1,24 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: G !a
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+The parsing tree for the given LTL formula breaks down as follows:
+- The outermost operator is G (always)
+- The operand of G is !a (not a)
+- ! is the negation operator
+- a is a proposition
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- a represents a proposition that can be true or false at any given time.
+- !a means "not a", which is true if a is false and false if a is true.
+- G !a means "always (!a)", which implies that !a must be true at all time steps.
+
+## 4: Refine the natural language phrasing for clarity
+Given that !a is true whenever a is false, G !a can be translated to: "It is always the case that a is false" or more naturally as "a is never true".
+
+## 5: Explain satisfaction and constraints
+- The formula G !a is satisfied if and only if a remains false at all time steps.
+- It imposes a constraint on the system that proposition a must never become true.
+
+The final translation of G !a into natural language is: "a is always false" or "a never holds true".

@@ -1,0 +1,44 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G (j => !f)
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- G (Globally, or Always)
+- j (a proposition, let's call it "j is true")
+- => (implies)
+- !f (not f, where f is another proposition, let's call it "f is false")
+
+The parsing tree can be seen as:
+```
+     G
+   /   \
+  j    !f
+   \   /
+    =>
+```
+
+However, a more accurate representation for parsing would consider the implication first:
+```
+     G
+    / 
+   =>
+  /   \
+ j     !f
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- !f means "f is false".
+- j => !f means "if j then f is false". In other words, whenever j is true, f must be false. If j is false, there's no restriction on f.
+
+## 4: Apply the G operator
+- G (j => !f) means "Globally, if j then f is false". This implies that at all times, whenever j is true, f must be false. It does not restrict f when j is false.
+
+## 5: Refine the natural language phrasing for clarity
+The formula G (j => !f) can be translated to: "It is always the case that if j happens, then f does not happen."
+
+## 6: Explain satisfaction and constraints
+- The formula is satisfied if, at every point in time, either j is false or f is false (or both).
+- It imposes a constraint on the system that whenever j becomes true, f must immediately become false (or remain false if it's already false) and this condition must hold forever.
+
+The final answer is: $\boxed{It is always the case that if j happens, then f does not happen.}$

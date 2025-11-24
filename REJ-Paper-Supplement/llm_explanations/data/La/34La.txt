@@ -1,0 +1,50 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G (!f | !i)
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- G: Globally (always)
+- !f: Not f
+- !i: Not i
+- |: Or
+
+The parsing tree can be seen as:
+```
+G
+|
+|-- (!f | !i)
+    |
+    |-- !
+    |   |
+    |-- f
+    |
+    |-- !
+        |
+        |-- i
+```
+Or more accurately for our purposes:
+```
+G
+|
+|-- Or
+    |
+    |-- Not f
+    |-- Not i
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- Not f means "f is false".
+- Not i means "i is false".
+- The "or" (|) operator between them means that at least one of them must be true for the whole expression (!f | !i) to be true. This translates to "either f is false or i is false (or both)".
+- The G operator means that the condition must hold globally, i.e., at all times.
+
+## 4: Refine the natural language phrasing for clarity
+Putting it all together, G (!f | !i) can be translated to: "It is always the case that either f is false or i is false (or both)".
+
+This implies that the system must be in a state where at least one of the conditions f or i is not satisfied at all times. In other words, it imposes a constraint on the system that neither f nor i can be true at the same time, globally.
+
+## 5: Final Translation
+The final translation in natural language, with a focus on clarity and the constraints it imposes over time, is: "At all times, f and i cannot both be true".
+
+The final answer is: $\boxed{At all times, f and i cannot both be true}$

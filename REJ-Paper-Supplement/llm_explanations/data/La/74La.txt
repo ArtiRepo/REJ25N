@@ -1,0 +1,24 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G(a or b)
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula G(a or b), we first identify its components:
+- G: This is the "always" operator in LTL, which means that the condition it precedes must hold true at all times (in every state of the system) from the current point onwards.
+- (a or b): This is a disjunction, meaning that at least one of the propositions a or b must be true for the disjunction to be true.
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- The disjunction (a or b) is true if either a is true, b is true, or both are true.
+- The operator G applied to (a or b) means that (a or b) must be true at all times.
+
+## 4: Refine the natural language phrasing for clarity
+Combining the information:
+- The formula G(a or b) can be initially translated to: "Always (a or b)".
+- Refining this, it means that at every point in time, either a must be true or b must be true (or both).
+- Therefore, the natural language translation is: "It is always the case that either a or b (or both) are true."
+
+## 5: Explain satisfaction and constraints
+- The formula G(a or b) is satisfied if, at every state of the system from the current point onwards, at least one of the propositions a or b is true.
+- It imposes a constraint on the system that at no point can both a and b be false simultaneously; otherwise, the formula would be violated.
+
+The final answer is: $\boxed{It is always the case that either a or b (or both) are true.}$

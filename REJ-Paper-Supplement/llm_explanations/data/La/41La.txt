@@ -1,0 +1,46 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G (n => s)
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- G: Always (globally)
+- n: A proposition (let's call it "n")
+- =>: Implication
+- s: Another proposition (let's call it "s")
+
+The parsing tree can be represented as:
+```
+    G
+   / \
+  n   s
+   \ /
+    =>
+```
+
+However, a more accurate representation for parsing would consider the implication first:
+```
+     G
+    / 
+   =>
+  /   \
+ n     s
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- The implication "n => s" means "if n then s". This implication is true whenever n is false or s is true.
+
+## 4: Apply the G operator
+- The G operator means "always" or "globally". So, G (n => s) means that "always, if n then s".
+
+## 5: Refine the natural language phrasing for clarity
+Putting it all together, G (n => s) can be translated to: "It is always the case that if n occurs, then s occurs."
+
+## 6: Explain satisfaction and constraints
+- This formula is satisfied if, at every point in time, either n is false or s is true (or both). 
+- It imposes a constraint on the system that whenever n becomes true, s must also be true (or have been true since n became true and remain true). If n becomes true and s is not true, the formula is violated.
+
+## 7: Final Natural Language Translation
+The final translation in natural language, accounting for satisfaction and constraints over time, is: "Whenever n happens, s must happen."
+
+The final answer is: $\boxed{Whenever n happens, s must happen.}$

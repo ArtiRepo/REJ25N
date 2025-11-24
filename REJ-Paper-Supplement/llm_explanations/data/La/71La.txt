@@ -1,0 +1,29 @@
+### Original LTL Formula
+The given LTL (Linear Temporal Logic) formula is:
+```
+G(a ∧ ¬b)
+```
+
+### Breakdown into a Parsing Tree
+
+- **G**: Always (Globally)
+  - **a ∧ ¬b**: Conjunction of `a` and `not b`
+    - **a**: Proposition `a` is true
+    - **¬b**: Negation of proposition `b` (i.e., `b` is false)
+
+### Rebuilding Meaning from the Bottom of the Tree Up
+
+1. **a** simply means that proposition `a` is true.
+2. **¬b** means that proposition `b` is false.
+3. **a ∧ ¬b** means that `a` is true and `b` is false. This is satisfied when both conditions are met simultaneously.
+4. **G(a ∧ ¬b)** means that globally (always), `a` is true and `b` is false. This imposes a constraint that at every point in time, `a` must be true and `b` must be false.
+
+### Refining the Natural Language Phrasing for Clarity
+
+The formula **G(a ∧ ¬b)** can be translated into natural language as: "Always, `a` is true and `b` is false."
+
+**Satisfaction Conditions**: This formula is satisfied if, at every point in time, `a` holds true and `b` holds false. If at any point `a` becomes false or `b` becomes true, the formula is violated.
+
+**Constraints on the System**: The formula imposes a strict constraint on the system that `a` must always be true and `b` must always be false. There is no flexibility or change allowed over time; both conditions must be met constantly. This implies that any behavior or state transition in the system must ensure that `a` and `not b` are always maintained.
+
+In practical terms, if `a` and `b` represent states or conditions within a system, the system is required to be in a state where `a` occurs and `b` does not occur, and this requirement does not change over time.

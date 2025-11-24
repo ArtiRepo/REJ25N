@@ -1,0 +1,36 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: F d | G !n
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- F d (Eventually d)
+- G !n (Always not n)
+The parsing tree can be represented as:
+```
+      |
+     / \
+    F d  |  G !n
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- F d means "d will be true at some point in the future."
+- G !n means "n will never be true; it is always false."
+
+## 4: Combine the meanings
+The "|" operator represents "or." So, F d | G !n means:
+- Either "d will be true at some point in the future" or "n will never be true."
+
+## 5: Refine the natural language phrasing for clarity
+Refining the phrasing:
+- The formula F d | G !n can be translated to: "Either d will become true at some point, or n will remain false forever."
+
+## 6: Explain satisfaction conditions
+- This formula is satisfied if either d becomes true at any point in the future (no matter what happens with n), or if n remains false at all times (regardless of when or if d becomes true).
+
+## 7: Explain constraints on the system over time
+- The system satisfies the formula if it meets either of the conditions: 
+  1. There exists a future point in time where d is true.
+  2. n is never true at any point in time.
+
+The final answer is: $\boxed{Either d will become true at some point, or n will remain false forever.}$

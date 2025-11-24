@@ -1,0 +1,36 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: $(y \& !d) | (y \Rightarrow d)$.
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The formula is a disjunction (OR, denoted by $|$ or $\lor$) of two parts: $(y \& !d)$ and $(y \Rightarrow d)$.
+- The first part, $(y \& !d)$, is a conjunction (AND) of $y$ and the negation of $d$ (denoted by $!d$ or $\neg d$).
+- The second part, $(y \Rightarrow d)$, is an implication where $y$ implies $d$.
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $y$ and $d$ are propositions that can be true (T) or false (F).
+- $!d$ or $\neg d$ means $d$ is false.
+- $(y \& !d)$ means $y$ is true and $d$ is false.
+- $(y \Rightarrow d)$ means if $y$ is true, then $d$ must be true. However, if $y$ is false, $d$ can be either true or false.
+
+## 4: Analyze the implication $(y \Rightarrow d)$
+The implication $(y \Rightarrow d)$ is equivalent to $(\neg y \lor d)$ by the definition of material implication in classical logic. This means either $y$ is false or $d$ is true (or both).
+
+## 5: Combine the parts
+The entire formula $(y \& !d) | (y \Rightarrow d)$ can be satisfied in two ways:
+1. If $(y \& !d)$ is true, then $y$ must be true and $d$ must be false.
+2. If $(y \Rightarrow d)$ is true, then either $y$ is false or $d$ is true.
+
+## 6: Refine the natural language phrasing for clarity
+The formula is satisfied if either of two conditions holds:
+- $y$ is true and $d$ is false.
+- If $y$ is true, then $d$ must be true (but if $y$ is false, $d$ can be anything).
+
+## 7: Final Natural Language Translation
+The system satisfies the condition if either $y$ is true and $d$ is false, or if the truth of $y$ implies the truth of $d$. In simpler terms, the formula is true if $y$ and not $d$ are both true, or if whenever $y$ is true, $d$ is also true.
+
+## 8: Clarification
+This can be further clarified as: "The system is in a valid state if either $y$ is happening and $d$ is not happening, or if $y$ happening implies that $d$ is also happening." This captures the conditions under which the LTL formula is satisfied.
+
+The final answer is: $\boxed{The system is in a valid state if either y is happening and d is not happening, or if y happening implies that d is also happening.}$

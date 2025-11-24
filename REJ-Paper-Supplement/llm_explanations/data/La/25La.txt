@@ -1,0 +1,29 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: `!X t`
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- `!` denotes negation (NOT)
+- `X` denotes the next state (the state at the next time step)
+- `t` is a proposition (a statement that can be true or false)
+
+So, the parsing tree can be seen as:
+```
+  !
+ / 
+! 
+  X t
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `X t` means "at the next state, `t` is true" or "in the next time step, `t` holds".
+- Applying the negation `!` to `X t`, we get `!X t`, which means "it is not the case that `t` is true at the next state" or "in the next time step, `t` does not hold".
+
+## 4: Refine the natural language phrasing for clarity
+Refining the meaning:
+- `!X t` can be translated to "it will not be the case that `t` at the next time step" or more naturally as "t will be false in the next state".
+
+However, to make it sound more fluent and clear in natural language, we can phrase it as: "`t` will not be true at the next time step" or simply "`t` will be false next".
+
+The final answer is: $\boxed{t will be false next}$

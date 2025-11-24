@@ -1,0 +1,32 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: F x | F y.
+
+## 2: Break down the subformula into a parsing tree
+To break down the formula F x | F y into a parsing tree, we identify its components:
+- The formula is a disjunction (OR, denoted by "|") of two subformulas: F x and F y.
+- "F" denotes "Future", meaning that the proposition it precedes will be true at some point in the future.
+
+## 3: Parsing Tree Structure
+The parsing tree can be represented as:
+```
+     |
+    / \
+   F x  F y
+```
+
+## 4: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- F x means that x will be true at some point in the future.
+- F y means that y will be true at some point in the future.
+- The "|" operator between F x and F y means that at least one of these conditions needs to be true.
+
+## 5: Combine the meanings
+Combining these meanings, F x | F y means that either x will be true at some point in the future or y will be true at some point in the future (or both).
+
+## 6: Refine the natural language phrasing for clarity
+Refining the natural language phrasing, we can say: "It will eventually be the case that x or y (or both) is true."
+
+## 7: Final Translation and Explanation
+The LTL formula F x | F y is satisfied if, over time, the system reaches a state where either x is true or y is true (or both). This formula imposes a constraint on the system that at least one of the propositions x or y must become true at some future point. If neither x nor y ever becomes true, the formula is not satisfied.
+
+The final answer is: $\boxed{It will eventually be the case that x or y (or both) is true.}$

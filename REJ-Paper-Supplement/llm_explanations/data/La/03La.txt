@@ -1,0 +1,35 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: $a \& X b$.
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula $a \& X b$, we identify its components:
+- $a$ is a propositional variable.
+- $X b$ is a temporal formula where $X$ denotes "next" and $b$ is another propositional variable.
+
+The parsing tree can be represented as:
+```
+  &
+ /   \
+a     X b
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $b$ is true at some state.
+- $X b$ means $b$ is true at the next state.
+
+So, $X b$ implies that $b$ must be true in the state immediately following the current state.
+
+## 4: Combine the meanings
+The entire formula is $a \& X b$. This means:
+- $a$ must be true at the current state.
+- $X b$ means $b$ must be true at the next state.
+
+## 5: Refine the natural language phrasing for clarity
+Combining these conditions, the formula $a \& X b$ can be translated into natural language as: "$a$ is true and $b$ is true in the next state."
+
+Or more naturally: "Currently, $a$ holds, and $b$ will hold in the next moment."
+
+This implies that the system must be in a state where $a$ is satisfied now, and there is a constraint that $b$ must be satisfied in the immediate future.
+
+The final answer is: $\boxed{a is true and b will be true in the next state}$

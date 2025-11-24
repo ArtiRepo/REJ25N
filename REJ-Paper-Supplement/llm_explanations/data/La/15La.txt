@@ -1,0 +1,28 @@
+## Step 1: Write down the original LTL formula
+The original LTL (Linear Temporal Logic) formula is: G a
+
+## 2: Break the subformula into a parsing tree (breakdown)
+The formula "G a" can be broken down into:
+- G (a temporal operator meaning "always" or "globally")
+- a (a propositional variable)
+
+The parsing tree is straightforward since there's only one operator and one variable:
+```
+    G
+   / 
+  a
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- "a" represents a condition or proposition that can be true or false at any given time.
+- The operator "G" applied to "a" means that "a" must be true at all times.
+
+## 4: Refine the natural language phrasing for clarity
+Given the meaning of "G" as "always" or "globally", the formula G a translates to: "a is always true" or "a holds globally". This means that for the formula G a to be satisfied, the condition "a" must be true at every point in time.
+
+## 5: Explain satisfaction and constraints
+- The formula G a is satisfied if and only if "a" is true at all time steps, from the initial state onwards.
+- It imposes a constraint on the system that "a" must hold true at all times; if at any point "a" becomes false, the formula G a is violated.
+
+The final answer is: $\boxed{a is always true}$

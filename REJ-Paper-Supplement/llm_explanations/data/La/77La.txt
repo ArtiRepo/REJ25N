@@ -1,0 +1,31 @@
+## Step 1: Write down original LTL formula
+The original LTL formula is: $a U !a$
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+The formula $a U !a$ can be broken down into:
+- $a$ (a atomic proposition)
+- $!a$ (negation of $a$)
+- $U$ (until operator)
+
+The parsing tree can be represented as:
+```
+   U
+ /   \
+a     !a
+```
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- $a$ means that $a$ is true.
+- $!a$ means that $a$ is false.
+
+The until operator $U$ implies that the first argument must be true until the second argument becomes true. Therefore, $a U !a$ means that $a$ must be true until $a$ becomes false.
+
+## 4: Refine the natural language phrasing for clarity
+To refine the natural language phrasing:
+- $a U !a$ can be translated to: "$a$ is true until $a$ becomes false."
+- More naturally, it can be phrased as: "$a$ holds until it becomes false."
+
+This implies that for the formula $a U !a$ to be satisfied, $a$ must initially be true and remain true until at some point it becomes false. There are no constraints on what happens after $a$ becomes false; the formula is satisfied as long as $a$ was true until it became false.
+
+The final answer is: $\boxed{a holds until it becomes false}$

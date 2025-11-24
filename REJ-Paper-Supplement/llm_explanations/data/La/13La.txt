@@ -1,0 +1,29 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: (c U a) & (b U a)
+
+## Step 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- The formula is a conjunction (&) of two subformulas: (c U a) and (b U a).
+- Each subformula is of the form (p U q), where "U" denotes "until".
+
+## 3: Understand the "Until" (U) Operator
+The "until" operator (U) in LTL is defined as follows: (p U q) is true if and only if there exists a time point where q is true, and at all time points before that, p is true. More formally, (p U q) is satisfied if there is a future point where q is true, and p is true at all points until then, including the possibility of p being true at that future point as well.
+
+## 4: Break down (c U a) and (b U a)
+- (c U a) means that c is true until a is true. This implies that a must become true at some point, and c must be true at least until then.
+- (b U a) means that b is true until a is true. This implies that a must become true at some point, and b must be true at least until then.
+
+## 5: Rebuild meaning from the bottom of the tree up
+Combining these with the conjunction (&):
+- For (c U a) & (b U a) to be true, both (c U a) and (b U a) must be true.
+- This means a must become true at some point.
+- Before a becomes true, both c and b must be true.
+
+## 6: Refine the natural language phrasing for clarity
+The formula (c U a) & (b U a) can be translated to natural language as: "Both c and b must be true until a becomes true."
+
+## 7: Clarify Satisfaction Conditions
+- The formula is satisfied if there exists a point in time where a is true, and at all previous points, both b and c are true.
+- It imposes a constraint on the system that a should eventually happen, and both b and c should be happening before a happens.
+
+The final answer is: $\boxed{Both b and c must hold true until a becomes true.}$

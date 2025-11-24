@@ -1,0 +1,30 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `!F (a & b)`
+
+## 2: Break the subformula into a parsing tree (breakdown)
+To break down the formula, we identify its components:
+- `a` and `b` are atomic propositions.
+- `&` is the conjunction operator (meaning "and").
+- `F` is the "future" operator, which means "eventually" or "some time in the future".
+- `!` is the negation operator (meaning "not").
+
+The parsing tree breaks down as follows:
+- `a` and `b` are leaf nodes (atomic propositions).
+- `a & b` is a node combining `a` and `b` with the conjunction operator.
+- `F (a & b)` is a node applying the future operator to the conjunction of `a` and `b`.
+- `!F (a & b)` is the root node, applying the negation operator to the future conjunction.
+
+## 3: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `a & b` means that both `a` and `b` must be true.
+- `F (a & b)` means that eventually, at some point in the future, both `a` and `b` will be true.
+- `!F (a & b)` means that it is not the case that eventually both `a` and `b` will be true.
+
+## 4: Refine the natural language phrasing for clarity
+To refine, we consider what `!F (a & b)` implies:
+- It does not assert that `a` and `b` are never true at the same time; rather, it asserts that there is no point in the future where both `a` and `b` will be true simultaneously.
+- A more natural way to phrase this is: "It is never the case that both `a` and `b` will be true at some point in the future."
+
+However, an even clearer translation into natural language, taking into account the nuances of LTL and common phrasing, would be: "It is always the case that it is not true that both `a` and `b` are true at the same time in the future," or more simply and idiomatically: "From now on, `a` and `b` are never both true."
+
+The final answer is: $\boxed{It is never the case that both a and b will be true at some point in the future.}$
