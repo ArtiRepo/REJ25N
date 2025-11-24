@@ -1,0 +1,11 @@
+- Original LTL formula: d & X (c U a)
+
+- Rebuilding meaning from the bottom of the tree up:
+  - The formula `c U a` means that `a` must eventually become true, and until that specific moment, `c` must remain true in every state.
+  - `X (c U a)` means that in the very next state, `c U a` must start to hold. So, from the current state to the next state, `c U a` is not required to hold, but from the next state onwards, `c U a` must hold.
+  - `d & X (c U a)` means that `d` must be true in the current state, and from the next state onwards, `c U a` must hold.
+
+- Refined natural language phrasing for clarity:
+  - "The variable `d` must be true in the current state. Starting from the next state, `c` must be true until `a` becomes true." 
+
+This phrasing clarifies that `d` has an immediate requirement, while `c` and `a` impose a constraint that starts from the next state and continues over time, with `c` being required until `a` is satisfied.

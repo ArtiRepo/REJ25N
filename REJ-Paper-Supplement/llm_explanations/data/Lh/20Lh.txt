@@ -1,0 +1,12 @@
+- Original LTL formula: G t | F w
+
+- Rebuilding meaning from the bottom up:
+  - F w: "There must exist at least one future state where w is true."
+  - G t: "t must be true in every state of the execution."
+  - The formula combines these with a disjunction (|), so we need to consider the disjunction's impact.
+
+- Refined natural language phrasing:
+  - "Either t is always true, or there will be a future state where w is true." 
+  - More naturally: "The system must either maintain t as true in all states or reach a state where w is true at some point in the future."
+
+This phrasing captures the essence of the LTL formula, specifying that the system is constrained to either always have t true or eventually have w true, with no further constraints on variables beyond this requirement.

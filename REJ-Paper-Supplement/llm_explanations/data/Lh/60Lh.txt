@@ -1,0 +1,11 @@
+- Original LTL formula: G(a → Fb)
+
+- Rebuilding meaning from the bottom up:
+  - Fb: "There must exist at least one future state where b is true."
+  - a → Fb: "If a is true, then there must exist at least one future state where b is true." This implication is satisfied immediately if a is false, as an implication with a false antecedent is always true. It imposes a constraint only when a is true, requiring b to become true in some future state.
+  - G(a → Fb): "For every state, if a is true, then there must exist at least one future state (from that state) where b is true."
+
+- Refined natural language phrasing: 
+  "Whenever a is true, b must become true at some point in the future, and this requirement holds every time a becomes true." 
+
+This formula is satisfied if b becomes true after a is true, at least once for every occurrence of a. It is violated if a is true but b never becomes true. If a is never true, the formula is satisfied by default, as the implication a → Fb is vacuously true.

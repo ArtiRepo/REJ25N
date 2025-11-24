@@ -1,0 +1,10 @@
+- Original LTL formula: X (y => x & w)
+
+- Rebuilding meaning from the bottom:
+  - y => x & w: "If y is true, then both x and w must be true."
+  - X (y => x & w): "In the next state, if y is true, then both x and w must be true."
+
+- Refined natural language phrasing: 
+  "In the very next state, if y is true, then both x and w must be true; otherwise, there are no constraints imposed by this formula in the next state." 
+
+This formula imposes a constraint only if y is true in the next state, requiring both x and w to be true at that time. If y is false in the next state, the formula is satisfied regardless of the values of x and w. The constraint applies specifically to the next state and does not extend beyond that.

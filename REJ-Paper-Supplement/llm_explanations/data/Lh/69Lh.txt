@@ -1,0 +1,27 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: FGa
+
+## 2: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- Ga means "a must be true in every state of the execution."
+- F(Ga) means "There must exist at least one future state where Ga is true."
+
+## 3: Refine the natural language phrasing for clarity
+Breaking down FGa:
+- "There must be a point in the future after which a is continuously true."
+- This implies that it's possible for a to be false before this point, but not after.
+
+## 4: Describe satisfaction and constraints
+- The formula is satisfied if there exists a state after which "a" is true in all subsequent states.
+- It imposes a constraint that from some point onwards, "a" must be true and remain true.
+
+## 5: Specify immediate satisfaction and ongoing constraints
+- Immediate satisfaction: The formula does not require "a" to be true now but requires that there will be a future state where "a" becomes true and stays true.
+- Ongoing constraints: Once "a" becomes true and stays true, no further constraints are added; the system just needs to maintain "a" being true.
+
+## 6: Distinguish between satisfying and violating sequences
+- Satisfying sequence: A sequence where "a" is false initially but becomes true at some point and remains true thereafter.
+- Violating sequence: A sequence where "a" becomes false after being true and remains false, or "a" is never true.
+
+## 7: Final Translation
+The LTL formula FGa translates to: "There will be a point in the future after which a must be true and remain true forever."

@@ -1,0 +1,8 @@
+- Original LTL formula: F (!y & w)
+
+- Rebuilding meaning from the bottom:
+  - !y & w: "y must be false and w must be true in the same state."
+  - F (!y & w): "There exists at least one future state where y is false and w is true."
+
+- Refined natural language phrasing: 
+  "It is expected that at some point in the future, y will be false and w will be true simultaneously. This does not constrain the current state or any previous states, but it does require that at least one future state satisfies both conditions. Once this state is reached, the formula is satisfied, and no further constraints are imposed by this formula."

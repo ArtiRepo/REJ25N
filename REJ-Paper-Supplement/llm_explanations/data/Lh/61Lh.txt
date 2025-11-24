@@ -1,0 +1,28 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `a U G!a`
+
+## 2: Rebuild meaning from the bottom of the tree up
+Starting from the bottom:
+- `G!a` means "a must be false in every state of the execution, starting from the current state and onwards forever".
+- `a U ...` means "a must be true until the condition specified by what follows `U` is met".
+
+## 3: Combine the meanings
+Combining these, `a U G!a` implies that:
+- `a` must be true initially and continue to be true until `G!a` becomes true.
+- For `G!a` to become true, `a` must become false and then remain false forever after.
+
+## 4: Refine the natural language phrasing for clarity
+The formula `a U G!a` can be translated to: "a must be true now and continue to be true until a becomes and remains false forever; at that point, no further constraints are imposed by this formula."
+
+## 5: Clarify constraints and satisfaction
+- Initially, `a` must be true.
+- `a` must remain true until it becomes false.
+- Once `a` becomes false, it must remain false forever to satisfy `G!a`.
+- The formula imposes a constraint on `a` to be true until it can become and stay false, at which point the constraint changes to ensuring `a` remains false.
+
+## 6: Describe satisfaction and violation
+- A satisfying sequence: `a` is true for some initial states, then becomes false and remains false.
+- A violating sequence: Either `a` never becomes false after being true, or `a` becomes false but then becomes true again.
+
+## 7: Final Translation
+The LTL formula `a U G!a` translates to: "Initially, a must be true. It must stay true until it becomes false. Once it becomes false, it must remain false forever. This formula is satisfied if a transitions from true to permanently false; otherwise, it's violated."

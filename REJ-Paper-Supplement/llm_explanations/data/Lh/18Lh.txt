@@ -1,0 +1,8 @@
+- Original LTL formula: !F (a & b)
+
+- Rebuilding meaning from the bottom:
+  - F (a & b) means "There exists a future state where both a and b are true."
+  - !F (a & b) negates this, meaning "It must not be the case that there exists a future state where both a and b are true."
+
+- Refined natural language phrasing: 
+  "!F (a & b) means that it is never the case that both a and b are true at the same time in any future state. This formula imposes a constraint that a and b must never both be true simultaneously. At the moment it is checked, it does not constrain a and b directly, but over time, it requires that their conjunction never occurs. If at any point both a and b become true, the formula is violated. This means a and b can be true individually or both false at any point, but their simultaneous truth is prohibited."

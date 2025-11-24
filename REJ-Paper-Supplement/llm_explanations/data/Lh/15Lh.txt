@@ -1,0 +1,10 @@
+- Original LTL formula: G a
+
+- Rebuilding meaning from the bottom of the tree up:
+  - The formula G a involves the temporal operator G, which stands for "always" or "globally."
+  - G a means that a must be true in every state of the execution.
+
+- Refined natural language phrasing for clarity: 
+  "a must be true in every state of the execution, from the current state and indefinitely into the future." 
+
+This phrasing emphasizes that the constraint applies immediately and continuously over time, with no relaxation of the condition that "a" must hold true.

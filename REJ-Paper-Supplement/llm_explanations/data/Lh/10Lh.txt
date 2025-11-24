@@ -1,0 +1,30 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `(d | !b) U !a`
+
+## 2: Rebuild meaning from the bottom of the tree up
+Starting with the basic components:
+- `!a` means "a must be false".
+- `!b` means "b must be false".
+- `d | !b` means "either d is true or b is false (or both)".
+
+## 3: Understand the Until (U) operator
+The Until operator `U` implies that:
+- The second condition (`!a`) must eventually become true.
+- Until the second condition (`!a`) becomes true, the first condition (`d | !b`) must be true in every state.
+
+## 4: Combine the conditions with the Until operator
+Combining these with `U`, we get:
+- `!a` must eventually be true.
+- Until `!a` is true, `d | !b` must hold in every state.
+
+## 5: Refine the natural language phrasing for clarity
+The formula `(d | !b) U !a` can be translated to:
+"Either d must be true or b must be false (or both) in every state until a becomes false, at which point this requirement no longer applies, but a must be false."
+
+## 6: Clarify satisfaction and constraints
+- The formula is satisfied if there exists a future state where `a` is false, and in all states before that, either `d` is true or `b` is false (or both).
+- It imposes a constraint on variables `d`, `b`, and `a` over time, specifically that `d | !b` must hold until `!a` is achieved.
+
+## 7: Final Translation
+The LTL formula `(d | !b) U !a` translates to: 
+"Until a is false, either d must be true or b must be false; once a is false, this condition no longer needs to be satisfied, but a must remain false."

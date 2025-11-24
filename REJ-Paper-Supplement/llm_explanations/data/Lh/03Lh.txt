@@ -1,0 +1,11 @@
+- Original LTL formula: `a & X b`
+
+- Rebuilding meaning from the bottom of the tree up:
+  - `X b` means "b must be true in the very next state."
+  - `a` means "a must be true in the current state and is otherwise unconstrained."
+  - The conjunction `&` requires both conditions to be satisfied simultaneously.
+
+- Refined natural language phrasing: 
+  "a must be true now, and b must be true in the next state." 
+
+This formula imposes a constraint on `a` in the current state and on `b` in the immediate next state, with no further constraints on `a` or `b` beyond that point. It is satisfied if `a` is true now and `b` is true in the next state, with no requirements on subsequent states. If `a` is false in the current state or `b` is false in the next state, the formula is violated.

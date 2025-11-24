@@ -1,0 +1,14 @@
+- Original LTL formula: G(a→b)
+
+- Rebuilding meaning from the bottom:
+  - a→b means "if a is true, then b must be true." 
+  - G implies that this condition must hold in every state.
+
+- Refined natural language phrasing: 
+  "Whenever a is true, b must be true, and this condition must hold in every state of the execution." 
+
+  or more naturally: 
+  "Whenever a is true, b must also be true, and this must be the case at all times." 
+
+  This can be further simplified to: 
+  "If a is ever true, then b must be true now and remain so as long as a is true, and this condition holds forever."

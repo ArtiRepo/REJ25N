@@ -1,0 +1,10 @@
+- Original LTL formula: F (o | u)
+
+- Rebuilding meaning from the bottom of the tree up:
+  - The formula contains a disjunction (or) between o and u: o | u
+  - The disjunction is under the scope of the Future operator F, meaning that at least one of o or u must be true in some future state.
+
+- Refined natural language phrasing: 
+  "At least one of o or u must become true at some point in the future." 
+
+This phrasing implies that the formula F (o | u) is satisfied if there exists at least one future state where either o or u (or both) is true. It does not constrain the current state but imposes a requirement that at least one of o or u must be true at some point in the future.

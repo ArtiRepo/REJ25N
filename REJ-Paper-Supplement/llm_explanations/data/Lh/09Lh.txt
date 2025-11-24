@@ -1,0 +1,8 @@
+- Original LTL formula: `(c & b) U a`
+
+- Rebuilding meaning from the bottom of the tree up:
+  - `a` must become true at some point in the future.
+  - Until `a` becomes true, `c & b` must be true.
+
+- Refined natural language phrasing: 
+  "`a` must eventually become true, and until that moment, both `b` and `c` must be true in every state."

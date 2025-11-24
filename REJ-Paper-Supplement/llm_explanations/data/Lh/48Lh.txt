@@ -1,0 +1,11 @@
+- Original LTL formula: `b & X (a U c)`
+
+- Rebuilding meaning from the bottom of the tree up:
+  - `a U c`: "c must eventually become true, and until that specific moment, a must remain true in every state."
+  - `X (a U c)`: "In the very next state, c must eventually become true, and until that specific moment, a must remain true in every state from then on."
+  - `b & X (a U c)`: "b must be true in the current state, and in the very next state, c must eventually become true, and until that specific moment, a must remain true in every state from then on."
+
+- Refined natural language phrasing for clarity:
+  - "The system must be in a state where b is true now. From the next state onwards, a must be true until c becomes true at some point in the future." 
+
+This phrasing highlights that `b` is only constrained in the current state, while `a` and `c` are constrained from the next state onwards, with `a` needing to remain true until `c` becomes true.

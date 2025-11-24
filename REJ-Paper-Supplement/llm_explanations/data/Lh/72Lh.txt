@@ -1,0 +1,13 @@
+- Original LTL formula: G !a
+
+- Rebuilding meaning from the bottom:
+  - !a: "a must be false in the current state."
+  - G: "must hold in every state of the execution."
+
+- Combining the meaning: 
+  - G !a: "a must be false in every state of the execution."
+
+- Refined natural language phrasing: 
+  - "a must be false at all times, and this constraint applies in every state, with no exceptions." 
+
+This formula imposes a constant constraint on variable a, requiring it to be false in the current state and in all future states. It is satisfied only if a remains false throughout the execution and is violated as soon as a becomes true.

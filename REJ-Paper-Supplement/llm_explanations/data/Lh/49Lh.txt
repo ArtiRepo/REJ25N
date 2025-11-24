@@ -1,0 +1,9 @@
+- Original LTL formula: X !(t | w)
+
+- Rebuilding meaning from the bottom:
+  - Start with `(t | w)`: This means "either t or w (or both) is true in the current state."
+  - The negation `!(t | w)`: This implies "neither t nor w is true in the current state."
+  - `X !(t | w)`: This means "in the very next state, neither t nor w is true."
+
+- Refined natural language phrasing: 
+  "In the immediate next state, both t and w must be false. This formula imposes a constraint only on the very next state regarding t and w; it does not constrain the current state or any state after the next one directly."

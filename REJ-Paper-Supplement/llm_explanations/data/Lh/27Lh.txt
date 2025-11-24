@@ -1,0 +1,9 @@
+- Original LTL formula: X (t | w)
+
+- Rebuilding meaning from the bottom:
+  - The formula involves a disjunction (OR, denoted as |) between propositions t and w, under the Next operator X.
+  - The disjunction t | w means that at least one of t or w must be true.
+  - The Next operator X means that the condition it precedes must be satisfied in the very next state.
+
+- Refined natural language phrasing: 
+  "In the very next state, at least one of t or w must be true."

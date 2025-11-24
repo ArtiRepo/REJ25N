@@ -1,0 +1,15 @@
+- Original LTL formula: F(a and b)
+
+- Rebuilding meaning from the bottom:
+  - "a and b" means both a and b must be true.
+  - F(x) means "there must exist at least one future state where x is true."
+
+- Combining: F(a and b) means there must exist at least one future state where both a and b are true.
+
+- Refined natural language phrasing: 
+  "At some point in the future, both a and b must be true simultaneously." 
+
+  - This formula imposes a constraint on the system over time, requiring that at least once, both a and b are true in the same state.
+  - It does not constrain a and b to be true before or after this state, only that there exists a future state where both are true.
+  - Satisfaction: The formula is satisfied if there is at least one state in the future where both a and b are true.
+  - Violation: The formula is violated if in all future states, either a or b (or both) are false.

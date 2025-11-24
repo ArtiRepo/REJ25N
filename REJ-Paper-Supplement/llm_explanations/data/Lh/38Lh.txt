@@ -1,0 +1,38 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `(a U b) & (c U d)`
+
+## 2: Rebuild meaning from the bottom of the tree up
+Breaking down the formula into its components:
+- `a U b` means "b must eventually become true, and until that specific moment, a must remain true in every state."
+- `c U d` means "d must eventually become true, and until that specific moment, c must remain true in every state."
+The conjunction `&` means both conditions must be satisfied.
+
+## 3: Analyze `a U b`
+- For `a U b` to be true, `b` must become true at some point in the future.
+- Until `b` becomes true, `a` must be true in every state.
+- Once `b` becomes true, the constraint on `a` no longer applies.
+
+## 4: Analyze `c U d`
+- For `c U d` to be true, `d` must become true at some point in the future.
+- Until `d` becomes true, `c` must be true in every state.
+- Once `d` becomes true, the constraint on `c` no longer applies.
+
+## 5: Combine the conditions with conjunction
+- Both `a U b` and `c U d` must be true.
+- This means both `b` and `d` must eventually become true.
+- Until `b` becomes true, `a` must be true; until `d` becomes true, `c` must be true.
+- The constraints on `a` and `c` cease once `b` and `d` become true, respectively.
+
+## 6: Refine the natural language phrasing for clarity
+The formula `(a U b) & (c U d)` can be translated to: "Both conditions must be met: a must be true until b becomes true, and c must be true until d becomes true. Both b and d must become true at some point in the future."
+
+## 7: Specify satisfaction and constraints
+- The formula is satisfied if both `b` and `d` become true, with `a` and `c` holding until then, respectively.
+- It imposes constraints on `a` and `c` until `b` and `d` are true, respectively, but not after.
+
+## 8: Describe evaluation and evolution of truth value
+- At the moment of checking, the formula's truth value depends on the current states of `a`, `b`, `c`, and `d`, and their future realizations.
+- Over time, as `b` and `d` become true, the constraints on `a` and `c` are lifted.
+
+The final answer is: 
+`(a U b) & (c U d)` translates to: "a must be true until b becomes true, and c must be true until d becomes true, with both b and d becoming true at some point in the future."

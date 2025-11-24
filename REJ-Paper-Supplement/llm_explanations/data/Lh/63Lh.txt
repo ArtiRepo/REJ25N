@@ -1,0 +1,9 @@
+- Original LTL formula: XXXa
+
+- Rebuilding meaning from the bottom of the tree up:
+  - X(a) means "a must be true in the very next state."
+  - XX(a) means "a must be true in the state after the very next state," or equivalently, "a must be true two steps from now."
+  - XXX(a) means "a must be true three steps from now."
+
+- Refined natural language phrasing: 
+  "a must be true three steps from now, with no constraints on the current or the next two states."

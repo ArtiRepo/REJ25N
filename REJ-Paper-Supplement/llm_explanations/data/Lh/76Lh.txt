@@ -1,0 +1,11 @@
+- Original LTL formula: G(a → X!b)
+
+- Rebuilding meaning from the bottom of the tree up:
+  - X!b: "b must be false in the very next state."
+  - a → X!b: "If a is true in the current state, then b must be false in the very next state."
+  - G(a → X!b): "For every state, if a is true in that state, then b must be false in the very next state."
+
+- Refined natural language phrasing: 
+  "Whenever a is true, b must be false in the immediate next state, and this condition must hold in every state of the execution." 
+
+This phrasing clarifies that the constraint of b being false in the next state only applies when a is true and that this relationship must consistently hold across all states.

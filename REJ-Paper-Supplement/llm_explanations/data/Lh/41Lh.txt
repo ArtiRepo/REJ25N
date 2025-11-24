@@ -1,0 +1,13 @@
+- Original LTL formula: G (n => s)
+
+- Rebuilding meaning from the bottom:
+  - n => s means "if n is true, then s must be true" in the current state.
+  - G(...) means "the condition inside must hold in every state of the execution."
+
+- Refined natural language phrasing: 
+  "Whenever n is true, s must also be true, and this condition must be satisfied in every state of the execution." 
+
+This phrasing implies that:
+- The formula imposes a constraint on variables s and n.
+- It does not constrain s when n is false but requires s to be true whenever n is true, in every state.
+- It is satisfied if s is true whenever n is true and is violated if there exists a state where n is true and s is false.

@@ -1,0 +1,17 @@
+- Original LTL formula: F (o U u)
+
+- Rebuilding meaning from the bottom:
+  - o U u: "u must eventually become true, and until that specific moment, o must remain true in every state."
+  - F (o U u): "There must exist at least one future state where o U u is true."
+
+- Refined natural language phrasing: 
+  "There will be a future state where u becomes true, and from now until then, o must be true." 
+
+or more naturally:
+  "o must be true until u becomes true at some point in the future."
+
+This phrasing highlights that:
+- The formula imposes a constraint on both o and u.
+- o must be true in all states until u becomes true.
+- Once u becomes true, the constraint on o no longer applies.
+- The formula is satisfied if there exists at least one future state where u is true and o is true in all preceding states.

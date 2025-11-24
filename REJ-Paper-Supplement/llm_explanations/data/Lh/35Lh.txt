@@ -1,0 +1,14 @@
+- Original LTL formula: F (f => j)
+
+- Rebuilding meaning from the bottom:
+  - `f => j` means "if f then j". This implication is true whenever f is false or j is true.
+  - `F (f => j)` means "there must exist a future state where if f then j".
+
+- Refined natural language phrasing: 
+  "Eventually, it must be the case that if f is true, then j is also true." 
+
+  - This formula is satisfied if at some point in the future, whenever f is true, j is also true. It does not require j to be true if f is false.
+  - It imposes a constraint on the relationship between f and j from the point f becomes true onwards, but only if f becomes true.
+  - The constraint does not apply before the implication `f => j` is evaluated to be relevant (i.e., when f is true). 
+  - A satisfying sequence could be one where f never becomes true, or one where f and j become true at the same time.
+  - A violating sequence would be one where f becomes true and j remains false thereafter.

@@ -1,0 +1,10 @@
+- Original LTL formula: X (t & y)
+
+- Rebuilding meaning from the bottom:
+  - The formula involves a conjunction (AND) of t and y, denoted as t & y.
+  - The conjunction t & y must be true in the next state, as indicated by the X operator.
+
+- Refined natural language phrasing: 
+  "In the very next state, both t and y must be true." 
+
+This phrasing clarifies that the constraint imposed by the formula applies specifically to the next state and not to the current state or any state beyond the immediate next one. The formula does not constrain the current state or any future states beyond the next one.

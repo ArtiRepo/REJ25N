@@ -1,0 +1,35 @@
+## Step 1: Write down original LTL formula
+The original LTL formula is: `(y & !d) | (y => d)`
+
+## 2: Rebuild meaning from the bottom of the tree up
+First, let's break down the implication: `y => d` is equivalent to `!y | d`.
+
+## 3: Apply the implication equivalence
+The formula becomes: `(y & !d) | (!y | d)`
+
+## 4: Distributive property application
+Apply distributive property to expand: `((y & !d) | !y) | d`
+
+## 5: Further simplification
+This can be seen as: `(y | !y) & (!d | !y) | d` but correctly applying distributive law and considering the properties of `|` and `&`, let's focus on the original form for clarity in natural language translation.
+
+## 6: Analyze components
+- `y & !d` means `y` is true and `d` is false.
+- `y => d` means if `y` is true, then `d` must be true.
+
+## 7: Combine components with OR
+The whole formula is true if either `y & !d` is true or `y => d` is true.
+
+## 8: Refine natural language phrasing for clarity
+The formula `(y & !d) | (y => d)` can be translated to: "Either `y` is true and `d` is false, or if `y` is true then `d` must be true."
+
+## 9: Simplify translation
+This simplifies to: "`y` and `d` can be true at the same time, or `y` can be false, or if `y` is true then `d` must be true." But more accurately and concisely: "`d` must be true whenever `y` is true, or `y` is false and `d` can be anything but specifically when `y` is true and `d` is false satisfies it as well."
+
+## 10: Final refinement
+More clearly and concisely: "The formula is satisfied if `y` is false, or if `y` is true, `d` must be true, with the exception that it is also satisfied when `y` is true and `d` is false."
+
+The final answer is: 
+- Original LTL formula: `(y & !d) | (y => d)`
+- Translation: The system satisfies the formula if either `y` is true and `d` is false, or if `y` being true implies `d` is true. Essentially, this means `d` should be true whenever `y` is true, but there's a specific case where `y` and not `d` being true also satisfies the formula. 
+- Refined: "`y` and not `d` being true satisfies the condition, or the condition that if `y` is true then `d` must be true."

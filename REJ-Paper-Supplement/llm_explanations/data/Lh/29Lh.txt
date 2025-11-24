@@ -1,0 +1,11 @@
+- Original LTL formula: F x | F y
+
+- Rebuilding meaning from the bottom up:
+  - F x means "There must exist at least one future state where x is true."
+  - F y means "There must exist at least one future state where y is true."
+  - The disjunction (|) of F x and F y means that at least one of these conditions must be satisfied.
+
+- Refined natural language phrasing: 
+  "At least one of x or y must become true at some point in the future." 
+
+This formula is satisfied if either x or y (or both) becomes true in any future state. It does not impose a constraint on the current state but requires that at least one of the variables becomes true at some point in the future. The satisfaction of the formula does not depend on the ongoing truth of x or y after one of them becomes true; the condition is met once either x or y is true in a future state.

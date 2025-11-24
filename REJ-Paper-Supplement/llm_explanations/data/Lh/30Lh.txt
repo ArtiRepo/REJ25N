@@ -1,0 +1,11 @@
+- Original LTL formula: X a & !G b
+
+- Rebuilding meaning from the bottom:
+  - !G b: This means that it is not the case that b must be true in every state. Therefore, !G b implies that there must exist at least one state where b is false.
+  - X a: This means that a must be true in the very next state.
+
+- Combining the meanings:
+  The formula X a & !G b can be understood as: "a must be true in the next state, and there must exist at least one state where b is false."
+
+- Refined natural language phrasing:
+  "In the immediate next state, a must be true. Furthermore, b does not need to be true in every state; there must be at least one state where b is false. The truth of a is only constrained in the very next state, while the constraint on b applies over the entire execution, allowing for at least one false instance."

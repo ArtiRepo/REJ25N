@@ -1,0 +1,14 @@
+- Original LTL formula: Xa U Xb
+
+- Rebuilding meaning from the bottom:
+  - Xb: "b must be true in the very next state after the current one."
+  - Xa: "a must be true in the very next state."
+  - U: Indicates a two-phase behavior where the first phase requires Xa to be true until the second phase where Xb becomes true.
+
+- Refined natural language phrasing:
+  "a must be true in the next state and remain true in all subsequent states until b is true in the state after the next one." 
+
+However, a more accurate and concise translation considering the Until (U) and Next (X) operators would be:
+  "a must hold in the immediate next state and continue to hold in subsequent states until b holds in the state after that immediate next one."
+
+This phrasing captures the essence that 'a' is required in the next state and must continue to be true in subsequent states until 'b' becomes true in the state that follows the immediate next one, emphasizing the progression and timing accurately.

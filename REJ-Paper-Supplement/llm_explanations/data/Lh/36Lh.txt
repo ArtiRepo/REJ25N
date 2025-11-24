@@ -1,0 +1,14 @@
+- Original LTL formula: G (j => !f)
+
+- Rebuilding meaning from the bottom:
+  - j => !f: "If j is true, then f must be false."
+  - G (j => !f): This applies the "always" operator (G) to the implication.
+
+- Refined natural language phrasing:
+  "It must always be the case that if j is true, then f is false."
+
+This translates to: 
+- At any point in time, if j is true, f must be false immediately and this constraint applies continuously.
+- The formula does not impose a constraint on f when j is false.
+- A violating sequence would be any point in time where j is true and f is also true.
+- A satisfying sequence would be any where j being true is always accompanied by f being false.

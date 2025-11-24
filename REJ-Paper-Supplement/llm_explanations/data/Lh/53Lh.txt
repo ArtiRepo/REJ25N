@@ -1,0 +1,14 @@
+- Original LTL formula: Fa -> Gb
+
+- Rebuilding meaning from the bottom up:
+  - Fa: "There must exist at least one future state where a is true."
+  - Gb: "b must be true in every state of the execution."
+  - The implication (->) means that if the antecedent (Fa) is true, then the consequent (Gb) must also be true.
+
+- Refined natural language phrasing:
+  "If there will be a state where a is true, then b must be true in all future states." 
+
+  or more accurately for LTL:
+  "Whenever a becomes true at some point in the future, from that point onwards, b must hold in every state." 
+
+  This phrasing captures the conditional relationship and the temporal aspects accurately.

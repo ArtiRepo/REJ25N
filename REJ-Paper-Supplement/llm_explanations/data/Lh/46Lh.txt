@@ -1,0 +1,11 @@
+- Original LTL formula: F d | G !n
+
+- Rebuilding meaning from the bottom of the tree up:
+  - F d: "There must exist at least one future state where d is true."
+  - G !n: "n must be false in every state of the execution."
+  - The formula combines these with a disjunction (|), so the overall formula is satisfied if either part is satisfied.
+
+- Refined natural language phrasing:
+  "Either there will be a future state where d is true, or n must remain false forever." 
+
+This phrasing captures the essence of the disjunction between a future requirement (F d) and a persistent constraint (G !n), highlighting when the formula is satisfied and the nature of its constraints over time.

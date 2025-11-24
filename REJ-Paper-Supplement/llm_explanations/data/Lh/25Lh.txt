@@ -1,0 +1,8 @@
+- Original LTL formula: !X t
+
+- Rebuilding meaning from the bottom of the tree up:
+  - X t means "t must be true in the very next state."
+  - !X t negates this, implying that it is not the case that t must be true in the very next state.
+
+- Refined natural language phrasing: 
+  "!X t: 't must be false in the very next state.' This means that for the formula to be satisfied, t must not be true in the immediate next state. It imposes a constraint on the variable t specifically for the next state, not for the current state or any state after the next one. The constraint only applies to ensure t is false in the very next state; it does not restrict t's value in any other state."

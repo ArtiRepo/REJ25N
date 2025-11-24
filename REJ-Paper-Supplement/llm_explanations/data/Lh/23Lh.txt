@@ -1,0 +1,11 @@
+- Original LTL formula: t => w
+
+- Rebuilding meaning from the bottom up:
+  - The formula is a conditional statement: "if t then w".
+  - This can be rewritten as: !t ∨ w.
+
+- Refined natural language phrasing: 
+  "Whenever t is true, w must also be true. However, if t is false, there is no constraint on w." or equivalently, 
+  "If t holds, then w must hold; but if t does not hold, w may or may not hold." 
+
+This translation highlights that the formula imposes a constraint on the variables only when t is true, requiring w to be true in that case. If t is false, there is no constraint imposed on w.

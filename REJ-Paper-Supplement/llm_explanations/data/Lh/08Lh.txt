@@ -1,0 +1,32 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `b U !d`
+
+## 2: Rebuild meaning from the bottom of the tree up
+Breaking down the formula:
+- `!d` means "d must be false" in the current state where it's evaluated.
+- The Until operator `U` implies two conditions:
+  1. `!d` must become true at some point in the future.
+  2. Until `!d` becomes true, `b` must be true in every state.
+
+## 3: Refine the natural language phrasing for clarity
+The formula `b U !d` translates to: "d must eventually become false, and until that specific moment, b must remain true in every state."
+
+## 4: Explain satisfaction and constraints
+- The formula imposes a constraint on `b` to be true until `d` becomes false.
+- It imposes a constraint on `d` to become false at some point.
+- Once `d` becomes false, the constraint on `b` ceases to apply.
+
+## 5: Describe evaluation and evolution of truth value
+- At the moment of checking, `b` must be true, and there's a future requirement for `d` to become false.
+- The truth value evolves as `b` must hold until `d` becomes false; after that, `b` can be either true or false without affecting the formula's satisfaction.
+
+## 6: Distinguish between immediate satisfaction and ongoing constraints
+- Immediate satisfaction: `b` is true and there's a possibility for `d` to become false in the future.
+- Ongoing constraints: `b` must remain true until `d` becomes false.
+
+## 7: Address satisfying and violating sequences
+- Satisfying sequence: `b` is true in all states until `d` becomes false, then `d` remains false.
+- Violating sequence: If `b` becomes false before `d` becomes false, or if `d` never becomes false.
+
+## 8: Highlight potential misunderstandings
+- A common misunderstanding could be thinking `b` must always be true; however, `b` only needs to be true until `d` becomes false.

@@ -1,0 +1,10 @@
+- Original LTL formula: F !b
+
+- Rebuilding meaning from the bottom:
+  - !b: "b is false in the current state."
+  - F !b: "There must exist at least one future state where !b is true," which means "There must exist at least one future state where b is false."
+
+- Refined natural language phrasing: 
+  "b must be false at least once in the future." 
+
+This formula imposes a constraint on variable b over time, requiring that there exists a state where b is false, but it does not constrain b to be false in the current state or in every state. The constraint is satisfied as soon as b becomes false at any point in the future and remains satisfied thereafter, regardless of b's truth value in subsequent states. If b remains true in all states, the formula is violated.

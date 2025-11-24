@@ -1,0 +1,13 @@
+- Original LTL formula: F a
+
+- Rebuilding meaning from the bottom of the tree up:
+  - F (Future) means "there exists a future state where"
+  - So, F a means "there exists a future state where a is true"
+
+- Refined natural language phrasing: 
+  "The system must eventually reach a state where a is true." 
+
+  - This formula imposes a constraint on the system over time: at some point in the future, a must be true.
+  - It does not impose a constraint on the current state; a can be false now.
+  - The constraint applies only in the sense that a must become true at some point; once a is true, the formula is satisfied, and no further constraints are imposed. 
+  - A violating sequence would be one where a remains false in all states.

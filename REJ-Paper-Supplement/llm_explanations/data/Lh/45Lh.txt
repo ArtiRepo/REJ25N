@@ -1,0 +1,9 @@
+- Original LTL formula: X (!i) | X (j)
+
+- Rebuilding meaning from the bottom up:
+  - X (!i) means "in the very next state, i must be false."
+  - X (j) means "in the very next state, j must be true."
+  - The disjunction (|) implies that at least one of the conditions must be satisfied.
+
+- Refined natural language phrasing: 
+  "In the very next state, either i must be false or j must be true (or both)."

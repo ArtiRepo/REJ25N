@@ -1,0 +1,33 @@
+## Step 1: Write down original LTL formula
+The original LTL formula is: `a U (c & d)`
+
+## 2: Rebuild meaning from the bottom of the tree up
+Breaking down the formula:
+- `c & d` means both `c` and `d` must be true.
+- `F(c & d)` implies there exists a future state where `c & d` is true, but it does not constrain the states before `c & d` becomes true.
+- The `Until` operator `U` indicates that `a` must be true until `c & d` becomes true.
+
+## 3: Refine the natural language phrasing for clarity
+The formula `a U (c & d)` can be translated to: "a must be true in every state until there exists a state where both c and d are true, at which point a no longer needs to hold."
+
+## 4: Specify satisfaction and constraints
+- The formula is satisfied if `a` is true in all states before a state where `c & d` is true, and does not impose any constraint on `a` after `c & d` becomes true.
+- A violating sequence would be one where `a` is false before `c & d` becomes true, or `c & d` never becomes true.
+
+## 5: Describe evaluation and evolution of truth value
+- At the moment of checking, the formula imposes a constraint that `a` must be true if `c & d` has not yet occurred.
+- Over time, once `c & d` becomes true, the constraint on `a` ceases to apply.
+
+## 6: Distinguish between immediate satisfaction and ongoing constraints
+- Immediate satisfaction requires `a` to be true if `c & d` has not occurred yet.
+- Ongoing constraints apply as long as `c & d` has not occurred, requiring `a` to remain true.
+
+## 7: Address satisfying and violating sequences
+- Satisfying sequence: `a` is true until `c & d` is true, then `c & d` occurs.
+- Violating sequence: `a` is false before `c & d` occurs, or `c & d` never occurs.
+
+## 8: Highlight potential misunderstandings
+A potential misunderstanding is that `a` must remain true after `c & d` becomes true, which is not the case; `a` can become false after `c & d` is satisfied.
+
+The final answer is: 
+a U (c & d) translates to: "a must be true in every state until there exists a state where both c and d are true, at which point a no longer needs to hold."

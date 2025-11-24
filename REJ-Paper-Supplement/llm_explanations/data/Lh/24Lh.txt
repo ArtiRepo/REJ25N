@@ -1,0 +1,8 @@
+- Original LTL formula: `t => (x & y)`
+
+- Rebuilding meaning from the bottom:
+  - `x & y` means both `x` and `y` must be true in the current state.
+  - `t => (x & y)` implies that if `t` is true, then both `x` and `y` must be true.
+
+- Refined natural language phrasing: 
+  "If `t` is true, then both `x` and `y` must be true in the current state. If `t` is false, there are no constraints imposed on `x` and `y` by this formula."

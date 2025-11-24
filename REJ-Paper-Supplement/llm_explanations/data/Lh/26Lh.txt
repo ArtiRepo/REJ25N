@@ -1,0 +1,9 @@
+- Original LTL formula: X t => X y
+
+- Rebuilding meaning from the bottom of the tree up:
+  - X y: "y must be true in the very next state."
+  - X t: "t must be true in the very next state."
+  - Implication =>: If the antecedent (X t) is true, then the consequent (X y) must also be true.
+
+- Refined natural language phrasing: 
+"If t is true in the next state, then y must also be true in the next state. This does not impose any immediate constraint on t or y in the current state but requires that if t becomes true in the next state, y must also become true in the next state. The formula does not constrain t or y to be true in the current state; it only constrains their values in the next state if t is true then."

@@ -1,0 +1,10 @@
+- Original LTL formula: G(a and !b)
+
+- Rebuilding meaning from the bottom:
+  - "a and !b" means "a must be true and b must be false in the current state."
+  - G(...) means "the condition inside the G operator must hold in every state of the execution."
+
+- Refined natural language phrasing: 
+  "a must be true and b must be false in all states of the execution." 
+
+This formula imposes a constant constraint on variables a and b over time, requiring a to be true and b to be false in every state, with no future state allowed to violate this condition.

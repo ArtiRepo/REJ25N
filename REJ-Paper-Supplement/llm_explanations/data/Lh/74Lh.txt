@@ -1,0 +1,10 @@
+- Original LTL formula: G(a or b)
+
+- Rebuilding meaning from the bottom:
+  - "a or b" means that at least one of a or b must be true in the current state.
+  - G(...) means that the condition inside must hold in every state of the execution.
+
+- Refined natural language phrasing: 
+  "At all times, at least one of a or b must be true." 
+
+This formula imposes a constant constraint on the system, requiring that in every state, either a or b (or both) must be true. It does not specify which one should be true, just that at least one of them must be true at all times. The satisfaction of the formula is evaluated in every state, and it is violated if there exists any state where both a and b are false.

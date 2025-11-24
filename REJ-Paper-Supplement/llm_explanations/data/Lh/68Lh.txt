@@ -1,0 +1,10 @@
+- Original LTL formula: a U b
+
+- Rebuilding meaning from the bottom of the tree up:
+  - b must be true at least once in the future (F(b)).
+  - Until b becomes true, a must be true in every state leading up to it (G(a) until b).
+
+- Refined natural language phrasing:
+  "a must be true in every state until b becomes true, at which point a can become false; b must eventually become true." 
+
+This phrasing highlights that a is required as long as b hasn't occurred, and once b occurs, the constraint on a no longer applies.

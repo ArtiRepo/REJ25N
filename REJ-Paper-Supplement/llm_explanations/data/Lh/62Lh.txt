@@ -1,0 +1,9 @@
+- Original LTL formula: `a`
+
+- Rebuilding meaning from the bottom up: 
+  - `a` is a proposition that must be true in the current state and is otherwise unconstrained.
+
+- Refined natural language phrasing: 
+  - "a must be true now." 
+
+This formula imposes a constraint on variable `a` only in the current state. It does not impose any constraints on future states. The formula is satisfied if `a` is true at the moment it is checked and does not restrict the truth value of `a` or any other variables in subsequent states.

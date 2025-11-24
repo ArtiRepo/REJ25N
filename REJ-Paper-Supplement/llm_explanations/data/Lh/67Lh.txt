@@ -1,0 +1,11 @@
+- Original LTL formula: XXFa
+
+- Rebuilding meaning from the bottom of the tree up:
+  - Fa: "There must exist at least one future state where a is true."
+  - X(Fa): "In the very next state, there must exist some future state (not necessarily the same one) where a is true."
+  - XXFa: "In the state after next, there must exist at least one future state where a is true."
+
+- Refined natural language phrasing: 
+  "It is required that from the state two steps from now, there will be at least one state in the future where a is true." 
+
+This phrasing clarifies that the formula imposes a constraint on the system two steps into the future, requiring that from that point onwards, there must be a state where a is true. It does not constrain the current state or the immediate next state regarding the truth of a, but it does impose a condition that a must be satisfied at some point after the second state.

@@ -1,0 +1,8 @@
+- Original LTL formula: `a U (b & c)`
+
+- Rebuilding meaning from the bottom:
+  - `b & c` means both `b` and `c` must be true in the same state.
+  - `a U (b & c)` means that `b & c` must eventually become true, and until that specific moment, `a` must remain true in every state.
+
+- Refined natural language phrasing: 
+  "`a` must be true in the current state and all subsequent states until a future state is reached where both `b` and `c` are true. Once a state is reached where both `b` and `c` are true, the constraint on `a` no longer applies."

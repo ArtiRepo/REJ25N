@@ -1,0 +1,9 @@
+- Original LTL formula: !X !(w | x)
+
+- Rebuilding meaning from the bottom of the tree up:
+  1. !(w | x) means "it is not the case that w or x is true," which implies "both w and x must be false."
+  2. X !(w | x) means "in the next state, both w and x must be false."
+  3. !X !(w | x) negates the above, meaning "it is not the case that in the next state, both w and x must be false," which translates to "in the next state, it is not required that both w and x are false."
+
+- Refined natural language phrasing: 
+  "!X !(w | x) means that in the next state, at least one of w or x must be true. The formula does not constrain the current state but imposes a requirement on the next state, allowing for either w, x, or both to be true then."

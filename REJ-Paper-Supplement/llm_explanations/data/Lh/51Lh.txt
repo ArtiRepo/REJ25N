@@ -1,0 +1,12 @@
+- Original LTL formula: `a -> X(a)`
+
+- Rebuilding meaning from the bottom of the tree up:
+  - `X(a)` means "a must be true in the very next state."
+  - `a -> X(a)` implies that if `a` is true in the current state, then `a` must be true in the very next state.
+
+- Refined natural language phrasing: 
+  "If a is true now, then a must remain true in the immediate next state." 
+  or equivalently, 
+  "Whenever a is true, it must stay true in the next state." 
+
+This phrasing highlights that `a` being true imposes a constraint on the next state, requiring `a` to still be true then, but does not constrain `a` in any state before the current one or if `a` is false in the current state.

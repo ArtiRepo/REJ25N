@@ -1,0 +1,9 @@
+- Original LTL formula: a U c
+
+- Rebuilding meaning from the bottom:
+  - The formula "a U c" implies two main components: 
+    1. "c must become true at some point in the future."
+    2. "Until c becomes true, a must be true in every state."
+
+- Refined natural language phrasing: 
+  "c must eventually become true, and until that moment, a must remain true in every state."

@@ -1,0 +1,12 @@
+- Original LTL formula: G(a -> XXXa)
+
+- Rebuilding meaning from the bottom:
+  - XXXa means "a must be true three states from now."
+  - a -> XXXa means "if a is true in the current state, then a must be true three states from now."
+  - G(a -> XXXa) means "it must always be the case that if a is true in the current state, then a must be true three states from now."
+
+- Refined natural language phrasing: 
+  "Whenever a is true, it must remain true three states later, and this condition must hold indefinitely." 
+
+or more concisely:
+  "Whenever a is true, a must be true again three steps later, and this requirement persists over all states."

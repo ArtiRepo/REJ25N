@@ -1,0 +1,8 @@
+- Original LTL formula: b U (d & a)
+
+- Rebuilding meaning from the bottom:
+  - (d & a) means both d and a must be true in the same state.
+  - Focusing on U: For b U (d & a), once (d & a) becomes true, b can be false or true; the constraint is on b before (d & a) is satisfied.
+
+- Refined natural language phrasing: 
+  "b must be true until the state where both d and a are true, at which point b can become false or remain true."

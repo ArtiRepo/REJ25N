@@ -1,0 +1,13 @@
+- Original LTL formula: Fa ∧ Fb
+
+- Rebuilding meaning from the bottom:
+  - Fa: "There must exist at least one future state where a is true."
+  - Fb: "There must exist at least one future state where b is true."
+
+- Combining the meanings:
+  - Fa ∧ Fb: Both conditions must be satisfied. This means there must be at least one future state where a is true and at least one (possibly different) future state where b is true.
+
+- Refined natural language phrasing: 
+  "The system must eventually reach a state where a is true and, separately, it must also eventually reach a state where b is true." 
+
+This phrasing clarifies that the formula is satisfied if both a and b become true at some point in the future, not necessarily at the same time or in a specific order, and does not constrain the system to keep a or b true after they have become true.

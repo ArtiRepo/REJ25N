@@ -1,0 +1,10 @@
+- Original LTL formula: X(!g | !j)
+
+- Rebuilding meaning from the bottom:
+  - !g | !j: "Either g is false or j is false (or both) in the current state."
+  - X(!g | !j): "In the very next state, either g is false or j is false (or both)."
+
+- Refined natural language phrasing: 
+  "In the next state, at least one of g or j must be false." 
+
+This formula imposes a constraint on the variables g and j for the next state but does not constrain the current state. It is satisfied if, in the next state, either g or j (or both) is false. If both g and j are true in the next state, the formula is violated. The current state of g and j does not affect the satisfaction of the formula; only their values in the next state do.

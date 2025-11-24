@@ -1,0 +1,8 @@
+- Original LTL formula: `!G c`
+
+- Rebuilding meaning from the bottom of the tree up:
+  - `G c` means "c must be true in every state of the execution."
+  - `!G c` is the negation of `G c`, which implies that it is not the case that c must be true in every state.
+
+- Refined natural language phrasing: 
+  "!G c" means "There must exist at least one state where c is false." It is satisfied if c is false in any state during the execution. The formula imposes a constraint on c, requiring that it does not hold true in all states over time. It does not constrain c to be false in the current state specifically but requires that there be a state in the future (or present) where c is false.

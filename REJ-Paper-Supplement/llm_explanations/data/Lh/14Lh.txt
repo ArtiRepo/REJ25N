@@ -1,0 +1,34 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: `(d U c) | (a U !c)`
+
+## 2: Break down the formula into its components
+The formula consists of two main parts connected by a disjunction (`|`):
+1. `d U c`
+2. `a U !c`
+
+## 3: Interpret the first part, `d U c`
+- `d U c` means: "c must eventually become true, and until that specific moment, d must remain true in every state."
+
+## 4: Interpret the second part, `a U !c`
+- `a U !c` means: "!c must eventually become true (meaning c must become false), and until that specific moment, a must remain true in every state."
+
+## 5: Combine the interpretations with the disjunction
+- The entire formula `(d U c) | (a U !c)` is satisfied if either of the two parts is satisfied.
+
+## 6: Refine the natural language phrasing for clarity
+- The formula is satisfied if either: 
+  - "c becomes true, and until then, d is true in every state,"
+  - or "c becomes false, and until then, a is true in every state."
+
+## 7: Describe satisfaction and constraints over time
+- The formula imposes constraints on the system over time, requiring either d to be true until c becomes true or a to be true until c becomes false.
+- It does not constrain variables when the respective condition is met (e.g., once c is true, d no longer needs to be true).
+
+## 8: Address potential misunderstandings
+- A key point is that the constraints (d being true or a being true) only apply until the condition (c being true or c being false) is met.
+
+The final answer is: 
+(d U c) | (a U !c)
+
+The formula `(d U c) | (a U !c)` can be translated to: 
+"The system satisfies this formula if either c will eventually be true and d remains true until then, or c will eventually be false and a remains true until then."

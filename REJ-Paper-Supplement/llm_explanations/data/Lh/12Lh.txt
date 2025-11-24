@@ -1,0 +1,10 @@
+- Original LTL formula: b U (a | d)
+
+- Rebuilding meaning from the bottom:
+  - a | d: "Either a or d (or both) must be true in the current state."
+  - b U (a | d): Break down into two phases:
+    - "a | d must eventually become true."
+    - "Until a | d becomes true, b must remain true in every state."
+
+- Refined natural language phrasing: 
+  "b must be true in every state until either a or d (or both) becomes true, at which point b no longer needs to hold, but it is not required to become false either; the only requirement is that one of a or d must be true at some point in the future."

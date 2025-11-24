@@ -1,0 +1,10 @@
+- Original LTL formula: `G (!f | !i)`
+
+- Rebuilding meaning from the bottom:
+  - `!f | !i` means that either `f` must be false or `i` must be false (or both) in a given state.
+  - `G` imposes that this condition must hold in every state of the execution.
+
+- Refined natural language phrasing: 
+  "In every state of the execution, at least one of `f` or `i` must be false." 
+
+This formula imposes a constraint on variables `f` and `i` over time, requiring that they cannot both be true in any state. It does not constrain the system to have `f` or `i` be true at any point, only that they cannot both be true simultaneously. The formula is satisfied if there exists any state where at least one of `f` or `i` is false and continues to be satisfied as long as this condition holds in every subsequent state. A violating sequence would be one where both `f` and `i` are true in any state.

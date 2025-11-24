@@ -1,0 +1,11 @@
+- Original LTL formula: X a & b
+
+- Rebuilding meaning from the bottom:
+  - b: "b must be true in the current state and is otherwise unconstrained."
+  - X a: "a must be true in the very next state."
+
+- Combining the parts: 
+  The formula X a & b requires that "b is true now and a is true in the next state."
+
+- Refining the natural language phrasing for clarity:
+  The system must currently be in a state where b is true, and it must transition to a state where a is true in the immediate next step. This imposes a constraint on the current state (b must be true) and on the transition to the next state (a must be true). Once the next state is reached, the constraint on a ceases to apply, and only the ongoing presence of b would impose a continued constraint if it were required to persist. However, based solely on X a & b, after a is true in the next state, no further constraints are imposed by this formula.

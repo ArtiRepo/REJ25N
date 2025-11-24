@@ -1,0 +1,12 @@
+- Original LTL formula: X b => !X d
+
+- Rebuilding meaning from the bottom:
+  - X d: "d must be true in the very next state."
+  - !X d: "d must not be true in the very next state."
+  - X b: "b must be true in the very next state."
+  - Implication =>: If the antecedent (X b) is true, the consequent (!X d) must also be true.
+
+- Refined natural language phrasing: 
+"If b is true in the next state, then d must not be true in the next state." 
+
+This formula imposes a constraint on the relationship between b and d in the next state. It does not constrain the current state but dictates a condition for the next state based on the values of b and d. If b is true in the next state, it immediately imposes a constraint that d cannot be true in that same next state. If b is false in the next state, there is no constraint imposed on d in that state. The formula is satisfied if either b is false in the next state or d is false in the next state (or both), and it is violated only if b is true and d is also true in the next state.

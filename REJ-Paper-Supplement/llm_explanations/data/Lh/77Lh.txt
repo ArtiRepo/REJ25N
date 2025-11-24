@@ -1,0 +1,13 @@
+- Original LTL formula: `a U !a`
+
+- Rebuilding meaning from the bottom:
+  - `!a` means "a must be false in the current state."
+  - `U` operator indicates a two-phase behavior: 
+    - The first phase requires `a` to be true until...
+    - ...the second phase where `!a` becomes true.
+
+- Refined natural language phrasing: 
+  "a must be true in every state until a specific future moment when a becomes false, and from that moment onwards, a must be false." 
+
+or more concisely:
+"a must hold true in all states until it eventually becomes false, at which point the requirement for a to be true ceases."

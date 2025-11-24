@@ -1,0 +1,30 @@
+## Step 1: Write down the original LTL formula
+The original LTL formula is: G (!i) | F (f U i)
+
+## 2: Rebuild meaning from the bottom of the tree up
+Starting with the bottom parts of the formula:
+- `f U i` means "i must eventually become true, and until that specific moment, f must remain true in every state."
+- `F (f U i)` means "There must exist at least one future state where `f U i` is satisfied, i.e., there will be a point where f starts being true and remains true until i becomes true."
+- `!i` means "i is false."
+- `G (!i)` means "i must be false in every state of the execution."
+
+## 3: Combine the parts
+- `G (!i) | F (f U i)` can be read as "Either i is false in all states, or there exists a future state where f becomes true and remains true until i becomes true."
+
+## 4: Refine the natural language phrasing for clarity
+The formula `G (!i) | F (f U i)` is satisfied if one of two conditions holds:
+- The variable `i` is false in all states (forever).
+- There exists a point in the future where `f` starts being true and continues to be true until `i` becomes true.
+
+The formula imposes a constraint on `i` to be false in all states or on `f` and `i` such that `f` is true until `i` becomes true at some point. 
+
+## 5: Describe satisfaction and constraints
+- The formula is immediately satisfied if `i` is false in the current state, with no further constraints on `f`.
+- Over time, if `i` remains false, the formula remains satisfied without any additional requirements on `f`.
+- If `i` becomes true, then for the formula to still be satisfied, there must have been a state where `f` started being true and remained true until `i` became true.
+
+## 6: Violating sequences
+A violating sequence would be one where `i` is true in some states and `F (f U i)` does not hold, meaning `f` does not remain true until `i` becomes true whenever `i` becomes true after being false.
+
+## 7: Final Translation
+The LTL formula `G (!i) | F (f U i)` translates to: "Either `i` is forever false, or at some point `f` will be true and will remain true until `i` becomes true."
