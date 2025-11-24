@@ -1,0 +1,38 @@
+Certainly! Let's go through the process of translating the LTL formula \( G t \lor F w \) into structured natural language.
+ 
+
+ ### 1. Write down the original LTL formula
+ \[ G t \lor F w \]
+ 
+
+ ### 2. Break the subformula into a parsing tree (breakdown)
+ - **Root:** \( \lor \) (Logical OR)
+  - **Left Subtree:** \( G t \)
+  - **Leaf:** \( G \) (Globally)
+  - **Leaf:** \( t \) (Proposition)
+  - **Right Subtree:** \( F w \)
+  - **Leaf:** \( F \) (Eventually)
+  - **Leaf:** \( w \) (Proposition)
+ 
+
+ ### 3. Rebuild meaning from the bottom of the tree up
+ - **Left Subtree Meaning:** 
+  - \( G t \): "Globally, \( t \) should hold." 
+  - This means that throughout the entire execution of the system, the proposition \( t \) must always be true.
+ 
+
+ - **Right Subtree Meaning:**
+  - \( F w \): "Eventually, \( w \) should hold."
+  - This means that at some point in the future during the system's execution, the proposition \( w \) must become true at least once.
+ 
+
+ - **Root Meaning:**
+  - \( G t \lor F w \): "Either globally \( t \) should hold, or eventually \( w \) should hold."
+  - This means that the system execution must satisfy at least one of the two conditions: either \( t \) is always true, or \( w \) becomes true at some point.
+ 
+
+ ### 4. Refine the natural language phrasing for clarity
+ "In every possible execution of the system, it must be the case that either the condition \( t \) is always true, or the condition \( w \) becomes true at least once."
+ 
+
+ This structured approach helps in understanding how each component of the LTL formula contributes to the overall meaning, and how they combine to form the final natural language translation.

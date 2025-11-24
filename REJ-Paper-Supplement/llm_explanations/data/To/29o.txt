@@ -1,0 +1,26 @@
+Certainly! Let's go through the process of translating the LTL formula \( F x \lor F y \) into structured natural language.
+ 
+
+ ### 1. Write down the original LTL formula
+ \[ F x \lor F y \]
+ 
+
+ ### 2. Break the subformula into a parsing tree (breakdown)
+ ```
+  OR
+  / \
+  F x F y
+ ```
+ 
+
+ ### 3. Rebuild meaning from the bottom of the tree up
+ - **\( F x \)**: "Eventually, \( x \) will hold at some point in the future."
+ - **\( F y \)**: "Eventually, \( y \) will hold at some point in the future."
+ - **\( F x \lor F y \)**: "Either \( x \) will eventually hold at some point in the future, or \( y \) will eventually hold at some point in the future."
+ 
+
+ ### 4. Refine the natural language phrasing for clarity
+ "In the future, either \( x \) will occur at some point, or \( y \) will occur at some point."
+ 
+
+ This translation captures the essence of the LTL formula, expressing that at least one of the conditions \( x \) or \( y \) must eventually become true during the system's execution.
