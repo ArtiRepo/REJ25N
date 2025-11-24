@@ -1,0 +1,99 @@
+### **Original LTL Formula:**
+**(b U c) & (d U !b)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula is a conjunction (`&`) of two **Until (U)** subformulas:
+1. **Left subformula:** `(b U c)`
+   - **b** (atomic proposition) **U** (until) **c** (atomic proposition)
+2. **Right subformula:** `(d U !b)`
+   - **d** (atomic proposition) **U** (until) **!b** (negation of **b**)
+
+---
+### **Rebuilding Meaning from the Bottom Up:**
+
+#### **1. Left Subformula: (b U c)**
+- **Until (U) semantics:**
+  - *"b holds **continuously** until some future point where c becomes true."*
+  - **Satisfaction conditions:**
+    - **At some future time**, **c** must occur.
+    - **Until that point**, **b** must hold **at every step** in between.
+    - If **c** never occurs, the formula is **false** (unless **b** holds forever, but LTL typically requires **c** to eventually happen).
+  - **Constraints on the system:**
+    - The system must **maintain b** as an invariant until **c** is reached.
+    - **c** must eventually happen (liveness).
+
+- **Natural language draft:**
+  *"b must remain true **at all times** until c eventually becomes true."*
+
+#### **2. Right Subformula: (d U !b)**
+- **Until (U) semantics (with negation):**
+  - *"d holds **continuously** until some future point where **b becomes false** (!b)."*
+  - **Satisfaction conditions:**
+    - **At some future time**, **!b** (i.e., **b is false**) must occur.
+    - **Until that point**, **d** must hold **at every step** in between.
+    - If **!b** never occurs (i.e., **b** stays true forever), the formula is **false** (unless **d** holds forever, but LTL requires **!b** to eventually happen).
+  - **Constraints on the system:**
+    - The system must **maintain d** as an invariant until **b** is no longer true.
+    - **b** must eventually become false (liveness).
+
+- **Natural language draft:**
+  *"d must remain true **at all times** until b eventually becomes false."*
+
+#### **3. Conjunction (&) of Both Subformulas:**
+- The entire formula requires **both** subformulas to hold **simultaneously**.
+- **Key interactions:**
+  - The first subformula **(b U c)** requires **b** to hold until **c**.
+  - The second subformula **(d U !b)** requires **d** to hold until **b becomes false**.
+  - This creates a **temporal dependency**:
+    - **b** must hold until **c**, but **b** must also **eventually become false** (from the second subformula).
+    - Therefore, **c must occur before b becomes false** (otherwise, the first subformula would fail if **b** drops before **c**).
+    - After **c** occurs, **b** is allowed to become false (satisfying the second subformula).
+
+- **Constraints on the system:**
+  1. **b** must hold continuously until **c** happens.
+  2. **d** must hold continuously until **b** becomes false.
+  3. **c** must happen **before** (or at the same time as) **b** becomes false.
+     - If **b** becomes false before **c**, the first subformula fails.
+  4. **d** must hold at least until **c** (since **b** cannot become false before **c**).
+
+---
+### **Refined Natural Language Translation:**
+*"The system must satisfy the following two conditions simultaneously:
+1. **b** must remain true **continuously** until **c** eventually becomes true.
+2. **d** must remain true **continuously** until **b** eventually becomes false.
+
+**Additionally, this implies that:**
+- **c** must occur **before or at the same time as** **b** becomes false (otherwise, the first condition would be violated).
+- After **c** occurs, **b** is allowed to become false, at which point **d** no longer needs to hold."*
+
+---
+### **Example Scenario (for Intuition):**
+Imagine a **robot** with the following behavior:
+- **b**: "Robot is moving forward."
+- **c**: "Robot reaches the target."
+- **d**: "Robot's camera is recording."
+
+The formula **(b U c) & (d U !b)** would mean:
+- The robot must **keep moving forward (b)** until it **reaches the target (c)**.
+- The robot's **camera must stay on (d)** until the robot **stops moving forward (!b)**.
+- **Constraint:** The robot must reach the target (**c**) **before** it stops moving (**!b**), because if it stops before reaching the target, the first condition fails.
+
+---
+### **When the Formula is Violated:**
+1. If **b** becomes false **before c** occurs:
+   - The first subformula **(b U c)** fails because **b** did not hold until **c**.
+2. If **d** becomes false **before b** becomes false:
+   - The second subformula **(d U !b)** fails because **d** did not hold until **!b**.
+3. If **c** never occurs (and **b** holds forever):
+   - The first subformula fails because **c** must eventually happen.
+4. If **b** never becomes false (and **d** holds forever):
+   - The second subformula fails because **!b** must eventually happen.
+
+---
+### **Final Clarified Translation:**
+*"The system must ensure that:
+- **b** holds **without interruption** until **c** is eventually achieved, **and**
+- **d** holds **without interruption** until **b** eventually becomes false,
+**with the additional requirement that c must occur no later than when b becomes false.**"*

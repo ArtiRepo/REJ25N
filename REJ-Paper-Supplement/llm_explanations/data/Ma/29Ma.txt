@@ -1,0 +1,80 @@
+### **Original LTL Formula:**
+**F x | F y**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula is a disjunction (OR) of two subformulas, each prefixed by the **F** (eventually) operator.
+
+```
+          (|)
+         /   \
+       (F x) (F y)
+```
+
+- **F x**: "Eventually, **x** holds."
+- **F y**: "Eventually, **y** holds."
+- **(|)**: Logical OR ("or").
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **F x** means that at *some future point* in the execution, **x** must become true (and may stay true or become false afterward).
+   - It does **not** require **x** to hold forever, nor does it specify when **x** must occur—only that it *will* occur eventually.
+   - If **x** never holds, **F x** is false.
+
+2. **F y** is analogous: at *some future point*, **y** must become true.
+
+3. The **OR (|)** combines these two possibilities:
+   - The entire formula **F x | F y** is satisfied if **either**:
+     - **x** eventually holds (**F x** is true), **or**
+     - **y** eventually holds (**F y** is true), **or both**.
+   - It is **not** required that both **x** and **y** occur—just at least one of them.
+
+---
+
+### **When is the Formula Satisfied?**
+The formula **F x | F y** is satisfied by a system trace if:
+- At least one of the following happens in the future:
+  - **x** becomes true at some point, **or**
+  - **y** becomes true at some point.
+
+**Violation occurs if:**
+- Neither **x** nor **y** ever holds in the entire infinite future (i.e., both **F x** and **F y** are false).
+
+---
+
+### **Refined Natural Language Translation:**
+**"Eventually, either x will hold, or y will hold (or both)."**
+
+#### **Alternative Phrasings (for clarity in different contexts):**
+1. **"At some future point, at least one of x or y must become true."**
+   *(Emphasizes the "at least one" aspect.)*
+2. **"It is inevitable that either x occurs or y occurs (or both)."**
+   *(Stronger phrasing, highlighting inevitability.)*
+3. **"The system must guarantee that x happens eventually, or y happens eventually."**
+   *(Useful for requirements documentation.)*
+
+---
+### **Key Nuances:**
+- **No ordering constraint**: The formula does not specify which of **x** or **y** must occur first (or if one must occur before the other).
+- **No exclusivity**: Both **x** and **y** could eventually hold, and the formula would still be satisfied.
+- **Weak fairness**: This is a common pattern in liveness properties (e.g., "eventually, some progress is made").
+
+---
+### **Example Scenarios:**
+1. **Satisfied Trace**:
+   - Time 0: **x** = false, **y** = false
+   - Time 1: **x** = true, **y** = false
+   - Time 2: ...
+   *(Here, **F x** is true, so the formula holds.)*
+
+2. **Satisfied Trace**:
+   - Time 0: **x** = false, **y** = false
+   - Time 1: **x** = false, **y** = true
+   *(Here, **F y** is true, so the formula holds.)*
+
+3. **Violated Trace**:
+   - For all future times: **x** = false, **y** = false
+   *(Neither **F x** nor **F y** is satisfied.)*

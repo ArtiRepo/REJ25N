@@ -1,0 +1,85 @@
+### **Original LTL Formula:**
+**(b | !a) & X (d U c)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula consists of two main parts connected by a conjunction (`&`):
+
+1. **Left Subformula:** `(b | !a)`
+   - `!a` (negation of `a`)
+   - `|` (disjunction, "or") between `b` and `!a`
+
+2. **Right Subformula:** `X (d U c)`
+   - `d U c` (strong until: `d` must hold *until* `c` becomes true)
+   - `X` (next: the until condition must start holding *in the next state*)
+
+The full formula is the conjunction (`&`) of these two parts.
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+#### **1. Left Subformula: `(b | !a)`**
+- **`!a`**: "`a` is **not** true in the current state."
+- **`b | !a`**: "Either `b` is true **now**, **or** `a` is **not** true **now** (or both)."
+  - This imposes a constraint on the **current state**: the system must satisfy at least one of these two conditions right now.
+
+#### **2. Right Subformula: `X (d U c)`**
+- **`d U c`** (strong until):
+  - "`d` must hold **continuously** in every state **until** `c` becomes true."
+  - This means:
+    - `c` **must eventually** become true (liveness).
+    - Until `c` happens, `d` **must always** hold (safety).
+  - If `c` never becomes true, the formula is **violated** (unlike weak until, which allows `d` to hold forever).
+
+- **`X (d U c)`**:
+  - The "strong until" condition (`d U c`) must start holding **in the next state** (not necessarily now).
+  - So, in the **current state**, the formula doesn’t impose any constraints on `d` or `c`. The requirement kicks in **one step later**.
+
+#### **3. Combining with `&` (Conjunction):**
+- The full formula requires **both** of the following to be true:
+  1. **Now**: `(b | !a)` must hold (current state constraint).
+  2. **Next state and beyond**: `d U c` must hold (future constraint starting from the next state).
+
+---
+
+### **Refined Natural Language Translation:**
+**"In the current state, either `b` is true or `a` is false (or both).
+Additionally, in the *next* state and all subsequent states, `d` must hold continuously until `c` eventually becomes true (and `c` must occur at some future point)."**
+
+---
+### **When Is the Formula Satisfied?**
+The formula is satisfied if:
+1. **At the current moment**:
+   - `b` is true, **or**
+   - `a` is false (or both).
+2. **From the next moment onward**:
+   - `d` remains true in every state **until** `c` becomes true.
+   - `c` **must** eventually happen (the system cannot indefinitely stay in `d` without `c` occurring).
+
+---
+### **When Is the Formula Violated?**
+The formula is violated if:
+1. **Now**:
+   - Neither `b` is true **nor** `a` is false (i.e., `a` is true and `b` is false).
+2. **In the future (starting next state)**:
+   - `d` becomes false **before** `c` becomes true, **or**
+   - `c` **never** becomes true (so `d` would have to hold forever, but strong until requires `c` to eventually occur).
+
+---
+### **Example Scenario:**
+- **Current state**: `a = false`, `b = false` (satisfies `!a`, so `(b | !a)` holds).
+- **Next state**: `d = true`, `c = false`.
+- **Later states**:
+  - `d` stays true until `c` becomes true (e.g., `d, d, d, c`).
+  → **Formula satisfied**.
+
+- **Violation case**:
+  - Current state: `a = true`, `b = false` (fails `(b | !a)`).
+  → **Formula violated immediately**.
+
+- **Another violation case**:
+  - Current state: `a = false`, `b = true` (satisfies `(b | !a)`).
+  - Next state: `d = false`, `c = false` (fails `d U c`).
+  → **Formula violated in the next state**.

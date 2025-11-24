@@ -1,0 +1,76 @@
+### **Original LTL Formula:**
+**X(!g ∨ !j)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula can be broken down as follows:
+
+1. **Atomic Propositions:**
+   - `g` (some proposition, e.g., "the system is in state *g*")
+   - `j` (some proposition, e.g., "the system is in state *j*")
+
+2. **Negations:**
+   - `!g` (negation: "the system is **not** in state *g*")
+   - `!j` (negation: "the system is **not** in state *j*")
+
+3. **Disjunction (OR):**
+   - `!g ∨ !j` ("the system is **not in *g*** **or** it is **not in *j***")
+
+4. **Next-Time Operator (X):**
+   - `X(!g ∨ !j)` ("**In the next step**, it will be the case that the system is not in *g* or not in *j*"")
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **Innermost Level (Negations):**
+   - `!g` means "*g* does not hold in the current state."
+   - `!j` means "*j* does not hold in the current state."
+
+2. **Disjunction (`∨`):**
+   - `!g ∨ !j` means:
+     - *Either* `!g` is true (so *g* is false),
+     - *Or* `!j` is true (so *j* is false),
+     - *Or both* are true.
+   - This is logically equivalent to the **negation of the conjunction** (`!(g ∧ j)`), meaning:
+     - "*It is not the case that both *g* and *j* hold simultaneously.*"
+
+3. **Next-Time Operator (`X`):**
+   - `X(φ)` means that the subformula `φ` must hold **in the very next state** (time step) of the system.
+   - So, `X(!g ∨ !j)` means:
+     - "*In the next state, it will be true that either *g* does not hold or *j* does not hold (or neither holds).*"
+
+---
+
+### **Refined Natural Language Translation:**
+**Formal Meaning:**
+*"In the next time step, the system must **not** be in a state where both *g* and *j* are true simultaneously. In other words, at least one of *g* or *j* must be false in the next state."*
+
+**Alternative Phrasings (depending on context):**
+- *"The system must ensure that, in the next step, *g* and *j* are not both active at the same time."*
+- *"After the current moment, the system cannot be in a state where *g* and *j* coexist."*
+- *"The next state must exclude the scenario where *g* and *j* are both true."*
+
+---
+
+### **When is the Formula Satisfied?**
+The formula `X(!g ∨ !j)` is satisfied in a trace (sequence of states) if:
+- **In the state *immediately following* the current one**, at least one of the following is true:
+  - `g` is false, **or**
+  - `j` is false.
+
+**Violation Occurs When:**
+- In the next state, **both `g` and `j` are true** (i.e., the system enters a state where `g ∧ j` holds).
+
+---
+
+### **Example Scenario (if *g* and *j* are concrete):**
+Suppose:
+- `g` = "the green light is on,"
+- `j` = "the pedestrian crossing signal is active."
+
+Then `X(!g ∨ !j)` means:
+*"In the next time step, the green light and pedestrian crossing signal **must not both be on simultaneously** (at least one must be off)."*
+
+This could represent a safety constraint in a traffic light system.

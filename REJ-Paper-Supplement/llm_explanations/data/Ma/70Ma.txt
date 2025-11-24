@@ -1,0 +1,90 @@
+### **Original LTL Formula:**
+**G(a → b)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula can be decomposed as follows:
+
+1. **Atomic Propositions:**
+   - `a` (a proposition that can be true or false at any given time)
+   - `b` (another proposition)
+
+2. **Implication (→):**
+   - `a → b` (if `a` holds, then `b` must also hold at the same time)
+
+3. **Globally (G):**
+   - `G(φ)` means that `φ` must hold **at all times** in the future (including the present).
+
+So, the full structure is:
+```
+      G
+       |
+     (→)
+    /   \
+   a     b
+```
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **Implication (`a → b`):**
+   - This is a **conditional statement**: *"Whenever `a` is true, `b` must also be true."*
+   - It does **not** require `a` to ever be true; it only imposes a constraint **if** `a` happens to hold.
+   - If `a` is false, the implication is **vacuously satisfied** (no constraint on `b`).
+
+2. **Globally (`G`):**
+   - The implication `a → b` must hold **at every point in time** (now and forever in the future).
+   - This means the system must **never** violate the condition that `a` cannot be true without `b` also being true.
+
+---
+
+### **Refined Natural Language Translation:**
+**"It is always the case that if `a` holds, then `b` must also hold at the same time."**
+
+#### **Alternative Phrasings (for clarity):**
+- *"At no point in time can `a` be true without `b` also being true."*
+- *"The system must guarantee that `b` is true whenever `a` is true, for all time."*
+- *"`a` can only occur if `b` occurs simultaneously, and this must hold forever."*
+
+---
+
+### **When is the Formula Satisfied?**
+The formula **G(a → b)** is satisfied if:
+✅ **Whenever `a` is true in any state, `b` is also true in that same state** (for the entire execution trace).
+✅ **If `a` is never true**, the formula is trivially satisfied (since the implication is vacuously true).
+
+The formula is **violated** if:
+❌ **There exists at least one moment where `a` is true but `b` is false.**
+
+---
+
+### **Constraints Imposed on the System:**
+1. **Safety Constraint:**
+   - The system must **never** allow `a` to be true without `b` also being true.
+   - This is a **strong invariant** that must hold at all times.
+
+2. **No Requirement on `a` or `b` Individually:**
+   - The formula does **not** require `a` to ever be true (it could be false forever).
+   - It also does **not** require `b` to be true when `a` is false.
+
+3. **Temporal Scope:**
+   - The constraint applies **globally** (past and future, assuming the standard LTL semantics where time starts at the present).
+
+---
+### **Example Scenarios:**
+| Scenario               | Satisfies **G(a → b)**? | Explanation                                                                 |
+|-------------------------|-------------------------|-----------------------------------------------------------------------------|
+| `a` and `b` always true | ✅ Yes                  | Whenever `a` holds, `b` holds (in fact, `b` holds even when `a` doesn’t).   |
+| `a` always false        | ✅ Yes                  | The implication is vacuously true (no case where `a` is true without `b`). |
+| `a` true, `b` false     | ❌ No                   | Direct violation of the implication.                                       |
+| `a` and `b` alternate   | Depends                 | Only violates if `a` is true while `b` is false at any point.              |
+
+---
+### **Key Takeaways:**
+- **G(a → b)** is a **universal safety property** (must hold in all possible executions).
+- It is **not** a liveness property (it doesn’t require `a` or `b` to eventually happen).
+- The formula is **robust** in the sense that it allows `a` to never occur, but if it does, `b` must accompany it.
+
+Would you like further clarification or additional examples?

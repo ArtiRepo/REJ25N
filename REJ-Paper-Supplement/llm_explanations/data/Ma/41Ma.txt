@@ -1,0 +1,71 @@
+### **Original LTL Formula:**
+**G (n ⇒ s)**
+
+---
+
+### **Parsing Tree Breakdown:**
+1. **Top-level operator:** **G** (Globally / Always)
+   - Scope: The entire formula inside the parentheses holds **at all times** in the future.
+
+2. **Inner formula:** **(n ⇒ s)**
+   - **n ⇒ s** is an **implication** (logical "if-then").
+     - **n**: A proposition (e.g., "request is received").
+     - **s**: Another proposition (e.g., "system responds safely").
+
+---
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **Implication (n ⇒ s):**
+   - Means: **"If *n* is true, then *s* must also be true."**
+   - When is this satisfied?
+     - When **n is false** (implication is vacuously true).
+     - When **n is true *and* s is true** (implication holds).
+     - **Violated** only when **n is true *and* s is false**.
+
+2. **Global Operator (G):**
+   - Wraps the implication, meaning: **"At every point in time, (n ⇒ s) must hold."**
+   - Constraints:
+     - The system must **never** be in a state where **n is true and s is false**.
+     - If **n** occurs at any time, **s** must follow **immediately** (or hold in the same state, depending on semantics).
+
+---
+### **Refined Natural Language Translation:**
+**"It is always the case that whenever *n* holds, *s* must also hold."**
+
+#### **Alternative Phrasings (Context-Dependent):**
+- *"At every moment in time, if *n* is true, then *s* must be true."*
+- *"The system must guarantee that *s* is true in every state where *n* is true."*
+- *"*n* can only be true if *s* is simultaneously true."* (if propositions are evaluated in the same state)
+- *"Every occurrence of *n* must be accompanied by *s*."* (if time is discrete and propositions are state-based)
+
+---
+### **When Is the Formula Satisfied?**
+✅ **Satisfied if:**
+- **n never happens** (implication is trivially true).
+- **n happens, and s is true at the same time** (or in the next state, depending on semantics).
+
+❌ **Violated if:**
+- There exists **any point in time** where **n is true and s is false**.
+
+---
+### **Example Scenarios:**
+1. **Network Protocol:**
+   - *n* = "A data packet is received."
+   - *s* = "The packet is acknowledged."
+   - **Translation:** *"The system must always acknowledge every received packet."*
+
+2. **Safety-Critical System:**
+   - *n* = "Emergency button is pressed."
+   - *s* = "System enters safe mode."
+   - **Translation:** *"Pressing the emergency button must immediately trigger safe mode at all times."*
+
+3. **Traffic Light System:**
+   - *n* = "Pedestrian crossing request is active."
+   - *s* = "Traffic light for cars is red."
+   - **Translation:** *"Whenever a pedestrian requests to cross, the car traffic light must be red."*
+
+---
+### **Key Nuances:**
+- **Temporal Scope:** "Always" (G) applies to the entire future; there are no exceptions.
+- **Implication Behavior:** The formula does **not** require *n* to ever happen; it only constrains behavior **if** *n* occurs.
+- **State vs. Transition:** If *n* and *s* are state propositions (evaluated at the same time), *s* must hold in the same state as *n*. If *s* is an eventual response (e.g., "eventually acknowledged"), the formula would instead be **G (n ⇒ F s)**.

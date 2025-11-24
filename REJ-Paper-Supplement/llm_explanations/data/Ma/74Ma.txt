@@ -1,0 +1,85 @@
+### **Original LTL Formula:**
+**G(a ∨ b)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula can be broken down as follows:
+
+1. **Atomic Propositions:**
+   - `a` (a proposition that can be true or false at any given time)
+   - `b` (another proposition that can be true or false at any given time)
+
+2. **Logical Operator (∨):**
+   - `a ∨ b` (disjunction: "a **or** b" – true if at least one of `a` or `b` holds)
+
+3. **Temporal Operator (G):**
+   - **G(φ)** (globally: "φ **must always hold now and in the future**")
+
+So, the full structure is:
+```
+      G
+     /
+  a ∨ b
+```
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **Innermost Subformula (`a ∨ b`):**
+   - This means **"either `a` is true, or `b` is true (or both)"** at a given moment in time.
+   - It is **satisfied** in any state where at least one of `a` or `b` holds.
+   - It is **violated** only if **both `a` and `b` are false** at that moment.
+
+2. **Applying the Temporal Operator (`G`):**
+   - **G(φ)** means that **φ must hold at the current time and at every future time**.
+   - So, **G(a ∨ b)** means:
+     - **"At every point in time (now and forever), either `a` is true or `b` is true (or both)."**
+   - This imposes a **persistent constraint**: the system must **never** be in a state where both `a` and `b` are false.
+
+---
+
+### **Refined Natural Language Phrasing:**
+Here are progressively clearer ways to express the meaning:
+
+1. **Direct Translation:**
+   *"It is always the case that `a` or `b` holds."*
+
+2. **More Explicit (Emphasizing Persistence):**
+   *"At every moment in time (now and in the future), at least one of `a` or `b` must be true. The system must never be in a state where both `a` and `b` are false."*
+
+3. **System-Level Interpretation (if `a` and `b` represent conditions):**
+   *"The system must guarantee that at least one of the conditions `a` or `b` is satisfied at all times. A violation occurs if, at any point, neither `a` nor `b` holds."*
+
+4. **Alternative (Using "Never" for Clarity):**
+   *"It is never the case that both `a` and `b` are false simultaneously. In other words, the system must always satisfy at least one of `a` or `b`."*
+
+---
+### **When is the Formula Satisfied?**
+- The formula **G(a ∨ b)** is satisfied by a system if:
+  - In **every state** of every possible execution trace, **`a` is true, or `b` is true, or both**.
+  - There is **no point** where **¬a ∧ ¬b** (neither `a` nor `b`) holds.
+
+### **When is the Formula Violated?**
+- The formula is **violated** if:
+  - There exists **at least one state** (now or in the future) where **both `a` and `b` are false**.
+
+---
+### **Example Scenarios:**
+1. **Satisfied Trace:**
+   - Time 0: `a=true`, `b=false` → `a ∨ b = true`
+   - Time 1: `a=false`, `b=true` → `a ∨ b = true`
+   - Time 2: `a=true`, `b=true` → `a ∨ b = true`
+   - **Result:** **G(a ∨ b)** holds because `a ∨ b` is always true.
+
+2. **Violated Trace:**
+   - Time 0: `a=true`, `b=false` → `a ∨ b = true`
+   - Time 1: `a=false`, `b=false` → `a ∨ b = false`
+   - **Result:** **G(a ∨ b)** is **violated** at Time 1.
+
+---
+### **Key Takeaways:**
+- **G(a ∨ b)** is a **safety property**: it rules out "bad" states where both `a` and `b` fail.
+- It does **not** require that `a` or `b` hold **forever** (they can fluctuate, as long as at least one is always true).
+- The formula is **not satisfied** if there’s even a single moment where neither `a` nor `b` holds.

@@ -1,0 +1,71 @@
+### **Original LTL Formula:**
+**G(a ∧ ¬b)**
+
+---
+
+### **Parsing Tree Breakdown:**
+1. **Atomic Propositions:**
+   - `a` (a proposition that can be true or false at any given time)
+   - `b` (another proposition, independent of `a`)
+
+2. **Negation (`¬`):**
+   - `¬b` means "b is **not** true" (i.e., "b is false").
+
+3. **Conjunction (`∧`):**
+   - `a ∧ ¬b` means "**a is true** **and** **b is false** at the same time."
+
+4. **Globally (`G`):**
+   - `G(φ)` means "φ **must hold at every point in time** (now and forever in the future)."
+
+---
+### **Rebuilding Meaning from the Bottom Up:**
+1. **Innermost Formula (`¬b`):**
+   - At any given moment, `b` must be false.
+
+2. **Conjunction (`a ∧ ¬b`):**
+   - At any given moment, **both** of the following must be true:
+     - `a` is true.
+     - `b` is false.
+   - In other words: "`a` holds **while** `b` does **not** hold."
+
+3. **Global Operator (`G`):**
+   - The condition `a ∧ ¬b` must hold **not just now, but at every future moment as well**.
+   - There is **no point in time** (now or later) where `a` is false **or** `b` is true.
+
+---
+### **Refined Natural Language Translation:**
+**"It is always the case that `a` holds and `b` never holds."**
+
+#### **Alternative Phrasings (for clarity in different contexts):**
+- **"At every moment in time, `a` is true and `b` is false."**
+- **"`a` must remain true forever, and `b` must never become true."**
+- **"The system must eternally satisfy `a` while ensuring `b` never occurs."**
+
+---
+### **When is the Formula Satisfied?**
+The formula **G(a ∧ ¬b)** is satisfied if and only if:
+- **At the current moment:** `a` is true and `b` is false.
+- **At every future moment:** The same condition (`a` true, `b` false) persists **without exception**.
+
+#### **When is the Formula Violated?**
+The formula fails if **at any point** (now or later):
+- `a` becomes false (**even if `b` stays false**), **or**
+- `b` becomes true (**even if `a` stays true**).
+
+---
+### **Example Scenarios:**
+| Time Step | `a` | `b` | Satisfies **G(a ∧ ¬b)**? | Explanation |
+|-----------|-----|-----|--------------------------|-------------|
+| 0         | T   | F   | ✅ Yes (so far)          | Initial condition holds. |
+| 1         | T   | F   | ✅ Yes                   | Still satisfies. |
+| 2         | F   | F   | ❌ No                    | `a` became false (violation). |
+| 3         | T   | T   | ❌ No                    | `b` became true (violation). |
+
+---
+### **Key Insights:**
+- **Stricter than just "a always holds":**
+  It also requires that `b` **never** holds, even temporarily.
+- **No recovery allowed:**
+  If `a` or `b` violate the condition even once, the formula is permanently violated.
+- **Useful for safety properties:**
+  E.g., "The system must always be in a safe state (`a`) and must never enter a critical state (`b`)."

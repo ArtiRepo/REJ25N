@@ -1,0 +1,63 @@
+### **Original LTL Formula:**
+**F*a* → G*b***
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula is an **implication (→)** with two subformulas:
+1. **Left subformula (antecedent):** *F*a*
+   - *F* is the **"eventually"** (future) operator.
+   - *a* is an atomic proposition (a condition that can be true or false at any point in time).
+   - So, *F*a* means: *"a will eventually become true (now or at some future point)."*
+
+2. **Right subformula (consequent):** *G*b*
+   - *G* is the **"globally"** (always in the future) operator.
+   - *b* is another atomic proposition.
+   - So, *G*b* means: *"b must remain true at all future points from now onward."*
+
+The full formula combines these as an implication:
+*"If (F*a*), then (G*b*)."*
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+1. **Antecedent (*F*a*):**
+   - The system must reach a state where *a* holds at least once in the future (including the present).
+   - This does *not* require *a* to stay true forever—just that it happens at some point.
+
+2. **Consequent (*G*b*):**
+   - Once the implication is triggered (i.e., *F*a* is satisfied), *b* must hold **continuously from that point onward**.
+   - This is a **permanent constraint**: *b* can never become false again after *a* is first observed.
+
+3. **Implication (→):**
+   - The consequent (*G*b*) is only enforced **if** the antecedent (*F*a*) is satisfied.
+   - If *a* never becomes true, the implication is **vacuously satisfied** (no constraint on *b*).
+   - If *a* does become true at some point, then from that moment, *b* must hold forever.
+
+---
+
+### **Refined Natural Language Translation:**
+**"If *a* eventually occurs at some point in the future, then from that point onward, *b* must always remain true."**
+
+#### **Key Clarifications:**
+- **When is the formula satisfied?**
+  - If *a* never happens, the formula is trivially satisfied (no requirements on *b*).
+  - If *a* happens at time *t*, then for all times *t’ ≥ t*, *b* must hold.
+
+- **When is the formula violated?**
+  - If *a* occurs at some point, and later *b* becomes false (even once), the formula is violated.
+  - Example violation:
+    - At time 3: *a* becomes true (satisfying *F*a*).
+    - At time 5: *b* becomes false → violates *G*b*.
+
+- **Temporal Dependence:**
+  - The constraint on *b* is **activated** by the first occurrence of *a*.
+  - Before *a* occurs, *b* can fluctuate freely.
+
+---
+### **Alternative Phrasings (for context):**
+- *"Once *a* happens, *b* must stay true forever after."*
+- *"The first occurrence of *a* locks *b* into a permanently true state."*
+- *"*b* is invariant after *a*’s first appearance."*
+
+This captures the **triggered invariant** nature of the formula.

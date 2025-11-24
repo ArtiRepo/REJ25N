@@ -1,0 +1,63 @@
+### **Original LTL Formula:**
+**!F (a & b)**
+
+---
+
+### **Parsing Tree Breakdown:**
+1. **Innermost subformula:** `(a & b)`
+   - This is a conjunction ("and") of two atomic propositions `a` and `b`.
+   - Meaning: *"a holds **and** b holds (at the same time)."*
+
+2. **Next operator: `F` (eventually/future)**
+   - `F (a & b)` means: *"At some **future** point in time, `(a & b)` will hold."*
+   - Informally: *"Eventually, both `a` and `b` will be true simultaneously."*
+
+3. **Outermost operator: `!` (negation/not)**
+   - `!F (a & b)` negates the entire `F (a & b)` formula.
+   - Meaning: *"It is **not** the case that eventually `(a & b)` holds."*
+   - Equivalently: *"`(a & b)` **never** holds at any future point in time."*
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+1. Start with `(a & b)`: *"a and b are both true at the same time."*
+2. Apply `F`: *"There exists some future moment where `(a & b)` is true."*
+3. Apply `!`: *"There does **not** exist any future moment where `(a & b)` is true."*
+   - This is equivalent to: *"At **no future point** do `a` and `b` both hold simultaneously."*
+   - Alternatively: *"`a` and `b` **never** occur together at the same time in the future."*
+
+---
+
+### **Refined Natural Language Phrasing:**
+The formula **!F (a & b)** can be translated as:
+
+> **"It is always the case that `a` and `b` do not both hold at the same time in the future."**
+> *(Or, more concisely:)*
+> **"`a` and `b` never both occur simultaneously at any future point in time."**
+
+---
+
+### **When is the Formula Satisfied?**
+The formula **!F (a & b)** is satisfied if, **for the entire infinite future trace of the system**, there is **no single moment** where:
+- `a` is true **and**
+- `b` is true **at the same time**.
+
+#### **Examples:**
+1. **Satisfied:**
+   - `a` and `b` alternate but never overlap (e.g., `a` is true at t=1, `b` at t=2, `a` at t=3, etc.).
+   - Neither `a` nor `b` ever becomes true.
+   - Only one of `a` or `b` is ever true at any time.
+
+2. **Violated:**
+   - At some point (e.g., t=5), both `a` and `b` are true simultaneously.
+   - Even if this happens only once in the infinite future, the formula fails.
+
+---
+
+### **Constraints Imposed on the System:**
+The formula enforces a **safety-like property** (though not strictly a safety property in the classical sense, since it concerns the future). Specifically:
+- The system must **ensure that `a` and `b` are mutually exclusive in all future states**.
+- If the system allows `a` and `b` to co-occur even once, the property is violated.
+- This could represent constraints like:
+  - *"A resource lock (`a`) and a conflicting operation (`b`) must never happen at the same time."*
+  - *"A safety-critical signal (`a`) and a hazardous condition (`b`) must never coincide."*

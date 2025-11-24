@@ -1,0 +1,94 @@
+### **Original LTL Formula:**
+**(d U c) | (a U !c)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula is a disjunction (OR) of two **Until** subformulas:
+
+1. **Left Subformula:** `(d U c)`
+   - **Operator:** `U` (Until)
+   - **Left Operand:** `d` (atomic proposition)
+   - **Right Operand:** `c` (atomic proposition)
+
+2. **Right Subformula:** `(a U !c)`
+   - **Operator:** `U` (Until)
+   - **Left Operand:** `a` (atomic proposition)
+   - **Right Operand:** `!c` (negation of `c`)
+
+The entire formula is the **disjunction (|)** of these two subformulas.
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+#### **1. Left Subformula: (d U c)**
+- **"d Until c"** means:
+  - There exists some future point where `c` becomes true.
+  - **Before** that point, `d` must hold **continuously** (at every step).
+  - If `c` never becomes true, the formula is **false** (unless `d` holds forever, but standard LTL requires `c` to eventually occur).
+
+- **When is this satisfied?**
+  - The system must eventually reach a state where `c` is true.
+  - Until then, `d` must always be true.
+  - Example: If `d` is "request pending" and `c` is "request granted," this means the request remains pending until it is granted.
+
+#### **2. Right Subformula: (a U !c)**
+- **"a Until not c"** means:
+  - There exists some future point where `!c` (i.e., `c` is false) becomes true.
+  - **Before** that point, `a` must hold **continuously**.
+  - If `!c` never becomes true (i.e., `c` stays true forever), the formula is **false** (unless `a` holds forever, but standard LTL requires `!c` to eventually occur).
+
+- **When is this satisfied?**
+  - The system must eventually reach a state where `c` is false.
+  - Until then, `a` must always be true.
+  - Example: If `a` is "alarm active" and `!c` is "fault resolved," this means the alarm stays active until the fault is resolved (i.e., `c` becomes false).
+
+#### **3. Disjunction: (d U c) | (a U !c)**
+- The **entire formula** is true if **either** of the two Until conditions holds:
+  - **Case 1:** `(d U c)` is true (i.e., `d` holds until `c` becomes true).
+  - **Case 2:** `(a U !c)` is true (i.e., `a` holds until `c` becomes false).
+- The system **does not need to satisfy both**; only one must hold.
+
+- **When is this satisfied?**
+  - If at some point `c` becomes true, and `d` was true all along until then, the formula is satisfied (regardless of `a` or `!c`).
+  - If instead `c` becomes false at some point, and `a` was true all along until then, the formula is also satisfied (regardless of `d` or `c` becoming true).
+  - The formula is **violated** only if:
+    - `c` never becomes true **and** `d` fails at some point before `c` could become true,
+    - **and** `c` never becomes false **and** `a` fails at some point before `c` could become false.
+
+---
+
+### **Refined Natural Language Translation:**
+**"The system must satisfy at least one of the following two conditions over time:**
+1. **Either** the property `d` holds continuously until `c` eventually becomes true,
+2. **Or** the property `a` holds continuously until `c` eventually becomes false.
+
+**In other words:**
+- If `c` ever becomes true, then `d` must have held without interruption up to that point.
+- Alternatively, if `c` ever becomes false, then `a` must have held without interruption up to that point.
+- The formula fails only if neither condition is met (i.e., `c` stays true forever while `d` fails at some point, **and** `c` stays false forever while `a` fails at some point)."
+
+---
+
+### **Examples for Intuition:**
+1. **Scenario where `(d U c)` holds:**
+   - `d` is "waiting for approval," `c` is "approval granted."
+   - The system waits (`d` true) until approval (`c`) arrives. The formula is satisfied.
+
+2. **Scenario where `(a U !c)` holds:**
+   - `a` is "emergency mode," `!c` is "fault cleared."
+   - The system stays in emergency mode (`a` true) until the fault (`c`) is cleared (`!c` true). The formula is satisfied.
+
+3. **Scenario where the formula fails:**
+   - `c` stays true forever, but `d` fails at some point (so `(d U c)` fails).
+   - `c` also never becomes false (so `(a U !c)` cannot succeed unless `a` holds forever, but if `a` fails, the formula fails).
+   - Thus, neither Until condition is satisfied.
+
+---
+### **Key Observations:**
+- The formula **does not require both `d` and `a` to hold simultaneously**; only one path needs to be satisfied.
+- It **excludes** paths where:
+  - `c` stays true forever **and** `d` fails eventually,
+  - **or** `c` stays false forever **and** `a` fails eventually.
+- The formula is **non-deterministic** in the sense that the system can satisfy it in two distinct ways.

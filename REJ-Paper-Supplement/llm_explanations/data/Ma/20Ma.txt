@@ -1,0 +1,73 @@
+### **Original LTL Formula:**
+**G (t | F w)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula can be broken down as follows:
+
+1. **Top-level operator:** **G** (Globally / Always)
+   - Applies to the entire subformula: **(t | F w)**
+
+2. **Subformula:** **(t | F w)**
+   - **Left operand:** **t** (atomic proposition, e.g., "task *t* is true")
+   - **Operator:** **|** (Logical OR, "or")
+   - **Right operand:** **F w** (Eventually *w*)
+     - **Operator:** **F** (Future / Eventually)
+     - **Operand:** **w** (atomic proposition, e.g., "event *w* occurs")
+
+---
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **Innermost subformula: F w**
+   - **Meaning:** *"Eventually, **w** will hold at some future point in time."*
+   - **When satisfied?**
+     - If *w* becomes true at least once in the future (now or later).
+     - If *w* never holds, this subformula is false.
+
+2. **OR operation: (t | F w)**
+   - **Meaning:** *"Either **t** is currently true, **or** eventually **w** will hold."*
+   - **When satisfied?**
+     - If *t* is true **now**, the whole OR is satisfied (regardless of *w*).
+     - If *t* is false **now**, then **F w** must hold (i.e., *w* must eventually become true).
+
+3. **Global operator: G (t | F w)**
+   - **Meaning:** *"**At every point in time**, either **t** is true now, **or** eventually **w** will hold."*
+   - **When satisfied?**
+     - For **every** state in the system’s execution:
+       - If *t* is true in that state, the condition is satisfied.
+       - If *t* is false in that state, then *w* must eventually become true **from that state onward**.
+   - **When violated?**
+     - If there exists **any** state where:
+       - *t* is false **and**
+       - *w* **never** holds in any future state from that point.
+
+---
+### **Refined Natural Language Translation:**
+*"**It must always be the case that either:**
+1. **The condition *t* holds right now, or**
+2. **If *t* does not hold now, then *w* will eventually become true in the future.**
+
+*In other words, the system is never allowed to reach a state where *t* is false **and** *w* will never happen afterward."*
+
+---
+### **Examples for Clarity:**
+1. **Satisfied Scenario:**
+   - At time 0: *t* is true → condition holds (regardless of *w*).
+   - At time 1: *t* is false, but *w* becomes true at time 3 → condition holds.
+   - At time 2: *t* is false, but *w* is already true → condition holds.
+
+2. **Violated Scenario:**
+   - At time 0: *t* is false, and *w* **never** becomes true in the future → condition fails.
+
+---
+### **Key Constraints Imposed on the System:**
+- The system **must ensure** that:
+  - *t* is **persistently** true, **or**
+  - If *t* fails at any point, *w* **must** eventually recover the system (by becoming true).
+- This is a **liveness guarantee** (due to **F w**) combined with a **safety invariant** (due to **G**).
+
+---
+### **Alternative Phrasing (Domain-Specific):**
+If *t* = *"the system is in a safe state"* and *w* = *"a recovery action is taken"*, the formula could mean:
+*"The system must always either be in a safe state, or if it leaves the safe state, a recovery action must eventually occur."*

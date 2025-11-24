@@ -1,0 +1,75 @@
+### **Original LTL Formula:**
+**G (!i) | F (f U i)**
+
+---
+
+### **Parsing Tree Breakdown:**
+The formula is a disjunction (**|**) of two subformulas:
+1. **G (!i)**
+   - **!i**: Negation of proposition **i** ("**i** is not true").
+   - **G (!i)**: Globally (always), "**i** is never true" (i.e., **i** is false in every state of the trace).
+
+2. **F (f U i)**
+   - **f U i**: "Until" operator – "**f** holds *until* **i** becomes true" (i.e., **f** must remain true in every state until **i** eventually occurs).
+   - **F (f U i)**: Eventually (at some future point), the "until" condition (**f U i**) must hold.
+
+The entire formula is the **OR** of these two subformulas.
+
+---
+
+### **Rebuilding Meaning from the Bottom Up:**
+
+1. **G (!i)**:
+   - "For all future states, **i** is never true."
+   - This imposes a **strong constraint**: The system must **permanently avoid** **i**.
+
+2. **F (f U i)**:
+   - "At some point in the future, there exists a state where **f U i** holds."
+   - Breaking down **f U i**:
+     - "**f** must hold continuously *until* **i** becomes true."
+     - This means:
+       - **i** must eventually occur (termination condition for the "until").
+       - Until **i** occurs, **f** must remain true in every intermediate state.
+   - So, **F (f U i)** means:
+     - "Eventually, **i** will happen, and until then, **f** must always hold."
+
+3. **Combining with OR (|)**:
+   - The system must satisfy **either**:
+     - **G (!i)**: **i** never happens (and **f** is irrelevant), **or**
+     - **F (f U i)**: **i** eventually happens, with **f** holding until then.
+
+---
+### **Refined Natural Language Translation:**
+**"The system must satisfy one of the following two behaviors over time:**
+1. **i never occurs at any point in the future** (i.e., **i** is permanently false), **or**
+2. **i eventually occurs, and until that moment, f must continuously hold true.**"**
+
+---
+### **When Is the Formula Satisfied?**
+- **Case 1 (G (!i))**:
+  - The trace **never** contains **i** (e.g., **i** is a "bad state" that must be avoided forever).
+  - Example: In a traffic light system, **i** = "collision," and the formula requires that a collision never happens.
+
+- **Case 2 (F (f U i))**:
+  - The trace **must** eventually reach **i**, and **f** must hold in every state leading up to **i**.
+  - Example: In a vending machine, **i** = "item dispensed," and **f** = "payment confirmed." The formula requires that either:
+    - The item is never dispensed (e.g., no request is made), **or**
+    - If the item is eventually dispensed, payment must be confirmed at every step until then.
+
+---
+### **Key Constraints Imposed on the System:**
+1. **Avoidance or Guarantee**:
+   - The system can **either** avoid **i** entirely **or** ensure that **i** happens with **f** as a precondition.
+2. **Temporal Flexibility**:
+   - If **i** never happens, **f**’s truth is irrelevant (the first disjunct is satisfied).
+   - If **i** does happen, **f** must be maintained until then (the second disjunct kicks in).
+3. **No "Partial" Satisfaction**:
+   - The formula is **not** satisfied if **i** occurs without **f** holding beforehand (violates **F (f U i)**) **and** **i** also occurs somewhere else (violates **G (!i)**).
+
+---
+### **Alternative Phrasing (More Concise):**
+**"The system must ensure that either:**
+- **i** never happens, **or**
+- **i** happens eventually, but only after **f** has held continuously since the present moment.**"**
+
+This captures the **dual nature** of the formula: a choice between permanent avoidance or conditional eventuality.

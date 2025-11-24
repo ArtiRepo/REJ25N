@@ -1,0 +1,79 @@
+Here’s the structured translation of the LTL formula **`!G c`**:
+
+---
+
+### **1. Original LTL Formula**
+```
+!G c
+```
+
+---
+
+### **2. Parsing Tree Breakdown**
+The formula can be broken down as follows:
+```
+      !
+     /
+    G
+   /
+  c
+```
+- **`c`**: A proposition (atomic statement) that is either true or false at any given time step.
+- **`G c`**: The *globally* operator applied to `c`, meaning "`c` holds **at all future time points** (including the present)."
+- **`!G c`**: The negation of `G c`, meaning "It is **not the case** that `c` holds at all future time points."
+
+---
+
+### **3. Rebuilding Meaning from the Bottom Up**
+1. **Base case (`c`)**:
+   - At any moment in time, `c` is either true or false (e.g., "the system is in state `c`").
+
+2. **`G c` (Globally `c`)**:
+   - This means "`c` is **always true** from now onward, forever."
+   - **Satisfaction**: The system must never leave `c` at any future point.
+   - **Violation**: If `c` becomes false even once in the future, `G c` is violated.
+
+3. **`!G c` (Negation of `G c`)**:
+   - This means "`c` is **not always true** in the future."
+   - **Satisfaction**: There exists **at least one future moment** where `c` is false.
+     - This could happen immediately (now) or later.
+   - **Violation**: If `c` remains true forever (i.e., `G c` holds), then `!G c` is violated.
+
+---
+### **4. Refined Natural Language Phrasing**
+**Formal Translation**:
+*"It is not the case that `c` holds globally in the future."*
+or equivalently:
+*"`c` does not hold at every future time point (i.e., `c` will eventually fail)."*
+
+**Intuitive Explanation**:
+- The formula **`!G c`** requires that the system **must not stay in `c` forever**.
+- It guarantees that at some point (now or later), `c` will become false.
+- **Key constraint**: The system is **forbidden from being "stuck" in `c` indefinitely**.
+
+**Examples**:
+1. If `c` = "the door is locked":
+   - `!G c` means *"The door will not remain locked forever"* (it must unlock at some point).
+2. If `c` = "the system is in safe mode":
+   - `!G c` means *"The system will eventually exit safe mode."*
+
+**Contrast with Similar Formulas**:
+- `F !c` (*"Eventually, `c` will be false"*):
+  - Stronger than `!G c` because it explicitly demands that `!c` occurs *at some future point*.
+  - `!G c` is satisfied even if `c` is false *now* (no future requirement), whereas `F !c` requires `!c` to happen *later*.
+- `!c` (*"`c` is currently false"*):
+  - Only concerns the present moment, while `!G c` concerns the entire future.
+
+---
+### **5. When Is the Formula Satisfied/Violated?**
+| Scenario                          | `!G c` Satisfied? | Explanation                                  |
+|-----------------------------------|-------------------|----------------------------------------------|
+| `c` is false now.                 | ✅ Yes             | `G c` fails immediately (since `c` is false now). |
+| `c` is true now but becomes false later. | ✅ Yes       | `G c` fails at the later point.              |
+| `c` remains true forever.         | ❌ No              | `G c` holds, so `!G c` is violated.           |
+
+---
+### **6. Summary**
+**`!G c`** means:
+*"The system is not permanently in state `c`; `c` will fail at some point (now or in the future)."*
+This is a **liveness-like property** (something must eventually happen: the end of `c`).
