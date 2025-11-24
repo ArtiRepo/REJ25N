@@ -1,0 +1,26 @@
+**Original LTL formula:**  
+`G (!f | !i)`  
+
+**Step-by-step reasoning from the bottom up:**  
+1. `!f`: "f is false in the current state."  
+2. `!i`: "i is false in the current state."  
+3. `!f | !i`: "Either f is false, or i is false (or both) in the current state."  
+   → **Meaning:** "f and i are never both true *in the same state*."  
+4. `G (!f | !i)`: "Globally, in every state, f and i are never both true."  
+
+**Refined natural language translation:**  
+"At every state, f and i are never both true."  
+
+**Key explanations:**  
+- **Constraint:** In every state of the execution, at least one of `f` or `i` must be false. Both variables cannot be true simultaneously in any state.  
+- **When constraints apply:** The formula imposes this constraint independently on **every state**, including the current state and all future states.  
+- **Satisfaction:** The formula is satisfied if, for the entire execution, no state ever has both `f` and `i` true.  
+- **Violation:** The formula is violated if **any single state** exists (now or in the future) where both `f` and `i` are true.  
+- **Evolution:** The formula must hold *at all times*; its truth is determined by the entire execution. If both `f` and `i` become true in any state, the formula is immediately and permanently violated.  
+- **No constraints beyond mutual exclusion:** When `f` is true, `i` must be false (in that state), and vice versa. If one is false, the other has no restriction. Constraints apply *only* to simultaneous truth.  
+
+**Example sequences:**  
+- ✅ Satisfying: `(f=false, i=false) → (f=true, i=false) → (f=false, i=true)`  
+  *(No state has both true.)*  
+- ❌ Violating: `(f=false, i=false) → (f=true, i=true) → ...`  
+  *(Second state has both true.)*

@@ -1,0 +1,32 @@
+**Original LTL formula:**  
+X (t & y)  
+
+**Rebuilding meaning from the bottom up:**  
+1. **Atomic propositions `t` and `y`**:  
+   - `t` must be true in the state where it is evaluated.  
+   - `y` must be true in the state where it is evaluated.  
+2. **Conjunction `t & y`**:  
+   - Both `t` and `y` must be true **simultaneously** in the same state.  
+3. **Next operator `X(...)`**:  
+   - The constraint `t & y` must hold **in the immediate next state** (i.e., the state directly following the current one).  
+
+**Refined natural language translation:**  
+"In the next state, both `t` and `y` must be true."  
+
+**Key implications:**  
+- **Constraint application**:  
+  - The formula **only constrains the immediate next state**.  
+  - The current state and all states beyond the next one are **unaffected** (no requirements on `t` or `y` there).  
+- **Satisfaction/violation**:  
+  - **Satisfied** if:  
+    - In the next state, `t` is true **and** `y` is true.  
+    - *Example sequence*: `[t=false, y=false] → [t=true, y=true] → [...]` (holds regardless of later states).  
+  - **Violated** if:  
+    - In the next state, `t` is false **or** `y` is false (or both).  
+    - *Example sequence*: `[t=true, y=true] → [t=false, y=true] → [...]` (fails at the next state).  
+- **Evolution over time**:  
+  - The formula is **evaluated at the current state** but **constrains only the next state**.  
+  - Once the next state is observed, the formula’s constraint **ceases to apply** (no further impact on future states).  
+- **Misunderstanding prevention**:  
+  - This formula **does not require** `t` or `y` to be true in the current state.  
+  - It **does not guarantee** anything beyond the immediate next state.

@@ -1,0 +1,24 @@
+**Original LTL formula:**  
+Fa and Fb  
+
+**Translation and Explanation:**  
+1. **Fa**: "Eventually, a must become true (i.e., there exists at least one state, now or in the future, where a holds)."  
+   - If a is true now, Fa is immediately satisfied.  
+   - If a is false now, the system must ensure a becomes true in some future state. Once a occurs, Fa is permanently satisfied, and no further constraints on a apply.  
+
+2. **Fb**: "Eventually, b must become true (i.e., there exists at least one state, now or in the future, where b holds)."  
+   - If b is true now, Fb is immediately satisfied.  
+   - If b is false now, the system must ensure b becomes true in some future state. Once b occurs, Fb is permanently satisfied, and no further constraints on b apply.  
+
+3. **Fa and Fb**: "Both a and b must eventually become true at least once."  
+   - **Satisfaction condition**: The formula is satisfied once both a and b have each occurred in at least one state (which may be the same state or different states, in any order).  
+   - **Constraints over time**:  
+     - If neither a nor b is true now, the system must eventually make a true and eventually make b true.  
+     - If only one is true now (e.g., a is true but b is false), the system must still make the other (b) true in the future.  
+     - Once both a and b have occurred (at any point), the formula is permanently satisfied, and no further constraints from this formula apply.  
+   - **Violation**: The formula is violated if either a never becomes true, or b never becomes true, or both never become true.  
+
+**Key Clarifications**:  
+- The occurrences of a and b need not be simultaneous or ordered.  
+- After both have occurred, a and b may freely vary (e.g., become false again) without affecting satisfaction.  
+- The formula imposes constraints only until both eventualities are fulfilled.

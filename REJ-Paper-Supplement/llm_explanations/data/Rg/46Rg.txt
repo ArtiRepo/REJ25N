@@ -1,0 +1,45 @@
+
+**Original LTL formula:**  
+`F d | G !n`
+
+**Translation Process:**  
+
+1. **Break down atomic components:**  
+   - `d`: "`d` is true now."  
+   - `!n`: "`n` is false now."  
+
+2. **Translate subformulas:**  
+   - **`F d`** (Eventually `d`):  
+     *"`d` must be true at least once (now or in the future)."*  
+     - **Satisfied immediately** if `d` holds now.  
+     - **Constraint**: If `d` is false now, `d` must become true later. Once `d` holds (at any point), all constraints are permanently released.  
+     - **Violation**: `d` never holds at any state.  
+
+   - **`G !n`** (Globally `!n`):  
+     *"`n` must be false in every state of the execution."*  
+     - **Constraint active in all states**: `n` must be false now and forever.  
+     - **Violation**: `n` becomes true in any state (once suffices).  
+
+3. **Combine with OR (`|`):**  
+   *"Either `F d` holds OR `G !n` holds (or both)."*  
+   - **No shared constraints**: Satisfaction of one subformula relieves the system of satisfying the other.  
+   - **Immediate satisfaction** if either:  
+     - `d` is true now (satisfies `F d`), or  
+     - `n` is false in the current state *and* all future states (satisfies `G !n`).  
+   - **Ongoing constraints**:  
+     - Until `d` becomes true, `F d` constrains future states to include `d` eventually.  
+     - Meanwhile, `G !n` requires `n` to be false in every state until the formula is satisfied via `F d` (if ever).  
+     - If `d` never becomes true, `G !n` must hold indefinitely (i.e., `n` remains false forever).  
+   - **Violation**: Occurs only if **both** subformulas fail:  
+     - `d` *never* becomes true, and  
+     - `n` becomes true in *at least one* state.  
+
+**Refined Natural Language Phrasing:**  
+*"Either `d` becomes true at least once (now or later) or `n` never becomes true (i.e., `n` is always false)."*  
+
+**Key Clarifications:**  
+- **Constraint timing**: While `G !n` binds continuously (unless `d` eventually holds), `F d` binds until satisfied.  
+- **Termination of constraints**: The entire formula is permanently satisfied if:  
+  - `d` holds at any point (releasing `G !n`), or  
+  - `n` remains consistently false forever.  
+- **No mutual exclusivity**: Both conditions may hold (e.g., `d` occurs once, and `n` is always false).

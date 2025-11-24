@@ -1,0 +1,13 @@
+
+**Original LTL formula:**  
+G ¬a  
+
+**Rebuild meaning from the bottom up:**  
+- **¬a**: *a* must be false in the current state.  
+- **G(¬a)**: The requirement "*¬a* holds" (i.e., *a* is false) must be true in every state of the execution, including the current state and all future states.  
+
+**Refined natural language phrasing for clarity:**  
+*a* must always be false. This means:  
+- In the **current state**, *a* must be false.  
+- In **every future state**, *a* must remain false.  
+- The constraint applies **permanently** to all states and **never ceases**; if *a* becomes true in any state (current or future), the formula is violated.

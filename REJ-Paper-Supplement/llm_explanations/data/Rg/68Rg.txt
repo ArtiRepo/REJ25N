@@ -1,0 +1,27 @@
+**Original LTL Formula:**  
+`a U b`  
+
+**Translation and Explanation:**  
+*"b must eventually become true at some state (now or in the future). Until the first moment b becomes true, a must hold continuously in all states, including the current state. After b becomes true, a has no further constraints (even if b later becomes false)."*  
+
+**Key Details:**  
+- **When b holds now:**  
+  ✅ The formula is **immediately satisfied** (eventuality met).  
+  ❌ **No requirement** for a to hold now or in the future.  
+
+- **When b does not hold now:**  
+  ✅ a **must be true now** and remain true in every subsequent state.  
+  ✅ b **must eventually become true** at a future state (say, at time *k*).  
+  ❌ If b never becomes true, or if a is false in any state *before* b becomes true, the formula is **violated**.  
+
+**Examples:**  
+- **Satisfied:**  
+  - `b = true` in the current state (a unconstrained; e.g., `a=false` still satisfies).  
+  - `a=true` at time 0, `b=true` at time 1 (a holds until b occurs).  
+- **Violated:**  
+  - `a=false` at time 0, `b=true` at time 1 (a fails *before* b occurs).  
+  - `a=true` forever, but b *never* becomes true (eventuality fails).  
+
+**Constraint Timeline:**  
+- **Applies:** Starting immediately (if b is false now) until the state *just before* b becomes true.  
+- **Ceases:** At the first state where b becomes true; no constraints on a or b afterward.

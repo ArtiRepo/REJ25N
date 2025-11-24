@@ -1,0 +1,28 @@
+**Original LTL Formula:**  
+`FGa`  
+
+**Rebuilding Meaning Bottom-Up:**  
+1. **Innermost component: `Ga`**  
+   - `G(a)` means: *"a must hold in every state of the entire execution."*  
+   - *Constraints:* `a` must be true **in all states**, starting from the moment `Ga` is evaluated and continuing forever.  
+
+2. **Outermost operator: `F(Ga)`**  
+   - `F(Ga)` means: *"There must exist a state (now or in the future) where `Ga` becomes true."*  
+   - *Constraints:*  
+     - **After the "eventually" state:** Once `Ga` becomes true at state `k`, `a` must hold **in all states from `k` onward** (i.e., `a` becomes permanently true from that point).  
+     - **Before the "eventually" state:** No constraints on `a` — it may be `true` or `false` in any pattern.  
+   - *Cessation of constraints:* If `Ga` becomes true at state `k`, constraints on `a` **begin at `k`** and persist forever. Before `k`, `a` is unconstrained. If no such `k` exists (i.e., `a` never stabilizes to `true` permanently), the formula is violated.  
+
+**Refined Natural Language Translation:**  
+*"Eventually, a becomes true and remains true forever."*  
+
+**Clarifications:**  
+- **Immediate/Ongoing Constraints:**  
+  - At the initial state, `a` may be `true` or `false`. The formula **only requires** that *at some future state* `a` "locks" to `true` permanently.  
+  - Once `a` is permanently true from state `k`, the constraint **applies strictly** to all subsequent states. If `a` ever turns `false` after "locking," the formula is violated.  
+- **Satisfying Sequence:**  
+  - `a` is `false`, `false`, `true`, `true`, `true`, ... (`true` stabilizes at state 2 and persists).  
+- **Violating Sequence:**  
+  - `a` alternates `true`, `false`, `true`, `false`, ... forever (no permanent `true`).  
+- **Common Misunderstanding:**  
+  - The formula **does not require** `a` to be true in *any* state before stabilization. It may be always `false` until the permanent `true` begins. The constraint starts *only* once `a` locks to `true`.

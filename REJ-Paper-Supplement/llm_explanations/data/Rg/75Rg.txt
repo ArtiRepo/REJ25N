@@ -1,0 +1,30 @@
+**Original LTL formula:**  
+F(a and b)  
+
+**Step-by-step reasoning:**  
+1. **Inner expression (a and b):**  
+   "Both `a` and `b` must hold *simultaneously* in a single state. This imposes a constraint *only* in that specific state."  
+
+2. **F operator (Future):**  
+   "F(...) requires that the inner formula (a and b) becomes true in *at least one state*, either now or at some future point in the execution."  
+
+**Refined natural language phrasing:**  
+"Eventually, there must be a state where both `a` and `b` are true simultaneously. This condition is satisfied as soon as such a state occurs. Until then, the system is constrained to eventually reach this state. Once satisfied, the formula imposes no further constraints."  
+
+**Key clarifications:**  
+- **Satisfaction:**  
+  If `a` and `b` are both true in the current state, the formula is **immediately satisfied**.  
+  If not, it requires that **some future state** satisfies both.  
+- **Constraints over time:**  
+  - While unsatisfied: The system **must eventually produce a state** where `a` and `b` are both true.  
+  - After satisfaction: **No constraints** apply (e.g., `a` and `b` may become false in later states).  
+- **Violation:**  
+  The formula is violated if **no state** in the entire execution has both `a` and `b` true simultaneously.  
+- **Misunderstanding to avoid:**  
+  The formula does *not* require `a` and `b` to be true in separate states—they **must overlap in one state**.  
+
+**Example sequences:**  
+- Satisfying: `(a=false, b=false) → (a=true, b=true) → (a=false, b=false)`  
+  (Holds when the middle state satisfies `a ∧ b`).  
+- Violating: `(a=false, b=true) → (a=true, b=false) → ...`  
+  (No state where both are true).

@@ -1,0 +1,51 @@
+**Original LTL formula:**  
+X a => X c  
+
+**Step-by-step reasoning:**  
+1. **Innermost components:**  
+   - `X a`: "In the very next state, `a` must be true."  
+   - `X c`: "In the very next state, `c` must be true."  
+
+2. **Implication (`=>`):**  
+   - The formula `X a => X c` means:  
+     If `X a` holds (i.e., `a` is true in the next state),  
+     then `X c` must hold (i.e., `c` must also be true in that same next state).  
+   - Logical equivalence: `!(X a) || X c`, which simplifies to:  
+     "Either `a` is false in the next state, **or** `c` is true in the next state."  
+
+3. **Equivalent temporal form:**  
+   - `X a => X c` = `X(a -> c)` ⇒ **"In the very next state, if `a` is true, then `c` must be true."**  
+
+**Refined natural language translation:**  
+"In the state immediately after the current one, if `a` holds, then `c` must also hold."  
+
+**Explanation of constraints and evolution:**  
+1. **Immediate constraints:**  
+   - **Current state (now):** No constraints. `a` and `c` can be true or false.  
+   - **Next state (immediate future):**  
+     - If `a` is true → `c` **must** be true.  
+     - If `a` is false → `c` can be true or false (no constraint).  
+     - *(The formula imposes direct constraints* only *on this next state.)*  
+
+2. **Beyond the next state:**  
+   - No constraints. States beyond the immediate next are irrelevant.  
+   - Once the next state is observed, the formula is satisfied or violated for the current evaluation.  
+
+**Satisfaction vs. Violation:**  
+- **Satisfied** if in the next state:  
+  - `a=false` (regardless of `c`), **or**  
+  - `a=true` and `c=true`.  
+  - Example sequences:  
+    - `(a=false, c=false)`, `(a=false, c=true)`, `(a=true, c=true)` in the next state.  
+- **Violated** if in the next state:  
+  - `a=true` and `c=false`.  
+  - Example: Next state has `a=true` but `c=false`.  
+
+**Key clarifications:**  
+- **No ongoing requirements:**  
+  - The formula *only* constrains the **immediate next state**. Constraints do not propagate to future states.  
+  - After the next state, the formula has no effect (even if re-evaluated later).  
+- **No retroactive constraints:**  
+  - Past states and the current state are ignored.  
+- **Common misunderstanding:**  
+  - This is **not** a persistent property (e.g., not "whenever `a` is true, `c` must follow"). It constrains **only** the *very next* state.

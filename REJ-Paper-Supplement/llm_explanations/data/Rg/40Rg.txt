@@ -1,0 +1,28 @@
+**Original LTL Formula:**  
+F (o | u)  
+
+**Translation to Natural Language:**  
+"Eventually, either o or u must be true at least once."  
+
+### Explanation of Constraints and Satisfaction:  
+- **Immediate Satisfaction:**  
+  - If `o` or `u` is true **in the current state**, the formula is immediately satisfied.  
+  - **Example:** If `o` is true now, the constraint is fulfilled instantly.  
+
+- **Ongoing Constraints:**  
+  - If neither `o` nor `u` is true now:  
+    - The system **must eventually reach a state** where `o` or `u` becomes true.  
+    - Until that state, there are **no constraints** on `o` or `u` (they may be true/false arbitrarily).  
+  - Once a state occurs where `o` or `u` is true, **the constraint is permanently satisfied** (no future obligations).  
+
+- **Violation Condition:**  
+  - The formula is violated **only if** `o` and `u` remain **both false in every state** (including all future states).  
+  - **Example:** An execution where `o` and `u` are always false violates the formula.  
+
+- **Key Clarifications:**  
+  - The formula requires **at least one occurrence** of `o` or `u` (or both) in the **entire execution** (current or future).  
+  - After the first occurrence where `o` or `u` is true, the formula imposes **no further constraints** on `o` or `u`.  
+  - If the condition is unmet now, the constraint **persists until satisfied** (i.e., until `o` or `u` becomes true).  
+
+---  
+*Note: This translation adheres to guidelines by explicitly defining triggering conditions, release of constraints, and violation scenarios, while avoiding ambiguity.*

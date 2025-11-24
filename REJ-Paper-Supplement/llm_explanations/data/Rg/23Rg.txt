@@ -1,0 +1,29 @@
+**Original LTL formula:**  
+\( t \Rightarrow w \)  
+
+**Translation to natural language:**  
+At the current state, if \( t \) holds, then \( w \) must hold in the same state. If \( t \) is false in the current state, no constraint is imposed on \( w \).  
+
+### Key Implications:  
+- **Constraint activation:**  
+  The constraint on \( w \) applies **only when \( t \) is true in the current state**.  
+- **Constraint duration:**  
+  The requirement is **instantaneous** and limited to the current state only; it does not constrain future or past states.  
+- **Satisfaction condition:**  
+  - The formula holds if \( t \) is false (regardless of \( w \)).  
+  - The formula holds if both \( t \) and \( w \) are true.  
+- **Violation condition:**  
+  The formula fails **only if \( t \) is true and \( w \) is false** in the current state.  
+- **No ongoing obligations:**  
+  Once the current state is passed, the formula imposes **no further constraints** on \( t \) or \( w \).  
+
+**Example for Clarity:**  
+- *Satisfying trace (current state):*  
+  - \( t \) false, \( w \) false → Formula holds.  
+  - \( t \) false, \( w \) true → Formula holds.  
+  - \( t \) true, \( w \) true → Formula holds.  
+- *Violating trace (current state):*  
+  - \( t \) true, \( w \) false → Formula fails.  
+
+**Potential Misunderstanding:**  
+The formula **does not require \( t \) or \( w \) to hold in any state other than the current one**, nor does it enforce relationships over time. Its scope is strictly limited to the present state.

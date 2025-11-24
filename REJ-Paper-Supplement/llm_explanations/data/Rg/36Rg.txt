@@ -1,0 +1,29 @@
+
+**Original LTL formula**:  
+`G(j => ¬f)`  
+
+**Translation with Temporal Constraints**:  
+"Throughout the entire execution, whenever `j` is true, `f` must be false *in that same state*."  
+
+**Key Constraints Explained**:  
+1. **When Constraints Apply**:  
+   - **`j` is true in a state**: `f` *must* be false in that exact state.  
+   - **`j` is false in a state**: No constraint on `f` (it may be true or false).  
+   - **Permanence**: This condition applies to *every state* in the execution.  
+
+2. **When Constraints Do *Not* Apply**:  
+   - In states where `j` is false, the truth value of `f` is irrelevant.  
+   - Once a state passes the check (i.e., `j` is true only when `f` is false), future/past behavior of `j`/`f` does not retroactively affect that state’s validity.  
+
+3. **Satisfaction/Violation Conditions**:  
+   - **Satisfied** if: At *all* times where `j` holds, `f` does not (e.g., `[j=false, f=true] → ok`; `[j=true, f=false] → ok`).  
+   - **Violated** if: At *any* point, `j` and `f` are *both true* (e.g., a single state `[j=true, f=true]` falsifies the entire formula).  
+
+4. **Common Misunderstandings**:  
+   - **Not "`j` implies `¬f` eventually"**: Constraint is immediate and state-local.  
+   - **No future "release"**: Unlike `U` (Until), `G` requires the condition *always* hold; no state is exempt.  
+
+**Formula Breakdown**:  
+- `¬f`: `f` is false *now*.  
+- `j ⇒ ¬f`: If `j` is true now, then `f` must be false now.  
+- `G(...)`: The above must hold *for all states*.

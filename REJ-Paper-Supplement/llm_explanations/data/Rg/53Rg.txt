@@ -1,0 +1,45 @@
+### Translation of LTL Formula: F(a) → G(b)  
+**Original Formula:**  
+F(a) → G(b)  
+
+**Bottom-Up Rebuilding of Meaning:**  
+1. **F(a)**: "The proposition *a* must be **true in at least one state** from the present moment onward (including the current state)."  
+2. **G(b)**: "The proposition *b* must be **true in every state** from the present moment onward (without exception)."  
+3. **Implication (→)**:  
+   - The formula **F(a) → G(b)** is true **if and only if**:  
+     - **F(a) is false** ("*a* never holds now or in the future"), *or*  
+     - **F(a) is true** ("*a* holds at some point") **and G(b) is true** ("*b* holds in all states from now on").  
+
+**Natural Language Translation:**  
+> **"If *a* ever becomes true (now or in the future), then *b* must be true in every state starting immediately from the present and continuing forever."**  
+
+### Key Points:  
+- **When constraints apply**:  
+  - If ***a* is true at any point** (current or future), ***b* is strictly required** to be true **in all states starting now** (including the state where *a* first becomes true).  
+  - If ***a* is never true** in the future, **no constraints are imposed** on *b* (it may be true, false, or vary arbitrarily over time).  
+
+- **Evolution of truth value**:  
+  - The formula is evaluated **based on the entire future** from the current state.  
+  - If the future trace satisfies one of the following, the formula holds **at the current state**:  
+    - *a* never occurs.  
+    - *a* occurs, and *b* holds continuously from now onward (including *all* states before, during, and after *a* occurs).  
+  - **Once violated, the violation is permanent**: If *a* occurs and *b* falsifies anywhere (now or later), the formula fails *at the current state*.  
+
+- **Violating Scenarios** (formula is *false*):  
+  - *a* becomes true at some future state *t*, but *b* is false:  
+    - **At any state *s* ≤ *t*** (especially when evaluated at *s=0*).  
+    - *Example*: *b* false at *t=0*, and *a* true at *t=2* → formula fails at *t=0*.  
+  - *a* is true *now*, but *b* is false *now* → immediate failure.  
+
+- **Satisfying Scenarios** (formula is *true*):  
+  - *a* **never occurs**: *b* can be arbitrary (e.g., *b* false everywhere).  
+  - *a* **occurs** (e.g., at time *t*), and *b* holds in **every state** from the current state onward.  
+
+### Common Misunderstanding Clarification:  
+- **The timing of *a*'s truth does not affect *b*'s obligation**.  
+  - If *a* occurs **later**, *b* must **already hold from the current state onward**.  
+  - *b* **cannot wait** until *a* occurs: it must be true **continuously**, *starting now*.  
+- If *a* **does not occur**, *b* is **unconstrained** (even if *b* is sometimes false).  
+
+### Final Refined Phrasing:  
+> **"If *a* ever happens (now or later), *b* must hold continuously from this moment onward."**

@@ -1,0 +1,30 @@
+**Original LTL Formula:**  
+X a & b  
+
+**Translation:**  
+"The system must satisfy *b* in the current state and *a* in the immediate next state."  
+
+**Explanation:**  
+1. **b**: Must be true **in the current state**. No constraint on *b* in other states.  
+2. **X a**: Must be true **in the next state** (directly following the current state). *a* has no constraint in the current state or beyond the next state.  
+3. **& (AND)**: Both conditions are required simultaneously.  
+
+**Constraints Timeline:**  
+- **Current state (t=0)**: *b* must hold.  
+- **Next state (t=1)**: *a* must hold.  
+- **After t=1**: No constraints from this formula.  
+
+**Satisfied When:**  
+- At t=0: *b* = true, and at t=1: *a* = true.  
+  *Example: [b=true] → [a=true, ...]*  
+
+**Violated When:**  
+- **Case 1**: *b* = false at t=0.  
+  *Example: [b=false] → [...]*  
+- **Case 2**: *b* = true at t=0, but *a* = false at t=1.  
+  *Example: [b=true] → [a=false, ...]*  
+
+**Key Notes:**  
+- If the formula is checked at t=0, its truth is determined by *b* at t=0 and *a* at t=1.  
+- Once verified (or violated) at t=0, the formula imposes no future constraints.  
+- **No constraints exist** on *a* at t=0 or *b* beyond t=0.

@@ -1,0 +1,32 @@
+**Original LTL Formula:**  
+`G (n => s)`  
+
+**Step-by-Step Translation:**  
+1. **Innermost Formula (`n => s`)**  
+   - Implication meaning: "If `n` is true in a state, then `s` must be true **in that same state**."  
+   - If `n` is false, `s` can be true or false (no constraint).  
+
+2. **Outermost Operator (`G`)**  
+   - `G` mandates that `n => s` must hold **in every state** of the execution.  
+
+**Final Natural Language Translation:**  
+"Globally, whenever `n` is true, `s` must be true in the same moment."  
+
+**Key Explanations:**  
+- **Constraints:**  
+  - At **every moment** where `n` is true, `s` must be true.  
+  - While `n` is false, `s` is unconstrained (can be true or false).  
+- **Truth Evolution:**  
+  - The formula is satisfied **only if**, for the **entire execution**, no state exists where `n` is true and `s` is false.  
+  - If a state violates `n ⇒ s` (i.e., `n` true and `s` false), the formula is **immediately falsified** for the whole timeline.  
+- **Satisfying Traces:**  
+  - All states where `n` is false; or states where `n` and `s` are both true.  
+  *Example:* `n=false, s=true` → valid; `n=true, s=true` → valid.  
+- **Violating Traces:**  
+  - Any execution where at least one state has `n=true` and `s=false`.  
+  *Example:* `[n=false, s=false] → [n=true, s=false]` → violates at the second state.  
+- **Misconception Clarification:**  
+  - `G(n ⇒ s)` **does not require `s` to persist** after `n` becomes false.  
+  - It **constrains only simultaneous occurrences** of `n` and `s` at each individual state.  
+
+**Summary:** A perpetual mandate that `n` being true forces `s` to be true *at the exact same time*, with no future guarantees for `s` beyond this rule.

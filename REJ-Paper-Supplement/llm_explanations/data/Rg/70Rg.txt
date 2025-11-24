@@ -1,0 +1,45 @@
+### Translation of LTL Formula: **G(a → b)**  
+**Original formula:** `G(a → b)`  
+
+**Step-by-step breakdown from the bottom up:**  
+1. **Innermost subformula: `a → b`**  
+   - This is a logical implication.  
+   - **Meaning:** *"If `a` is true in the current state, then `b` must also be true in that same state. If `a` is false, `b` can be true or false without constraints."*  
+
+2. **Applying the `G` (Globally) operator:**  
+   - `G(...)` requires the subformula `(a → b)` to hold **in every state** of the execution.  
+   - **Meaning:** *"At every moment in the execution, if `a` is true in that state, then `b` must be true in that same state."*  
+
+**Refined natural language translation:**  
+*"Globally, whenever `a` is true, `b` must be simultaneously true."*  
+
+---
+
+### Key Implications:  
+1. **When constraints apply:**  
+   - **At every state**, the system must satisfy:  
+     - If `a` is true → `b` must be true (in that specific state).  
+     - If `a` is false → no constraint on `b` in that state.  
+   - The formula is **continuously enforced** for all states (past, present, and future).  
+
+2. **When constraints cease:**  
+   - Constraints for a **specific state** end once that state passes.  
+   - However, the requirement reapplies instantly in the **next state** and forever.  
+
+3. **Satisfaction vs. violation:**  
+   - **Satisfied if:**  
+     - `a` is always false (no demands on `b`), *or*  
+     - `a` is true only in states where `b` is simultaneously true.  
+     Example: `[a=false, b=true] → [a=false, b=false] → [a=true, b=true] → ...` ✅  
+   - **Violated if:**  
+     - At **any single state**, `a` is true while `b` is false.  
+     Example: `[a=true, b=false] → ...` ❌ (fails immediately).  
+
+4. **Common misunderstandings addressed:**  
+   - **No future guarantees:** The formula does **not** require `b` to hold *after* `a` is true.  
+     Example: `[a=true, b=true] → [a=false, b=false]` is acceptable (no violation).  
+   - **Immediate synchronization:** `a → b` applies **only within a single state** (no "delayed" requirements).  
+   - **Negated terms:** To violate `G(a → b)`, `a` must be true *and* `b` false in at least one state.  
+
+**Summary:**  
+*"The system must ensure that at every moment where `a` holds, `b` also holds. This constraint is state-local, perpetual, and violated instantly if `a` is true without `b` in any state."*

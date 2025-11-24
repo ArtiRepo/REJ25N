@@ -1,0 +1,16 @@
+**Original LTL formula:**  
+F x | F y  
+
+**Rebuilding meaning from the bottom up:**  
+1. **F x**: "There must exist at least one state (now or in the future) where x is true."  
+2. **F y**: "There must exist at least one state (now or in the future) where y is true."  
+3. **F x | F y**: The disjunction (OR) of F x and F y. The formula is satisfied if **at least one** of the two eventualities (F x or F y) holds.  
+
+**Refined natural language phrasing:**  
+"Either x must eventually become true at least once, or y must eventually become true at least once (or both)."  
+
+**Key explanation:**  
+- **Satisfaction:** The formula is satisfied immediately if x or y is true in the current state. If not, it requires that **at least one** of them becomes true in some future state.  
+- **Constraints:** The system is constrained until the **first occurrence** of either x or y. Once either becomes true (even if the other never does), the formula is permanently satisfied, and no further constraints apply.  
+- **Violation:** The formula is violated **only if both x and y remain false forever**.  
+- **Evolution:** If neither x nor y is true initially, the formula remains "active" and imposes a constraint (waiting for x or y to become true). It becomes "inactive" and forever satisfied as soon as either occurs.

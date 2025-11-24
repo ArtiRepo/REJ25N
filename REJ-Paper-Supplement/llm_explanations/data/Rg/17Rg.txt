@@ -1,0 +1,46 @@
+
+**Original LTL formula:**  
+`¬G c`  
+
+**Step-by-step reasoning:**  
+1. **Formula breakdown**  
+   - `c`: Propositional variable; constraints depend on context.  
+   - `G c`: "`c` must be true in **every state** of the entire execution."  
+   - `¬(G c)`: Negation of `G c`, meaning "it is **not true** that `c` holds globally."  
+
+2. **Semantic equivalence**  
+   - `¬(G c)` ≡ `F(¬c)` (by LTL duality: ¬G ≡ F¬).  
+   - This means: "**Eventually, `c` must be false in at least one state**."  
+
+---
+
+**Natural language translation:**  
+`¬G c` means:  
+**"`c` must be false at least once (now or in the future)."**  
+
+---
+
+**Key explanation:**  
+- **Constraints:**  
+  - `c` **must** be false in **at least one state** during execution.  
+  - If `c` is false **immediately (current state)**, the formula is **satisfied instantly**, and `c` has **no further constraints** (it can be true or false thereafter).  
+  - If `c` is **currently true**, the system is **obligated to make `c` false at some future state**.  
+
+- **Termination of constraints:**  
+  - The constraint **ceases permanently** once `c` becomes false in **any state** (no future obligations apply).  
+
+- **Violation condition:**  
+  - The formula is **violated** if `c` **remains true forever** (no state has `c = false`).  
+
+- **Satisfaction examples:**  
+  - ✔️ `c` false at current state: `[c=false, ...]` (instantly true).  
+  - ✔️ `c` true now, but false later: `[c=true, c=true, c=false, ...]` (satisfied when `c=false` occurs).  
+
+- **Violation example:**  
+  - ❌ `c` always true: `[c=true, c=true, c=true, ...]` (fails globally).  
+
+---
+
+**Potential misunderstandings clarified:**  
+- The constraint **does not require `c` to become false at a specific time** (only ≥1 occurrence).  
+- After `c` is false **once**, no further checks are needed (**constraints permanently lift**).

@@ -1,0 +1,28 @@
+
+**Original LTL formula:**  
+¬F (a ∧ b)  
+
+**Natural Language Translation:**  
+"a and b must never both be true simultaneously at any point in the execution (current or future states)."  
+
+### Reasoning:  
+1. **Innermost formula (a ∧ b):**  
+   - "a and b are both true in the same state."  
+
+2. **Apply F operator (F(a ∧ b)):**  
+   - "There exists at least one state (current or future) where a and b are both true simultaneously."  
+
+3. **Apply negation (¬F(a ∧ b)):**  
+   - Negates F(a ∧ b): "It is never true that a and b both hold simultaneously in any state."  
+   - Equivalent to: "In **every** state (current and future), a and b cannot be true together."  
+
+**Key Clarifications:**  
+- **Constraint:** Starting immediately and at **every future state**, the system must ensure that *at least one of a or b is false* (equivalent to G¬(a ∧ b) or G(¬a ∨ ¬b)).  
+- **Satisfaction condition:** The formula is satisfied **if and only if**¬(a ∧ b) holds globally (i.e., no state ever has both a and b true).  
+- **Violation condition:** If **any single state** (now or later) has both a and b true, the formula is violated immediately.  
+- **When constraints apply:** The constraint applies **persistently** to every state—there is no point where it "stops" applying.  
+- **No constraints on individual variables:** a and b may be true or false independently, as long as they are **never true together**.  
+
+**Misunderstanding Prevention:**  
+- The constraint is *global and unyielding*: Unlike operators like U (until), it never "releases" its requirement—it applies eternally from the current state onward.  
+- If either a or b is false in a state, that state satisfies the formula *for that moment*. The formula can only be violated by a state where both are true.

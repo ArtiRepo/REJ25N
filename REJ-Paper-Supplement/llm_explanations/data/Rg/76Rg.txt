@@ -1,0 +1,36 @@
+### Translation of LTL Formula: G(a → X¬b)
+
+**Original LTL Formula:**  
+G(a → X¬b)  
+
+**Step-by-Step Rebuilding:**  
+1. **¬b**: "b must be false."  
+2. **X¬b**: "In the very next state, b must be false."  
+3. **a → X¬b**:  
+   - *If a is true in the current state*, then "in the next state, b must be false."  
+   - *If a is false in the current state*, no constraint is imposed on the next state’s b.  
+4. **G(a → X¬b)**:  
+   - The implication must hold **in every state** of the execution.  
+
+**Refined Natural Language Phrasing:**  
+"Globally, whenever a holds in a state, b must be false in the immediately following state."  
+
+### Key Explanations:  
+- **When Constraints Apply:**  
+  - **Immediately**: At every state where `a` is true, the **next state** must have `b` false.  
+  - **No Retroactive Constraints**: If `a` is false in a state, the next state’s `b` is unconstrained.  
+  - **Ongoing Requirement**: The condition is checked at **every state**; violations can occur at any point where `a` is true and the subsequent state has `b` true.  
+
+- **Satisfying Sequences:**  
+  - All states have `a` false (no constraints on `b`).  
+  - Whenever `a` is true (e.g., at state *s*), `b` is false in state *s+1* (e.g., `a=true` at *s* → `b=false` at *s+1*).  
+
+- **Violating Sequences:**  
+  - Any sequence where a state *s* has `a=true` and the next state *s+1* has `b=true`.  
+
+- **Constraints Over Time:**  
+  - **Ceases** when `a` is false: No obligation for the next state’s `b`.  
+  - **Persists** globally: Every state must satisfy the implication.  
+
+**Potential Misunderstanding:**  
+The constraint **only binds the state immediately after** a state where `a` is true. It does not restrict `b` beyond the next state or when `a` is false.

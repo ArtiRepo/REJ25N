@@ -1,0 +1,30 @@
+**Original LTL Formula:**  
+a & X b  
+
+**Meaning:**  
+"a is true now, and b must be true in the very next state."  
+
+### Constraints and Evolution:  
+1. **Current state (state 0):**  
+   - `a` **must be true** (`b` has no constraint here).  
+   - Failure if `a` is false.  
+
+2. **Immediate next state (state 1):**  
+   - `b` **must be true** (`a` has no constraint here).  
+   - Failure if `b` is false.  
+
+3. **All other states (state 2+):**  
+   - **No constraints** from this formula.  
+
+4. **Evolution:**  
+   - Satisfied **at state 0** only if both:  
+     - `a` holds now (state 0),  
+     - `b` holds next (state 1).  
+   - Once evaluated, the formula **imposes no further constraints** beyond state 1.  
+
+### Violating vs. Satisfying Traces:  
+- **Violates:** `(a=false, ...)` or `(a=true, b=false, ...)` at states 0 and 1.  
+- **Satisfies:** `(a=true, ...) → (b=true, ...)` for states 0 and 1 (later states irrelevant).  
+
+**Key Insight:**  
+Constraints apply **strictly to the current and next state only**. After state 1, neither `a` nor `b` requires specific values. The formula is **atomically checked at the current moment**, but its second constraint (`X b`) binds the immediate future.

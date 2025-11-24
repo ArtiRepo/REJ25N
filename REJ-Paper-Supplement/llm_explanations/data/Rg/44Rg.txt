@@ -1,0 +1,37 @@
+
+**Original LTL Formula:**  
+X(!g | !j)  
+
+**Step-by-Step Rebuilding:**  
+1. **Leaf-level literals:**  
+   - `!g`: "g is false in a state"  
+   - `!j`: "j is false in a state"  
+
+2. **Disjunction (`|`):**  
+   - `!g | !j` means "either g is false or j is false (or both) in the same state".  
+   - *Simplified phrasing:* "At least one of g or j is false in the state."  
+
+3. **Next-operator (`X`):**  
+   - `X(...)` shifts the disjunction to the immediate next state.  
+   - The full formula means: "**In the very next state, g is false or j is false.**"  
+
+**Refined Natural Language Translation:**  
+"The formula requires that in the immediate next state, **at least one of g or j is false**."  
+
+---
+
+### Explanation of Constraints and Satisfaction:  
+- **Current state:** No constraints on `g` or `j`. Both can be true, false, or any combination.  
+- **Next state:**  
+  - **Must hold:** `g` and `j` **cannot both be true**.  
+  - **Satisfied if:** `g` is false, `j` is false, or both are false.  
+  - **Violated if:** Both `g` and `j` are true in the next state.  
+- **After next state:** No further constraints from this formula.  
+
+**Examples:**  
+- ✅ Satisfying sequence: Current state: `(g=true, j=true)` → Next state: `(g=false, j=true)`.  
+- ❌ Violating sequence: Current state: `(g=true, j=false)` → Next state: `(g=true, j=true)`.  
+
+**Clarification:**  
+- The constraint **only applies to the next state**, not beyond it.  
+- If the execution ends before the next state, the formula is **vacuously false**.

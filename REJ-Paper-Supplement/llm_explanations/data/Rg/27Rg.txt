@@ -1,0 +1,31 @@
+### Translation of LTL Formula: \( X(t \mid w) \)  
+
+**Original Formula:**  
+\( X(t \lor w) \)  
+
+**Step-by-Step Reasoning:**  
+1. **Innermost Expression (Propositional Logic):**  
+   \( t \lor w \) means:  
+   *"Either \( t \) is true, or \( w \) is true, or both are true in the same state."*  
+   - **Constraints:** Applies only to a specific state (no temporal aspect).  
+
+2. **Outermost Operator (Temporal):**  
+   \( X(\ldots) \) means the inner formula \( t \lor w \) must hold **in the immediate next state** (one step ahead).  
+   - **Constraint scope:** Only the next state is constrained (current and later states beyond "next" are irrelevant).  
+
+**Natural Language Translation:**  
+> "In the very next state, either \( t \) is true or \( w \) is true (or both)."  
+
+**Key Clarifications:**  
+- **Current state:** No constraints on \( t \) or \( w \).  
+- **Next state:**  
+  - **Satisfied if:** At least one of \( t \) or \( w \) is true in the next state (e.g., \( t \) true/\( w \) false, \( t \) false/\( w \) true, or both true).  
+  - **Violated if:** Both \( t \) and \( w \) are false in the next state.  
+- **Beyond the next state:** No further constraints (the formula stops applying after the next state).  
+
+**Example Sequences:**  
+- Satisfying: `(current) → [t=true, w=false] (next) → ...`  
+- Violating: `(current) → [t=false, w=false] (next) → ...`  
+
+**Common Pitfall Avoided:**  
+The formula **only constrains the next state**, not the current state or any state beyond the immediate next one.

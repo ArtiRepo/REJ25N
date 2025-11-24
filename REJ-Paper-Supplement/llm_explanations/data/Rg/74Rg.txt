@@ -1,0 +1,28 @@
+### Reasoning and Translation for LTL Formula: G(a or b)  
+- **Original LTL formula**: `G(a or b)`  
+
+#### Step-by-Step Breakdown:  
+1. **Innermost subformula (`a or b`)**  
+   - Semantic meaning: "Either `a` is true, or `b` is true, or both."  
+   - This imposes a **local constraint** only on the current state.  
+   - If checked now: Must hold in the current state; otherwise, the formula `a or b` is false.  
+   - Does not constrain future states.  
+
+2. **Outermost operator (`G`)**  
+   - `G(...)` requires the inner formula `a or b` to hold **globally**: in *all* states of the execution path.  
+   - Eliminates time-independence: The inner constraint applies perpetually.  
+
+#### Synthesis:  
+- **Complete meaning**: "For every state in the execution, at least one of `a` or `b` must be true."  
+- **Key constraints**:  
+  - **At every moment** (including the current state and all future states), `a` must be true, `b` must be true, or both.  
+  - **Violation**: The formula is **instantly violated** if *any* state has both `a` and `b` false.  
+  - **Satisfaction**: Only if no such state exists (e.g., `a` is always true, or `b` is always true, or they alternate).  
+
+#### Refined Natural Language Translation:  
+> **"In every moment, either `a` or `b` (or both) must be true."**  
+
+#### Phrasing Rationale:  
+- **Brevity and precision**: Explicitly ties "every moment" to the `G` operator and clarifies permitted truth values (`a`/`b`/both).  
+- **Avoids ambiguity**: Omits references to specific failures (e.g., "both false") by stating the positive requirement.  
+- **Temporal scope**: Constraints apply **continuously**, starting immediately and never relaxing.

@@ -1,0 +1,29 @@
+**Original LTL formula:**  
+X !(t | w)  
+
+**Step-by-step reasoning from the bottom up:**  
+1. **Innermost expression (t | w):**  
+   "t or w must be true in the current state."  
+
+2. **Negation !(t | w):**  
+   "Neither t nor w is true in the current state" (equivalent to "both t and w are false").  
+
+3. **X operator applied to !(t | w):**  
+   "In the very next state, neither t nor w must be true."  
+
+**Refined natural language translation:**  
+"In the next state, both t and w must be false."  
+
+**Key clarifications:**  
+- **Constraints:**  
+  - Only constrains the **immediate next state** (no requirements for the current state or any state beyond the next).  
+  - In the next state: `t` must be false and `w` must be false.  
+- **Satisfaction vs. violation:**  
+  - **Satisfied** if the next state has `t = false` and `w = false` (regardless of current-state values).  
+  - **Violated** if the next state has `t = true` or `w = true` (or both).  
+- **Temporal evolution:**  
+  - The constraint **applies only at the next state** and ceases immediately afterward.  
+  - The current state is **unconstrained**: `t` and `w` may be true or false without effect.  
+- **Misunderstanding prevention:**  
+  - Does **not** require `t` or `w` to be false beyond the next state.  
+  - Does **not** restrict the current state.

@@ -1,0 +1,28 @@
+
+**Original LTL formula:**  
+F (o U u)
+
+**Bottom-up Translation:**  
+1. **Inner Formula `o U u`**: This specifies a constraint starting from a point `k` (current evaluation state) such that:  
+   - `u` must eventually become true at some state `j` (where `j >= k`).  
+   - For every state between `k` and `j-1` (if any), `o` must hold.  
+   - If `u` holds at `k`, the condition is immediately satisfied (no requirement on `o` at `k` or prior states).  
+
+2. **Outer Formula `F(o U u)`**: This requires that **there exists at least one future state `k`** (starting from now) where `o U u` holds.  
+
+**Refined Natural Language Translation:**  
+> "Eventually, `u` must become true in at least one state of the execution."
+
+### Key Clarifications:
+- **Constraint on `u`**: `u` must be true in at least one state (now or future). This is the minimal requirement to satisfy the formula.  
+- **Constraint on `o`**: **No obligation.** If `u` becomes true at a state `k`, the formula is satisfied at `k`—even if `o` is false everywhere.  
+- **Violation**: `u` never becomes true. `o` irrelevant.  
+- **Satisfaction**: Any execution where `u` holds at some state succeeds.  
+- **When constraints cease**: When `u` becomes true for the first time—formula permanently satisfied.  
+
+### Misunderstanding Prevention:
+- Counterintuitively, `o` has **no impact** on the formula's truth—only `u` matters.  
+- `o` is only hypothetically enforced if the "Until" starts at a state where `u` is false. But since `k` can be the state where `u` becomes true, `o` is never required.  
+
+**Final Translation:**  
+> "Eventually, `u` must be true."

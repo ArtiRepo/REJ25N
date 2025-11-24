@@ -1,0 +1,20 @@
+**Original LTL Formula:**  
+a U c  
+
+**Translation and Explanation:**  
+1. **Immediate Satisfaction Condition:**  
+   - If `c` is true in the current state, the formula is immediately satisfied. There is **no constraint** on `a` (now or in the future).  
+
+2. **Ongoing Constraints (if `c` is false now):**  
+   - `c` **must eventually become true** at some future state.  
+   - Until the state where `c` first becomes true, `a` **must be true in every state** (including the current state).  
+
+3. **Constraint Termination:**  
+   - Once `c` becomes true (at the first occurrence), the requirement for `a` to hold **ceases permanently**. After this, `a` may be true or false freely.  
+
+4. **Violation Conditions:**  
+   - **Scenario 1:** `c` never becomes true (violates eventual requirement).  
+   - **Scenario 2:** `c` is false now, and `a` is false in any state before `c` becomes true (breaks continuity of `a`).  
+
+**Final Natural Language Phrasing:**  
+*"c must eventually become true. Until that moment, a must hold continuously. If c is already true now, no constraints apply to a."*

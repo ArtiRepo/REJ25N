@@ -1,0 +1,37 @@
+
+**Original LTL Formula:**  
+\( X  t \implies X  y \)  
+
+**Natural Language Translation:**  
+"In the next state, if \( t \) is true, then \( y \) must also be true."  
+
+### Explanation of Constraints:  
+1. **Current state:**  
+   - **No constraints.** The truth of \( t \) or \( y \) in the current state is irrelevant.  
+
+2. **Immediate next state (only constrained state):**  
+   - **Constraint activates** when \( t \) is true:  
+     - If \( t \) is **true**, \( y \) must be **true** in the same next state.  
+     - If \( t \) is **false**, \( y \) may be **true or false** with no constraint.  
+   - **Constraint ceases** after the next state:  
+     - All states beyond the immediate next are unconstrained.  
+
+### Satisfying vs. Violating Sequences:  
+- **Satisfies if in the next state:**  
+  - \( t = \text{false} \) (regardless of \( y \)),  
+  - OR \( t = \text{true} \) and \( y = \text{true} \).  
+- **Violates only if in the next state:**  
+  - \( t = \text{true} \) and \( y = \text{false} \).  
+
+### Key Clarifications:  
+- **No future constraints:** The formula speaks **only** about the immediate next state. States beyond the next are never constrained.  
+- **No obligation for \( t \) to be true:** The formula permits the next state to have \( t \) false, with \( y \) unconstrained.  
+- **Timing is critical:** Both \( t \) and \( y \) are evaluated **in the same next state** (not in later states).  
+
+**Example Execution:**  
+| Time | State 0 | State 1 (next state) | State 2+ | Satisfies? |  
+|------|---------|------------------------|----------|------------|  
+| ✓    | Any     | \( (t = \text{false}, y = \text{true}) \)  | Any      | Yes        |  
+| ✓    | Any     | \( (t = \text{false}, y = \text{false}) \) | Any      | Yes        |  
+| ✓    | Any     | \( (t = \text{true}, y = \text{true}) \)   | Any      | Yes        |  
+| ✗    | Any     | \( (t = \text{true}, y = \text{false}) \)  | Any      | No         |

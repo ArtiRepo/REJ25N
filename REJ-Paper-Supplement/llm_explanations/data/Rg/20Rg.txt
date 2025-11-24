@@ -1,0 +1,47 @@
+
+**Original LTL formula:**  
+G t | F w  
+
+**Natural Language Translation:**  
+"The system must either always have t true in every state, or w must be true at least once (at any point, past or future)."  
+
+**Explanation:**  
+- **G t ("always t")**:  
+  Requires **t** to be true in every state of the execution. If **t** ever becomes false in any state, this condition fails.  
+
+- **F w ("eventually w")**:  
+  Requires **w** to be true in at least one state (now or in the future). Once **w** becomes true (e.g., at state *s*), this condition is immediately satisfied, and no future constraints on **w** apply.  
+
+- **Overall formula (G t | F w)**:  
+  The formula is satisfied if either:  
+  1. **G t** holds: **t** is true forever (e.g., all states satisfy **t**, ignoring **w**), **or**  
+  2. **F w** holds: **w** becomes true at least once (e.g., **w** is true at some state, ignoring **t** after or before).  
+  If both occur, the formula is satisfied.  
+
+**Violation Condition**:  
+The formula fails **only if**:  
+- **t** is false at some state (violating **G t**), **and**  
+- **w** is **never** true at any state (violating **F w**).  
+
+**Constraints Over Time**:  
+- **Immediate satisfaction**:  
+  - If **w** is currently true, **F w** holds immediately, and the entire formula is satisfied (regardless of **t**).  
+  - If **t** is true now and forever, the formula is satisfied even if **w** never holds.  
+- **Ongoing constraints**:  
+  - If **w** has not yet occurred (**F w** unresolved) **and** **t** has always been true so far, **t** must continue holding until either:  
+     (a) **w** becomes true (satisfying **F w**), or  
+     (b) It is guaranteed that **t** will hold forever.  
+  - If **t** becomes false at any state **before** **w** has occurred, the system must ensure **w** becomes true sometime later (or has been true earlier) to satisfy **F w**.  
+- **Constraint cessation**:  
+  - As soon as **w** becomes true, **F w** (and the entire formula) is permanently satisfied; **t** is unconstrained afterward.  
+  - If **t** becomes false before **w** occurs, **G t** fails irrecoverably, and the system must rely on **F w** (by ensuring **w** eventually holds).  
+
+---
+
+**Key Clarifications**:  
+- The OR (`|`) means only one condition must hold; the formula does **not** require **t** to hold until **w** becomes true.  
+- If **t** becomes false at any point, **w** must already have been true or must become true later.  
+- Once **w** becomes true, **t** can be true or false arbitrarily in all states (past or future).  
+- **Examples**:  
+  - *Satisfied*: (1) **t** is always true; (2) **w** is true in state 5 (even if **t** fails later); (3) **w** is true now.  
+  - *Violated*: **t** fails at state 3, and **w** never becomes true.

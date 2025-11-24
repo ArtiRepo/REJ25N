@@ -1,0 +1,35 @@
+**Original LTL Formula:**  
+b U (a | d)  
+
+**Step-by-Step Translation:**  
+1. **Innermost subformula (a | d):**  
+   "Either a or d is true."  
+
+2. **Until operator (U) applied to b and (a | d):**  
+   - The formula requires:  
+     (a) **Eventuality:** "Either a or d must eventually become true at some future state (possibly now)."  
+     (b) **Continuous b until then:** "Until the exact moment when a or d first becomes true, b must be true in every state starting from the current state."  
+
+**Final Natural Language Translation:**  
+> "Either a or d must eventually become true, and until that specific moment, b must remain true in every state."  
+
+**Key Clarifications:**  
+- **Constraints on b:**  
+  - b must hold **in all states** from the current state up to (but not including) the state where a or d first becomes true.  
+  - If a or d is true **now**, no b constraints apply (even for the current state).  
+  - After a or d becomes true, b is **unconstrained** in all future states.  
+- **Eventuality requirement:**  
+  - If a or d **never** becomes true, the formula is **violated**.  
+  - If a or d becomes true but b is **false** in any state before that moment, the formula is **violated**.  
+- **Temporal evolution:**  
+  - If checked when a or d is already true, the formula is **immediately satisfied** (no b needed).  
+  - If not, the formula imposes **ongoing constraints** until a/d becomes true: b must hold in each subsequent state until the event occurs.  
+
+**Example Scenarios:**  
+- ✅ **Satisfied:**  
+  - Current state: `b=true, a=false, d=false` → Next state: `a=true` (b holds until a becomes true).  
+  - Current state: `a=true` (immediate satisfaction; b irrelevant).  
+- ❌ **Violated:**  
+  - `b=false, a=false, d=false` now (fails b immediately).  
+  - `b=true` now, but a/d never occurs (eventuality fails).  
+  - `b=true` for 3 states, then `b=false` in the 4th, followed later by `a=true` (b fails before a/d occurs).

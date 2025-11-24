@@ -1,0 +1,39 @@
+### Original LTL Formula:
+XXFa
+
+### Rebuilding Meaning Bottom-Up:
+
+1. **Fa (F(a))**:  
+   "There must be at least one state in the future (including the current state) where a is true."  
+   → This requires a to become true **at least once** from now onward.  
+   → *Violation*: If a is **never** true in the entire execution.
+
+2. **X(Fa)**:  
+   "In the very next state (one step from now), the formula Fa must hold."  
+   → This means that **starting from the next state**, a must become true at least once in the future.  
+   → *Constraint*: At state S<sub>1</sub> (the immediate next state), the system must satisfy Fa.  
+   → *Violation*: If from state S<sub>1</sub> onward, a is **always** false.
+
+3. **XXFa (X(X(Fa)))**:  
+   "In the state after the next state (two steps from now), the formula Fa must hold."  
+   → This means that **starting from the state two steps away (S<sub>2</sub>)**, a must become true at least once in the future (at S<sub>2</sub> or later).  
+   → *Constraint*: At state S<sub>2</sub>, the system must satisfy Fa (i.e., a occurs ≥ once from S<sub>2</sub> onward).  
+   → *Violation*: If from S<sub>2</sub> onward, a is **never** true.
+
+### Refined Natural Language Phrasing:
+"The proposition a must be true at least once, starting from two states in the future (i.e., not necessarily immediately, but no earlier than the second next state)."
+
+### Key Clarifications:
+- **Constraints on the present (S<sub>0</sub>) and next state (S<sub>1</sub>)**:  
+  - No constraints on a at S<sub>0</sub> or S<sub>1</sub>. a can be true/false at these states freely.  
+- **When constraints apply**:  
+  - The obligation for a to occur starts at S<sub>2</sub>. If a is true **at or after S<sub>2</sub>** (anytime from S<sub>2</sub> onward), the formula holds.  
+  - Example: If a first becomes true at S<sub>3</sub>, S<sub>100</sub>, or S<sub>2</sub> itself, the formula is satisfied.  
+- **Termination of constraint**:  
+  - Once a occurs at any state ≥ S<sub>2</sub>, the formula is satisfied forever (no further constraints from this point).  
+- **Violating scenario**:  
+  - If a is **never true from S<sub>2</sub> onward** (even if a was true at S<sub>0</sub> or S<sub>1</sub>), the formula fails.  
+- **Evolution over time**:  
+  - At S<sub>0</sub>: The formula holds if a will eventually be true from S<sub>2</sub> onward.  
+  - At S<sub>1</sub>: The formula reduces to X(Fa), requiring a to occur ≥ once from S<sub>2</sub> onward.  
+  - At S<sub>2</sub>: The formula reduces to Fa, requiring a to occur ≥ once from this state onward.

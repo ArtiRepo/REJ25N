@@ -1,0 +1,31 @@
+**Original LTL formula:**  
+b U !d  
+
+**Translation and Explanation:**  
+The formula requires:  
+1. **d must eventually become false** at some future state (including the current state).  
+2. **Until the exact state where d becomes false**, b must be true in every state from the current state onward.  
+3. **In the state where d becomes false**, b may be either true or false (no constraint).  
+
+**Key Implications:**  
+- **If d is false now:** The formula is immediately satisfied regardless of b's current value (no prior states require b).  
+- **If d is true now:**  
+  - b must be true in the current state, and  
+  - b must remain true in every subsequent state until d becomes false.  
+- **Violations occur if:**  
+  - d never becomes false, or  
+  - b is false in any state before d becomes false.  
+
+**Constraints Over Time:**  
+- The requirement for b applies **only until d becomes false**. Once d is false, b is unconstrained in all future states.  
+- The truth of the formula is determined immediately when checked but depends on future states. If d becomes false later, earlier states must have had b true until that point.  
+
+**Example Satisfying Sequences:**  
+- `[d=false]` → Satisfied (d false now, b unconstrained).  
+- `[b=true, d=true] → [b=true, d=false]` → Satisfied (b true until d false).  
+- `[b=true, d=true] → [b=false, d=false]` → Satisfied (b false only when d becomes false).  
+
+**Example Violating Sequences:**  
+- `[d=true] → [d=true] → ...` (d never false) → Violated.  
+- `[b=false, d=true]` → Violated (b false before d false).  
+- `[b=true, d=true] → [b=false, d=true]` → Violated (b false while d still true).

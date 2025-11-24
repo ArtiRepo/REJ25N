@@ -1,0 +1,31 @@
+**Original LTL formula:**  
+G(a and !b)  
+
+**Step-by-step breakdown:**  
+1. **Innermost expression: `a and !b`**  
+   - Meaning: "In the current state, `a` is true AND `b` is false."  
+   - Constraints: Applies **only to the current state** when evaluated.  
+
+2. **Outermost operator: `G` (Global)**  
+   - Meaning: "The inner expression `(a and !b)` must hold **in every state** of the execution."  
+   - Constraints: Applies to **all states**—past, present, and future—from the moment of evaluation.  
+
+**Refined natural language translation:**  
+"Throughout the entire execution, `a` is always true and `b` is always false."  
+
+**Key clarifications:**  
+- **When constraints apply:**  
+  - The formula imposes constraints **in every state** without exception.  
+  - At any state where `a` is false or `b` is true, the formula is **immediately violated**.  
+- **Termination of constraints:**  
+  - Constraints **never cease**; they persist indefinitely.  
+- **Satisfying sequences:**  
+  - Only sequences where **every state** has `a = true` and `b = false` satisfy the formula.  
+  - Example: `[a:⊤, b:⊥] → [a:⊤, b:⊥] → [a:⊤, b:⊥] → ...`  
+- **Violating sequences:**  
+  - Any sequence with **at least one state** where `a` is false or `b` is true violates the formula.  
+  - Example: `[a:⊤, b:⊥] → [a:⊥, b:⊥] → ...` (fails when `a` becomes false).  
+  - Example: `[a:⊤, b:⊥] → [a:⊤, b:⊤] → ...` (fails when `b` becomes true).  
+- **Misconception prevention:**  
+  - This is **not a conditional requirement** (e.g., no "until" or "eventually" logic).  
+  - The system **cannot temporarily relax** the constraints; violations are permanent and irrecoverable.

@@ -1,0 +1,35 @@
+**Original LTL Formula:**  
+G a  
+
+**Rebuilding Meaning (Bottom-Up):**  
+1. **Atomic proposition `a`**:  
+   - Constrains the current state: `a` must be true now.  
+   - No constraints on future/past states when considered alone.  
+
+2. **Applying `G` (Globally)** to `a`:  
+   - Extends the constraint of `a` to *all states* in the execution:  
+     `a` must be true in the current state, the immediate next state, and every future state indefinitely.  
+   - Removes any temporal "release" — the constraint is permanent.  
+
+**Refined Natural Language Translation:**  
+"`a` must be true in every state of the execution, starting from the current state and continuing forever."  
+
+### Explicit Breakdown:  
+- **When constraints apply**:  
+  - The formula imposes an **immediate and permanent** constraint: `a` must be true **now** and **at every future state**.  
+  - Example: If `a` represents "the system is safe," then safety must hold *at all times*.  
+
+- **When constraints cease**:  
+  - **Never**. Even if `a` holds for years, it must *continue* holding forever. A single future state where `a` is false violates the formula.  
+
+- **Satisfaction vs. Violation**:  
+  - **Satisfied only if**: `a` is true in *all* states from now on (e.g., `[a, a, a, ...]`).  
+  - **Violated if**: `a` is false in *any* state (e.g., `[a, a, false, ...]` fails at the third state).  
+
+- **Key Clarifications**:  
+  - The formula **does not constrain past states** — only the current and future.  
+  - Unlike operators like `U` (Until) or `F` (Finally), **`G` offers no "release condition"** — `a` is perpetually required.  
+  - Misconception: "`a` is eventually always true" is incorrect. `G a` requires `a` to hold *continuously* from the *very first state*.  
+
+**Final Phrasing:**  
+"`a` must hold at every moment, now and forever."

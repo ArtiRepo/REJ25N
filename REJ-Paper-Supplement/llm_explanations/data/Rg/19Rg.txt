@@ -1,0 +1,39 @@
+
+**Original LTL formula:**  
+`F (!y & w)`
+
+**Rebuilding from the bottom up:**  
+1. **`!y`**: "y is false."  
+2. **`w`**: "w is true."  
+3. **`!y & w`**: "y is false **and** w is true" (conjunction; both conditions must hold simultaneously).  
+4. **`F (!y & w)`**: "**Eventually** (now or later), there exists a state where `!y & w` holds."  
+
+**Refined natural language translation:**  
+"The system must **eventually** reach **at least one state** where **y is false and w is true simultaneously**."  
+
+---
+
+### Constraints and Satisfaction Conditions:  
+- **When the constraint applies:**  
+  - If neither condition is met initially (or if only one holds), the formula imposes a **future obligation**: a state where `y=false` and `w=true` **must eventually occur**.  
+  - Until this state occurs, the system **cannot terminate/stop**, as the obligation remains unsatisfied.  
+- **When the constraint is lifted:**  
+  - Immediately **after any state satisfies** `y=false` **and** `w=true`, the formula is **satisfied forever** (no further constraints).  
+- **Satisfied immediately if:**  
+  - The **current state** has `y=false` and `w=true` (no future obligation needed).  
+- **Violated if:**  
+  - `y=false` and `w=true` **never occurs** (e.g., if `y` is always true when `w` is true, or `w` never rises when `y` falls).  
+
+**Key highlights:**  
+- **Single occurrence suffices** (it need not repeat).  
+- **No restrictions outside the decisive state:**  
+  - `y` and `w` can be **arbitrary** before/after the state where they satisfy `y=false ∧ w=true`.  
+- **Critical dependency:** Both conditions **must coincide in the same state**. Separate states (e.g., `y=false` at time t and `w=true` at time t+1) **do not satisfy** the formula.  
+
+Example:  
+- ✅ Satisfied: `(y=T, w=F) → (y=F, w=T) → (y=T, w=F) → ...` (second state meets criteria).  
+- ❌ Violated: `(y=T, w=T), (y=F, w=F), (y=T, w=F), ...` (no state couples `y=F` and `w=T`).  
+
+---  
+**Final phrasing:**  
+"Eventually, **y is false and w is true at the same time**."

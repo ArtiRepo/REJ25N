@@ -1,0 +1,54 @@
+### Original LTL formula:
+**b & X (a U c)**
+
+### Step-by-Step Rebuilding from Bottom Up:
+1. **Innermost formula: `c`**  
+   - Represents a propositional condition.  
+   - Satisfied if `c` is true in the state where it is evaluated.  
+   - When checked, it imposes a constraint **only** on the current state (no future constraints).
+
+2. **Until formula: `a U c`**  
+   - Requires:  
+     - **Eventually (in the current state or later) `c` must become true**.  
+     - **Until `c` becomes true, `a` must be true in every state**.  
+   - Constraints **cease** once `c` becomes true.  
+   - If `c` is true in the current state, `a` is **not required** at all (no intermediate states).  
+   - Violated if:  
+     - `c` never becomes true, or  
+     - `c` becomes true but `a` was false in any state before `c`.
+
+3. **Next operator: `X (a U c)`**  
+   - Requires: **Starting from the very next state**, `a U c` must hold.  
+   - Constraints apply **beginning at the next state** (no constraint on the current state).  
+   - The current state is irrelevant for `a U c`; only states from the next state onward are checked.
+
+4. **Conjunction: `b & X (a U c)`**  
+   - Requires **both**:  
+     - `b` must hold **in the current state**.  
+     - `X (a U c)` must hold as defined above.  
+   - If `b` is false now, the entire formula is violated (regardless of future states).
+
+---
+
+### Refined Natural Language Translation:
+
+**"The system must satisfy two conditions immediately:  
+- `b` is true **right now**.  
+- Then, starting **from the very next state**:  
+  - `c` **must eventually become true** (at or after the next state),  
+  - and `a` **must hold continuously in all states** from the next state up to (but **not including**) the state where `c` becomes true."**
+
+#### Key Clarifications:
+- **Constraints over time:**  
+  - **Now**: `b` is enforced.  
+  - **Next state onward**:  
+    - If `c` holds **in the next state**, no constraint is placed on `a` at any state.  
+    - If `c` holds later (🔹`k` states ahead, `k > 1`), `a` is required from the next state until *just before* `c`.  
+    - Once `c` becomes true, `a` is **no longer constrained** beyond that point.  
+- **Violations:**  
+  - `b` false now,  
+  - OR `c` never becomes true after now,  
+  - OR `a` false in any state between the next state and the one before `c`.  
+- **Evolution:**  
+  - If satisfied now, future states must fulfill `a U c` from the next state onward.  
+  - No retrospective constraints: states before now are irrelevant.
