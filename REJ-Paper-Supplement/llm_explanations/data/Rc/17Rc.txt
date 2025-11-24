@@ -1,0 +1,86 @@
+### Translation of LTL Formula: ¬G c
+
+#### Original LTL Formula
+¬G c
+
+#### Parsing Tree Breakdown
+The formula is parsed hierarchically:
+```
+  ¬    (Negation operator)
+   |
+  G c  (Globally operator)
+   |
+   c   (Atomic proposition)
+```
+
+#### Step-by-Step Meaning Construction
+1. **Atomic proposition `c`**:  
+   - Represents a system variable (e.g., "the door is closed").  
+   - At any moment, `c` can be either **true** (e.g., door closed) or **false** (e.g., door open).
+
+2. **Subformula `G c` (Globally c)**:  
+   - Requires `c` to be **true at every future moment** starting from **now**.  
+   - **Constraints imposed**:  
+     - `c` must hold immediately at the current moment.  
+     - `c` must also hold in **all future states**.  
+   - **Constraint release**:  
+     - Violation occurs **as soon as `c` becomes false** (at which point `G c` fails permanently).  
+   - Example violation:  
+     - If `c` is false **now** or becomes false **at any future time**, `G c` is violated.
+
+3. **Full formula `¬G c` (Negation of `G c`)**:  
+   - Flips the meaning of `G c`.  
+   - Requires that `G c` **does not hold**, meaning it is **false that `c` holds forever from now on**.  
+   - **Logical equivalence**: `¬G c ≡ F ¬c` ("Eventually not c").  
+     *(Note: We focus on direct translation without relying on equivalence.)*
+
+---
+
+#### Natural Language Translation  
+"¬G c means it is **not true that `c` will hold forever starting now**. Equivalently, **`c` must eventually become false at least once** (now or later)."
+
+---
+
+#### Detailed Explanation  
+
+1. **When Constraints Apply**:  
+   - **At the moment of evaluation**:  
+     - If `c` is **false now**, the formula is **immediately satisfied**.  
+     - If `c` is **true now**, the formula requires **a future state where `c` is false**.  
+   - **Ongoing constraints**:  
+     - A constraint persists **until the first time `c` becomes false**.  
+     - Once `c` becomes false (whether now or later), the formula is **satisfied forever after**.  
+   - **Constraint release**:  
+     - No further constraints apply **after `c` becomes false** for the first time.  
+
+2. **Truth Value Evolution**:
+   - **If satisfied immediately** (i.e., `c` false now):  
+     The formula remains true for all future states.  
+   - **If not satisfied immediately** (i.e., `c` true now):  
+     The formula remains **false (unsatisfied)** until the first occurrence where `c` turns false.  
+     After that, it becomes **permanently true**.  
+
+3. **Satisfying vs. Violating Sequences**:  
+   - **Satisfying sequence example**:  
+     `c = false` at time `t0` → Immediately true.  
+     `c = true, true, false` at `t0, t1, t2` → True at `t2` (when `c` first becomes false).  
+     - *Why?* `c` is eventually false.  
+   - **Violating sequence example**:  
+     `c = true` at all times from `t0` onward.  
+     - *Why?* `c` remains true forever.  
+
+4. **Potential Misunderstandings**:  
+   - **Misconception**: "`¬G c` requires `c` to be false **now**."  
+     - **Correction**: It requires `c` to be false **at least once** (which **could be now or later**).  
+   - **Misconception**: "Constraints apply indefinitely."  
+     - **Correction**: Constraints **cease permanently** after `c` **first becomes false**.  
+   - **Misconception**: "Once true, the formula stays true regardless of later events."  
+     - **Correction**: Once satisfied (by `c` being false at least once), the formula **cannot become false again**; its truth is **permanent** after satisfaction.
+
+---
+
+#### Final Refined Phrasing  
+"**¬G c** asserts that **`c` will not hold forever from the current moment onward**. Practically, **`c` must eventually become false** at least once (now or at any future time).  
+- **If `c` is false when checked**, the formula holds immediately and forever.  
+- **If `c` is true when checked**, the formula will hold **as soon as `c` becomes false later** and remain true thereafter.  
+The formula is **violated only if `c` stays true for all future moments**."

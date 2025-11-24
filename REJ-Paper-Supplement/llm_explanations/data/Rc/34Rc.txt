@@ -1,0 +1,78 @@
+### Translation of LTL Formula: `G (!f | !i)`
+
+#### 1. **Original Formula**:  
+`G (!f | !i)`
+
+#### 2. **Parsing Tree Breakdown**:  
+- **Root operator**: `G` (Globally)  
+  - **Subformula**: `!f | !i` (logical OR)  
+    - Left operand: `!f` (negation of atomic proposition `f`)  
+    - Right operand: `!i` (negation of atomic proposition `i`)  
+
+#### 3. **Bottom-Up Meaning Construction**:  
+- **Atomic propositions**:  
+  - `f` represents a system state (e.g., "fault occurs").  
+  - `i` represents another state (e.g., "interrupt is triggered").  
+- **Negations (`!f` and `!i`)**:  
+  - `!f` means "`f` is **false**" (e.g., "no fault occurs").  
+  - `!i` means "`i` is **false**" (e.g., "no interrupt is triggered").  
+- **Disjunction `!f | !i`**:  
+  - "`f` is false **or** `i` is false" (or both).  
+  - Equivalently: "**at least one** of `f` or `i` is absent."  
+- **Globally `G (...)`**:  
+  - "**At every future time step**, the subformula `!f | !i` must hold."  
+
+---
+
+### 4. **Natural Language Translation**:  
+**"For all future times, either `f` is false or `i` is false (or both)."**  
+Equivalently: **"`f` and `i` must never occur simultaneously at any point."**
+
+---
+
+### **Detailed Explanation**:  
+#### **When Constraints Apply**:  
+- The constraint applies **at every time step indefinitely**, starting from the moment the formula is checked.  
+- **Examples of constraint activation**:  
+  - At a time `t`, if `f` becomes true, **`i` must be false at `t`**.  
+  - At a time `t`, if `i` becomes true, **`f` must be false at `t`**.  
+  - If neither `f` nor `i` occurs at `t`, the constraint is automatically satisfied.  
+
+#### **Constraint Lifetime**:  
+- **Applies**: At every susequent time step (eternally).  
+- **Ceases**: **Never**. The "always" (`G`) operator demands eternal enforcement.  
+
+---
+
+#### **Evaluation Over Time**:  
+- **Immediate satisfaction (at time `t=0`)**  
+  - `f` and `i` must **not** both be true at the initial state.  
+- **Ongoing constraints (for `t > 0`)**  
+  - The condition must hold **at every future state** (e.g., `t=1`, `t=2`, ...).  
+
+---
+
+#### **Satisfying vs. Violating Sequences**:  
+| Scenario              | Satisfied? | Explanation                                                                 | Example Trace (`f`, `i`)                          |  
+|-----------------------|------------|-----------------------------------------------------------------------------|---------------------------------------------------|  
+| **All times: `!f`**   | ✅         | `i` can be `true` or `false`; `!f` alone satisfies `!f | !i`.              | `(f=⊥, i=⊥)`, `(f=⊥, i=⊤)`, `(f=⊥, i=⊤)`... |  
+| **All times: `!i`**   | ✅         | `f` can be `true` or `false`; `!i` alone satisfies `!f | !i`.              | `(f=⊤, i=⊥)`, `(f=⊤, i=⊥)`, `(f=⊥, i=⊥)`... |  
+| **Both `f` and `i` never co-occur** | ✅ | Each may occur but **never at the same time**.                       | `(f=⊤, i=⊥)`, `(f=⊥, i=⊤)`, `(f=⊤, i=⊥)`...      |  
+| **Both `f` and `i` true at any time** | ❌ | **Single violation** fails the entire formula due to `G`.          | `(f=⊤, i=⊤)` at any point (e.g., `t=8`).          |  
+
+> 🚫 **Violation Clarification**: A **single state** where `f` and `i` are both true renders the entire formula **false forever**, regardless of other states.
+
+---
+
+#### **Potential Misunderstandings**:  
+- ❌ **Myth**: "`G (!f | !i)` permits `f` and `i` to both occur if they are separated in time."  
+  - **Reality**: "Both may occur **at different times**, but **never simultaneously**."  
+
+- ❌ **Myth**: "Constraints relax after the first time step."  
+  - **Reality**: `G` **eternally enforces** the rule—each time step is independently checked.  
+
+---
+
+### **Final Refined Phrasing**:  
+**"Globally, `f` and `i` are mutually exclusive: they must never occur at the same time."**  
+This emphasizes permanence, mutual exclusion, and applies in any context (e.g., safety-critical systems where concurrent events cause errors).

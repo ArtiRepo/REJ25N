@@ -1,0 +1,87 @@
+### Translation of LTL Formula: \( G(a \lor b) \)
+
+#### Step 1: Original Formula  
+\( G(a \lor b) \)  
+
+#### Step 2: Parsing Tree Breakdown
+```
+      G        (Global operator)
+      |
+      ∨        (Disjunction: OR)
+     / \
+    a   b     (Atomic propositions)
+```
+
+- **Bottom-up composition**:  
+  - `a` and `b` are atomic propositions (basic state variables).  
+  - `(a \lor b)` means "`a` is true **or** `b` is true" (or both) at a specific moment.  
+  - `G(a \lor b)` applies the **Global operator** to `(a \lor b)`.  
+
+---
+
+#### Step 3: Rebuilding Meaning  
+1. **Base step: \( a \lor b \)**  
+   - Satisfied if **at least one** of `a` or `b` is true **at a given moment**.  
+   - Fails **only if both `a` and `b` are false** simultaneously.  
+
+2. **Global operator \( G \phi \)**  
+   - Demands that \( \phi \) (**here, \( a \lor b \)**) holds **at every future moment**, starting from **now**.  
+   - \( G(a \lor b) \) requires:  
+     > "*For this moment and all moments hereafter, `a` or `b` must be true.*"  
+
+---
+
+#### Step 4: Refined Natural Language Phrasing  
+> "**Always, either `a` or `b` is true.** This means, starting now and continuously forever, at least one of `a` or `b` must hold in every state."  
+
+---
+
+### Full Explanation  
+
+#### **Immediate vs. Ongoing Constraints**  
+- **At the moment of evaluation (time `t`):**  
+  - The formula **immediately requires** `a \lor b` to hold at `t`.  
+  - If both `a` and `b` are false at `t`, the formula is **instantly violated**.  
+
+- **Over time:**  
+  - The constraint **persists indefinitely** for **all future times** (`t+1`, `t+2`, ...).  
+  - There is **no point** after `t` where the constraint "expires." The obligation lasts forever.  
+
+#### **Satisfaction vs. Violation**  
+- **Formula is SATISFIED** if:  
+  - From the evaluation moment onward, **every state** has at least one of `a` or `b` true.  
+  - *Example trace:* `a=true, b=false` → `a=false, b=true` → `a=true, b=true` → ...  
+
+- **Formula is VIOLATED** if:  
+  - There **exists any future moment** where **both `a` and `b` are false**.  
+  - *Example trace:* `a=true, b=false` → `a=false, b=false` → ... (fails at the second step).  
+  - **Crucial nuance**: Violation retroactively makes the formula false at the starting point.  
+    - If a failure occurs at time `t=k`, then \( G(a \lor b) \) evaluates to **false at all times `t ≤ k`** (since the future from `t` includes the failure).  
+
+#### **When Constraints Apply**  
+| Time         | Constraint Applies?                                       | Truth Value at `t` Depends On...          |  
+|--------------|----------------------------------------------------------|------------------------------------------|  
+| Now (`t`)    | **Yes**—`a \lor b` must hold at `t`.                     | Current state only.                      |  
+| Future (`>t`)| **Yes**—`a \lor b` must hold **at every future moment**. | **All states** after `t`, indefinitely.  |  
+| Past (`<t`)  | **No**—past states do not affect \( G(a \lor b) \) at `t`. | Only states **from `t` onward**.         |  
+
+#### **Common Misunderstandings**  
+1. **"`a` or `b` must hold eventually?"**  
+   - **No**. `G(a \lor b)` requires **immediate and perpetual** compliance—not just eventual occurrence.  
+   - *Contrast with* `F(a \lor b)` ("eventually `a` or `b`")—which allows temporary failures.  
+
+2. **"Constraint stops after a while?"**  
+   - **False**. The obligation **never ceases**; "globally" (G) means **"in all future moments"** without end.  
+
+3. **"Both `a` and `b` must be true?"**  
+   - **No**. Only **one** needs to be true at any time. Both are allowed but not required.
+
+4. **"Violations can be 'fixed' later?"**  
+   - If a failure occurs at time `t`, **all evaluations at moments before/at `t` are false**, regardless of future states.  
+     - *Example*: If both `a` and `b` are false at `t=2`, then:  
+       - \( G(a \lor b) \) is **false** at `t=0`, `t=1`, and `t=2` (even if `a∨b` solves itself at `t=3`).
+
+---
+
+### Final Natural Language Translation  
+> "**Globally, either `a` or `b` must hold.** At every moment in time—starting immediately and continuing forever—at least one of `a` or `b` must be true. If at any future point both become false, the formula is violated retroactively for all prior/present moments."
