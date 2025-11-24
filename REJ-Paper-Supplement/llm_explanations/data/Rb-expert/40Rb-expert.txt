@@ -1,0 +1,73 @@
+### Step-by-Step Translation of LTL Formula: `F (o | u)`
+
+#### 1. **Original LTL Formula**:  
+`F (o | u)`  
+
+---
+
+#### 2. **Breakdown into Parsing Tree**:  
+The formula has a simple hierarchical structure:  
+- **Root operator**: `F` (the **Eventually** temporal operator).  
+- **Subformula**: `(o | u)` (a **logical OR** between atomic propositions `o` and `u`).  
+- **Atomic propositions**:  
+  - `o` (e.g., "the system is in state `o`").  
+  - `u` (e.g., "the system is in state `u`").  
+
+**Parsing Tree Visualization**:  
+```
+     F  
+     │  
+     ∨  
+    ( | )  
+    /   \  
+   o     u  
+```
+
+---
+
+#### 3. **Rebuilding Meaning Bottom-Up**:
+
+- **Step 1: Atomic propositions (`o`, `u`)**  
+  - `o`: Represents a specific state/fact (e.g., "a notification is sent").  
+  - `u`: Represents another state/fact (e.g., "a user intervenes").  
+  - *Semantics*: These are the base conditions that must hold at a specific point in time.  
+
+- **Step 2: Logical OR (`o | u`)**  
+  - **Meaning**: Either `o` is true **or** `u` is true at a given time (or both). For example:  
+    > "`o` occurs **OR** `u` occurs at time *t*."  
+  - *Key Point*: This is a **non-temporal** logical operator; it only constrains the current state, not the timeline.  
+
+- **Step 3: Temporal Operator `F` (Eventually)**  
+  - **Meaning**: "At some **future time**, the subformula must hold." Applied to `(o | u)`, this becomes:  
+    > "Eventually, either `o` or `u` **must become true**."  
+  - *Temporal Constraint*: The system must **eventually** reach a state where either `o` or `u` (or both) occurs. There is **no guarantee** about when this happens, but it must occur at least once in the future.  
+
+---
+
+#### 4. **Refined Natural Language Phrasing**:  
+To ensure clarity and alignment with the formula’s constraints, refine the translation:  
+> "**Eventually, either `o` occurs or `u` occurs (or both).**"  
+
+**Key Nuances Explained**:  
+- **"Eventually"** (`F`): Indicates a **future obligation** but allows any time frame (e.g., next state, far future).  
+- **"Either ... or"** (`|`): Specifies that **at least one** of `o` or `u` must hold. Both can be true simultaneously.  
+- **Failure Condition**: The formula is **violated** only if the system **never** enters a state where `o` or `u` is true.  
+
+---
+
+**Why this phrasing?**  
+- **No ambiguity**: Clearly separates temporal ("eventually") from logical ("either/or").  
+- **Minimalist**: Avoids overcomplicating implications (e.g., doesn’t forbid repeated occurrences).  
+- **System constraints**: Directly maps to a requirement for the system to eventually satisfy `o` ∨ `u`.  
+
+**Final Translation**:  
+> **"The system must eventually reach a state where either `o` or `u` (or both) is true."**  
+
+---
+### Summary Table
+| **Component** | **LTL Symbol** | **Role** | **Natural Language Equivalent** |
+|---------------|----------------|----------|--------------------------------|
+| Atomic Prop. | `o` | State condition | "`o` occurs" |
+| Atomic Prop. | `u` | State condition | "`u` occurs" |
+| Logical OR | `\|` | Disjunction | "either ... or (or both)" |
+| Eventually | `F` | Future obligation | "eventually" |

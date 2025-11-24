@@ -1,0 +1,65 @@
+### Step-by-Step Reasoning for LTL Formula Translation
+
+#### 1. **Original LTL Formula**
+   ```
+   X(!g | !j)
+   ```
+
+#### 2. **Parsing Tree Breakdown**
+   - **Root operator**: `X` (Next operator)  
+     - **Child**: Disjunction `!g | !j`  
+       - **Left operand**: Negation `!g`  
+         - *Atomic proposition*: `g`  
+       - **Right operand**: Negation `!j`  
+         - *Atomic proposition*: `j`  
+
+   **Tree Visualization**:
+   ```
+   X
+   └── OR (|)
+       ├── NOT (!)
+       │   └── g
+       └── NOT (!)
+           └── j
+   ```
+
+#### 3. **Rebuilding Meaning from Bottom Up**
+   - **Atomic propositions**:  
+     - `g` = *"`g` is true"* (e.g., "the system is in state `g`").  
+     - `j` = *"`j` is true"* (e.g., "the system is in state `j`").  
+
+   - **Negations**:  
+     - `!g` = *"`g` is false"*.  
+     - `!j` = *"`j` is false"*.  
+
+   - **Disjunction (`|`)**:  
+     - `!g | !j` = *"`g` is false OR `j` is false"*.  
+     - **Logical equivalence**: This is equivalent to ¬(g ∧ j), meaning *"`g` and `j` cannot both be true simultaneously"*.  
+
+   - **Next (`X`)**:  
+     - `X(...)` = *"In the immediate next state of the system, ... must hold"*.  
+     - Thus, `X(!g | !j)` = *"In the next state, `g` is false OR `j` is false"* (or equivalently, *"`g` and `j` are not both true in the next state"*).  
+
+#### 4. **Refined Natural Language Phrasing**
+   To express this clearly and concisely:  
+   - **"At the next moment in time, `g` and `j` cannot both be true."**  
+   
+   **Key clarifications**:  
+   - **Scope**: Applies **only to the immediate next state** (not to any future or past states).  
+   - **Constraint**: The formula forces the system to avoid a state where `g ∧ j` is true in the immediate future.  
+   - **Equivalent interpretations**:  
+     - "If the system transitions, the next state must satisfy ¬(g ∧ j)."  
+     - "The next state must ensure that at least one of `g` or `j` is false."  
+
+### Final Translation  
+**Natural Language Explanation**:  
+> *"In the immediate next state of the system, the propositions `g` and `j` are not both true."*  
+
+**Why this phrasing?**  
+- Directly maps `X` to *"next state"* and `!g | !j` to *"not both true"*.  
+- Explicitly highlights **time constraints** (only applies to the very next state).  
+- Avoids ambiguity by emphasizing mutual exclusion (`g` and `j` cannot coexist in the next step).  
+
+**Example Context**:  
+- If `g` = "alarm enabled" and `j` = "door unlocked", the formula requires:  
+  *"At the next system step, the alarm cannot be enabled while the door is unlocked."*  

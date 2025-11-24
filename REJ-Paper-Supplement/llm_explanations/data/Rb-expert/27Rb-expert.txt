@@ -1,0 +1,59 @@
+### Step-by-Step Reasoning for Translating LTL Formula: \( X\, (t \lor w) \)
+
+#### 1. **Original LTL Formula**
+   \[
+   X \, (t \lor w)
+   \]
+
+#### 2. **Parsing Tree Breakdown**
+The formula is decomposed into its logical components:
+- **Atomic propositions**: `t` and `w` (each represents a distinct Boolean condition at a state).
+- **Operator**: Disjunction `\(\lor\)` (logical OR), combining `t` and `w`.
+- **Temporal operator**: `\(X\)` (Next), applied to `\(t \lor w\)`.
+
+Parsing tree structure:
+```
+     X
+      |
+    (OR)
+    /   \
+   t     w
+```
+- **Leaf level**: Atomic propositions `t` and `w`.
+- **Subformula level**: `\(t \lor w\)` (disjunction of `t` and `w`).
+- **Root level**: Temporal operator `\(X\)` applied to `\(t \lor w\)`.
+
+#### 3. **Rebuilding Meaning from Bottom-Up**
+- **Base components**:
+  - **`t` holds**: Condition `t` is satisfied in the **current state**.
+  - **`w` holds**: Condition `w` is satisfied in the **current state**.
+  - **\(t \lor w\)**: At least one of `t` or `w` holds **in the current state**. This is a **static requirement** (no temporal aspect).
+
+- **Apply `X` (Next) operator**:
+  - `\(X \, \varphi\)` means \(\varphi\) must hold in the **immediately next state** (i.e., the next time step).
+  - Replace \(\varphi\) with `\(t \lor w\)`:  
+    `\(X \, (t \lor w)\)` means **`t \lor w` must hold in the next state**.
+  - Semantics:  
+    "At the **next moment in time**, either `t` is true or `w` is true."
+
+#### 4. **Refined Natural Language Phrasing**
+To ensure clarity and specificity:
+- **Temporal constraint**: Emphasize **when** the condition applies:  
+  > *"In the immediate next state of the system, either condition `t` must hold or condition `w` must hold."*
+
+- **Key clarifications**:
+  - The formula **only constrains the next state**, not the current or past states.
+  - `t` and `w` are atomic propositions (e.g., `t` = "transaction occurs", `w` = "warning is raised").  
+  - **Violation**: Both `t` AND `w` are **false** at the next state.
+
+- **Final translation**:
+  > **"In the very next time step, either `t` must be true or `w` must be true."**
+
+### Summary
+- **Formula satisfied**: If the next state has `t = TRUE` OR `w = TRUE` (or both).  
+- **Formula violated**: If the next state has `t = FALSE` AND `w = FALSE`.  
+- **Scope**: Constrains **only the direct successor** of the current state—no requirements on later/future states.  
+
+Example:  
+- System traces that satisfy: `[t=F, w=F] → [t=T, w=F]` **(valid: `t` holds next)**.  
+- System traces that violate: `[t=F, w=F] → [t=F, w=F]` **(invalid: neither holds)**.

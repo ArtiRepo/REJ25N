@@ -1,0 +1,82 @@
+### Translation of LTL Formula: `F x | F y`
+
+#### 1. **Original Formula**  
+`F x | F y`  
+*(Note: `|` denotes logical OR)*  
+
+---
+
+#### 2. **Parsing Tree Breakdown**  
+- **Root**: Disjunction operator (`|`), combining two subformulas:  
+  - **Left child**: `F x` (Eventually `x`)  
+    - *Operator*: `F` (Future temporal operator).  
+    - *Atomic proposition*: `x` (e.g., "event x occurs" or "state x holds").  
+  - **Right child**: `F y` (Eventually `y`)  
+    - *Operator*: `F`.  
+    - *Atomic proposition*: `y`.  
+
+**Parsing Tree**:  
+```
+     |  
+   /   \  
+  F     F  
+  |     |  
+  x     y  
+```
+
+---
+
+#### 3. **Rebuilding Meaning from the Bottom Up**  
+- **Atomic propositions**:  
+  - `x`: A base condition (e.g., "the system enters state `x`").  
+  - `y`: Another base condition (e.g., "event `y` is triggered").  
+
+- **Subformula `F x`**:  
+  - *Means*: "**Eventually**, `x` holds at some future time."  
+  - *Semantics*: There exists at least one future time where `x` becomes/is true.  
+
+- **Subformula `F y`**:  
+  - *Means*: "**Eventually**, `y` holds at some future time."  
+
+- **Root (`F x | F y`)**:  
+  - *Means*: "Either `x` eventually holds, **or** `y` eventually holds (or both)."  
+  - *Semantics*: The system must satisfy **at least one** of these futures:  
+    - `x` occurs at least once in the timeline,  
+    - `y` occurs at least once in the timeline.  
+    - *(Both can occur, but one is sufficient).*  
+
+---
+
+#### 4. **Refined Natural Language Translation**  
+> **"Eventually, either `x` happens or `y` happens (or both)."**  
+
+#### **Key Implications**:  
+1. **Satisfaction Condition**:  
+   - The formula holds if **any** of these occur:  
+     - `x` becomes true at **any future time** (even if `y` never occurs),  
+     - `y` becomes true at **any future time** (even if `x` never occurs),  
+     - **Both `x` and `y` occur** (at the same or different times).  
+
+   *Example satisfactions*:  
+   - `x` occurs at time `t=5` → formula holds (no need for `y`).  
+   - `x` never occurs, but `y` occurs at `t=10` → formula holds.  
+   - `x` occurs at `t=3` and `y` at `t=7` → formula holds.  
+
+2. **Violation Condition**:  
+   - The formula is violated **only if neither `x` nor `y` ever occurs** in the entire timeline.  
+
+   *Example violation*:  
+   - All states/timepoints: `x=false`, `y=false` → formula fails.  
+
+3. **Temporal Flexibility**:  
+   - No constraints on **order** (e.g., `x` can occur before/after `y`).  
+   - No constraints on **frequency** (a single occurrence of either `x` or `y` suffices).  
+
+4. **System Requirements Perspective**:  
+   - The system must guarantee **at least one outcome**:  
+     > "The system must ensure that event `x` **or** event `y` (or both) **will eventually occur**."  
+
+---
+
+**Final Translation**:  
+> **"The system guarantees that either `x` or `y` (or both) will happen at some point in the future."**

@@ -1,0 +1,57 @@
+### Translation of LTL Formula: `G(a or b)`
+
+#### 1. **Original LTL Formula**
+`G(a or b)`
+
+---
+
+#### 2. **Parsing Tree Breakdown**
+The formula is structured as a nested expression. We break it into operators and atomic propositions:
+```
+      G        (Global operator)
+       \
+      OR       (Disjunction operator)
+      / \
+     a   b     (Atomic propositions)
+```
+- **Leaf level**: Atomic propositions `a` and `b` represent basic Boolean states (e.g., "the system is in mode A" or "sensor B is active").
+- **Middle level**: `OR` combines `a` and `b` into `(a or b)`, meaning at least one of `a` or `b` must hold in a **single state**.
+- **Root level**: `G` applies globally to `(a or b)`, enforcing a requirement over **all states in the trace**.
+
+---
+
+#### 3. **Rebuilding Meaning Bottom-Up**
+We interpret from atomic propositions up to the root operator:
+- **Step 1: Atomic propositions (`a`, `b`)**  
+  `a` and `b` are Boolean conditions (e.g., `a = "door is open"`, `b = "alarm is on"`). The truth value of each is evaluated per state.
+  
+- **Step 2: Disjunction (`OR`)**  
+  `(a or b)` is satisfied in a state if **at least one of `a` or `b` is true** in that state.  
+  *Example*: If `a` is false but `b` is true in a state, `(a or b)` is still true in that state.
+
+- **Step 3: Global operator (`G`)**  
+  `G(a or b)` means:
+  - **At every state** in the system's execution (now and forever in the future),  
+  - `(a or b)` **must hold true**.  
+  → No state may exist where *both* `a` and `b` are simultaneously false.
+
+---
+
+#### 4. **Refined Natural Language Translation**
+> **"At every moment in time, at least one of `a` or `b` must hold true."**
+
+##### Explanation of Constraints:
+- **Requirement for satisfaction**:  
+  The formula is satisfied only if, across the **entire timeline** of the system, every state has `a = true`, `b = true`, or both. There are **zero exceptions**.
+  
+- **Consequences & System Constraints**:
+  - If a state occurs where *neither* `a` nor `b` holds (both are false), the formula is **violated**.
+  - The system must **continuously enforce** that `a` or `b` remains active.  
+    *(Example: A security system might require `a = "door locked"` or `b = "motion detected"` at all times to prevent a breach)*.
+  - Weaknesses: The formula does *not* specify which of `a` or `b` must hold, nor how they may change. It only forbids states where both are absent.
+
+---
+### Key Insight
+`G(a or b)` expresses an **invariant safety property**:  
+*"The system must forever avoid entering a state where neither `a` nor `b` is true."*  
+This forces perpetual compliance without dictating timing, frequency, or specific conditions for `a` or `b` beyond their mutual exclusion from falsity.

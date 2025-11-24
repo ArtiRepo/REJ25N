@@ -1,0 +1,49 @@
+### Translation of LTL Formula: FGa
+
+#### 1. **Original Formula**  
+`FGa` (formally parsed as `F(G a)`).
+
+#### 2. **Parsing Tree Breakdown**  
+- **Atomic proposition**: `a` (a basic statement about the system state, e.g., "the light is on").  
+- **Unary operator `G`**: Applies to `a` → `G a` ("Globally, `a`").  
+- **Unary operator `F`**: Applies to `G a` → `F(G a)` ("Eventually, `G a`").  
+
+Tree structure:  
+```
+    F  
+    │  
+    G  
+    │  
+    a  
+```
+
+#### 3. **Rebuilding Meaning from the Bottom Up**  
+- **Base: `a`**  
+  - "Proposition `a` holds **now** (in the current state)."  
+- **Apply `G`: `G a`**  
+  - "`a` holds **in every future state** (including the present)."  
+  - *Constraint*: From the current moment forward, `a` must **never** be false.  
+- **Apply `F`: `F(G a)`**  
+  - "**At some future moment**, `G a` becomes true."  
+  - *Constraint*: The system must reach a state **from which `a` holds forever thereafter**.  
+
+#### 4. **Refined Natural Language Translation**  
+> **"Eventually, 'a' becomes permanently true."**  
+> (Equivalently: "There exists a point in the future after which 'a' holds forever.")  
+
+#### Key Implications:  
+- **Satisfaction condition**: The formula is satisfied if, at **any point** in the execution:  
+  1. `a` becomes true, **and**  
+  2. `a` **stays true in all subsequent states forever**.  
+- **Violation**: If `a` **never stabilizes to true permanently** (e.g., `a` alternates/reverts to false infinitely often), the formula is violated.  
+
+#### Examples:  
+| Sequence of `a`          | Satisfies `FGa`? | Explanation                                  |  
+|--------------------------|------------------|----------------------------------------------|  
+| `[F, F, F, T, T, T, ...]`| **Yes**          | `a` becomes true at step 3 and **stays true forever**. |  
+| `[T, T, T, ...]`         | **Yes**          | `a` is immediately/stably true.              |  
+| `[F, T, F, T, F, ...]`   | **No**           | `a` never **stays** true permanently.        |  
+| `[F, F, F, ...]`         | **No**           | `a` never becomes true.                      |  
+
+#### Formal Nuance:  
+The formula requires a **specific stabilization point** in the timeline. Once reached, `a` **cannot** revert to false in any future state. This distinguishes `FGa` from weaker formulas like `GFa` (infinitely often true, but not necessarily permanently).

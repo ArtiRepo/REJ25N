@@ -1,0 +1,56 @@
+### Translation of LTL Formula: **F (!y & w)**
+
+#### Step 1: Original LTL Formula  
+**F (!y & w)**  
+
+#### Step 2: Parsing Tree Breakdown  
+- **F** (eventually/always in the future)  
+  - **&** (logical AND)  
+    - **!y** (negation of `y` = "`y` is false")  
+    - **w** (atomic proposition `w` = "`w` is true")  
+
+Parsing tree:  
+```
+     F  
+     |  
+     &  
+    / \  
+   !   w  
+   |    
+   y    
+```
+
+#### Step 3: Rebuilding Meaning from Bottom-Up  
+1. **Leaf nodes:**  
+   - `y` → "`y` is true"  
+   - `!y` → Negates `y` → "**`y` is false**"  
+   - `w` → "**`w` is true**"  
+
+2. **Logical AND (`&`):**  
+   - `!y & w` → Both subformulas must hold **simultaneously**:  
+     "**`y` is false and `w` is true**" at the same moment.  
+
+3. **Temporal Operator (`F`):**  
+   - `F` requires the inner formula to hold **at least once** in the future (including the present):  
+     "**Eventually** (now or later), there is a moment where `y` is false and `w` is true."  
+
+#### Step 4: Refined Natural Language Phrasing  
+> **"Eventually, `w` becomes true while `y` is false (at the same time)."**  
+
+##### Key Clarifications:  
+- **Scope of `F`**: The condition `!y & w` must occur **at least once** at a specific point in time (immediately or in the future).  
+  - *Example*: If `w` turns true at any point where `y` is false, the formula holds. Afterward, `y` and `w` may change freely.  
+- **Constraint**: The system is only forced to satisfy `w` and `¬y` **simultaneously once**. It does **not** require:  
+  - `w` to stay true forever,  
+  - `y` to stay false forever,  
+  - Any guarantees about `w` or `y` individually outside this moment.  
+
+##### When the Formula is Violated?  
+If the system **never** enters a state where `w` is true and `y` is false simultaneously, the formula is **false**.  
+
+###### Example Scenarios:  
+- **Satisfied**: At time `t=3`, `y` is false and `w` is true (no other conditions imposed).  
+- **Violated**: `w` is only true when `y` is also true, or `w` remains false forever while `y` is true.  
+
+**Final Natural Language Expression**:  
+> **"Eventually, `w` is true and `y` is false at the same moment."**

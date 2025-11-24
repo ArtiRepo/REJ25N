@@ -1,0 +1,50 @@
+### Translation of the LTL Formula `G a`
+
+#### Original LTL Formula:
+`G a`
+
+#### Parsing Tree Breakdown:
+The formula `G a` consists of:
+- **Temporal operator `G`** (Globally/Always)  
+- **Atomic proposition `a`** (a basic condition, e.g., "the system is safe").  
+
+Tree structure:  
+```
+    G  
+    |  
+    a  
+```
+
+#### Step-by-Step Meaning Reconstruction:
+1. **Base case (`a`)** (bottom of the tree):  
+   - `a` is a proposition representing a specific state condition (e.g., "the door is closed" or "the system is idle").  
+   - **Meaning**: This condition `a` must hold (be true) in the **current state** being evaluated.  
+
+2. **Apply the `G` operator** (rebuilding upward):  
+   - `G` (Globally/Always) is a temporal operator that constrains the entire future behavior of the system, starting from the current state.  
+   - **Meaning**: `G a` asserts that **for every state in the entire execution path**, starting now and extending infinitely into the future, the condition `a` must hold.  
+   - **Formal semantics**: For every time point \( t \geq 0 \) (where \( t=0 \) is the start), the proposition `a` is true at \( t \).  
+
+---
+
+#### Refined Natural Language Phrasing:
+To ensure clarity and precision in the context of system requirements:  
+> **"Condition `a` must hold at all times."**  
+
+##### Explanation of Constraints:  
+- **When satisfied**:  
+  The formula `G a` is satisfied **only if** `a` is true in *every* state of the system’s execution timeline. Any deviation (e.g., a single state where `a` is false) violates the requirement.  
+
+- **Temporal implications**:  
+  - This imposes a **permanent constraint**: `a` must hold continuously from the initial state onward.  
+  - Example: If `a` is "the device temperature ≤ 100°C", the system must *never* exceed this threshold during operation.  
+
+##### Key Considerations for Requirements Engineering:  
+1. **Strictness**: `G a` expresses an **invariant**—it forbids `¬a` at any point in time.  
+2. **Practical mapping**: Replace `a` with a concrete condition (e.g., "G (safety_engaged)" → "Safety mode is always engaged").  
+3. **Common use cases**: Safety properties ("no errors"), perpetual states ("system remains idle"), or persistent configurations.  
+
+###### Why this phrasing works:  
+- "At all times" explicitly captures the temporal scope of `G`.  
+- "Condition `a`" invites the requirement engineer to substitute `a` with a domain-specific constraint.  
+- Concise, unambiguous, and actionable for system specification.

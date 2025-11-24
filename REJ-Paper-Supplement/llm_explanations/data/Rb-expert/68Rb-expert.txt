@@ -1,0 +1,52 @@
+### Translation of LTL Formula: **a U b**
+
+#### 1. **Original LTL Formula**:  
+`a U b`
+
+#### 2. **Parsing Tree Breakdown**:  
+```
+     U
+    / \
+   a   b
+```
+- **Leaves**: Atomic propositions.  
+  - `a`: "`a` is true."  
+  - `b`: "`b` is true."  
+- **Operator**: `U` (*Until*) is a binary temporal operator.  
+  - Semantics:  
+    `a U b` is satisfied **iff** there exists a future state where `b` holds, and for every state from the current state up to (but not including) that future state, `a` holds.  
+
+#### 3. **Rebuilding Meaning (Bottom-Up)**:
+- **Base Case**:  
+  - `a`: True in the current state.  
+  - `b`: True at some future state.  
+- **Operator Semantics**:  
+  `a U b` requires:  
+  - **Eventuality**: `b` must become true at some future time (say, at position `j`).  
+  - **Invariance**: From the **current state (inclusive)** until **exclusively before `j`**, `a` must hold in every state.  
+    - *Note*: At state `j` (where `b` becomes true), `a` can be *true or false*.
+
+#### 4. **Refined Natural Language Phrasing**:  
+> "**Eventually, `b` becomes true, and at every state until `b` becomes true, `a` holds."  
+
+**Detailed Explanation**:  
+- **Satisfaction Cases**:  
+  - If `b` is **currently true**, `a U b` holds immediately (no need for `a` to be true).  
+  - If `b` is **future true** at time `j` (after `≥1` steps), `a` must be true in **all states from now until (and when `j>0`)** for all states between the current state and the state immediately preceding `j`; and `b` must be true at `j`.  
+- **Violation Cases**:  
+  - `b` **never becomes true**, OR  
+  - `b` eventually becomes true, but `a` **fails to hold** in any state between the current state and the state immediately preceding the occurrence of `b`.  
+- **Temporal Constraint**:  
+  - If `b` happens at step `j`, `a` must be true in steps `0` to `j-1` (relative to the current state as step `0`).  
+
+**Example**:  
+- *Valid path*: `a=true, a=true, b=true, ...` (`a` holds until `b` appears).  
+- *Invalid path*: `a=false, ...` (fails if `a` is false now, even if `b` later becomes true).  
+
+**Clarification**:  
+The phrasing "until `b` becomes true" implies:  
+1. `b` **must eventually occur**.  
+2. `a` must hold **continuously** up to the state *just before* `b` occurs.  
+After `b` is true, `a` has no constraints (regardless of its value).  
+
+This captures both **eventuality** (`b` must happen) and **safety** (`a` must persist up to `b`).

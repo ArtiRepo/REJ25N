@@ -1,0 +1,46 @@
+**Original LTL Formula:**  
+`t => w`
+
+**Parsing Tree Breakdown:**  
+- **Root**: Implication operator (`=>`).  
+  - **Left child**: Atomic proposition `t` (state-based condition).  
+  - **Right child**: Atomic proposition `w` (state-based condition).  
+
+**Rebuilding Meaning (Bottom-Up):**  
+1. **Atomic propositions**:  
+   - `t` represents a system state condition (e.g., "the button is pressed").  
+   - `w` represents another system state condition (e.g., "a warning is issued").  
+
+2. **Implication operator (`=>`)** (logical "if-then"):  
+   - Semantics: `t => w` means **"if `t` is true at a state, then `w` must also be true at that same state"**.  
+   - This constraint applies **at every state** in all possible system traces (due to LTL’s implicit "globally" operator over time).  
+
+**Refined Natural Language Phrasing:**  
+"**At every moment in time, if `t` holds, then `w` must simultaneously hold.**"  
+
+---
+
+**Key Explanations:**  
+- **When satisfied?**  
+  The formula holds if, in every system trace, whenever `t` is true at any time instant, `w` is true **at that exact same instant**.  
+  - *Example valid trace*:  
+    `t=false, w=false` → then `t=true, w=true` → then `t=false, w=false` → ...  
+    (Whenever `t` appears, `w` is instantly present.)  
+
+- **When not satisfied?**  
+  The formula is violated if there exists **any state** where `t` is true but `w` is false.  
+  - *Example invalid trace*:  
+    `t=true, w=false` → ... (Violation at the first state: `t` holds but `w` does not.)  
+
+- **Scope & Constraints**:  
+  - **No temporal delays**: `w` must coincide with `t` at the same instant (not "eventually" or in the future).  
+  - **No effect when `t` is false**: If `t` is false, the formula permits `w` to be `true` or `false` without constraint.  
+  - **Global requirement**: Applies to all states (both current and future) of the system’s execution.  
+
+---
+
+**Why This Matters for System Requirements:**  
+This formula encodes a real-time dependency, such as:  
+- "A system alarm **must sound** exactly when overheating is detected."  
+- "A login prompt **must appear** whenever authentication fails."  
+It prohibits scenarios where cause (`t`) and effect (`w`) are decoupled in time or where `t` occurs without an immediate `w`.
