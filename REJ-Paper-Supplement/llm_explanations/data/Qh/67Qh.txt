@@ -1,0 +1,8 @@
+- **Original LTL formula**: XXFa  
+- **Rebuild meaning from the bottom of the tree up**:  
+  - F a: "a must be true at some future state."  
+  - X(F a): "In the next state, a must be true at some future state."  
+  - X(X(F a)): "In the state after the next, a must be true at some future state."  
+  - For the entire formula: "At every state in the execution, two steps ahead, a must eventually be true."  
+- **Refine the natural language phrasing for clarity**:  
+  "For all states in the system's execution, two steps forward, a must eventually become true. The constraint applies starting from the second next state onward, but does not restrict the current or immediate next state."

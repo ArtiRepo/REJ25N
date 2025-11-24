@@ -1,0 +1,13 @@
+- Write down original LTL formula  
+F d | G !n  
+
+- Rebuild meaning from the bottom of the tree up  
+F d: "d must be true in at least one future state."  
+G !n: "n is false in every state of the execution."  
+The formula combines these with OR: "Either d eventually becomes true, or n is never true throughout the execution."  
+
+- Refine the natural language phrasing for clarity  
+The system satisfies the formula if:  
+1. **d is true at some point in the future** (no constraints on earlier states), **or**  
+2. **n is false in all states** (current and future).  
+Once d is true, the first condition is met, and the formula holds regardless of n. If n is false in every state, the second condition is met, and the formula holds regardless of d. The formula imposes ongoing constraints until one of the conditions is fulfilled.

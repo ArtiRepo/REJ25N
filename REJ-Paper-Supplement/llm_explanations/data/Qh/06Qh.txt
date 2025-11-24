@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+  X !b & d  
+
+- Rebuild meaning from the bottom of the tree up  
+  X !b: "In the very next state, b must be false."  
+  d: "d must be true in the current state."  
+  Combined with AND: "d is true now, and b is false in the next state."  
+
+- Refine the natural language phrasing for clarity  
+  "d must hold in the current state, and b must be false in the immediately following state. No constraints apply to b or d beyond these two states."

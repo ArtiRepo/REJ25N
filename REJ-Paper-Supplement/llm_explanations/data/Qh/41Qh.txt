@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+G (n ⇒ s)  
+
+- Rebuild meaning from the bottom of the tree up  
+G ensures the embedded condition holds in *all* states. The embedded condition (n ⇒ s) means: *if* n is true in a state, *then* s must also be true in that same state. When n is false, s is unconstrained. Thus, the formula enforces that *every time n is true, s must be true*, but allows s to be false when n is false.  
+
+- Refine the natural language phrasing for clarity  
+"In every state, if n is true, then s must also be true. When n is false, s can be either true or false. The constraint applies only when n is active; otherwise, s is unrestricted."

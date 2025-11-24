@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+F (!y ∧ w)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula asserts that at some point in the future, both "y is false" and "w is true" must hold. The "F" operator requires existence of a future state where the conjunction (!y ∧ w) is true. Until that state is reached, there are no constraints on y or w. Once the state satisfies (!y ∧ w), the formula is satisfied, and no further constraints apply.  
+
+- Refine the natural language phrasing for clarity  
+"There must be a future state where y is false and w is true."

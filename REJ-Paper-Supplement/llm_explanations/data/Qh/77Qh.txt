@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  a U !a  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula requires that "a is true in every state until !a becomes true." Once !a is true in some state, the constraint on "a" ends. The formula enforces that there is a point where !a holds, and prior to that, a must always hold.  
+
+- Refine the natural language phrasing for clarity  
+  "a must remain true in all states until it eventually becomes false, and it must become false at some point."

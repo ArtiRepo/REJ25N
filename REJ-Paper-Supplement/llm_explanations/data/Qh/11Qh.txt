@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+a U (b & c)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula requires that "b and c" eventually hold. Until the first state where "b and c" are both true, "a" must hold in every state. Once "b and c" are true in a state, "a" is no longer constrained. The formula enforces ongoing constraints on "a" only before the satisfaction of "b & c."  
+
+- Refine the natural language phrasing for clarity  
+"a must remain true until both b and c are simultaneously true. After the first occurrence where b and c are both true, a can become false or vary freely. The formula requires that b and c are true at some point, and a is strictly enforced in all states prior to that event."

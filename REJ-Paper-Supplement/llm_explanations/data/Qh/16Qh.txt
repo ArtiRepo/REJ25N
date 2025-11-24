@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+F !b  
+
+- Rebuild meaning from the bottom of the tree up  
+F (!b) means "there exists at least one future state where !b is true." The formula imposes a constraint that b must be false at some point in the execution. This constraint applies over time: until b becomes false, no specific condition is enforced on b. Once b is false in any state, the constraint is satisfied.  
+
+- Refine the natural language phrasing for clarity  
+"B must eventually be false." The formula requires that b is false at some future state, but does not restrict its truth value in prior states. Once b is false, the condition is met, and no further constraints apply. If b remains true forever, the formula is violated.

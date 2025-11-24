@@ -1,0 +1,15 @@
+- Write down original LTL formula  
+FGa  
+
+- Rebuild meaning from the bottom of the tree up  
+Ga: "a must be true in every state of the execution."  
+F(Ga): "There must exist at least one future state where Ga is true."  
+Combining: "There exists a point in time where a becomes true and remains true in all subsequent states."  
+
+- Refine the natural language phrasing for clarity  
+"a must eventually become true and remain true forever after."  
+
+**Constraints**:  
+- Initially, no constraints on a.  
+- Once a becomes true at some state, it must hold in all future states.  
+- If a is false at all states, or if a becomes true but later turns false, the formula is violated.

@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+F (o U u)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula o U u requires that *u becomes true at some point, and o is true in all states before that*. The F operator then ensures *this entire until condition must eventually hold at some future point*.  
+
+- Refine the natural language phrasing for clarity  
+"At some future point, *u must become true*, and *o must remain true in all states up to and including that point*. Once *u* is true, *o* is no longer constrained. The formula is satisfied if such a sequence exists; it is violated if *u never occurs* or if *o fails before u occurs*."

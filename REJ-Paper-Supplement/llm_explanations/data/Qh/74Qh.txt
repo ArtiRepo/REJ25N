@@ -1,0 +1,9 @@
+- Write down original LTL formula  
+G(a ∨ b)  
+
+- Rebuild meaning from the bottom of the tree up  
+G requires the enclosed proposition to hold in *every state* of the execution. Here, the proposition is (a ∨ b), meaning "a is true, or b is true, or both." Thus, the formula enforces that in *all states*, at least one of a or b must be true.  
+
+- Refine the natural language phrasing for clarity  
+"a or b must be true at all times."  
+This imposes a strict constraint on every state: if either a or b is false in any state, the formula is violated. The requirement persists indefinitely; there is no point where the constraint ceases. For example, a sequence where a is false but b is true in all states satisfies it, but a sequence with a state where both a and b are false violates it.

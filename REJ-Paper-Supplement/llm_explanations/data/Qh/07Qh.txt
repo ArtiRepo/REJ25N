@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  a U c  
+
+- Rebuild meaning from the bottom of the tree up  
+  "c must eventually become true, and throughout all preceding states, a must hold consistently. Once c is true, a is no longer required to hold."  
+
+- Refine the natural language phrasing for clarity  
+  "a must remain true until c becomes true; if c never occurs, the formula is violated. Once c is true in a state, the constraint on a is lifted for subsequent states."

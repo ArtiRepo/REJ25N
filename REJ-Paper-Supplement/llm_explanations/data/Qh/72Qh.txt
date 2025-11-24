@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+G !a  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula asserts that "a is false in the current state and must remain false in all subsequent states." The G operator requires "not a" to hold at every state, meaning a is never true during the entire execution.  
+
+- Refine the natural language phrasing for clarity  
+"a must be false at all times. The system is constrained such that a is never true in any state, including the present and all future states. Once a is false in the current state, this condition must persist indefinitely. If a ever becomes true, the formula is violated."

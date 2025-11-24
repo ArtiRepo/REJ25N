@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+  a & X b  
+
+- Rebuild meaning from the bottom of the tree up  
+  a: "a must be true in the current state."  
+  X b: "b must be true in the very next state."  
+  Combined: "a is true now, and b is true immediately after."  
+
+- Refine the natural language phrasing for clarity.  
+  "a must hold in the current state, and b must hold in the next state. Once the next state is reached, the formula’s constraints are satisfied and no longer apply."

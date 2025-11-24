@@ -1,0 +1,12 @@
+- Write down original LTL formula  
+(b U c) & (d U !b)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula requires two conditions:  
+1. (b U c): c must eventually become true, and b must hold in all states until c is true. Once c is true, b no longer needs to hold.  
+2. (d U !b): !b (i.e., ¬b) must eventually become true, and d must hold in all states until ¬b is true. Once ¬b is true, d no longer needs to hold.  
+
+For both to be satisfied, c must occur at some point, with b true before it. Simultaneously, ¬b must occur at a later point, with d true before it. This implies ¬b cannot occur before c, as b must remain true until c is true. Thus, d must hold until after c occurs and b turns false.  
+
+- Refine the natural language phrasing for clarity  
+"Either c or ¬b must eventually hold, but c must occur before ¬b. Until c becomes true, b must always be true. Until ¬b becomes true, d must always be true. Once c is true, b can become false, but d must remain true until that moment."

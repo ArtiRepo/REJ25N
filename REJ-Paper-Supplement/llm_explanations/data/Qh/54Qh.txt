@@ -1,0 +1,10 @@
+- Original LTL formula  
+  (a U b) ∧ G(a)  
+
+- Rebuild meaning from the bottom of the tree up  
+  G(a): "a must be true in every state of the execution."  
+  a U b: "b must eventually become true, and a must remain true in every state until b becomes true."  
+  Combined: "a must always be true, and b must eventually become true while a is true in all preceding states."  
+
+- Refine the natural language phrasing for clarity.  
+  "a is always true, and b eventually occurs, with a holding in all states until b becomes true."

@@ -1,0 +1,10 @@
+- Original LTL formula: !X !(w | x)  
+- Rebuild meaning from the bottom of the tree up:  
+  1. (w | x) means "w or x is true in the current state."  
+  2. !(w | x) means "both w and x are false in the current state."  
+  3. X (!(w | x)) means "both w and x are false in the next state."  
+  4. !X (!(w | x)) means "it is not the case that both w and x are false in the next state."  
+- Refine the natural language phrasing for clarity:  
+  "In the next state, at least one of w or x must be true."  
+
+**Explanation**: The formula constrains only the immediate next state, requiring w ∨ x to hold there. It does not impose conditions on the current state or future states beyond the next. A sequence satisfies the formula if the next state has w true, x true, or both. It is violated if the next state has both w and x false. Constraints cease after the next state is evaluated.

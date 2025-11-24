@@ -1,0 +1,12 @@
+- Original LTL formula: G(a -> Fb)  
+- Rebuild meaning from the bottom of the tree up:  
+  - G(p): p must be true in every state.  
+  - Fb: There exists at least one future state where b is true.  
+  - a -> Fb: If a is true in a state, then b must eventually be true in some subsequent state.  
+  - G(a -> Fb): In every state, if a is true, then b must eventually be true in the future.  
+- Refine the natural language phrasing for clarity:  
+  "Globally, whenever a is true, b must eventually occur."  
+  - Constraints apply when a is true: From any state where a holds, the system must eventually reach a state where b is true.  
+  - When a is false, no constraints are imposed.  
+  - Once b becomes true, the requirement for that specific a is satisfied, but future occurrences of a must again ensure b eventually holds.  
+  - Violation occurs if a is true in a state and b remains false indefinitely.

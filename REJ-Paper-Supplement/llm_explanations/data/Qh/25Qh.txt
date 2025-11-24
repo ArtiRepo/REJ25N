@@ -1,0 +1,9 @@
+- Write down original LTL formula  
+  !X t  
+
+- Rebuild meaning from the bottom of the tree up  
+  X t: "t must be true in the very next state."  
+  !X t: "t must be false in the very next state."  
+
+- Refine the natural language phrasing for clarity  
+  "t must be false in the next state immediately following the current one. This constraint only applies to the next state; after that, t can be true or false without affecting the formula's validity."

@@ -1,0 +1,10 @@
+- Original LTL formula: !F (a & b)  
+- Rebuild meaning from the bottom of the tree up:  
+  - F(a & b) requires that there exists at least one future state where both a and b are true.  
+  - The negation !F(a & b) ensures that no such future state exists.  
+  - Therefore, in every state of the execution, a and b cannot both be true simultaneously.  
+- Refine the natural language phrasing for clarity:  
+  "Throughout the entire execution, a and b must never both be true at the same time."  
+  - Constraint applies to all states (current and future): If a and b are true in any state, the formula is violated.  
+  - Once a state is checked, the constraint persists for all subsequent states.  
+  - Violating sequences include any path where a and b are true in at least one state; satisfying sequences avoid this in all states.

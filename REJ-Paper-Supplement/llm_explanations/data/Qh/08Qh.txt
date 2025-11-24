@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  b U !d  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula requires that "!d" becomes true at some future point, and "b" must be true in all states leading up to (but not after) that point. Once "!d" is true, "b" is no longer constrained.  
+
+- Refine the natural language phrasing for clarity  
+  "b must hold continuously until d becomes false; once d is false, b can change arbitrarily. The system must eventually reach a state where d is false, and during all prior states, b must be true."

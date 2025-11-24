@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+Xa U Xb  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula requires that "Xb must eventually be true" (i.e., there exists a state where b is true in the next state). Until that specific state, "Xa must be true in every state" (i.e., in all prior states, a must be true in the next state). Once Xb is true, the constraint on Xa ceases.  
+
+- Refine the natural language phrasing for clarity  
+"The next state must have a until the next state has b. Once the next state has b, the requirement for the next state to have a no longer applies."

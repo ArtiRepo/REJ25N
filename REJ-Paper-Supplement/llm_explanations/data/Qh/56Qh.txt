@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+  (!a)U(a and XG!a)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula is a temporal "Until" (a U b), where a is !a and b is (a ∧ XG!a).  
+  - (a ∧ XG!a): "a is true in the current state, and in the next state, a is always false."  
+  - (!a)U(a ∧ XG!a): "For all states until (a ∧ XG!a) becomes true, !a must hold. Once (a ∧ XG!a) is true, the constraint on !a ends."  
+
+- Refine the natural language phrasing for clarity  
+  "a must remain false in all states until it becomes true, and once it is true, it must stay false in all subsequent states."

@@ -1,0 +1,3 @@
+- Original LTL formula: a  
+- Rebuild meaning from the bottom of the tree up: The formula requires "a" to be true in the current state. No constraints are imposed on future states.  
+- Refine the natural language phrasing for clarity: "a must be true in the current state. There are no restrictions on its truth value in subsequent states."

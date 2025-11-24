@@ -1,0 +1,5 @@
+- Original LTL formula: a U (c & d)  
+- Rebuild meaning from the bottom of the tree up:  
+  The formula requires that "a is true in all states until (c ∧ d) becomes true." Once (c ∧ d) is true in a state, the constraint on a dissolves. If (c ∧ d) never becomes true, the formula is violated.  
+- Refine the natural language phrasing for clarity:  
+  "a must hold continuously until both c and d are true; after c and d become true, a no longer needs to hold."

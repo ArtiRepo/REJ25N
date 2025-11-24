@@ -1,0 +1,3 @@
+- Original LTL formula: F a  
+- Rebuild meaning from the bottom of the tree up: F(a) specifies that "a" must hold in at least one future state. It imposes no constraints on past or current states, only that "a" is eventually true.  
+- Refine the natural language phrasing for clarity: "The system must eventually reach a state where 'a' is true. Until this occurs, there are no constraints on 'a'; once 'a' becomes true at any point, the formula is satisfied and no further conditions apply."

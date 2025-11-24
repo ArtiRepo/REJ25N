@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  X (f ∧ i)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula requires that in the next state, both f and i are true. The "X" operator constrains only the immediate successor state. The conjunction (f ∧ i) demands both variables hold simultaneously in that next state. No constraints apply to the current state or states beyond the next.  
+
+- Refine the natural language phrasing for clarity  
+  "In the very next state, both f and i must be true. The current state and all subsequent states after that are unconstrained."

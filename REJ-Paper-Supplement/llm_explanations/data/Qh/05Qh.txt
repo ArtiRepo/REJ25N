@@ -1,0 +1,11 @@
+- Write down original LTL formula  
+  X a & b  
+
+- Rebuild meaning from the bottom of the tree up  
+  X(a): "a must be true in the very next state."  
+  b: "b must be true in the current state."  
+  X(a) ∧ b: "In the current state, b is true; in the next state, a is true."  
+
+- Refine the natural language phrasing for clarity  
+  "b must hold in the current state, and a must hold in the immediately following state."  
+  Constraints apply to distinct states: b is checked at the present moment, while a is checked at the next step. Once the next state is reached, the constraint on a is satisfied, and the formula no longer imposes further requirements. A sequence violates the formula if either b is false in the current state or a is false in the next state.

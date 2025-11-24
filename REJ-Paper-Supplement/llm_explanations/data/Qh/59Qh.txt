@@ -1,0 +1,17 @@
+- Original LTL formula: G((a ∧ Xa) → XX¬a)  
+- Rebuild meaning from the bottom of the tree up:  
+  - (a ∧ Xa): "a is true in the current state and the next state."  
+  - XX¬a: "a is false two states ahead."  
+  - (a ∧ Xa) → XX¬a: "If a is true in the current and next state, then a must be false two states ahead."  
+  - G((a ∧ Xa) → XX¬a): "For all states, if a is true in the current and next state, then a must be false two states ahead."  
+- Refine natural language phrasing:  
+  "At every state, if a holds now and will hold in the next state, then a must be false two states later."  
+
+**Constraints**:  
+- The formula imposes a constraint only when two consecutive a's occur.  
+- If a is true in the current and next state, the state after that must have ¬a.  
+- Otherwise, no constraints on a's future values.  
+
+**Behavior**:  
+- Satisfied if all pairs of consecutive a's are followed by a state where a is false.  
+- Violated if any two consecutive a's are not followed by a false a two steps later.

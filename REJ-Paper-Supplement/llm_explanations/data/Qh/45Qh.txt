@@ -1,0 +1,12 @@
+- Write down original LTL formula  
+X (!i) | X (j)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula combines two "next" (X) conditions with an OR.  
+- X(!i): The next state must have !i (i is false).  
+- X(j): The next state must have j (j is true).  
+The OR means that at least one of these two constraints must hold in the next state.  
+
+- Refine the natural language phrasing for clarity  
+"At the next state, either i is false or j is true."  
+This imposes a constraint on the immediate next state: at least one of !i or j must be true there. Once the next state is reached, the formula's condition is evaluated and no further constraints apply. If the next state satisfies either !i or j, the formula holds; otherwise, it violates.

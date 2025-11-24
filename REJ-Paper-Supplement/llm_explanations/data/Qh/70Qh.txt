@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+G(a → b)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula asserts that the implication "a implies b" must hold in every state of the execution. For any state where a is true, b must also be true. If a is false, no constraint is imposed on b. The "G" operator ensures this condition is enforced continuously over the entire sequence of states.  
+
+- Refine the natural language phrasing for clarity  
+"In all states, if a is true, then b must be true. This constraint applies at every moment in the execution; whenever a holds, b must hold simultaneously, but if a is false, b can be arbitrary. The formula remains active throughout the system's operation, and any state where a is true but b is false violates it."

@@ -1,0 +1,14 @@
+- Write down original LTL formula  
+X a ∧ ¬G b  
+
+- Rebuild meaning from the bottom of the tree up  
+X a: "a must be true in the very next state."  
+¬G b: "There must be at least one state where b is false."  
+Combined: The system must satisfy both constraints simultaneously.  
+
+- Refine the natural language phrasing for clarity  
+"a must be true in the next state, and b must not be true in all states—there must exist at least one state where b is false."  
+
+Constraints:  
+- X a imposes an immediate constraint on the next state; once that state is reached, the constraint is resolved.  
+- ¬G b imposes a global constraint over the entire execution; it remains active until a violation (b always true) is detected.

@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  **b | !X a**  
+
+- Rebuild meaning from the bottom of the tree up  
+  "b must be true in the current state" (p) **or** "a must be false in the very next state" (X(p) with p = !a). The formula imposes a constraint at each state: either b holds now, or a does not hold in the next state.  
+
+- Refine the natural language phrasing for clarity  
+  "At every state, either b is true, or a is false in the next state."

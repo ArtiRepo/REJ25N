@@ -1,0 +1,11 @@
+- Write down original LTL formula  
+  Fa ∧ G(a → XG!a)  
+
+- Rebuild meaning from the bottom of the tree up  
+  Fa: "a must be true in at least one future state."  
+  XG!a: "In the next state, a is false in all subsequent states."  
+  G(a → XG!a): "Whenever a is true, the next state must ensure a is false forever after."  
+  Combined: "There exists a point where a is true, and every occurrence of a must be immediately followed by a永恒 false state, with no future reactivation of a."  
+
+- Refine the natural language phrasing for clarity  
+  "a must eventually be true, and once it becomes true, it must remain false in all subsequent states."

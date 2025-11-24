@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+G (j => !f)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula asserts that in every state, the implication "if j is true, then f is false" must hold. The Global operator (G) ensures this condition applies continuously across all states. The implication (j => !f) imposes a constraint only when j is true: in such states, f must be false. When j is false, the implication is trivially satisfied, and no constraint is placed on f.  
+
+- Refine the natural language phrasing for clarity  
+"Throughout the entire execution, whenever j is true, f must be false. If j is false, f can be either true or false. The constraint on f only applies in states where j is true and ceases to apply when j is false."

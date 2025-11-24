@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+X(t ∧ y)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula requires that the conjunction **t ∧ y** holds in the **next state**. The **X** operator enforces a constraint on the immediate future state, not the current one. The **∧** operator demands both **t** and **y** are true simultaneously in that next state.  
+
+- Refine the natural language phrasing for clarity  
+"**t** and **y** must both be true in the state immediately following the current one. There is no constraint on the current state, and once the next state is evaluated, the formula’s requirements are fulfilled or violated—no further conditions apply."

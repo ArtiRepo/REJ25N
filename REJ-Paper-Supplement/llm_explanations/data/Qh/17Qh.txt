@@ -1,0 +1,9 @@
+- Write down original LTL formula  
+!G c  
+
+- Rebuild meaning from the bottom of the tree up  
+G c: "c must be true in every state of the execution."  
+!G c: "It is not the case that c is true in every state," meaning "there exists at least one state where c is false."  
+
+- Refine the natural language phrasing for clarity  
+"c is not always true" — the formula imposes a constraint that c must eventually be false at some point in the execution. Once a state where c is false occurs, the constraint is satisfied. If c remains true in all states, the formula is violated.

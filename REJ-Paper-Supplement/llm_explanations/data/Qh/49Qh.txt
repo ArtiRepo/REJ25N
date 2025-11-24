@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+X !(t | w)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula asserts that in the **next state**, the disjunction (t ∨ w) must be **false**. This means both **t is false** and **w is false** in the next state. The constraint applies **only to the next state**, not to the current state or any subsequent states.  
+
+- Refine the natural language phrasing for clarity  
+"Immediately after the current state, both t and w must be false. There are no constraints on the current state or states beyond the next one."

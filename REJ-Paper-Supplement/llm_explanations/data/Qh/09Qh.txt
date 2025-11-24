@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+(c & b) U a  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula specifies that "a must eventually become true," and during all states prior to the first occurrence of "a," the conjunction "c and b" must hold. Once "a" is true in a state, the constraint on "c and b" ceases, and subsequent states are unconstrained.  
+
+- Refine the natural language phrasing for clarity  
+"a must eventually occur, and in every state before that, both c and b must be true. After a becomes true, there are no further constraints on c or b."

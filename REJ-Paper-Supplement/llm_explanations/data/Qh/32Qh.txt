@@ -1,0 +1,7 @@
+- **Original LTL formula**: (b | !a) & X (d U c)  
+- **Rebuild meaning**:  
+  - **(b | !a)**: "In the current state, either b is true or a is false." This imposes an immediate constraint on the current state.  
+  - **X (d U c)**: "In the next state, c must eventually be true, and d must hold in all states until c becomes true." This imposes constraints on the system starting from the next state onward.  
+  - **Combined**: The formula requires both the current state condition (b ∨ ¬a) and the future sequence (d U c starting at the next state) to hold.  
+- **Refined phrasing**:  
+  "The system must satisfy: (1) in the current state, either b is true or a is false; and (2) starting from the next state, d must remain true until c becomes true, after which d no longer needs to hold."

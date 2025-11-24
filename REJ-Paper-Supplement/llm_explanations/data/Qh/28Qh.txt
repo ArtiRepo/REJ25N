@@ -1,0 +1,13 @@
+- Write down original LTL formula  
+  X (y => x & w)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula asserts that in the **next state**, the implication "if y is true, then both x and w must be true" holds. This means:  
+  - The current state has no constraints on y, x, or w.  
+  - The **next state** must satisfy:  
+    - If y is true there, then x and w must both be true.  
+    - If y is false there, no constraints on x or w.  
+  - After the next state, the formula imposes **no further constraints**.  
+
+- Refine the natural language phrasing for clarity  
+  "In the very next state, if y is true, then both x and w must also be true. If y is false in that next state, x and w can be anything. This requirement only applies to the immediate next state and vanishes afterward."

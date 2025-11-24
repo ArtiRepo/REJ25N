@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+F x | F y  
+
+- Rebuild meaning from the bottom of the tree up  
+F x: "x must be true in at least one future state."  
+F y: "y must be true in at least one future state."  
+The disjunction (|) combines these: "Either x must eventually be true, or y must eventually be true."  
+
+- Refine the natural language phrasing for clarity  
+"The formula holds if, at some point in the future, x becomes true or y becomes true. Until one of them is true, the system must ensure that at least one of x or y eventually occurs. Once x or y is true in any state, the constraint is satisfied and no further conditions apply."

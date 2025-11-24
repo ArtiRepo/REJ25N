@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+  **b & X (a U c)**  
+
+- Rebuild meaning from the bottom of the tree up  
+  **b** requires *b* to be true in the current state.  
+  **X (a U c)** requires *a U c* to hold in the next state, meaning *c* must eventually be true starting from the next state, and *a* must remain true in all states until *c* becomes true.  
+  The conjunction enforces both: *b* is true now, and from the next state onward, *a* is enforced until *c* occurs.  
+
+- Refine the natural language phrasing for clarity  
+  "In the current state, *b* must be true. From the next state onward, *a* must hold continuously until *c* becomes true, at which point *a*’s constraint ends."

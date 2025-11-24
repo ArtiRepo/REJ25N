@@ -1,0 +1,9 @@
+- Write down original LTL formula  
+  G (!f | !i)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula asserts that in every state of the system's execution, at least one of "f is false" or "i is false" must hold. This means that the conjunction "f ∧ i" is never true in any state. The Global operator (G) ensures this condition is enforced continuously over time, without exception.  
+
+- Refine the natural language phrasing for clarity  
+  "At all times, either f is false or i is false (or both)."  
+  This requires that in every state, f and i cannot both be true simultaneously. The constraint applies at every moment and never relaxes; if either f or i is true, the other must be false. For example, a sequence where f and i are both true in any state violates the formula, while sequences where they are never both true satisfy it.

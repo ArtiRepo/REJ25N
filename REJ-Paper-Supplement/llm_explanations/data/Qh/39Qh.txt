@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  b U (d & a)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula requires that (d ∧ a) becomes true at some future state. Until that state, b must hold in every state. Once (d ∧ a) is true, b is no longer constrained.  
+
+- Refine the natural language phrasing for clarity  
+  "d and a must eventually be true, and b must remain true in all preceding states."

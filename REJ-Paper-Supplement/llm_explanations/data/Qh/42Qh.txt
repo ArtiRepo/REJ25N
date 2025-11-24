@@ -1,0 +1,7 @@
+- Original LTL formula: (y & !d) | (y => d)  
+- Rebuild meaning from the bottom of the tree up:  
+  - The formula combines two conditions: "y is true and d is false in the current state" (y & !d) or "if y is true, then d must be true in the current state" (y => d).  
+  - These two conditions cover all possible scenarios for y and d: if y is true, either d is false (satisfying the first part) or d is true (satisfying the second part). If y is false, the second part (y => d) is automatically true.  
+- Refine the natural language phrasing for clarity:  
+  "In the current state, either y is true and d is false, or whenever y is true, d must also be true."  
+  - This formula is a tautology (always true) and imposes no constraints on the system. It holds for all possible truth values of y and d in the current state, and no future states are involved.

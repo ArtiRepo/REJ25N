@@ -1,0 +1,12 @@
+- Write down original LTL formula  
+F (f => j)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula combines the "Eventually" (F) operator with a logical implication (f => j). The implication f => j is equivalent to "¬f ∨ j," meaning in any state, either f is false or j is true. The F operator requires that *at least one* future state satisfies this condition. This imposes a constraint only on the system's future behavior, not on the current state.  
+
+- Refine the natural language phrasing for clarity  
+"There must exist a future state where f is false or j is true."  
+- Constraints: Apply to future states (not current). The system must reach a point where f → j holds.  
+- Satisfaction: Occurs once such a state is reached.  
+- Violation: Occurs if, in all future states, f is true and j is false.  
+- Evolving truth: Initially unconstrained; once a state satisfies ¬f ∨ j, the formula is satisfied and no further constraints apply.

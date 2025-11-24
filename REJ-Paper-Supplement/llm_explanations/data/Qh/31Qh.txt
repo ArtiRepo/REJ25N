@@ -1,0 +1,11 @@
+- Write down original LTL formula  
+  d & X (c U a)  
+
+- Rebuild meaning from the bottom of the tree up  
+  d: "d is true in the current state."  
+  c U a: "a must eventually be true, and c must hold in every state until a becomes true."  
+  X (c U a): "In the next state, a must eventually be true, and c must hold in every state until a becomes true (starting from the next state)."  
+  d & X (c U a): "d is true in the current state, and in the next state, a must eventually be true with c holding until a is true."  
+
+- Refine the natural language phrasing for clarity  
+  "d must be true now, and starting from the next state, c must hold continuously until a becomes true at some future point."

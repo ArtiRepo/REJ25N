@@ -1,0 +1,7 @@
+- Original LTL formula: (c U a) & (b U a)  
+- Rebuild meaning:  
+  - (c U a) requires that *a eventually becomes true*, and *c is true in every state before a is true*.  
+  - (b U a) requires that *a eventually becomes true*, and *b is true in every state before a is true*.  
+  - The conjunction enforces both constraints: *a must eventually be true*, and *both b and c must hold in all states until a is true*.  
+- Refine natural language phrasing:  
+  "a must eventually become true, and in all states prior to that, both b and c must hold. Once a is true, the constraints on b and c no longer apply."

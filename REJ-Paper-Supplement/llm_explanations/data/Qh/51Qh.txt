@@ -1,0 +1,6 @@
+- Original LTL formula: a → XXXa  
+- Rebuild meaning from the bottom of the tree up:  
+  - XXXa: "a must be true in the state three steps after the current one."  
+  - a → XXXa: "If a is true in the current state, then a must be true in the state three steps ahead. If a is false, no constraint applies."  
+- Refine the natural language phrasing for clarity:  
+  "If a holds at any point in the execution, then a must also hold exactly three states later. The constraint only activates when a is true and ceases once a is false. For example, if a is true at step 0, a must be true at step 3; if a is true at step 1, a must be true at step 4, and so on. If a is never true, the formula is trivially satisfied."

@@ -1,0 +1,9 @@
+- Write down original LTL formula  
+  X a => X c  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula states that in the next state, if "a" is true, then "c" must also be true. The implication applies to the immediate successor state of the current one. If the next state does not satisfy "a," the constraint on "c" does not activate. The formula imposes no constraints on the current state or states beyond the next.  
+
+- Refine the natural language phrasing for clarity  
+  "If a is true in the next state, then c must also be true in the next state."  
+  This requires that whenever the system transitions to a state where "a" holds, the subsequent state must have "c" true. If "a" is false in the next state, no condition is imposed on "c." The constraint is limited to the next state and ceases to apply afterward.

@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+Fa -> Gb  
+
+- Rebuild meaning from the bottom of the tree up  
+Fa means "a must be true in at least one future state." Gb means "b must be true in every state of the execution." The implication requires that if Fa holds (i.e., a is true somewhere in the future), then Gb must also hold (i.e., b is true at all times).  
+
+- Refine the natural language phrasing for clarity  
+"If a eventually becomes true, then b must always be true throughout the entire execution."  
+
+When Fa is true, Gb imposes constraints on all states (past, present, and future) to ensure b holds universally. If Fa is false (a never occurs), the formula imposes no constraints on b. The formula is violated if a occurs at some point but b is false in any state.

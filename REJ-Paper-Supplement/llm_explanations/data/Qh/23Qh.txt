@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  t => w  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula is a logical implication. For each state in the execution, if *t* is true, then *w* must also be true in that same state. If *t* is false, the constraint on *w* does not apply. The formula imposes this condition at every state, with no temporal progression beyond the current state.  
+
+- Refine the natural language phrasing for clarity  
+  "At every state, if *t* is true, then *w* must be true in that state. When *t* is false, there is no requirement on *w*."

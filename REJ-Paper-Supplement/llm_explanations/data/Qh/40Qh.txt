@@ -1,0 +1,6 @@
+- Write down original LTL formula: F (o | u)  
+- Rebuild meaning from the bottom of the tree up:  
+  - (o | u) means "o or u is true in the current state."  
+  - F (o | u) means "there exists at least one future state where (o | u) is true."  
+- Refine the natural language phrasing for clarity:  
+  "The system must ensure that at some future point, either o or u becomes true. Until then, o and u are unconstrained; once either holds in a state, the formula is satisfied and no further constraints apply."

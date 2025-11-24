@@ -1,0 +1,7 @@
+- Original LTL formula: G t | F w  
+- Rebuild meaning from the bottom of the tree up:  
+  - G t: "t must be true in every state of the execution."  
+  - F w: "There must exist at least one future state where w is true."  
+  - G t | F w: "Either t is always true, or w eventually becomes true."  
+- Refine the natural language phrasing for clarity:  
+  "The system must ensure that t is always true, or that w occurs at some point in the future. If t is not always true, then w must eventually become true. Once w is true, the formula is satisfied regardless of t's future values. If t remains true throughout, the formula is satisfied even if w never occurs."

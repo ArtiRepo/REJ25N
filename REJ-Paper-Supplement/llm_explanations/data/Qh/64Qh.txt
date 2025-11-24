@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+G(a → XXXa)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula G(p) requires p to hold in every state. Here, p is (a → XXXa). For each state, if a is true, then in the state three steps ahead (XXXa), a must also be true. If a is false in a state, the implication imposes no constraint. The constraint on a is only active when a is true, and it applies to the state three steps forward.  
+
+- Refine the natural language phrasing for clarity  
+"In every state, if a is true, then a must also be true three steps later. When a is false, no constraints apply. The condition must hold continuously across all states, but only triggers when a is true, requiring a to recur exactly three steps ahead in the future."

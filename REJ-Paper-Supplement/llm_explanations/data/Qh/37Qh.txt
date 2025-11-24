@@ -1,0 +1,8 @@
+- Original LTL formula: G (!i) | F (f U i)  
+- Rebuild meaning from the bottom of the tree up:  
+  - G (!i): "i is false in every state."  
+  - f U i: "i eventually becomes true, and f is true in all states until then."  
+  - F (f U i): "There exists a future state where i becomes true, and f is true in all prior states."  
+  - The formula as a whole: "Either i is never true, or there is a point where i becomes true, and f is true in all states before that point."  
+- Refine natural language phrasing for clarity:  
+  "The system must never have i true, or there must be a moment when i becomes true, with f being true in all states leading up to that moment."

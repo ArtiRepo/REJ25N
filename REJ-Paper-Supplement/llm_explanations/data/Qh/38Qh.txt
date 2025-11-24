@@ -1,0 +1,7 @@
+- Original LTL formula: (a U b) & (c U d)  
+- Rebuild meaning from the bottom of the tree up:  
+  - (a U b) requires *b to eventually become true*, with *a true in all preceding states*. Once *b* is true, *a* is no longer constrained.  
+  - (c U d) requires *d to eventually become true*, with *c true in all preceding states*. Once *d* is true, *c* is no longer constrained.  
+  - The conjunction demands both conditions hold simultaneously: *a must hold until b, and c must hold until d* in the same execution.  
+- Refine the natural language phrasing for clarity:  
+  "Both 'a must hold until b occurs' and 'c must hold until d occurs' must be satisfied in the system's execution. Each until condition operates independently: once b is true, a is unconstrained; once d is true, c is unconstrained. The formula enforces these two separate temporal sequences to coexist."

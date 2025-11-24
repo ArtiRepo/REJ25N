@@ -1,0 +1,8 @@
+- Original LTL formula: XXFXa  
+- Rebuild meaning from the bottom of the tree up:  
+  - Xa: "a must be true in the very next state."  
+  - FXa: "There must exist at least one future state where Xa is true."  
+  - X(FXa): "In the very next state, FXa must hold."  
+  - XXFXa: "In the very next next state, FXa must hold."  
+- Refine the natural language phrasing for clarity:  
+  "Two steps from now, a must eventually be true in the following state."

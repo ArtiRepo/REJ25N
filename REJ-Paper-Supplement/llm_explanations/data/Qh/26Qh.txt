@@ -1,0 +1,19 @@
+- Original LTL formula: X t => X y  
+- Rebuild meaning from the bottom of the tree up:  
+  - X t: "t must be true in the next state."  
+  - X y: "y must be true in the next state."  
+  - The implication X t => X y: "For all states, if the next state has t, then the next state must have y."  
+- Refine the natural language phrasing for clarity:  
+  "In every state, if the next state satisfies t, then the next state must also satisfy y."  
+
+**Constraints**:  
+- The formula imposes a constraint on the next state when t is true in it (requiring y to be true there).  
+- When t is false in the next state, no constraint is applied.  
+- The condition must hold at every state in the execution.  
+**Evaluation**:  
+- At each state, check the next state. If t is true there, y must be true in that same next state.  
+- If t is never true in any next state, the formula is trivially satisfied.  
+**Violations**:  
+- A sequence where some state’s next state has t but lacks y violates the formula.  
+**Key distinction**:  
+- The constraint applies immediately to the next state (not over time) but recursively at every state in the path.

@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+X(t | w)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula X(t ∨ w) evaluates the truth of (t ∨ w) in the next state. The current state has no constraints. The next state must satisfy t ∨ w; if it does, the formula is satisfied. After the next state, no further constraints apply.  
+
+- Refine the natural language phrasing for clarity  
+"The next state must have either t or w true. No constraints exist on the current state or any states after the next one."

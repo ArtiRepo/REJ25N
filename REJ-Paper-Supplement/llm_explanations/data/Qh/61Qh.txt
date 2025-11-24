@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  a U G!a  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula requires that "a is true in every state until some future state where G!a becomes true." G!a means "!a is true in all subsequent states." For a U G!a to hold, there must exist a state where G!a is true (i.e., a is false from that point onward), and all prior states must have a true. However, the state where G!a becomes true must itself have !a, conflicting with the requirement that a is true in all states up to that point. This creates an impossible constraint: a must be true at the moment G!a is satisfied, but G!a demands a is false at that moment.  
+
+- Refine the natural language phrasing for clarity  
+  "a must remain true until a state where a becomes false and stays false forever; this is impossible, as the state where a becomes false must also have a true."

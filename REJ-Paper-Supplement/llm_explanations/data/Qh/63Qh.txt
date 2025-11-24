@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+XXXa  
+
+- Rebuild meaning from the bottom of the tree up  
+- Xa: "a must be true in the very next state."  
+- XXa: "a must be true in the state after the next (two steps ahead)."  
+- XXXa: "a must be true in the state three steps ahead."  
+
+- Refine the natural language phrasing for clarity  
+"**a must be true in the third next state**. The formula imposes a constraint only on the state three steps into the future. At any moment during evaluation, the requirement is checked at that specific future point. Prior states (current, next, and next-next) are unconstrained. If a holds at the third next state, the formula is satisfied; otherwise, it is violated."

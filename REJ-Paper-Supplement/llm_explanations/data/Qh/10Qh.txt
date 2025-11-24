@@ -1,0 +1,3 @@
+- Original LTL formula: (d | !b) U !a  
+- Rebuild meaning from the bottom of the tree up: The formula specifies that !a must eventually become true. Until that point, in every state, either d must hold or b must be false. Once !a is true, the formula no longer imposes constraints on d or b.  
+- Refine the natural language phrasing for clarity: "In all states until !a becomes true, either d must hold or b must be false. Once !a is true, the condition is satisfied and no further constraints apply."

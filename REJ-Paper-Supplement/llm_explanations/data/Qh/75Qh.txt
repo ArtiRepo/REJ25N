@@ -1,0 +1,10 @@
+- Write down original LTL formula  
+F(a ∧ b)  
+
+- Rebuild meaning from the bottom of the tree up  
+F(p): "There must exist at least one future state where p is true."  
+p: "a and b must both be true in that future state."  
+Thus, F(a ∧ b) requires that *at some point in the future*, both a and b are simultaneously true.  
+0
+- Refine the natural language phrasing for clarity  
+"The formula holds if there exists a future state where both a and b are true. Until that state is reached, no constraints are imposed on a or b. Once such a state occurs, the formula is satisfied, and no further conditions apply."

@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+!F(a ∧ Xa ∧ XXa)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula a ∧ Xa ∧ XXa requires a to be true in the current state, the next state, and the state after that. F(p) asserts that p eventually becomes true at some future point. The negation !F(p) means p is never true in any future state. Thus, the formula states that there is no moment in the execution where a is true for three consecutive states (current, next, and next-next).  
+
+- Refine the natural language phrasing for clarity  
+"The system must never have three consecutive states where a is true." Constraints apply at every state: if a is true at any point, the next two states cannot both also be true. Once a is false, no further constraints are imposed for that sequence.

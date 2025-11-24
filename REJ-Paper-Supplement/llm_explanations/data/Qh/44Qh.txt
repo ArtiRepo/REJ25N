@@ -1,0 +1,11 @@
+- Write down original LTL formula  
+X(!g | !j)  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula applies the "next" operator (X) to the disjunction (!g ∨ !j). This means:  
+1. At the current state, no constraints are imposed on g or j.  
+2. The formula imposes a constraint on the **next state**: in that state, **at least one** of g or j must be false.  
+3. Beyond the next state, no further constraints are enforced.  
+
+- Refine the natural language phrasing for clarity  
+"In the next state, at least one of g or j must be false. The current state has no restrictions, and no constraints apply after the next state."

@@ -1,0 +1,11 @@
+- Original LTL formula: (d U c) | (a U !c)  
+- Rebuild meaning from the bottom of the tree up:  
+  - "d U c" means: "c must eventually be true, and d must hold in all states until c becomes true."  
+  - "a U !c" means: "!c must eventually be true, and a must hold in all states until !c becomes true."  
+  - The OR combines these: "Either (d holds until c is true) or (a holds until !c is true)."  
+- Refine natural language phrasing for clarity:  
+  The formula requires that **either** (1) *d is true until c becomes true*, **or** (2) *a is true until c becomes false*.  
+  - For (d U c): Constraints on *d* apply until *c* is true; once *c* is true, *d* is no longer constrained.  
+  - For (a U !c): Constraints on *a* apply until *c* is false; once *c* is false, *a* is no longer constrained.  
+  - The OR means the system satisfies the formula if **at least one** of these conditions holds over time.  
+  - Violations occur if neither condition is met (e.g., *c* never becomes true and *a* fails to hold until *c* becomes false).

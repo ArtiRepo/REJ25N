@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+Fa ∧ Fb  
+
+- Rebuild meaning from the bottom of the tree up  
+"Fa" requires that "a" becomes true in at least one future state. "Fb" requires that "b" becomes true in at least one future state. The conjunction demands both conditions are met independently.  
+
+- Refine the natural language phrasing for clarity  
+"The system must ensure that 'a' is true at some point in the future and that 'b' is also true at some point in the future. Each condition applies separately: once 'a' is true in any state, the constraint for 'a' is satisfied, but 'b' must still become true in some subsequent state. If either 'a' or 'b' never occurs, the formula is violated."

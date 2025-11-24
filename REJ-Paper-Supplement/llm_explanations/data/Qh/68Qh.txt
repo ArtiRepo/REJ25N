@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+a U b  
+
+- Rebuild meaning from the bottom of the tree up  
+The formula requires that *b* eventually becomes true. Until *b* is true, *a* must hold in every state. Once *b* is true, *a* is no longer constrained.  
+
+- Refine natural language phrasing  
+"b must eventually become true, and a must remain true in all states until b is true. Once b is true, a can be either true or false in subsequent states. If b never occurs or a fails before b occurs, the formula is violated."

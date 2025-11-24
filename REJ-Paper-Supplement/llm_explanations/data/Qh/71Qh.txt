@@ -1,0 +1,12 @@
+- Write down original LTL formula  
+  G(a ∧ ¬b)  
+
+- Rebuild meaning from the bottom of the tree up  
+  G requires the enclosed condition (a ∧ ¬b) to hold in every state. The condition a ∧ ¬b mandates that "a is true" and "b is false" simultaneously in each state. Thus, the formula enforces that throughout the entire execution, a is consistently true, and b is consistently false.  
+
+- Refine the natural language phrasing for clarity  
+  "a must always be true, and b must never be true."  
+  - Constraints: At every state, a is enforced to hold, and b is enforced to remain false.  
+  - Satisfaction: The formula is satisfied if, in all states, a is true and b is false.  
+  - Violation: The formula is violated if there exists any state where a is false or b is true.  
+  - Ongoing: The constraints apply indefinitely; once a state fails, the formula is immediately violated.

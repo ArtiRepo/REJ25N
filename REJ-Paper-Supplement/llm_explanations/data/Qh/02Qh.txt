@@ -1,0 +1,7 @@
+- Original LTL formula: X b => !X d  
+- Rebuild meaning from the bottom of the tree up:  
+  - X b: "b must be true in the very next state."  
+  - !X d: "d must be false in the very next state."  
+  - The formula asserts that for all states, if the next state satisfies b, then the next state must also satisfy !d.  
+- Refine the natural language phrasing for clarity:  
+  "In every state, if the subsequent state has b true, then the subsequent state must have d false."

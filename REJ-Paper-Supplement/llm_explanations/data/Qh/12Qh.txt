@@ -1,0 +1,8 @@
+- Write down original LTL formula  
+  b U (a | d)  
+
+- Rebuild meaning from the bottom of the tree up  
+  The formula asserts that "a | d" must eventually hold. Until "a | d" becomes true, "b" must be true in every state. Once "a | d" is true in some state, the requirement for "b" to hold ceases.  
+
+- Refine the natural language phrasing for clarity  
+  "b must remain true until either a or d becomes true, and at least one of a or d must eventually hold. Once a or d is true, b can be false or true in subsequent states."
