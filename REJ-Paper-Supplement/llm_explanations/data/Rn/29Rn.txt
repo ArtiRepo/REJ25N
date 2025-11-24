@@ -1,0 +1,62 @@
+### Translation and Explanation of the Formula: **F x | F y**
+
+#### Natural Language Translation:  
+"The system must eventually satisfy `x` **or** eventually satisfy `y` (where 'eventually' includes the current state)."
+
+---
+
+#### Key Explanations:  
+1. **Immediate Evaluation**:  
+   - The formula is satisfied **immediately** if either `x` is true **now** or `y` is true **now**.  
+   - If satisfied immediately, **no constraints** are imposed on `x` or `y` in any future states.  
+
+2. **Constraints Over Time**:  
+   - If neither `x` nor `y` is true now, the formula imposes an **ongoing constraint**:  
+     - **Either `x` must become true at least once in the future**,  
+     - **Or `y` must become true at least once in the future**.  
+   - **Once either `x` or `y` becomes true** (at any future state), the formula is **permanently satisfied**. After this point:  
+     - **No further constraints** apply to `x` or `y`.  
+     - The system is free to set `x`/`y` to `true` or `false` thereafter.  
+
+3. **When Constraints Apply and Cease**:  
+   - **Constraints apply** from the moment the formula is checked until the **first occurrence** of `x` or `y` being `true`.  
+   - **Constraints cease** as soon as `x` or `y` becomes `true` for the **first time**.  
+
+---
+
+#### Satisfying Sequences:  
+- **Example 1 (Immediate satisfaction)**:  
+  - Current state: `x = true`, `y = false` → Formula holds. No future constraints.  
+  - Future: `x`/`y` can be arbitrary (e.g., `x` becomes `false` later).  
+- **Example 2 (Delayed satisfaction)**:  
+  - Current state: `x = false`, `y = false`.  
+  - Later: `x = true` at state 3 → Formula holds at state 3.  
+  - **Until state 3**: `y` can be `true`/`false` freely (no constraints beyond the eventual requirement).  
+  - **After state 3**: No constraints on `x` or `y`.  
+
+---
+
+#### Violating Sequences:  
+- **Violation condition**: `x` **and** `y` remain **permanently false** from the current state onward.  
+  - Example:  
+    - Current state: `x = false`, `y = false`.  
+    - All future states: `x = false`, `y = false`.  
+  - **Result**: Formula is **violated indefinitely**.  
+
+---
+
+#### Common Misunderstandings Clarified:  
+- **Not a requirement for both**:  
+  - The formula **does not require** `x` **and** `y` to be true. Only **one** of them must be true eventually.  
+- **No constraints after satisfaction**:  
+  - Once `x` or `y` becomes `true` (even once), the formula **stops constraining** the system.  
+  - Example: If `x` becomes `true` at state 2, `y` can be `false` forever afterward.  
+- **"Eventually" includes the present**:  
+  - If `x` or `y` is true **now**, the formula is already satisfied.  
+
+---
+
+### Summary of Translation:  
+**"Either `x` must become true at least once (now or in the future), or `y` must become true at least once (now or in the future). Once either occurs, the formula imposes no further constraints on `x` or `y`."**  
+
+This formula is **violated only if both `x` and `y` remain false forever** from the current state onward.

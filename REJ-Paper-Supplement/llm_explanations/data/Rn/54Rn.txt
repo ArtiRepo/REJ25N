@@ -1,0 +1,80 @@
+### Translation of LTL Formulas into Natural Language
+
+#### **Formula 1: `a U b`**  
+**Translation**:  
+*"`b` must eventually become true, and until the exact moment `b` first becomes true, `a` must be true in every state starting from now. Once `b` becomes true, `a` is no longer constrained."*
+
+**Key Explanations**:  
+1. **Immediate Constraints**:  
+   - **If `b` is true now**: No constraints on `a` in the current state.  
+   - **If `b` is false now**: `a` **must** be true immediately (current state).  
+
+2. **Constraints Over Time**:  
+   - From now until the state **immediately before** `b` first becomes true, `a` **must hold in every state**.  
+   - The requirement for `a` ceases **once `b` becomes true** (even if `a` becomes false afterward).  
+   - `b` **must eventually become true** (if it isn’t already). Failure to do so violates the formula.  
+
+3. **Evolution of Truth**:  
+   - **Satisfied immediately** if `b` is true now.  
+   - **Satisfied later** if `b` will eventually become true, and `a` holds continuously until then.  
+   - **Violated** if:  
+     - `a` is false before `b` becomes true, or  
+     - `b` never becomes true (even if `a` is always true).  
+
+4. **When Constraints Apply and Cease**:  
+   - `a` is constrained **only** from the current state until the state **before** `b` becomes true.  
+   - `b` is constrained **globally** (until it eventually holds).  
+   - After `b` holds: **No further constraints** on `a` or `b` from this formula.  
+
+5. **Examples**:  
+   - **Satisfying**:  
+     - `[b]`, `[a, b]` (if `b` holds at step 1), `[a, a, b]`, `[a, a, b, a, a ...]`  
+     ✅ Explanation: `b` eventually holds, and `a` holds continuously until the step before `b`.  
+   - **Violating**:  
+     - `[¬a, ...]` (if `b` not yet true), `[a, ¬a, ...]` (before `b`), `[a, a, a, ...]` (`b` never holds)  
+     ❌ Explanation: `a` fails before `b` occurs, or `b` never occurs.  
+
+6. **Misunderstandings Addressed**:  
+   - **After `b` holds, `a` is free**: Even if `a` becomes false afterward, this does **not** violate `a U b`.  
+   - **Requirement for `b`**: `b` **must** eventually happen (strong until).  
+   - **Timing of `a` and `b`**: At the exact step where `b` holds, `a` **does not need to hold** (the constraint ends *before* that step).  
+
+---
+
+#### **Formula 2: `G(a)`**  
+**Translation**:  
+*"`a` must be true in every state from now on."*  
+
+**Key Explanations**:  
+1. **Immediate Constraints**:  
+   - `a` **must** be true in the current state.  
+
+2. **Constraints Over Time**:  
+   - `a` must be true **in every future state indefinitely**.  
+   - Constraints **never cease**: `a` must hold forever.  
+
+3. **Evolution of Truth**:  
+   - **Satisfied** only if `a` holds **now and always in the future**.  
+   - **Violated** if `a` is false **at any point** (now or later).  
+
+4. **When Constraints Apply and Cease**:  
+   - Constraints start **immediately** and apply **at every future state without termination**.  
+
+5. **Examples**:  
+   - **Satisfying**: `[a, a, a, a, ...]`  
+     ✅ Explanation: `a` holds globally.  
+   - **Violating**: `[a, a, ¬a, ...]`, `[¬a]`, `[a, ¬a, a, ...]`  
+     ❌ Explanation: `a` fails at least once.  
+
+6. **Misunderstandings Addressed**:  
+   - **No "release" condition**: Unlike `U`, `G` imposes **permanent constraints**.  
+   - **First violation fails entirely**: If `a` fails just once, the entire formula is violated.  
+
+---
+
+### Summary of Formula Translations  
+1. **`a U b`**:  
+   - *"Eventually `b` becomes true. Until that moment, `a` holds continuously. After `b`, `a` is unconstrained."*  
+
+2. **`G(a)`**:  
+   - *"`a` must hold forever from now on."*

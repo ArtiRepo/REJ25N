@@ -1,0 +1,40 @@
+### Explanation of the Formula: (y & !d) | (y => d)
+
+This formula is a **propositional logic expression** (without temporal operators). It is evaluated **only at the current state** (the moment it is checked) and imposes **no constraints on future states**. Below is a detailed breakdown:
+
+#### Key Properties:
+1. **No Temporal Operators**:  
+   The formula contains no temporal operators (e.g., `X`, `G`, `F`, `U`). Thus, it **does not reference future states** and is evaluated solely at the current state.
+2. **Tautology**:  
+   The formula simplifies to `true` for all possible values of `y` and `d` (verified via truth table below). This means it **imposes no constraints** on `y` or `d` at any time.
+
+#### Truth Table Verification:
+| `y` | `d` | `!d` | `y & !d` | `y => d` (≡ `!y ∨ d`) | `(y & !d) \| (y => d)` |
+|-----|-----|------|----------|----------------------|------------------------|
+| F   | F   | T    | F        | T                    | **T**                 |
+| F   | T   | F    | F        | T                    | **T**                 |
+| T   | F   | T    | T        | F                    | **T**                 |
+| T   | T   | F    | F        | T                    | **T**                 |
+
+**Conclusion**: The formula is **always true**, regardless of `y` and `d`.
+
+#### When Constraints Apply:
+- **At the current state**:  
+  The formula **never imposes constraints** because it is always satisfied. No specific values of `y` or `d` are required.
+- **Over time**:  
+  The formula **imposes no constraints** on future states. It does not require `y` or `d` to hold, change, or satisfy any condition in subsequent states.
+
+#### Satisfying vs. Violating Sequences:
+- **Satisfying sequences**:  
+  **All sequences satisfy the formula** since it holds for every combination of `y` and `d` at the current state. Future states are irrelevant.
+- **Violating sequences**:  
+  **No sequences violate the formula**. It is impossible for the formula to be false at the evaluated state.
+
+#### Potential Misunderstandings:
+- **Misconception**: "The formula requires `y` or `d` to be true."  
+  **Clarification**: The formula is a tautology; it demands **nothing** from `y` or `d`. Even if `y` is true and `d` is false, the formula holds due to the term `(y & !d)`.
+- **Temporal Scope**:  
+  Since there are no temporal operators, the formula **ceases to apply immediately after the current state**. It does not constrain future behavior.
+
+### Summary Translation
+The formula **(y & !d) | (y => d)** is a **tautology** that is **always true** at the state where it is evaluated. It imposes **no constraints** on the variables `y` or `d` at the current state or in any future state. The system is free to assign any values to `y` and `d` without affecting the formula's validity.

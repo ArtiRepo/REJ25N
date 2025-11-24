@@ -1,0 +1,60 @@
+### Translation and Explanation of the Formula: G (n => s)  
+**Natural Language Translation:**  
+"Globally, whenever `n` is true, `s` must be true."  
+
+#### Key Characteristics:  
+1. **Constraint Activation:**  
+   - The formula **only imposes a constraint** in states where `n` is true.  
+   - When `n` is false, the implication `n => s` is **automatically satisfied** regardless of `s`'s value. No constraint applies to `s` in these states.  
+
+2. **Temporal Scope:**  
+   - The constraint must hold **in every state** of the execution (past, present, and future).  
+   - There is **no expiration** for the constraint: If `n` becomes true at any point (even infinitely often), `s` must be true in that same state.  
+
+---
+
+### Evaluation Over Time:  
+- **Immediate Satisfaction (Current State):**  
+  - If `n` is true **now**, `s` must **also be true now** to satisfy the formula.  
+  - If `n` is false now, the formula is satisfied (no requirement for `s`).  
+
+- **Ongoing Constraints (Future States):**  
+  - The formula **continuously monitors** every state:  
+    - Whenever `n` is true in a state (at time *t*), `s` must be true in that **same state** (at time *t*).  
+  - Violation occurs if **any state** (even one) has `n` true and `s` false.  
+
+---
+
+### Satisfying vs. Violating Sequences:  
+**Satisfying Sequence Example:**  
+- State 0: `n=false`, `s=false` → (No constraint: satisfied)  
+- State 1: `n=true`, `s=true` → (Constraint met: satisfied)  
+- State 2: `n=false`, `s=false` → (No constraint: satisfied)  
+- State 3: `n=true`, `s=true` → (Constraint met: satisfied)  
+- **Outcome:** Formula holds because `s` is true **whenever** `n` is true.  
+
+**Violating Sequence Example:**  
+- State 0: `n=false`, `s=false` → (No constraint: satisfied)  
+- State 1: `n=true`, `s=false` → **Violation!** (`n` true requires `s` true)  
+- State 2: `n=true`, `s=true` → (Constraint met, but violation already occurred at State 1)  
+- **Outcome:** Formula fails because `s` is false in State 1 when `n` is true.  
+
+---
+
+### Common Misunderstandings Clarified:  
+- **"The constraint only applies when `n` is true":** Correct. When `n` is false, `s` can be true or false freely.  
+- **"Constraints expire after some time":** Incorrect. The constraint **persists indefinitely**: If `n` becomes true at any future state, `s` must be true in that exact state.  
+- **"`s` must hold forever after `n` becomes true":** Incorrect. `s` is only required **in the same state** where `n` is true. In subsequent states, `s` can be false unless `n` is true again.  
+- **"`n` must eventually be true":** False. If `n` is **never true**, the formula is **automatically satisfied** (no state violates `n ⇒ s`).  
+
+---
+
+### Summary of Formula Semantics:  
+- **Translation:** "In every state of the execution, if `n` is true, then `s` must be true in that same state."  
+- **Constraint Trigger:** Activated **only** when `n` is true.  
+- **Persistence:** Applies to **all states** (past, present, future) without expiration.  
+- **Termination of Constraints:** Constraints on `s` **cease immediately** in states where `n` is false.  
+- **Minimal Requirement:** `s` must align with `n` **state-wise** (no future/past dependencies beyond the current state).  
+
+**Final Natural Language Translation:**  
+> "It is always the case that whenever `n` holds, `s` must hold in the same moment."

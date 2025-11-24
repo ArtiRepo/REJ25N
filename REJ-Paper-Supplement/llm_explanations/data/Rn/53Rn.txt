@@ -1,0 +1,75 @@
+### Translation and Explanation for the Formula: `Fa -> Gb`
+
+The formula `Fa -> Gb` expresses a **conditional constraint** between two properties:  
+- `Fa`: "Eventually, at some future state, `a` becomes true."  
+- `Gb`: "Globally, `b` is true in **every** state of the execution (from now onward)."  
+
+The `->` (implication) operator links these: **If** the event `Fa` occurs, **then** `Gb` must hold.  
+
+---
+
+#### Key Behaviors:  
+1. **Constraints are conditional on `Fa`**  
+   - The formula **only restricts `b`** if `a` **eventually becomes true**.  
+   - If `a` **never becomes true** (`Fa` is false), the formula **imposes no constraints on `b`**.  
+   - If `a` **becomes true** (`Fa` is true), `b` **must be true in every state from the current state onward (including all future states)**.  
+
+2. **Permanent constraint once triggered**  
+   - If `Fa` holds (now or later), `Gb` requires `b` to be true **from the current state until infinity**.  
+   - **After `a` becomes true, `b` must still hold forever**. It does not "stop" after `a` occurs.  
+
+3. **Evaluation is state-dependent**  
+   - When checked at a state `s`, the formula considers **all future states starting from `s`**.  
+   - The constraint on `b` **applies immediately if `Fa` is satisfied later** and continues indefinitely.  
+
+---
+
+#### Satisfying Sequences (`Fa -> Gb` holds):  
+- **Case 1: `a` never becomes true**  
+  - `Fa` = false → Formula vacuously true.  
+  - **Example sequence**: `a=false, b=false, b=false, ...`  
+  - **Example sequence**: `a=false, b=true, b=true, ...`  
+  - `b` can be **arbitrary** since `Fa` is false.  
+
+- **Case 2: `a` becomes true *and* `b` is always true**  
+  - `Fa` = true and `Gb` = true.  
+  - **Example sequence**: `b=true, b=true, a=true, b=true, b=true, ...`  
+  - `b` must be true **from the initial state onward, including after `a` becomes true**.  
+
+---
+
+#### Violating Sequences (`Fa -> Gb` is false):  
+- **Only possible when `a` becomes true *but* `b` is false at any state**  
+  - `Fa` = true (some future state has `a=true`) but `Gb` = false (`b` is false in at least one state).  
+  - **Violation at the first state where `b` is false**.  
+  - **Examples**:  
+    1. `b=false` at start → Violation (**even if later**: `a=true, b=true,...`).  
+    2. `b=true, a=false, b=false` → Violation at third state.  
+    3. `b=true, a=true, b=false` → Violation at fourth state (`a` occurs, but `b` later fails).  
+
+---
+
+#### When Constraints Apply or Cease:  
+- **Constraints on `b` are imposed:**  
+  Only if `a` **eventually becomes true** in the future (from the evaluation state).  
+- **Constraints on `b` cease:**  
+  **Never**. If `Fa` is true, `Gb` requires `b` to be true **forever** (no expiry).  
+- **Constraints on `a`:**  
+  `a` is only constrained by `Fa` (eventual truth). If it never occurs, no issue.  
+
+---
+
+#### Common Misunderstandings:  
+- **Myth**: "Once `a` occurs, `b` no longer needs to hold".  
+  - **Truth**: If `a` occurs, `Gb` forces `b` to hold **in all states after \(a\) too** (formula: `G b`).  
+- **Myth**: "If `a` occurs far in the future, `b` can be false until then".  
+  - **Truth**: `Gb` requires `b` to be true **from the start** (including states before `a` becomes true).  
+- **Myth**: "The formula constrains `b` independently of `Fa`".  
+  - **Truth**: Constraints on `b` **depend** on whether `a` eventually occurs. No `Fa` → no `b` constraints.  
+
+---
+
+### Summary Translation:  
+> **"If `a` eventually becomes true at any future point, then `b` must be true in every state from **now** onward forever. If `a` never becomes true, there are no constraints on `b`."**  
+
+- **Key**: The threat of `Fa` (if it can happen) forces `Gb` as an **invariant over all future states** (including the present). Once triggered, the constraint on `b` is eternal.
