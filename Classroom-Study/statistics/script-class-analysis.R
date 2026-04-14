@@ -205,6 +205,14 @@ rm(df_wilcox_test)
 rm(without_ex)
 rm(with_ex)
 
+# get z-score and effect size
+# procedure from https://pmc.ncbi.nlm.nih.gov/articles/PMC12701665/
+df_test_long <- pivot_longer(df_test, cols=-ID, names_to="condition", values_to="score")
+df_test_long$condition <- factor(df_test_long$condition)
+df_test_long$ID <- factor(df_test_long$ID)
+z <- coin::wilcoxsign_test(formula = score ~ condition | ID, data = df_test_long) %>%
+  coin::statistic(type="standardized")
+r <- z / sqrt(nrow(df_test_long))
 
 ######################################################################
 #### (c) Review the Period 3 data.
